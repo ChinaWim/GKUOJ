@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.Problem" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="p_category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pro_category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="input_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="output_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -25,7 +25,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, p_category_id, title, content, input_desc, output_desc, level, submit_count, 
+    id, pro_category_id, name, content, input_desc, output_desc, level, submit_count, 
     ac_count, tle_count, pe_count, me_count, ce_count, wa_count, time, memory, flag, 
     create_time, update_time
   </sql>
@@ -40,14 +40,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Problem" >
-    insert into problem (id, p_category_id, title, 
+    insert into problem (id, pro_category_id, name, 
       content, input_desc, output_desc, 
       level, submit_count, ac_count, 
       tle_count, pe_count, me_count, 
       ce_count, wa_count, time, 
       memory, flag, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{pCategoryId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{proCategoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{content,jdbcType=VARCHAR}, #{inputDesc,jdbcType=VARCHAR}, #{outputDesc,jdbcType=VARCHAR}, 
       #{level,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, #{acCount,jdbcType=INTEGER}, 
       #{tleCount,jdbcType=INTEGER}, #{peCount,jdbcType=INTEGER}, #{meCount,jdbcType=INTEGER}, 
@@ -55,17 +55,17 @@
       #{memory,jdbcType=BIGINT}, #{flag,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Problem" >
+  <insert id="insertSelective" keyProperty="id"  parameterType="com.oj.gkuoj.entity.Problem" >
     insert into problem
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="pCategoryId != null" >
-        p_category_id,
+      <if test="proCategoryId != null" >
+        pro_category_id,
       </if>
-      <if test="title != null" >
-        title,
+      <if test="name != null" >
+        name,
       </if>
       <if test="content != null" >
         content,
@@ -120,11 +120,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="pCategoryId != null" >
-        #{pCategoryId,jdbcType=INTEGER},
+      <if test="proCategoryId != null" >
+        #{proCategoryId,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
@@ -179,11 +179,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.Problem" >
     update problem
     <set >
-      <if test="pCategoryId != null" >
-        p_category_id = #{pCategoryId,jdbcType=INTEGER},
+      <if test="proCategoryId != null" >
+        pro_category_id = #{proCategoryId,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
@@ -238,8 +238,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.Problem" >
     update problem
-    set p_category_id = #{pCategoryId,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
+    set pro_category_id = #{proCategoryId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       input_desc = #{inputDesc,jdbcType=VARCHAR},
       output_desc = #{outputDesc,jdbcType=VARCHAR},

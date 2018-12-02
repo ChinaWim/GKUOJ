@@ -6,9 +6,9 @@ import java.util.Date;
 public class Problem implements Serializable {
     private Integer id;
 
-    private Integer pCategoryId;
+    private Integer proCategoryId;
 
-    private String title;
+    private String name;
 
     private String content;
 
@@ -42,10 +42,10 @@ public class Problem implements Serializable {
 
     private Date updateTime;
 
-    public Problem(Integer id, Integer pCategoryId, String title, String content, String inputDesc, String outputDesc, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
+    public Problem(Integer id, Integer proCategoryId, String name, String content, String inputDesc, String outputDesc, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
         this.id = id;
-        this.pCategoryId = pCategoryId;
-        this.title = title;
+        this.proCategoryId = proCategoryId;
+        this.name = name;
         this.content = content;
         this.inputDesc = inputDesc;
         this.outputDesc = outputDesc;
@@ -76,20 +76,20 @@ public class Problem implements Serializable {
         this.id = id;
     }
 
-    public Integer getpCategoryId() {
-        return pCategoryId;
+    public Integer getProCategoryId() {
+        return proCategoryId;
     }
 
-    public void setpCategoryId(Integer pCategoryId) {
-        this.pCategoryId = pCategoryId;
+    public void setProCategoryId(Integer proCategoryId) {
+        this.proCategoryId = proCategoryId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getContent() {
@@ -224,8 +224,8 @@ public class Problem implements Serializable {
     public String toString() {
         return "Problem{" +
                 "id=" + id +
-                ", pCategoryId=" + pCategoryId +
-                ", title='" + title + '\'' +
+                ", proCategoryId=" + proCategoryId +
+                ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
                 ", inputDesc='" + inputDesc + '\'' +
                 ", outputDesc='" + outputDesc + '\'' +
