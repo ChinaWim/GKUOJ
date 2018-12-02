@@ -12,8 +12,6 @@ public class BlogComment implements Serializable {
 
     private String content;
 
-    private Integer viewCount;
-
     private Integer upCount;
 
     private Integer downCount;
@@ -22,12 +20,11 @@ public class BlogComment implements Serializable {
 
     private Date updateTime;
 
-    public BlogComment(Integer id, Integer userId, Integer blogId, String content, Integer viewCount, Integer upCount, Integer downCount, Date createTime, Date updateTime) {
+    public BlogComment(Integer id, Integer userId, Integer blogId, String content, Integer upCount, Integer downCount, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.blogId = blogId;
         this.content = content;
-        this.viewCount = viewCount;
         this.upCount = upCount;
         this.downCount = downCount;
         this.createTime = createTime;
@@ -70,14 +67,6 @@ public class BlogComment implements Serializable {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(Integer viewCount) {
-        this.viewCount = viewCount;
-    }
-
     public Integer getUpCount() {
         return upCount;
     }
@@ -117,7 +106,6 @@ public class BlogComment implements Serializable {
                 ", userId=" + userId +
                 ", blogId=" + blogId +
                 ", content='" + content + '\'' +
-                ", viewCount=" + viewCount +
                 ", upCount=" + upCount +
                 ", downCount=" + downCount +
                 ", createTime=" + createTime +

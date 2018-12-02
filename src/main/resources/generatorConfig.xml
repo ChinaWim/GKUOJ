@@ -98,9 +98,7 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 
-        <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+
 
         <table tableName="competition" domainObjectName="Competition" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
@@ -125,10 +123,10 @@
         <table tableName="sign" domainObjectName="Sign" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
-
+<!--
         <table tableName="system_config" domainObjectName="SystemConfig" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+               selectByExampleQueryId="false"></table>-->
 <!--
 
         <table tableName="blog" domainObjectName="Blog" enableCountByExample="false"
@@ -137,6 +135,9 @@
             <columnOverride column="content" jdbcType="VARCHAR"/>
         </table>
 -->
+        <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
 
      <!--   <table tableName="wowomall_order" domainObjectName="Order" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
