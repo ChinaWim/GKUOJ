@@ -3,29 +3,32 @@ package com.oj.gkuoj.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BlogComment implements Serializable {
+public class Up implements Serializable {
     private Integer id;
+
+    private Integer typeId;
+
+    private Integer type;
 
     private Integer userId;
 
-    private Integer blogId;
-
-    private String content;
+    private Integer status;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public BlogComment(Integer id, Integer userId, Integer blogId, String content, Date createTime, Date updateTime) {
+    public Up(Integer id, Integer typeId, Integer type, Integer userId, Integer status, Date createTime, Date updateTime) {
         this.id = id;
+        this.typeId = typeId;
+        this.type = type;
         this.userId = userId;
-        this.blogId = blogId;
-        this.content = content;
+        this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
 
-    public BlogComment() {
+    public Up() {
         super();
     }
 
@@ -37,6 +40,22 @@ public class BlogComment implements Serializable {
         this.id = id;
     }
 
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -45,20 +64,12 @@ public class BlogComment implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getBlogId() {
-        return blogId;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setBlogId(Integer blogId) {
-        this.blogId = blogId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {
@@ -79,11 +90,12 @@ public class BlogComment implements Serializable {
 
     @Override
     public String toString() {
-        return "BlogComment{" +
+        return "Up{" +
                 "id=" + id +
+                ", typeId=" + typeId +
+                ", type=" + type +
                 ", userId=" + userId +
-                ", blogId=" + blogId +
-                ", content='" + content + '\'' +
+                ", status=" + status +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

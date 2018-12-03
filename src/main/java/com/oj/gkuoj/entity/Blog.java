@@ -16,23 +16,17 @@ public class Blog implements Serializable {
 
     private Integer viewCount;
 
-    private Integer upCount;
-
-    private Integer downCount;
-
     private Date createTime;
 
     private Date updateTime;
 
-    public Blog(Integer id, Integer userId, String title, String content, Integer problemId, Integer viewCount, Integer upCount, Integer downCount, Date createTime, Date updateTime) {
+    public Blog(Integer id, Integer userId, String title, String content, Integer problemId, Integer viewCount, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.problemId = problemId;
         this.viewCount = viewCount;
-        this.upCount = upCount;
-        this.downCount = downCount;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -89,22 +83,6 @@ public class Blog implements Serializable {
         this.viewCount = viewCount;
     }
 
-    public Integer getUpCount() {
-        return upCount;
-    }
-
-    public void setUpCount(Integer upCount) {
-        this.upCount = upCount;
-    }
-
-    public Integer getDownCount() {
-        return downCount;
-    }
-
-    public void setDownCount(Integer downCount) {
-        this.downCount = downCount;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -121,6 +99,7 @@ public class Blog implements Serializable {
         this.updateTime = updateTime;
     }
 
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -130,8 +109,6 @@ public class Blog implements Serializable {
                 ", content='" + content + '\'' +
                 ", problemId=" + problemId +
                 ", viewCount=" + viewCount +
-                ", upCount=" + upCount +
-                ", downCount=" + downCount +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
