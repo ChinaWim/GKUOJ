@@ -21,6 +21,7 @@
       <arg column="pe_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="me_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="ce_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="re_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="wa_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="gold_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="last_login_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -31,7 +32,7 @@
   <sql id="Base_Column_List" >
     id, username, password, name, mood, avatar, flag, sex, email, phone, sign_count, 
     submit_count, soluction_count, ac_count, tle_count, pe_count, me_count, ce_count, 
-    wa_count, gold_count, last_login_time, create_time, update_time
+    re_count, wa_count, gold_count, last_login_time, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -49,17 +50,17 @@
       flag, sex, email, phone, 
       sign_count, submit_count, soluction_count, 
       ac_count, tle_count, pe_count, 
-      me_count, ce_count, wa_count, 
-      gold_count, last_login_time, create_time, 
-      update_time)
+      me_count, ce_count, re_count, 
+      wa_count, gold_count, last_login_time, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{mood,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
       #{flag,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{signCount,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, #{soluctionCount,jdbcType=INTEGER}, 
       #{acCount,jdbcType=INTEGER}, #{tleCount,jdbcType=INTEGER}, #{peCount,jdbcType=INTEGER}, 
-      #{meCount,jdbcType=INTEGER}, #{ceCount,jdbcType=INTEGER}, #{waCount,jdbcType=INTEGER}, 
-      #{goldCount,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{meCount,jdbcType=INTEGER}, #{ceCount,jdbcType=INTEGER}, #{reCount,jdbcType=INTEGER}, 
+      #{waCount,jdbcType=INTEGER}, #{goldCount,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.User" >
     insert into user
@@ -117,6 +118,9 @@
       </if>
       <if test="ceCount != null" >
         ce_count,
+      </if>
+      <if test="reCount != null" >
+        re_count,
       </if>
       <if test="waCount != null" >
         wa_count,
@@ -189,6 +193,9 @@
       <if test="ceCount != null" >
         #{ceCount,jdbcType=INTEGER},
       </if>
+      <if test="reCount != null" >
+        #{reCount,jdbcType=INTEGER},
+      </if>
       <if test="waCount != null" >
         #{waCount,jdbcType=INTEGER},
       </if>
@@ -260,6 +267,9 @@
       <if test="ceCount != null" >
         ce_count = #{ceCount,jdbcType=INTEGER},
       </if>
+      <if test="reCount != null" >
+        re_count = #{reCount,jdbcType=INTEGER},
+      </if>
       <if test="waCount != null" >
         wa_count = #{waCount,jdbcType=INTEGER},
       </if>
@@ -297,6 +307,7 @@
       pe_count = #{peCount,jdbcType=INTEGER},
       me_count = #{meCount,jdbcType=INTEGER},
       ce_count = #{ceCount,jdbcType=INTEGER},
+      re_count = #{reCount,jdbcType=INTEGER},
       wa_count = #{waCount,jdbcType=INTEGER},
       gold_count = #{goldCount,jdbcType=INTEGER},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},

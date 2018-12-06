@@ -40,6 +40,8 @@ public class User implements Serializable {
 
     private Integer ceCount;
 
+    private Integer reCount;
+
     private Integer waCount;
 
     private Integer goldCount;
@@ -50,7 +52,7 @@ public class User implements Serializable {
 
     private Date updateTime;
 
-    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, Integer signCount, Integer submitCount, Integer soluctionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer waCount, Integer goldCount, Date lastLoginTime, Date createTime, Date updateTime) {
+    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, Integer signCount, Integer submitCount, Integer soluctionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Date lastLoginTime, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -69,6 +71,7 @@ public class User implements Serializable {
         this.peCount = peCount;
         this.meCount = meCount;
         this.ceCount = ceCount;
+        this.reCount = reCount;
         this.waCount = waCount;
         this.goldCount = goldCount;
         this.lastLoginTime = lastLoginTime;
@@ -224,6 +227,14 @@ public class User implements Serializable {
         this.ceCount = ceCount;
     }
 
+    public Integer getReCount() {
+        return reCount;
+    }
+
+    public void setReCount(Integer reCount) {
+        this.reCount = reCount;
+    }
+
     public Integer getWaCount() {
         return waCount;
     }
@@ -262,5 +273,35 @@ public class User implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", mood='" + mood + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", flag=" + flag +
+                ", sex='" + sex + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", signCount=" + signCount +
+                ", submitCount=" + submitCount +
+                ", soluctionCount=" + soluctionCount +
+                ", acCount=" + acCount +
+                ", tleCount=" + tleCount +
+                ", peCount=" + peCount +
+                ", meCount=" + meCount +
+                ", ceCount=" + ceCount +
+                ", reCount=" + reCount +
+                ", waCount=" + waCount +
+                ", goldCount=" + goldCount +
+                ", lastLoginTime=" + lastLoginTime +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }
