@@ -25,9 +25,9 @@
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
     insert into competition_problem (id, socre, problem_id, 
-      create_time, update_time)
+      create_time)
     values (#{id,jdbcType=INTEGER}, #{socre,jdbcType=INTEGER}, #{problemId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
     insert into competition_problem
@@ -44,9 +44,7 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -61,9 +59,7 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
@@ -78,9 +74,6 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -88,8 +81,7 @@
     update competition_problem
     set socre = #{socre,jdbcType=INTEGER},
       problem_id = #{problemId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

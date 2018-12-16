@@ -29,10 +29,10 @@
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Register" >
     insert into register (id, user_id, comp_id, 
       solution_count, submit_count, score, 
-      create_time, update_time)
+      create_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{compId,jdbcType=INTEGER}, 
       #{solutionCount,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Register" >
     insert into register
@@ -58,9 +58,6 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -83,9 +80,6 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -110,9 +104,6 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -123,8 +114,7 @@
       solution_count = #{solutionCount,jdbcType=INTEGER},
       submit_count = #{submitCount,jdbcType=INTEGER},
       score = #{score,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

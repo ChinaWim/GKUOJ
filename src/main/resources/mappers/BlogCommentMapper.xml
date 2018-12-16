@@ -26,11 +26,10 @@
   </delete>
   <insert id="insert"  keyProperty="id" parameterType="com.oj.gkuoj.entity.BlogComment" >
     insert into blog_comment (id, user_id, blog_id, 
-      content, create_time, update_time
+      content, create_time
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{blogId,jdbcType=INTEGER}, 
-      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP} )
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.BlogComment" >
     insert into blog_comment
@@ -50,9 +49,6 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -69,9 +65,6 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -90,9 +83,6 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -101,8 +91,7 @@
     set user_id = #{userId,jdbcType=INTEGER},
       blog_id = #{blogId,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

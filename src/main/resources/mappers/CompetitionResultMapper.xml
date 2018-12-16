@@ -31,12 +31,10 @@
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionResult" >
     insert into competition_result (id, comp_pro_id, user_id, 
       status, type, time, 
-      memory, source_code, create_time, 
-      update_time)
+      memory, source_code, create_time)
     values (#{id,jdbcType=INTEGER}, #{compProId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=BIGINT}, 
-      #{memory,jdbcType=BIGINT}, #{sourceCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{memory,jdbcType=BIGINT}, #{sourceCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionResult" >
     insert into competition_result
@@ -68,9 +66,7 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -100,9 +96,7 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.CompetitionResult" >
@@ -132,9 +126,7 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -147,8 +139,7 @@
       time = #{time,jdbcType=BIGINT},
       memory = #{memory,jdbcType=BIGINT},
       source_code = #{sourceCode,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

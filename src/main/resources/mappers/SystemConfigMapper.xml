@@ -27,11 +27,11 @@
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.SystemConfig" >
     insert into system_config (id, sys_key, sys_value1, 
-      sys_value2, content, create_time, 
-      update_time)
+      sys_value2, content, create_time
+      )
     values (#{id,jdbcType=INTEGER}, #{sysKey,jdbcType=VARCHAR}, #{sysValue1,jdbcType=VARCHAR}, 
-      #{sysValue2,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{sysValue2,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+     )
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.SystemConfig" >
     insert into system_config
@@ -54,9 +54,7 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -77,9 +75,7 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.SystemConfig" >
@@ -100,9 +96,7 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -112,8 +106,7 @@
       sys_value1 = #{sysValue1,jdbcType=VARCHAR},
       sys_value2 = #{sysValue2,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

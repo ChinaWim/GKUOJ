@@ -52,7 +52,7 @@
       ac_count, tle_count, pe_count, 
       me_count, ce_count, re_count, 
       wa_count, gold_count, last_login_time, 
-      create_time, update_time)
+      create_time)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{mood,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
       #{flag,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
@@ -60,7 +60,7 @@
       #{acCount,jdbcType=INTEGER}, #{tleCount,jdbcType=INTEGER}, #{peCount,jdbcType=INTEGER}, 
       #{meCount,jdbcType=INTEGER}, #{ceCount,jdbcType=INTEGER}, #{reCount,jdbcType=INTEGER}, 
       #{waCount,jdbcType=INTEGER}, #{goldCount,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.User" >
     insert into user
@@ -134,9 +134,6 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -207,9 +204,6 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -282,9 +276,6 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -311,8 +302,7 @@
       wa_count = #{waCount,jdbcType=INTEGER},
       gold_count = #{goldCount,jdbcType=INTEGER},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

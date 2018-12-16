@@ -34,11 +34,11 @@
     insert into testcase_result (id, pro_re_id, num, 
       intput, output, user_output, 
       time, memory, status, 
-      create_time, update_time)
+      create_time)
     values (#{id,jdbcType=INTEGER}, #{proReId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
       #{intput,jdbcType=VARCHAR}, #{output,jdbcType=VARCHAR}, #{userOutput,jdbcType=VARCHAR}, 
       #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.TestcaseResult" >
     insert into testcase_result
@@ -73,9 +73,6 @@
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -107,9 +104,6 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -143,9 +137,6 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -159,8 +150,7 @@
       time = #{time,jdbcType=BIGINT},
       memory = #{memory,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
