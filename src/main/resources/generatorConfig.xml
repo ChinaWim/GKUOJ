@@ -104,9 +104,7 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 
-        <table tableName="competition_problem" domainObjectName="CompetitionProblem" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+
 
         <table tableName="register" domainObjectName="Register" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
@@ -159,7 +157,11 @@
                selectByExampleQueryId="false"></table>-->
         <!-- geelynote mybatis插件的搭建 -->
 
-        <table tableName="user" domainObjectName="User" enableCountByExample="false"
+       <!-- <table tableName="user" domainObjectName="User" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>-->
+
+        <table tableName="competition_problem" domainObjectName="CompetitionProblem" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
     </context>

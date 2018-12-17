@@ -6,7 +6,7 @@ import java.util.Date;
 public class CompetitionProblem implements Serializable {
     private Integer id;
 
-    private Integer socre;
+    private Integer score;
 
     private Integer problemId;
 
@@ -14,9 +14,9 @@ public class CompetitionProblem implements Serializable {
 
     private Date updateTime;
 
-    public CompetitionProblem(Integer id, Integer socre, Integer problemId, Date createTime, Date updateTime) {
+    public CompetitionProblem(Integer id, Integer score, Integer problemId, Date createTime, Date updateTime) {
         this.id = id;
-        this.socre = socre;
+        this.score = score;
         this.problemId = problemId;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -34,12 +34,12 @@ public class CompetitionProblem implements Serializable {
         this.id = id;
     }
 
-    public Integer getSocre() {
-        return socre;
+    public Integer getScore() {
+        return score;
     }
 
-    public void setSocre(Integer socre) {
-        this.socre = socre;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Integer getProblemId() {
@@ -70,7 +70,7 @@ public class CompetitionProblem implements Serializable {
     public String toString() {
         return "CompetitionProblem{" +
                 "id=" + id +
-                ", socre=" + socre +
+                ", score=" + score +
                 ", problemId=" + problemId +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
