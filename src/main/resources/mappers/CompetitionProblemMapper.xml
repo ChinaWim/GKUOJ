@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.CompetitionProblem" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="comp_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="score" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="problem_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -11,7 +12,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, score, problem_id, create_time, update_time
+    id, comp_id, score, problem_id, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,16 +25,21 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
-    insert into competition_problem (id, score, problem_id, 
-      create_time)
-    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{problemId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into competition_problem (id, comp_id, score, 
+      problem_id, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{compId,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{problemId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
     insert into competition_problem
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="compId != null" >
+        comp_id,
       </if>
       <if test="score != null" >
         score,
@@ -44,11 +50,13 @@
       <if test="createTime != null" >
         create_time,
       </if>
-
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="compId != null" >
+        #{compId,jdbcType=INTEGER},
       </if>
       <if test="score != null" >
         #{score,jdbcType=INTEGER},
@@ -59,12 +67,14 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
     update competition_problem
     <set >
+      <if test="compId != null" >
+        comp_id = #{compId,jdbcType=INTEGER},
+      </if>
       <if test="score != null" >
         score = #{score,jdbcType=INTEGER},
       </if>
@@ -74,13 +84,13 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
     update competition_problem
-    set score = #{score,jdbcType=INTEGER},
+    set comp_id = #{compId,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
       problem_id = #{problemId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
