@@ -10,7 +10,7 @@ public class TestcaseResult implements Serializable {
 
     private Integer num;
 
-    private String intput;
+    private String input;
 
     private String output;
 
@@ -26,11 +26,11 @@ public class TestcaseResult implements Serializable {
 
     private Date updateTime;
 
-    public TestcaseResult(Integer id, Integer proReId, Integer num, String intput, String output, String userOutput, Long time, Long memory, Integer status, Date createTime, Date updateTime) {
+    public TestcaseResult(Integer id, Integer proReId, Integer num, String input, String output, String userOutput, Long time, Long memory, Integer status, Date createTime, Date updateTime) {
         this.id = id;
         this.proReId = proReId;
         this.num = num;
-        this.intput = intput;
+        this.input = input;
         this.output = output;
         this.userOutput = userOutput;
         this.time = time;
@@ -68,12 +68,12 @@ public class TestcaseResult implements Serializable {
         this.num = num;
     }
 
-    public String getIntput() {
-        return intput;
+    public String getInput() {
+        return input;
     }
 
-    public void setIntput(String intput) {
-        this.intput = intput == null ? null : intput.trim();
+    public void setInput(String input) {
+        this.input = input == null ? null : input.trim();
     }
 
     public String getOutput() {
@@ -130,5 +130,22 @@ public class TestcaseResult implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "TestcaseResult{" +
+                "id=" + id +
+                ", proReId=" + proReId +
+                ", num=" + num +
+                ", input='" + input + '\'' +
+                ", output='" + output + '\'' +
+                ", userOutput='" + userOutput + '\'' +
+                ", time=" + time +
+                ", memory=" + memory +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

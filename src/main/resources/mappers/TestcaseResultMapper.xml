@@ -6,7 +6,7 @@
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="pro_re_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="intput" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="input" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="output" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="user_output" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="time" jdbcType="BIGINT" javaType="java.lang.Long" />
@@ -17,7 +17,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, pro_re_id, num, intput, output, user_output, time, memory, status, create_time, 
+    id, pro_re_id, num, input, output, user_output, time, memory, status, create_time, 
     update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,11 +32,11 @@
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.TestcaseResult" >
     insert into testcase_result (id, pro_re_id, num, 
-      intput, output, user_output, 
+      input, output, user_output, 
       time, memory, status, 
       create_time)
     values (#{id,jdbcType=INTEGER}, #{proReId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
-      #{intput,jdbcType=VARCHAR}, #{output,jdbcType=VARCHAR}, #{userOutput,jdbcType=VARCHAR}, 
+      #{input,jdbcType=VARCHAR}, #{output,jdbcType=VARCHAR}, #{userOutput,jdbcType=VARCHAR}, 
       #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
@@ -52,8 +52,8 @@
       <if test="num != null" >
         num,
       </if>
-      <if test="intput != null" >
-        intput,
+      <if test="input != null" >
+        input,
       </if>
       <if test="output != null" >
         output,
@@ -73,6 +73,7 @@
       <if test="createTime != null" >
         create_time,
       </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -84,8 +85,8 @@
       <if test="num != null" >
         #{num,jdbcType=INTEGER},
       </if>
-      <if test="intput != null" >
-        #{intput,jdbcType=VARCHAR},
+      <if test="input != null" >
+        #{input,jdbcType=VARCHAR},
       </if>
       <if test="output != null" >
         #{output,jdbcType=VARCHAR},
@@ -105,6 +106,7 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.TestcaseResult" >
@@ -116,8 +118,8 @@
       <if test="num != null" >
         num = #{num,jdbcType=INTEGER},
       </if>
-      <if test="intput != null" >
-        intput = #{intput,jdbcType=VARCHAR},
+      <if test="input != null" >
+        input = #{input,jdbcType=VARCHAR},
       </if>
       <if test="output != null" >
         output = #{output,jdbcType=VARCHAR},
@@ -144,7 +146,7 @@
     update testcase_result
     set pro_re_id = #{proReId,jdbcType=INTEGER},
       num = #{num,jdbcType=INTEGER},
-      intput = #{intput,jdbcType=VARCHAR},
+      input = #{input,jdbcType=VARCHAR},
       output = #{output,jdbcType=VARCHAR},
       user_output = #{userOutput,jdbcType=VARCHAR},
       time = #{time,jdbcType=BIGINT},
