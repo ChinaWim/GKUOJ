@@ -28,6 +28,8 @@ public class Problem implements Serializable {
 
     private Integer meCount;
 
+    private Integer reCount;
+
     private Integer ceCount;
 
     private Integer waCount;
@@ -42,7 +44,7 @@ public class Problem implements Serializable {
 
     private Date updateTime;
 
-    public Problem(Integer id, Integer proCategoryId, String name, String content, String inputDesc, String outputDesc, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
+    public Problem(Integer id, Integer proCategoryId, String name, String content, String inputDesc, String outputDesc, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
         this.id = id;
         this.proCategoryId = proCategoryId;
         this.name = name;
@@ -55,6 +57,7 @@ public class Problem implements Serializable {
         this.tleCount = tleCount;
         this.peCount = peCount;
         this.meCount = meCount;
+        this.reCount = reCount;
         this.ceCount = ceCount;
         this.waCount = waCount;
         this.time = time;
@@ -164,6 +167,14 @@ public class Problem implements Serializable {
         this.meCount = meCount;
     }
 
+    public Integer getReCount() {
+        return reCount;
+    }
+
+    public void setReCount(Integer reCount) {
+        this.reCount = reCount;
+    }
+
     public Integer getCeCount() {
         return ceCount;
     }
@@ -220,6 +231,7 @@ public class Problem implements Serializable {
         this.updateTime = updateTime;
     }
 
+
     @Override
     public String toString() {
         return "Problem{" +
@@ -235,6 +247,7 @@ public class Problem implements Serializable {
                 ", tleCount=" + tleCount +
                 ", peCount=" + peCount +
                 ", meCount=" + meCount +
+                ", reCount=" + reCount +
                 ", ceCount=" + ceCount +
                 ", waCount=" + waCount +
                 ", time=" + time +

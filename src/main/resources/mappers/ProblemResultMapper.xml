@@ -6,6 +6,7 @@
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="problem_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="comp_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="time" jdbcType="BIGINT" javaType="java.lang.Long" />
@@ -16,28 +17,31 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, problem_id, status, type, time, memory, source_code, create_time, update_time
+    id, user_id, problem_id, comp_id, status, type, time, memory, source_code, create_time, 
+    update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from problem__result
+    from problem_result
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from problem__result
+    delete from problem_result
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemResult" >
-    insert into problem__result (id, user_id, problem_id, 
-      status, type, time, 
-      memory, source_code, create_time)
+    insert into problem_result (id, user_id, problem_id, 
+      comp_id, status, type, 
+      time, memory, source_code, 
+      create_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{problemId,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=BIGINT}, 
-      #{memory,jdbcType=BIGINT}, #{sourceCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP} )
+      #{compId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, #{sourceCode,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemResult" >
-    insert into problem__result
+    insert into problem_result
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -47,6 +51,9 @@
       </if>
       <if test="problemId != null" >
         problem_id,
+      </if>
+      <if test="compId != null" >
+        comp_id,
       </if>
       <if test="status != null" >
         status,
@@ -77,6 +84,9 @@
       <if test="problemId != null" >
         #{problemId,jdbcType=INTEGER},
       </if>
+      <if test="compId != null" >
+        #{compId,jdbcType=INTEGER},
+      </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
@@ -98,13 +108,16 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.ProblemResult" >
-    update problem__result
+    update problem_result
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="problemId != null" >
         problem_id = #{problemId,jdbcType=INTEGER},
+      </if>
+      <if test="compId != null" >
+        comp_id = #{compId,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -128,9 +141,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.ProblemResult" >
-    update problem__result
+    update problem_result
     set user_id = #{userId,jdbcType=INTEGER},
       problem_id = #{problemId,jdbcType=INTEGER},
+      comp_id = #{compId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},
       time = #{time,jdbcType=BIGINT},

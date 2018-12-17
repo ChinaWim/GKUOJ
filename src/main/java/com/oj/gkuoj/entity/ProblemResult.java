@@ -10,6 +10,8 @@ public class ProblemResult implements Serializable {
 
     private Integer problemId;
 
+    private Integer compId;
+
     private Integer status;
 
     private String type;
@@ -24,10 +26,11 @@ public class ProblemResult implements Serializable {
 
     private Date updateTime;
 
-    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer status, String type, Long time, Long memory, String sourceCode, Date createTime, Date updateTime) {
+    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, Integer status, String type, Long time, Long memory, String sourceCode, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.problemId = problemId;
+        this.compId = compId;
         this.status = status;
         this.type = type;
         this.time = time;
@@ -63,6 +66,14 @@ public class ProblemResult implements Serializable {
 
     public void setProblemId(Integer problemId) {
         this.problemId = problemId;
+    }
+
+    public Integer getCompId() {
+        return compId;
+    }
+
+    public void setCompId(Integer compId) {
+        this.compId = compId;
     }
 
     public Integer getStatus() {
@@ -121,13 +132,13 @@ public class ProblemResult implements Serializable {
         this.updateTime = updateTime;
     }
 
-
     @Override
     public String toString() {
         return "ProblemResult{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", problemId=" + problemId +
+                ", compId=" + compId +
                 ", status=" + status +
                 ", type='" + type + '\'' +
                 ", time=" + time +
