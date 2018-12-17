@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.oj.gkuoj.dao.competitionTestcaseResultMapper" >
-  <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.competitionTestcaseResult" >
+<mapper namespace="com.oj.gkuoj.dao.CompetitionTestcaseResultMapper" >
+  <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.CompetitionTestcaseResult" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="comp_re_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -30,7 +30,7 @@
     delete from competition_testcase_result
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.competitionTestcaseResult" >
+  <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionTestcaseResult" >
     insert into competition_testcase_result (id, comp_re_id, num, 
       input, output, user_output, 
       time, memory, status, 
@@ -40,7 +40,7 @@
       #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.competitionTestcaseResult" >
+  <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionTestcaseResult" >
     insert into competition_testcase_result
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -109,7 +109,7 @@
 
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.competitionTestcaseResult" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.CompetitionTestcaseResult" >
     update competition_testcase_result
     <set >
       <if test="compReId != null" >
@@ -143,7 +143,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.competitionTestcaseResult" >
+  <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.CompetitionTestcaseResult" >
     update competition_testcase_result
     set comp_re_id = #{compReId,jdbcType=INTEGER},
       num = #{num,jdbcType=INTEGER},

@@ -3,7 +3,7 @@ package com.oj.gkuoj.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class competitionTestcaseResult implements Serializable {
+public class CompetitionTestcaseResult implements Serializable {
     private Integer id;
 
     private Integer compReId;
@@ -26,7 +26,7 @@ public class competitionTestcaseResult implements Serializable {
 
     private Date updateTime;
 
-    public competitionTestcaseResult(Integer id, Integer compReId, Integer num, String input, String output, String userOutput, Long time, Long memory, Integer status, Date createTime, Date updateTime) {
+    public CompetitionTestcaseResult(Integer id, Integer compReId, Integer num, String input, String output, String userOutput, Long time, Long memory, Integer status, Date createTime, Date updateTime) {
         this.id = id;
         this.compReId = compReId;
         this.num = num;
@@ -40,7 +40,7 @@ public class competitionTestcaseResult implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public competitionTestcaseResult() {
+    public CompetitionTestcaseResult() {
         super();
     }
 
@@ -134,7 +134,7 @@ public class competitionTestcaseResult implements Serializable {
 
     @Override
     public String toString() {
-        return "competitionTestcaseResult{" +
+        return "CompetitionTestcaseResult{" +
                 "id=" + id +
                 ", compReId=" + compReId +
                 ", num=" + num +

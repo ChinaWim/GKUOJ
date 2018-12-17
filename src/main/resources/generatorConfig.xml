@@ -114,9 +114,7 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 
-        <table tableName="competition_testcase_result" domainObjectName="competitionTestcaseResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+
 
         <table tableName="sign" domainObjectName="Sign" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
@@ -161,8 +159,12 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
 
-        <table tableName="competition_problem" domainObjectName="CompetitionProblem" enableCountByExample="false"
+    <!--    <table tableName="competition_problem" domainObjectName="CompetitionProblem" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>-->
+       <!-- <table tableName="competition_testcase_result" domainObjectName="CompetitionTestcaseResult" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
+-->
     </context>
 </generatorConfiguration>
