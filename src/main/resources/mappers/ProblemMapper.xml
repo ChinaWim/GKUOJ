@@ -9,6 +9,7 @@
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="input_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="output_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tag" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="level" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="submit_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="ac_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -26,7 +27,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, pro_category_id, name, content, input_desc, output_desc, level, submit_count, 
+    id, pro_category_id, name, content, input_desc, output_desc, tag, level, submit_count, 
     ac_count, tle_count, pe_count, me_count, re_count, ce_count, wa_count, time, memory, 
     flag, create_time, update_time
   </sql>
@@ -40,20 +41,23 @@
     delete from problem
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert"  keyProperty="id" parameterType="com.oj.gkuoj.entity.Problem" >
+  <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Problem" >
     insert into problem (id, pro_category_id, name, 
       content, input_desc, output_desc, 
-      level, submit_count, ac_count, 
-      tle_count, pe_count, me_count, 
-      re_count, ce_count, wa_count, 
-      time, memory, flag, create_time)
+      tag, level, submit_count, 
+      ac_count, tle_count, pe_count, 
+      me_count, re_count, ce_count, 
+      wa_count, time, memory, 
+      flag, create_time
+      )
     values (#{id,jdbcType=INTEGER}, #{proCategoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{content,jdbcType=VARCHAR}, #{inputDesc,jdbcType=VARCHAR}, #{outputDesc,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, #{acCount,jdbcType=INTEGER}, 
-      #{tleCount,jdbcType=INTEGER}, #{peCount,jdbcType=INTEGER}, #{meCount,jdbcType=INTEGER}, 
-      #{reCount,jdbcType=INTEGER}, #{ceCount,jdbcType=INTEGER}, #{waCount,jdbcType=INTEGER}, 
-      #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, #{flag,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-     )
+      #{tag,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, 
+      #{acCount,jdbcType=INTEGER}, #{tleCount,jdbcType=INTEGER}, #{peCount,jdbcType=INTEGER}, 
+      #{meCount,jdbcType=INTEGER}, #{reCount,jdbcType=INTEGER}, #{ceCount,jdbcType=INTEGER}, 
+      #{waCount,jdbcType=INTEGER}, #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, 
+      #{flag,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Problem" >
     insert into problem
@@ -75,6 +79,9 @@
       </if>
       <if test="outputDesc != null" >
         output_desc,
+      </if>
+      <if test="tag != null" >
+        tag,
       </if>
       <if test="level != null" >
         level,
@@ -115,6 +122,7 @@
       <if test="createTime != null" >
         create_time,
       </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -134,6 +142,9 @@
       </if>
       <if test="outputDesc != null" >
         #{outputDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
       </if>
       <if test="level != null" >
         #{level,jdbcType=INTEGER},
@@ -174,6 +185,7 @@
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.Problem" >
@@ -193,6 +205,9 @@
       </if>
       <if test="outputDesc != null" >
         output_desc = #{outputDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
       </if>
       <if test="level != null" >
         level = #{level,jdbcType=INTEGER},
@@ -233,6 +248,7 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -243,6 +259,7 @@
       content = #{content,jdbcType=VARCHAR},
       input_desc = #{inputDesc,jdbcType=VARCHAR},
       output_desc = #{outputDesc,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       submit_count = #{submitCount,jdbcType=INTEGER},
       ac_count = #{acCount,jdbcType=INTEGER},
