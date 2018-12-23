@@ -1,18 +1,13 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Blank Page | Admire</title>
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="img/logo1.ico"/>
-    <!-- global styles-->
-    <link type="text/css" rel="stylesheet" href="css/components.css"/>
-    <link type="text/css" rel="stylesheet" href="css/custom.css"/>
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
-    <!-- end of global styles-->
+    <title>题库</title>
+    <div th:replace="~{fragments/head-base}"></div>
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
 </head>
 
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
@@ -31,264 +26,245 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="img/loader.gif" style=" width: 40px;" alt="loading...">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
 </div>
 <div id="wrap">
-    <div id="top" class="fixed">
-        <!-- .navbar -->
-        <nav class="navbar navbar-static-top">
-            <div class="container-fluid m-0">
-                <a class="navbar-brand float-left" href="../templates/index.html">
-                    <h4><img src="img/logo1.png" class="admin_img2" alt="logo">&nbsp;计算机程序在线性能测评系统</h4>
-                </a>
-                <div class="menu hidden-lg-up">
-                    <span class="toggle-left" id="menu-toggle">
-                        <i class="fa fa-bars"></i>
-                    </span>
-                </div>
-                <div class="topnav dropdown-menu-right float-right">
-                    <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
-                         data-target="#search_modal">
-                        <i class="fa fa-search text-primary"></i>
-                    </div>
-                    <div class="btn-group">
-                        <div class="notifications no-bg">
-                            <a class="btn btn-default btn-sm messages" data-toggle="dropdown" id="messages_section"> <i
-                                    class="fa fa-envelope-o fa-1x"></i>
-                                <span class="badge badge-pill badge-warning notifications_badge_top">8</span>
-                            </a>
-                            <div class="dropdown-menu drop_box_align" role="menu" id="messages_dropdown">
-                                <div class="popover-title">You have 8 Messages</div>
-                                <div id="messages">
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="img/mailbox_imgs/5.jpg"
-                                                     class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>hally</strong>
-                                                sent you an image.
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="popover-footer">
-                                    <a href="mail_inbox.html" class="text-white">Inbox</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <div class="notifications messages no-bg">
-                            <a class="btn btn-default btn-sm" data-toggle="dropdown" id="notifications_section"> <i
-                                    class="fa fa-bell-o"></i>
-                                <span class="badge badge-pill badge-danger notifications_badge_top">9</span>
-                            </a>
-                            <div class="dropdown-menu drop_box_align" role="menu" id="notifications_dropdown">
-                                <div class="popover-title">You have 9 Notifications</div>
-                                <div id="notifications">
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="img/mailbox_imgs/2.jpg"
-                                                     class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data">
-                                                <i class="fa fa-clock-o"></i>
-                                                <strong>clay</strong>
-                                                business propasals
-                                                <br>
-                                                <small class="primary_txt">20min Back.</small>
-                                                <br>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="popover-footer">
-                                    <a href="#" class="text-white">View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <div class="notifications request_section no-bg">
-                            <a class="btn btn-default btn-sm messages" id="request_btn"> <i
-                                    class="fa fa-sliders" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="btn-group">
-                        <div class="user-settings no-bg">
-                            <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">
-                                <img src="img/admin.jpg" class="admin_img2 img-thumbnail rounded-circle avatar-img"
-                                     alt="avatar"> <strong>Ming</strong>
-                                <span class="fa fa-sort-down white_bg"></span>
-                            </button>
-                            <div class="dropdown-menu drop_box_align">
-                                <a class="dropdown-item title" href="#">
-                                    Ming</a>
-                                <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
-                                    Settings</a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-user"></i>
-                                    User Status
-                                </a>
-                                <a class="dropdown-item" href="mail_inbox.html"><i class="fa fa-envelope"></i>
-                                    Inbox</a>
-
-                                <a class="dropdown-item" href="lockscreen.html"><i class="fa fa-lock"></i>
-                                    Lock Screen</a>
-                                <a class="dropdown-item" href="login2.html"><i class="fa fa-sign-out"></i>
-                                    Log Out</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="top_search_box float-right hidden-sm-down">
-                    <form class="header_input_search float-right">
-                        <input type="text" placeholder="题目搜索" name="search">
-                        <button type="submit">
-                            <span class="font-icon-search"></span>
-                        </button>
-                        <div class="overlay"></div>
-                    </form>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
-        <!-- /.navbar -->
-        <!-- /.head -->
-    </div>
+    <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
     <div class="wrapper fixedNav_top">
-        <div id="left" class="fixed">
-            <div class="menu_scroll">
-                <!--<div class="left_media">
-                      <div class="media user-media">
-                          <div class="user-media-toggleHover">
-                              <span class="fa fa-user"></span>
-                          </div>
-                          <div class="user-wrapper">
-                              <a class="user-link" href="#">
-                                  <img class="media-object img-thumbnail user-img rounded-circle admin_img3"
-                                       alt="User Picture"
-                                       src="img/admin.jpg">
-                                  <p class="user-info menu_hide">Welcome Ming</p>
-                              </a>
-                          </div>
-                      </div>
-                       <hr/>
-                  </div>-->
-                <br/>
-                <ul id="menu">
-                    <li >
-                        <a href="../templates/index.html" data-toggle="tooltip" data-placement="right" title="首页">
-                            <i class="fa fa-home"></i>
-                            <span class="link-title menu_hide">&nbsp;首页</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="blank.html" data-toggle="tooltip" data-placement="right" title="题库">
-                            <i class="fa fa-book"></i>
-                            <span class="link-title menu_hide">&nbsp;题库
-
-                            </span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="比赛">
-                            <i class="fa fa-trophy"></i>
-                            <span class="link-title menu_hide"> &nbsp; 比赛</span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="排行榜">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="link-title menu_hide">&nbsp; 排行榜</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="测评记录">
-                            <i class="fa fa-pie-chart"></i>
-                            <span class="link-title menu_hide"> &nbsp; 测评记录</span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="讨论区">
-                            <i class="fa fa-comments"></i>
-                            <span class="link-title menu_hide">&nbsp; 讨论区</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /#menu -->
-            </div>
-        </div>
+        <div th:replace="~{fragments/left :: left}"></div>
         <!-- /#left -->
         <div id="content" class="bg-container">
             <header class="head">
                 <div class="main-bar">
                     <div class="row no-gutters">
-                        <div class="col-12 col-lg-6 col-sm-4">
-                            <h4 class="nav_top_align">
-                                <i class="fa fa-pencil"></i>&nbsp;题目列表
+                        <div class="col-6">
+                            <h4 class="m-t-5">
+                                <i class="fa fa-book"></i>
+                                题库
                             </h4>
-                        </div>
-                        <div class="col-12 col-lg-6 col-sm-8">
-                            <ol class="breadcrumb float-right nav_breadcrumb_top_align">
-                                <li class="breadcrumb-item">
-                                    <a href="index1.html">
-                                        <i class="fa fa-home" data-pack="default" data-tags=""></i>
-                                        Home
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Pages</a>
-                                </li>
-                                <li class="breadcrumb-item active">Blank Page</li>
-                            </ol>
                         </div>
                     </div>
                 </div>
             </header>
             <div class="outer">
-
-
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="search_modal" tabindex="-1" role="dialog"
-                 aria-hidden="true">
-                <form>
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span class="float-right" aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="input-group search_bar_small">
-                                <input type="text" class="form-control" placeholder="题目搜索" name="search">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-                                </span>
+                <div class="inner bg-container">
+                    <!--title-->
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-8">
+                                    <form class="w-75">
+                                        <div class="input-group">
+                                            <input type="search" placeholder="算法、标题或题目编号" class="form-control">
+                                            <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" />
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true">
+                                        </span><i class="fa fa-search"></i>
+                                                </button>
+                                    </span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-4">
+                                    <div class="dropdown  float-right">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            难度
+                                        </button>
+                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">不限</a>
+                                            <a class="dropdown-item" href="#">简单</a>
+                                            <a class="dropdown-item" href="#">中等</a>
+                                            <a class="dropdown-item" href="#">困难</a>
+                                            <a class="dropdown-item" href="#">专家</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-4">
+                            <button class=" w-100 btn  btn-secondary glow_button glow_button"><i class="fa fa-random"></i>&nbsp;帮我随机选择一题
+                            </button>
+                        </div>
                     </div>
-                </form>
+                    <div class="row mt-3">
+                        <!--table-->
+                        <div class="col-8">
+                            <div class="card">
+                                <!--<h5 class="card-header bg-white ">
+                                    <i class="fa fa-flag "></i>&nbsp;题目列表
+                                </h5>-->
+                                <div class="card-body">
+                                    <table class="table  table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>题号</th>
+                                            <th>标题</th>
+                                            <th>标签</th>
+                                            <th>提交</th>
+                                            <th>通过率</th>
+                                            <th>难度</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a href="problem_submit.html" class="text-primary">国王的烦恼</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;动态规划</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>
+                                                <a href="#" class="btn btn-warning btn-sm purple">
+                                                    困难
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a href="problem_submit.html" class="text-primary">N皇后问题</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;递归</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>
+                                                <a href="#" class="btn btn-danger btn-sm purple">
+                                                    专家
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><a href="problem_submit.html" class="text-primary">回文数字</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;递归</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>
+                                                <a href="#" class="btn btn-success btn-sm purple">
+                                                    简单
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td><a href="problem_submit.html" class="text-primary">横向打印二叉树</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;数据结构</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>
+                                                <a href="#" class="btn btn-warning btn-sm purple">
+                                                    困难
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><a href="problem_submit.html" class="text-primary">翻硬币</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;模拟</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-sm purple">
+                                                    中等
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="pagination pagination_padding_general_components">
+                                        <li class="page-item active">
+                                            <a href="#">
+                                                <span class="fa fa-angle-double-left"></span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li class="page-item disabled">
+                                            <a href="#">...</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#">15</a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a href="#">
+                                                <span class="fa fa-angle-double-right"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--#table-->
+
+                        <!--right-->
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;题目分类</div>
+                                <div class="card-block pt-3 ">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a class="btn btn-secondary glow_button text-primary">不限
+                                            </a>
+                                            <a class="btn btn-secondary ml-3 glow_button text-primary">基础
+                                            </a>
+                                            <a class="btn btn-secondary ml-3 glow_button text-primary">字符串
+                                            </a>
+                                        </div>
+                                        <div class="col-12 pt-3">
+                                            <a class="btn btn-secondary glow_button text-primary">递归
+                                            </a>
+                                            <a class="btn btn-secondary ml-3 glow_button text-primary">二叉树
+                                            </a>
+                                            <a class="btn btn-secondary ml-3 glow_button text-primary">动态规划
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--#right-->
+                    </div>
+                </div>
             </div>
-            <!-- /.outer -->
         </div>
+        <!-- /.inner -->
     </div>
+    <!-- /.outer -->
+
     <!-- /#content -->
+    <!-- Modal -->
+    <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <form>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="float-right" aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="input-group search_bar_small">
+                        <input type="text" class="form-control" placeholder="题目搜索" name="search">
+                        <span class="input-group-btn">
+        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+      </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--wrapper-->
     <div id="request_list">
         <div class="request_scrollable">
             <ul class="nav nav-tabs m-t-15">
@@ -430,7 +406,7 @@ z-index: 999999">
                         <div class="data m-t-10">
                             <div class="row">
                                 <div class="col-2">
-                                    <img src="img/images1.jpg" class="message-img avatar rounded-circle" alt="avatar1">
+                                    <img src="@{/img/images1.jpg}" class="message-img avatar rounded-circle" alt="avatar1">
                                 </div>
                                 <div class="col-8 message-data"><span class="chat_name">Philip J. Webb</span><br/>
                                     Available
@@ -607,10 +583,11 @@ z-index: 999999">
     <!-- # right side -->
 </div>
 <!-- /#wrap -->
-
 <!-- global scripts-->
-<script type="text/javascript" src="js/components.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
-<!-- end of global scripts-->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<!--end of global scripts-->
+
+
 </body>
+
 </html>

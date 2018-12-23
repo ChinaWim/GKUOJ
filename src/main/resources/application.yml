@@ -20,8 +20,8 @@ spring:
       default-auto-commit: true
   mvc:
     view:
-      suffix: .html
       prefix: /
+      suffix: .html
   servlet:
     multipart:
       max-request-size: 10MB
@@ -30,14 +30,14 @@ spring:
     encoding:
       charset: UTF-8
 #==================== thymeleaf Setting =====================#
-#  thymeleaf:
-#    servlet:
-#      content-type: text/html
-#    encoding: UTF-8
-#    mode: HTML5
-#    suffix: .html
-#    prefix: classpath:templates/
-#    cache: false
+  thymeleaf:
+    servlet:
+      content-type: text/html
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
 
 #==================== mybatis Setting =====================#
 mybatis:

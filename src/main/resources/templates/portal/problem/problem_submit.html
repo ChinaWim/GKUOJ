@@ -13,6 +13,11 @@
     <link type="text/css" rel="stylesheet" href="css/custom.css"/>
     <!-- end of global styles-->
     <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" href="css/pages/general_components.css"/>
+    <link type="text/css" rel="stylesheet" href="css/pages/problem_submit.css"/>
+
+    <!--<link href="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">-->
 
 </head>
 
@@ -40,66 +45,17 @@ z-index: 999999">
         <!-- .navbar -->
         <nav class="navbar navbar-static-top">
             <div class="container-fluid m-0">
-                <a class="navbar-brand float-left" href="index.html">
+                <a class="navbar-brand float-left" href="../templates/index.html">
                     <h4><img src="img/logo1.png" class="admin_img2" alt="logo">&nbsp;计算机程序在线性能测评系统</h4>
                 </a>
-                <div class="menu hidden-lg-up" >
+                <div class="menu hidden-lg-up">
                     <span class="toggle-left" id="menu-toggle">
                         <i class="fa fa-bars"></i>
                     </span>
                 </div>
+                <!--title todo-->
 
-                <!--title-->
-                    <div class="top_menu " style="float:left;">
-                        <ul id="menu" >
-                            <li class="menu">
-                                <a href="index.html"  data-toggle="tooltip" data-placement="right"  title="首页">
-                                    <i class="fa fa-home"></i>
-                                    <span class="link-title menu_hide">&nbsp;首页</span>
-                                </a>
-                            </li>
-                            <li class="active menu">
-                                <a href="problem.html" data-toggle="tooltip" data-placement="right" title="题库">
-                                    <i class="fa fa-book"></i>
-                                    <span class="link-title menu_hide">&nbsp;题库
-
-                            </span>
-                                </a>
-                            </li>
-                            <li class=" menu">
-                                <a href="#" data-toggle="tooltip" data-placement="right"  title="比赛">
-                                    <i class="fa fa-trophy"></i>
-                                    <span class="link-title menu_hide"> &nbsp; 比赛</span>
-                                </a>
-                            </li>
-
-                            <li class=" menu">
-                                <a href="#" data-toggle="tooltip" data-placement="right"  title="排行榜">
-                                    <i class="fa fa-bar-chart"></i>
-                                    <span class="link-title menu_hide">&nbsp; 排行榜</span>
-                                </a>
-                            </li>
-
-                            <li class=" menu">
-                                <a href="#" data-toggle="tooltip" data-placement="right"  title="测评记录">
-                                    <i class="fa fa-pie-chart"></i>
-                                    <span class="link-title menu_hide"> &nbsp; 测评记录</span>
-                                </a>
-                            </li>
-
-
-                            <li class=" menu">
-                                <a href="#" data-toggle="tooltip" data-placement="right"  title="讨论区">
-                                    <i class="fa fa-comments"></i>
-                                    <span class="link-title menu_hide">&nbsp; 讨论区</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- /#menu -->
-                    </div>
-
-
-
+                <!--#title-->
                 <div class="topnav dropdown-menu-right float-right">
                     <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
                          data-target="#search_modal">
@@ -175,7 +131,7 @@ z-index: 999999">
                         </div>
                     </div>
 
-                    <div class="btn-group" >
+                    <div class="btn-group">
                         <div class="user-settings no-bg">
                             <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">
                                 <img src="img/admin.jpg" class="admin_img2  rounded-circle "
@@ -218,19 +174,21 @@ z-index: 999999">
         <!-- /.head -->
     </div>
     <!-- /#top -->
+
+
     <div class="wrapper fixedNav_top">
         <div id="left" class="fixed">
             <div class="menu_scroll">
                 <br/>
                 <ul id="menu">
-                    <li >
-                        <a href="index.html"  data-toggle="tooltip" data-placement="right"  title="首页">
+                    <li>
+                        <a href="../templates/index.html" data-toggle="tooltip" data-placement="right" title="首页">
                             <i class="fa fa-home"></i>
                             <span class="link-title menu_hide">&nbsp;首页</span>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="problem.html" data-toggle="tooltip" data-placement="right" title="题库">
+                        <a href="problem_list.html" data-toggle="tooltip" data-placement="right" title="题库">
                             <i class="fa fa-book"></i>
                             <span class="link-title menu_hide">&nbsp;题库
 
@@ -238,23 +196,22 @@ z-index: 999999">
                         </a>
                     </li>
                     <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right"  title="比赛">
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="比赛">
                             <i class="fa fa-trophy"></i>
                             <span class="link-title menu_hide"> &nbsp; 比赛</span>
                         </a>
                     </li>
 
 
-
                     <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right"  title="排行榜">
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="排行榜">
                             <i class="fa fa-bar-chart"></i>
                             <span class="link-title menu_hide">&nbsp; 排行榜</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right"  title="测评记录">
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="测评记录">
                             <i class="fa fa-pie-chart"></i>
                             <span class="link-title menu_hide"> &nbsp; 测评记录</span>
                         </a>
@@ -262,7 +219,7 @@ z-index: 999999">
 
 
                     <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right"  title="讨论区">
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="讨论区">
                             <i class="fa fa-comments"></i>
                             <span class="link-title menu_hide">&nbsp; 讨论区</span>
                         </a>
@@ -271,6 +228,8 @@ z-index: 999999">
                 <!-- /#menu -->
             </div>
         </div>
+
+
         <!-- /#left -->
         <div id="content" class="bg-container">
             <header class="head">
@@ -278,144 +237,64 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-book"></i>
-                                题库
+                                <i class="fa fa-pencil"></i>
+                                P1000 横向打印二叉树
+                                <a href="#" class="btn btn-warning btn-sm purple">
+                                    困难
+                                </a>
                             </h4>
                         </div>
                     </div>
                 </div>
             </header>
             <div class="outer">
-                <div class="row" >
-                    <div class="col-8">
-                        <div class="card">
-                            <h5 class="card-header bg-white"><i class="fa fa-flag"></i>&nbsp;题目列表</h5>
-                            <div class="card-body">
-                                <table class="table  table-hover table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>题号</th>
-                                        <th>标题</th>
-                                        <th>标签</th>
-                                        <th>提交</th>
-                                        <th>通过率</th>
-                                        <th>难度</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td><a href="index.html" class="">横向打印二叉树</a></td>
-                                        <td>44</td>
-                                        <td>数据结构</td>
-                                        <td>0.00%</td>
-                                        <td>
-                                            fat
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>OttoOttoOttoOttoOttoOttoOttoOttoOttoOttoOttoOttoOttoOtto</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                <div class="inner bg-container">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card card-block" >
+                                <h3 class=" card-title m-t-20"><strong>描述</strong></h3>
+                                <p class="card-text text-justify pl-3">
+                                    观察数字：12321，123321 都有一个共同的特征，无论从左到右读还是从右向左读，都是相同的。
+                                    这样的数字叫做：回文数字。<br/>
+                                    本题要求你找到一些5位或6位的十进制数字。<br/>
+                                    满足如下要求：<br/>
+                                    该数字的各个数位之和等于输入的整数。
+                                </p>
+                                <h3 class=" card-title m-t-20"><strong>输入规范</strong></h3>
+                                <p class="card-text text-justify pl-3">
+                                    一个正整数 n(10< n <100),表示要求满足的数位和。
+                                </p>
+                                <h3 class="card-title m-t-20"><strong>输出规范</strong></h3>
+                                <p class="card-text text-justify pl-3">
+                                    若干行，每行包含一个满足要求的5位或6位整数。<br>
+                                    数字按从小到大的顺序排列。<br>
+                                    如果没有满足条件的，输出：-1
+                                </p>
+                                <h3 class="card-title m-t-20">
+                                    <strong>样例输入</strong>
+                                </h3>
+                                <code>2 3</code>
+                                <h3 class="card-title m-t-20"><strong>样例输出</strong></h3>
+                                <code>5</code>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-body ">
-                                <h5 class="card-header bg-white "><i class="fa fa-search"></i>查找题目</h5>
-                                <form >
-                                    <div class="input-group">
-                                        <input type="search"placeholder="算法、标题或题目编号" class="form-control">
-                                        <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="button">
-                                                    <span class="glyphicon glyphicon-search" aria-hidden="true">
-                                                </span> Search!
-                                                </button>
-                                         </span>
+                        <div class="col-6">
+                            <!--<div class="card card-block ">-->
+                            <div id="wrapper">
+                                <div class="content" >
+                                    <div class="column1" >
+                                    <textarea id="textarea" class="w-100" style="height: 600px;">
+                                                                /**
+                                                                 * This is Ace injected using a bookmarklet.
+                                                                 */
+                                                                function foo() {
+                                                                    var bar = true;
+                                                                }
+                                    </textarea>
                                     </div>
-                                </form>
+                                </div>
+                                <!--</div>-->
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-header bg-white"><i class="fa fa-bars"></i>分类</h5>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">动态规划</li>
-                                <li class="list-group-item">数据结构</li>
-                                <li class="list-group-item">搜索</li>
-                                <li class="list-group-item">图论</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -769,10 +648,11 @@ z-index: 999999">
 <script type="text/javascript" src="js/custom.js"></script>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-
+<script src="vendors/ace/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="vendors/ace/src-noconflict/ace.js"></script>
 <!--end of plugin scripts-->
-
-<script type="text/javascript" src="js/pages/index.js"></script>
+<script type="text/javascript" src="js/pages/problem_submit.js"></script>
 </body>
-
+<script>
+</script>
 </html>
