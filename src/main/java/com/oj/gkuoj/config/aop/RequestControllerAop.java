@@ -1,4 +1,4 @@
-package com.oj.gkuoj.framework;
+package com.oj.gkuoj.config.aop;
 
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -34,7 +34,7 @@ public class RequestControllerAop {
         RequestControllerAop.isDebug = isDebug;
     }
 
-    @Around("execution(* com.oj.gkuoj.controller.*.*(..))")
+    @Around("execution(* com.oj.gkuoj.rest.*.*(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
 //        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 //        logger.info("请求IP:"+request.getRemoteHost());

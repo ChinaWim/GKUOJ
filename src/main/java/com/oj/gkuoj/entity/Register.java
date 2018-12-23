@@ -101,7 +101,7 @@ public class Register implements Serializable {
 
     @Override
     public String toString() {
-        return "Register{" +
+        return "RegisterService{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", compId=" + compId +

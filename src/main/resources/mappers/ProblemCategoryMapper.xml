@@ -18,7 +18,10 @@
     from problem_category
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="listAll" resultType="com.oj.gkuoj.entity.ProblemCategory">
+      select <include refid="Base_Column_List"/> from problem_category
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from problem_category
     where id = #{id,jdbcType=INTEGER}
   </delete>

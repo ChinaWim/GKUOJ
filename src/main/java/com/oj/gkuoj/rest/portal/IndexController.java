@@ -1,7 +1,9 @@
-package com.oj.gkuoj.controller.portal;
+package com.oj.gkuoj.rest.portal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author m969130721@163.com
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
     @RequestMapping("/index")
-    public String index(){
+    public String index(HttpServletRequest request){
+        request.setAttribute("active1",true);
         return "index";
     }
 

@@ -207,7 +207,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.User" >
+  <update id="addSignCount" parameterType="int">
+    update user set sign_count = sign_count + 1
+    where id = #{userId}
+  </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.User" >
     update user
     <set >
       <if test="username != null" >

@@ -18,10 +18,10 @@ spring:
       initial-size: 10
       max-wait: 10
       default-auto-commit: true
-  mvc:
-    view:
-      prefix: /
-      suffix: .html
+#  mvc:
+#    view:
+#      prefix: /
+#      suffix: .html
   servlet:
     multipart:
       max-request-size: 10MB
