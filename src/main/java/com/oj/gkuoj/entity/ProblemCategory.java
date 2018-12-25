@@ -1,10 +1,11 @@
 package com.oj.gkuoj.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class ProblemCategory implements Serializable {
+public class ProblemCategory {
     private Integer id;
+
+    private Integer parentId;
 
     private String name;
 
@@ -12,8 +13,9 @@ public class ProblemCategory implements Serializable {
 
     private Date updateTime;
 
-    public ProblemCategory(Integer id, String name, Date createTime, Date updateTime) {
+    public ProblemCategory(Integer id, Integer parentId, String name, Date createTime, Date updateTime) {
         this.id = id;
+        this.parentId = parentId;
         this.name = name;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -29,6 +31,14 @@ public class ProblemCategory implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {
@@ -53,15 +63,5 @@ public class ProblemCategory implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "ProblemCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
     }
 }

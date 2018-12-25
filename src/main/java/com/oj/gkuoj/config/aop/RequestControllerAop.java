@@ -24,23 +24,23 @@ public class RequestControllerAop {
 
     private static Logger logger = LoggerFactory.getLogger(RequestControllerAop.class);
 
-    private static boolean isDebug = false;
+    private static boolean debug = false;
 
-    @Value("${project.isDebug}")
-    public void setIsDebug(boolean isDebug) {
-        if (isDebug) {
+    @Value("${project.debug}")
+    public void setIsDebug(boolean debug) {
+        if (debug) {
             logger.info("当前项目为debug模式");
         }
-        RequestControllerAop.isDebug = isDebug;
+        RequestControllerAop.debug = debug;
     }
 
-    @Around("execution(* com.oj.gkuoj.rest.*.*(..))")
+    @Around("execution(* com.oj.gkuoj.rest.*.*.*(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
 //        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 //        logger.info("请求IP:"+request.getRemoteHost());
         Class<?> clazz = point.getTarget().getClass();
         Logger log = LoggerFactory.getLogger(clazz);
-        if (isDebug) {
+        if (debug) {
             MethodSignature ms = (MethodSignature) point.getSignature();
             Method method = clazz.getMethod(ms.getName(), ms.getParameterTypes());
             if (clazz.getAnnotation(RestController.class) != null || method.getAnnotation(ResponseBody.class) != null) {
@@ -52,13 +52,13 @@ public class RequestControllerAop {
             log.info("方法:" + method.getName());
         }
         Object returnValue = point.proceed();
-        if (isDebug) {
+        if (debug) {
             if (returnValue == null) {
                 log.info("没有返回值");
             } else {
                 log.info("返回值:" + returnValue);
             }
-            log.info("**********************************************************************************************************");
+            log.info("============================================================================================================");
         }
         return returnValue;
     }

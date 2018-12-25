@@ -1,5 +1,6 @@
 package com.oj.gkuoj.service.impl;
 
+import com.oj.gkuoj.common.ResponseCodeEnum;
 import com.oj.gkuoj.common.ServerResponse;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.CompetitionMapper;
@@ -21,12 +22,20 @@ public class CompetitionServiceImpl implements CompetitionService {
 
      @Override
      public ServerResponse getById(Integer competitionId) {
+          if (competitionId == null) {
+               return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+          }
           Competition competition = competitionMapper.selectByPrimaryKey(competitionId);
           return ServerResponse.createBySuccess(competition);
      }
 
      @Override
      public ServerResponse insert(Competition competition) {
+          if (competition == null) {
+               return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+          }
           int effect = competitionMapper.insertSelective(competition);
           return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.ADD_SUCCESS)
                   : ServerResponse.createByErrorMessage(StringConst.ADD_FAIL);
@@ -34,6 +43,10 @@ public class CompetitionServiceImpl implements CompetitionService {
 
      @Override
      public ServerResponse delById(Integer id) {
+          if (id == null) {
+               return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+          }
           int effect = competitionMapper.deleteByPrimaryKey(id);
           return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.DEL_SUCCESS)
                   : ServerResponse.createByErrorMessage(StringConst.DEL_FAIL);
@@ -41,6 +54,10 @@ public class CompetitionServiceImpl implements CompetitionService {
 
      @Override
      public ServerResponse update(Competition competition) {
+          if (competition == null) {
+               return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+          }
           int effect = competitionMapper.updateByPrimaryKeySelective(competition);
           return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                   : ServerResponse.createByErrorMessage(StringConst.UPDATE_FAIL);

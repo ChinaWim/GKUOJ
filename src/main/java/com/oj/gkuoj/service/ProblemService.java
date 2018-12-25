@@ -10,7 +10,7 @@ import com.oj.gkuoj.entity.ProblemCategory;
  */
 public interface ProblemService {
 
-    ServerResponse getById(Integer problemId);
+    ServerResponse<Problem> getById(Integer problemId);
 
     ServerResponse insert(Problem problem);
 

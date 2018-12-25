@@ -4,7 +4,7 @@ package com.oj.gkuoj.common;
  * @author m969130721@163.com
  * @date 18-5-27 下午5:47
  */
-public enum ResponseCode {
+public enum ResponseCodeEnum {
     /**
      * 成功
      */
@@ -26,7 +26,7 @@ public enum ResponseCode {
 
     private String desc;
 
-    ResponseCode(int code, String desc) {
+    ResponseCodeEnum(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }

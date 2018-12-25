@@ -11,17 +11,13 @@ spring:
     druid:
       username: root
       password: 47218382
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/ojdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       max-active: 50
       min-idle: 10
       initial-size: 10
       max-wait: 10
       default-auto-commit: true
-#  mvc:
-#    view:
-#      prefix: /
-#      suffix: .html
   servlet:
     multipart:
       max-request-size: 10MB
@@ -57,4 +53,4 @@ logging:
 
 #==================== project Setting =====================#
 project:
-  isDebug: true
+  debug: true

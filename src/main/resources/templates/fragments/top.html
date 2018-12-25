@@ -8,47 +8,20 @@
     <nav class="navbar navbar-static-top">
         <div class="container-fluid m-0">
             <a class="navbar-brand float-left" href="index.html">
-                <h4><img th:src="@{/img/logo1.png}" class="admin_img2" alt="logo">&nbsp;计算机程序在线性能测评系统</h4>
+                <h4> <img th:src="@{/img/logo1.png}" class="admin_img" alt="logo"/>&nbsp;计算机程序在线性能测评系统</h4>
             </a>
-            <div class="menu hidden-lg-up">
+            <!-- center-->
+            <div class="menu hidden-lg-up float-left">
                     <span class="toggle-left" id="menu-toggle">
                         <i class="fa fa-bars"></i>
                     </span>
             </div>
+            <!-- #center-->
+
             <div class="topnav dropdown-menu-right float-right">
                 <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
                      data-target="#search_modal">
                     <i class="fa fa-search text-primary"></i>
-                </div>
-                <div class="btn-group">
-                    <div class="notifications no-bg">
-                        <a class="btn btn-default btn-sm messages" data-toggle="dropdown" id="messages_section"> <i
-                                class="fa fa-envelope-o fa-1x"></i>
-                            <span class="badge badge-pill badge-warning notifications_badge_top">8</span>
-                        </a>
-                        <div class="dropdown-menu drop_box_align" role="menu" id="messages_dropdown">
-                            <div class="popover-title">You have 8 Messages</div>
-                            <div id="messages">
-                                <div class="data">
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <img src="img/mailbox_imgs/5.jpg"
-                                                 class="message-img avatar rounded-circle"
-                                                 alt="avatar1"></div>
-                                        <div class="col-10 message-data"><strong>hally</strong>
-                                            sent you an image.
-                                            <br>
-                                            <small>add to timeline</small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="popover-footer">
-                                <a href="mail_inbox.html" class="text-white">Inbox</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="btn-group">
                     <div class="notifications messages no-bg">
@@ -82,14 +55,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="btn-group">
-                    <div class="notifications request_section no-bg">
-                        <a class="btn btn-default btn-sm messages" id="request_btn"> <i
-                                class="fa fa-sliders" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-
                 <div class="btn-group">
                     <div class="user-settings no-bg">
                         <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">

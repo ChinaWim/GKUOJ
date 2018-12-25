@@ -1,5 +1,6 @@
 package com.oj.gkuoj.service.impl;
 
+import com.oj.gkuoj.common.ResponseCodeEnum;
 import com.oj.gkuoj.common.ServerResponse;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.ProblemMapper;
@@ -23,12 +24,20 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public ServerResponse getById(Integer problemId) {
+        if (problemId == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+        }
         Problem problem = problemMapper.selectByPrimaryKey(problemId);
         return ServerResponse.createBySuccess(problem);
     }
 
     @Override
     public ServerResponse delById(Integer id) {
+        if (id == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+        }
         int effect = problemMapper.deleteByPrimaryKey(id);
         return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.DEL_SUCCESS)
                 : ServerResponse.createByErrorMessage(StringConst.DEL_FAIL);
@@ -36,6 +45,10 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public ServerResponse insert(Problem problem) {
+        if (problem == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+        }
         int effect = problemMapper.insertSelective(problem);
         return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.ADD_SUCCESS)
                 : ServerResponse.createByErrorMessage(StringConst.ADD_FAIL);
@@ -43,6 +56,10 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public ServerResponse update(Problem problem) {
+        if (problem == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+        }
         int effect = problemMapper.updateByPrimaryKeySelective(problem);
         return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : ServerResponse.createByErrorMessage(StringConst.UPDATE_FAIL);

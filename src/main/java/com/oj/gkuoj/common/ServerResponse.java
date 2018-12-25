@@ -45,28 +45,28 @@ public class ServerResponse<T> implements Serializable {
 
 
     public static <T> ServerResponse<T> createBySuccess() {
-        return new ServerResponse<>(ResponseCode.SUCCESS.getCode());
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode());
     }
 
     public static <T> ServerResponse<T> createBySuccessMessage(String msg) {
-        return new ServerResponse<>(ResponseCode.SUCCESS.getCode(), msg);
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode(), msg);
     }
 
     public static <T> ServerResponse<T> createBySuccess(T data) {
-        return new ServerResponse<>(ResponseCode.SUCCESS.getCode(), data);
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode(), data);
     }
 
     public static <T> ServerResponse<T> createBySuccessMessage(String msg, T data) {
-        return new ServerResponse<>(ResponseCode.SUCCESS.getCode(), msg, data);
+        return new ServerResponse<>(ResponseCodeEnum.SUCCESS.getCode(), msg, data);
     }
 
 
     public static <T> ServerResponse<T> createByError() {
-        return new ServerResponse<>(ResponseCode.ERROR.getCode(), ResponseCode.ERROR.getDesc());
+        return new ServerResponse<>(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDesc());
     }
 
     public static <T> ServerResponse<T> createByErrorMessage(String msg) {
-        return new ServerResponse<>(ResponseCode.ERROR.getCode(), msg);
+        return new ServerResponse<>(ResponseCodeEnum.ERROR.getCode(), msg);
     }
 
     public static <T> ServerResponse<T> createByErrorCodeMessage(int errorCode, String msg) {
@@ -75,7 +75,7 @@ public class ServerResponse<T> implements Serializable {
 
     @JsonIgnore
     public boolean isSuccess() {
-        return this.status == ResponseCode.SUCCESS.getCode();
+        return this.status == ResponseCodeEnum.SUCCESS.getCode();
     }
 
 

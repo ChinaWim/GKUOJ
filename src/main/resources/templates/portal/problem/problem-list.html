@@ -1,26 +1,18 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="UTF-8">
     <title>题库</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="img/logo1.png"/>
-
-    <!--global styles-->
-    <link type="text/css" rel="stylesheet" href="css/components.css"/>
-    <link type="text/css" rel="stylesheet" href="css/custom.css"/>
-    <!-- end of global styles-->
-    <link type="text/css" rel="stylesheet" href="#" id="skin_change"/>
+    <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" href="css/pages/general_components.css"/>
-    <link type="text/css" rel="stylesheet" href="css/pages/problem_submit.css"/>
-
-    <!--<link href="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">-->
-
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
+    <!--<link type="text/css" rel="stylesheet" th:href="@{/css/jBootsrapPage.css}"/>-->
 </head>
 
+<!--Page head script-->
+
+<!--end of Page head script-->
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
 <div class="preloader" style=" position: fixed;
   width: 100%;
@@ -37,199 +29,14 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="img/loader.gif" style=" width: 50px;" alt="loading...">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
 </div>
 <div id="wrap">
-    <div id="top" class="fixed">
-        <!-- .navbar -->
-        <nav class="navbar navbar-static-top">
-            <div class="container-fluid m-0">
-                <a class="navbar-brand float-left" href="../templates/index.html">
-                    <h4><img src="img/logo1.png" class="admin_img2" alt="logo">&nbsp;计算机程序在线性能测评系统</h4>
-                </a>
-                <div class="menu hidden-lg-up">
-                    <span class="toggle-left" id="menu-toggle">
-                        <i class="fa fa-bars"></i>
-                    </span>
-                </div>
-                <!--title todo-->
-
-                <!--#title-->
-                <div class="topnav dropdown-menu-right float-right">
-                    <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
-                         data-target="#search_modal">
-                        <i class="fa fa-search text-primary"></i>
-                    </div>
-                    <div class="btn-group">
-                        <div class="notifications no-bg">
-                            <a class="btn btn-default btn-sm messages" data-toggle="dropdown" id="messages_section"> <i
-                                    class="fa fa-envelope-o fa-1x"></i>
-                                <span class="badge badge-pill badge-warning notifications_badge_top">8</span>
-                            </a>
-                            <div class="dropdown-menu drop_box_align" role="menu" id="messages_dropdown">
-                                <div class="popover-title">You have 8 Messages</div>
-                                <div id="messages">
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="img/mailbox_imgs/5.jpg"
-                                                     class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data"><strong>hally</strong>
-                                                sent you an image.
-                                                <br>
-                                                <small>add to timeline</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="popover-footer">
-                                    <a href="mail_inbox.html" class="text-white">Inbox</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <div class="notifications messages no-bg">
-                            <a class="btn btn-default btn-sm" data-toggle="dropdown" id="notifications_section"> <i
-                                    class="fa fa-bell-o"></i>
-                                <span class="badge badge-pill badge-danger notifications_badge_top">9</span>
-                            </a>
-                            <div class="dropdown-menu drop_box_align" role="menu" id="notifications_dropdown">
-                                <div class="popover-title">You have 9 Notifications</div>
-                                <div id="notifications">
-                                    <div class="data">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="img/mailbox_imgs/2.jpg"
-                                                     class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
-                                            <div class="col-10 message-data">
-                                                <i class="fa fa-clock-o"></i>
-                                                <strong>clay</strong>
-                                                business propasals
-                                                <br>
-                                                <small class="primary_txt">20min Back.</small>
-                                                <br>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="popover-footer">
-                                    <a href="#" class="text-white">View All</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <div class="notifications request_section no-bg">
-                            <a class="btn btn-default btn-sm messages" id="request_btn"> <i
-                                    class="fa fa-sliders" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="btn-group">
-                        <div class="user-settings no-bg">
-                            <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">
-                                <img src="img/admin.jpg" class="admin_img2  rounded-circle "
-                                     alt="avatar"> <strong>Ming</strong>
-                                <span class="fa fa-sort-down white_bg"></span>
-                            </button>
-                            <div class="dropdown-menu drop_box_align">
-                                <a class="dropdown-item title" href="#">
-                                    Ming</a>
-                                <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
-                                    Settings</a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-user"></i>
-                                    User Status
-                                </a>
-                                <a class="dropdown-item" href="mail_inbox.html"><i class="fa fa-envelope"></i>
-                                    Inbox</a>
-
-                                <a class="dropdown-item" href="lockscreen.html"><i class="fa fa-lock"></i>
-                                    Lock Screen</a>
-                                <a class="dropdown-item" href="login2.html"><i class="fa fa-sign-out"></i>
-                                    Log Out</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="top_search_box float-right hidden-sm-down">
-                    <form class="header_input_search float-right">
-                        <input type="text" placeholder="题目搜索" name="search">
-                        <button type="submit">
-                            <span class="font-icon-search"></span>
-                        </button>
-                        <div class="overlay"></div>
-                    </form>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
-        <!-- /.navbar -->
-        <!-- /.head -->
-    </div>
+    <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
-
-
     <div class="wrapper fixedNav_top">
-        <div id="left" class="fixed">
-            <div class="menu_scroll">
-                <br/>
-                <ul id="menu">
-                    <li>
-                        <a href="../templates/index.html" data-toggle="tooltip" data-placement="right" title="首页">
-                            <i class="fa fa-home"></i>
-                            <span class="link-title menu_hide">&nbsp;首页</span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="problem_list.html" data-toggle="tooltip" data-placement="right" title="题库">
-                            <i class="fa fa-book"></i>
-                            <span class="link-title menu_hide">&nbsp;题库
-
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="比赛">
-                            <i class="fa fa-trophy"></i>
-                            <span class="link-title menu_hide"> &nbsp; 比赛</span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="排行榜">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="link-title menu_hide">&nbsp; 排行榜</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="测评记录">
-                            <i class="fa fa-pie-chart"></i>
-                            <span class="link-title menu_hide"> &nbsp; 测评记录</span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="#" data-toggle="tooltip" data-placement="right" title="讨论区">
-                            <i class="fa fa-comments"></i>
-                            <span class="link-title menu_hide">&nbsp; 讨论区</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /#menu -->
-            </div>
-        </div>
-
-
+        <div th:replace="~{fragments/left :: left}"></div>
         <!-- /#left -->
         <div id="content" class="bg-container">
             <header class="head">
@@ -237,11 +44,8 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-pencil"></i>
-                                P1000 横向打印二叉树
-                                <a href="#" class="btn btn-warning btn-sm purple">
-                                    困难
-                                </a>
+                                <i class="fa fa-book"></i>
+                                题库
                             </h4>
                         </div>
                     </div>
@@ -249,53 +53,192 @@ z-index: 999999">
             </header>
             <div class="outer">
                 <div class="inner bg-container">
+                    <!--title-->
                     <div class="row">
-                        <div class="col-6">
-                            <div class="card card-block" >
-                                <h3 class=" card-title m-t-20"><strong>描述</strong></h3>
-                                <p class="card-text text-justify pl-3">
-                                    观察数字：12321，123321 都有一个共同的特征，无论从左到右读还是从右向左读，都是相同的。
-                                    这样的数字叫做：回文数字。<br/>
-                                    本题要求你找到一些5位或6位的十进制数字。<br/>
-                                    满足如下要求：<br/>
-                                    该数字的各个数位之和等于输入的整数。
-                                </p>
-                                <h3 class=" card-title m-t-20"><strong>输入规范</strong></h3>
-                                <p class="card-text text-justify pl-3">
-                                    一个正整数 n(10< n <100),表示要求满足的数位和。
-                                </p>
-                                <h3 class="card-title m-t-20"><strong>输出规范</strong></h3>
-                                <p class="card-text text-justify pl-3">
-                                    若干行，每行包含一个满足要求的5位或6位整数。<br>
-                                    数字按从小到大的顺序排列。<br>
-                                    如果没有满足条件的，输出：-1
-                                </p>
-                                <h3 class="card-title m-t-20">
-                                    <strong>样例输入</strong>
-                                </h3>
-                                <code>2 3</code>
-                                <h3 class="card-title m-t-20"><strong>样例输出</strong></h3>
-                                <code>5</code>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <!--<div class="card card-block ">-->
-                            <div id="wrapper">
-                                <div class="content" >
-                                    <div class="column1" >
-                                    <textarea id="textarea" class="w-100" style="height: 600px;">
-                                                                /**
-                                                                 * This is Ace injected using a bookmarklet.
-                                                                 */
-                                                                function foo() {
-                                                                    var bar = true;
-                                                                }
-                                    </textarea>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-8">
+                                    <form class="w-75">
+                                        <div class="input-group">
+                                            <input type="search" placeholder="标题、标签、分类或题目编号" class="form-control">
+                                            <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button"/>
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true">
+                                        </span><i class="fa fa-search"></i>
+                                                </button>
+                                    </span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-4">
+                                    <div class="dropdown  float-right">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            难度
+                                        </button>
+                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item active" href="#">不限</a>
+                                            <a class="dropdown-item" href="#">简单</a>
+                                            <a class="dropdown-item" href="#">中等</a>
+                                            <a class="dropdown-item" href="#">困难</a>
+                                            <a class="dropdown-item" href="#">专家</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <!--</div>-->
                             </div>
                         </div>
+                        <div class="col-4">
+                            <button class=" w-100 btn  btn-secondary glow_button glow_button"><i
+                                    class="fa fa-random"></i>&nbsp;帮我随机选择一题
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <!--table-->
+                        <div class="col-8">
+                            <div class="card">
+                                <!--<h5 class="card-header bg-white ">
+                                    <i class="fa fa-flag "></i>&nbsp;题目列表
+                                </h5>-->
+                                <div class="card-body">
+                                    <table class="table  table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>题号</th>
+                                            <th>标题</th>
+                                            <th>标签</th>
+                                            <th>提交</th>
+                                            <th>通过率</th>
+                                            <th>年份</th>
+                                            <th>难度</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
+                                                   class="text-primary">国王的烦恼</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;动态规划</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>2018</td>
+                                            <td>
+                                                <a href="#" class="btn btn-warning btn-sm purple">
+                                                    困难
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
+                                                   class="text-primary">N皇后问题</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;递归</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>2018</td>
+                                            <td>
+                                                <a href="#" class="btn btn-danger btn-sm purple">
+                                                    专家
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
+                                                   class="text-primary">回文数字</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;递归</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>2018</td>
+                                            <td>
+                                                <a href="#" class="btn btn-success btn-sm purple">
+                                                    简单
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
+                                                   class="text-primary">横向打印二叉树</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;数据结构</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>2018</td>
+                                            <td>
+                                                <a href="#" class="btn btn-warning btn-sm purple">
+                                                    困难
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
+                                                   class="text-primary">翻硬币</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;模拟</td>
+                                            <td>44</td>
+                                            <td>0.00%</td>
+                                            <td>2018</td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-sm purple">
+                                                    中等
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--#table-->
+
+                        <!--right-->
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;题目分类</div>
+                                <div class="card-block  ">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span th:each="category,i: ${problemCategoryList}">
+                                                <a th:href="@{'/problem/problemList?categoryId='+${category.id}}"
+                                                   th:classappend="${categoryId eq (category.id)} ? 'active disabled':''"
+                                                   class="btn btn-secondary mt-3 mr-3 glow_button text-primary">
+                                                    [[${category.name}]]
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header bg-white"><i class="fa fa-tags"></i>&nbsp;标签云</div>
+                                <div class="card-block  ">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a th:href="@{'/problem/problemList?categoryId='+${categoryId}}"
+                                               class="btn btn-secondary mt-3 mr-3 glow_button text-primary">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header bg-white"><i class="fa fa-clock-o"></i>&nbsp;时间</div>
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--#right-->
                     </div>
                 </div>
             </div>
@@ -466,7 +409,8 @@ z-index: 999999">
                         <div class="data m-t-10">
                             <div class="row">
                                 <div class="col-2">
-                                    <img src="img/images1.jpg" class="message-img avatar rounded-circle" alt="avatar1">
+                                    <img src="@{/img/images1.jpg}" class="message-img avatar rounded-circle"
+                                         alt="avatar1">
                                 </div>
                                 <div class="col-8 message-data"><span class="chat_name">Philip J. Webb</span><br/>
                                     Available
@@ -644,15 +588,29 @@ z-index: 999999">
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
-<script type="text/javascript" src="js/components.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 <!--end of global scripts-->
-<!--  plugin scripts -->
-<script src="vendors/ace/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="vendors/ace/src-noconflict/ace.js"></script>
-<!--end of plugin scripts-->
-<script type="text/javascript" src="js/pages/problem_submit.js"></script>
-</body>
-<script>
+<script type="text/javascript" th:src="@{/js/jBootstrapPage.js}"></script>
+
+<script type="text/javascript">
+    $(function () {
+        //init page
+        function createPage(pageSize, buttons, total) {
+            $(".pagination").jBootstrapPage({
+                pageSize: pageSize,
+                total: total,
+                maxPageButton: buttons,
+                onPageClicked: function (obj, pageIndex) {
+                    alert(pageIndex);
+                }
+            });
+        }
+
+        createPage(10, 6, 80);
+    });
 </script>
+
+</body>
+
 </html>
