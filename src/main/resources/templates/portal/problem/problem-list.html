@@ -7,7 +7,9 @@
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
-    <!--<link type="text/css" rel="stylesheet" th:href="@{/css/jBootsrapPage.css}"/>-->
+
+    <!--heard script-->
+
 </head>
 
 <!--Page head script-->
@@ -58,15 +60,15 @@ z-index: 999999">
                         <div class="col-8">
                             <div class="row">
                                 <div class="col-8">
-                                    <form class="w-75">
+                                    <form class="w-75" th:action="@{'problem/problemList?categoryId='+categoryId+'&level='+level+'&pageNum='+pageNum}">
                                         <div class="input-group">
-                                            <input type="search" placeholder="标题、标签、分类或题目编号" class="form-control">
+                                            <input type="search" name = "keyword" th:value="${keyword}" placeholder="题号、标题、标签" class="form-control">
                                             <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="button"/>
+                                        <button class="btn btn-primary" type="submit">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true">
                                         </span><i class="fa fa-search"></i>
-                                                </button>
-                                    </span>
+                                        </button>
+                                        </span>
                                         </div>
                                     </form>
                                 </div>
@@ -89,7 +91,7 @@ z-index: 999999">
                             </div>
                         </div>
                         <div class="col-4">
-                            <button class=" w-100 btn  btn-secondary glow_button glow_button"><i
+                            <button class=" w-100 btn button-rounded btn-primary glow_button glow_button" onclick="randomProblem()"><i
                                     class="fa fa-random"></i>&nbsp;帮我随机选择一题
                             </button>
                         </div>
@@ -115,81 +117,32 @@ z-index: 999999">
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1</td>
+                                        <tr th:each="problem,i : ${problemList}">
+                                            <td>[[${problem.id}]]</td>
                                             <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
-                                                   class="text-primary">国王的烦恼</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;动态规划</td>
-                                            <td>44</td>
-                                            <td>0.00%</td>
-                                            <td>2018</td>
+                                                   class="text-primary">[[${problem.name}]]</a></td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;[[${problem.tag}]]</td>
+                                            <td>[[${problem.submitCount}]]</td>
+                                            <td th:text="${problem.acCount}">%</td>
+                                            <td>[[${#dates.format(problem.createTime,'yyyy')}]]</td>
                                             <td>
-                                                <a href="#" class="btn btn-warning btn-sm purple">
-                                                    困难
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
-                                                   class="text-primary">N皇后问题</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;递归</td>
-                                            <td>44</td>
-                                            <td>0.00%</td>
-                                            <td>2018</td>
-                                            <td>
-                                                <a href="#" class="btn btn-danger btn-sm purple">
-                                                    专家
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
-                                                   class="text-primary">回文数字</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;递归</td>
-                                            <td>44</td>
-                                            <td>0.00%</td>
-                                            <td>2018</td>
-                                            <td>
-                                                <a href="#" class="btn btn-success btn-sm purple">
-                                                    简单
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
-                                                   class="text-primary">横向打印二叉树</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;数据结构</td>
-                                            <td>44</td>
-                                            <td>0.00%</td>
-                                            <td>2018</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning btn-sm purple">
-                                                    困难
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
-                                                   class="text-primary">翻硬币</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;模拟</td>
-                                            <td>44</td>
-                                            <td>0.00%</td>
-                                            <td>2018</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary btn-sm purple">
-                                                    中等
-                                                </a>
+                                                <span th:if="${problem.level == 1}">
+                                                    <a href="#" class="btn btn-success btn-sm purple">简单</a>
+                                                </span>
+                                                <span th:if="${problem.level == 2}">
+                                                    <a href="#" class="btn btn-primary btn-sm purple">中等</a>
+                                                </span>
+                                                <span th:if="${problem.level == 3}">
+                                                    <a href="#" class="btn btn-warning btn-sm purple">困难</a>
+                                                </span>
+                                                <span th:if="${problem.level == 4}">
+                                                    <a href="#" class="btn btn-danger btn-sm purple">专家</a>
+                                                </span>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="col-12">
-                                    <ul class="pagination"></ul>
+
                                 </div>
                             </div>
                         </div>
@@ -206,7 +159,7 @@ z-index: 999999">
                                             <span th:each="category,i: ${problemCategoryList}">
                                                 <a th:href="@{'/problem/problemList?categoryId='+${category.id}}"
                                                    th:classappend="${categoryId eq (category.id)} ? 'active disabled':''"
-                                                   class="btn btn-secondary mt-3 mr-3 glow_button text-primary">
+                                                   class="btn btn-outline-primary mt-3 mr-3 glow_button">
                                                     [[${category.name}]]
                                                 </a>
                                             </span>
@@ -259,7 +212,9 @@ z-index: 999999">
                     <div class="input-group search_bar_small">
                         <input type="text" class="form-control" placeholder="题目搜索" name="search">
                         <span class="input-group-btn">
-        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+        <button class="btn btn-secondary" type="submit">
+            <i class="fa fa-search"></i>
+        </button>
       </span>
                     </div>
                 </div>
@@ -268,266 +223,6 @@ z-index: 999999">
     </div>
 
     <!--wrapper-->
-    <div id="request_list">
-        <div class="request_scrollable">
-            <ul class="nav nav-tabs m-t-15">
-                <li class="nav-item">
-                    <a class="nav-link active text-center" href="#settings" data-toggle="tab">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-center" href="#favourites" data-toggle="tab">Favorites</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="settings">
-                    <div id="settings_section">
-                        <div class="layout_styles mx-3">
-                            <div class="row">
-                                <div class="col-12 m-t-35">
-                                    <h4>Layout settings</h4>
-                                </div>
-                            </div>
-                            <form autocomplete="off">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="float-left m-t-20">Fixed Header</div>
-                                        <div class="float-right m-t-15">
-                                            <div id="setting_fixed_nav">
-                                                <input class="make-switch" data-on-text="ON" data-off-text="OFF"
-                                                       type="checkbox"
-                                                       data-size="small">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="float-left m-t-20">Fixed Menu</div>
-                                        <div class="float-right m-t-15">
-                                            <div id="setting_fixed_menunav">
-                                                <input class="make-switch" data-on-text="ON" data-off-text="OFF"
-                                                       name="radioBox" type="checkbox"
-                                                       data-size="small">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="float-left m-t-20">No Breadcrumb</div>
-                                        <div class="float-right m-t-15">
-                                            <div id="setting_breadcrumb">
-                                                <input class="make-switch" data-on-text="ON" data-off-text="OFF"
-                                                       type="checkbox"
-                                                       data-size="small">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="mx-3">
-                            <div class="row">
-                                <div class="col-12 m-t-35">
-                                    <h4 class="setting_title">General Settings</h4>
-                                </div>
-                            </div>
-                            <div class="data m-t-5">
-                                <div class="row">
-                                    <div class="col-2"><i class="fa fa-bell-o setting_ions text-info"></i></div>
-                                    <div class="col-7">
-                                        <span class="chat_name">Notifications</span><br/>
-                                        Get new notifications
-                                    </div>
-                                    <div class="col-2 checkbox float-right">
-                                        <label class="text-info">
-                                            <input type="checkbox" value="" checked>
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="data">
-                                <div class="row">
-                                    <div class="col-2"><i class="fa fa-envelope-o setting_ions text-danger"></i>
-                                    </div>
-                                    <div class="col-7">
-                                        <span class="chat_name">Messages</span><br/>
-                                        Get new messages
-                                    </div>
-                                    <div class="col-2 checkbox float-right">
-                                        <label class="text-danger">
-                                            <input type="checkbox" value="" checked>
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="data">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <i class="fa fa-exclamation-triangle setting_ions text-warning"></i>
-                                    </div>
-                                    <div class="col-7">
-                                        <span class="chat_name">Warnings</span><br/>
-                                        Get new warnings
-                                    </div>
-                                    <div class="col-2 checkbox float-right">
-                                        <label class="text-warning">
-                                            <input type="checkbox" value="" checked>
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="data">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <i class="fa fa-calendar texlayout_stylest-primary setting_ions"></i>
-                                    </div>
-                                    <div class="col-7">
-                                        <span class="chat_name">Events</span><br/>
-                                        Show new events
-                                    </div>
-                                    <div class="col-2 checkbox float-right">
-                                        <label class="text-primary">
-                                            <input type="checkbox" value="">
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="favourites">
-                    <div id="requests" class="mx-3">
-                        <div class="m-t-35">
-                            <h4 class="setting_title">Favorites</h4>
-                        </div>
-                        <div class="data m-t-10">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="@{/img/images1.jpg}" class="message-img avatar rounded-circle"
-                                         alt="avatar1">
-                                </div>
-                                <div class="col-8 message-data"><span class="chat_name">Philip J. Webb</span><br/>
-                                    Available
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle text-success"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="data">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="img/mailbox_imgs/8.jpg" class="message-img avatar rounded-circle"
-                                         alt="avatar1">
-                                </div>
-                                <div class="col-8 message-data">
-                                    <span class="chat_name">Nancy T. Strozier</span><br/>
-                                    Away
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle text-warning"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="data">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="img/mailbox_imgs/3.jpg" class="message-img avatar rounded-circle"
-                                         alt="avatar1">
-                                </div>
-                                <div class="col-8 message-data">
-                                    <span class="chat_name">Robbinson</span><br/>
-                                    Offline
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="setting_title">Contacts</h4>
-                        <div class="data m-t-10">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="img/mailbox_imgs/7.jpg" class="message-img avatar rounded-circle"
-                                         alt="avatar1">
-                                </div>
-                                <div class="col-8 message-data">
-                                    <span class="chat_name">Chester Hardesty</span><br/>
-                                    Busy
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle text-warning"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="data">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="img/mailbox_imgs/2.jpg" class="message-img avatar rounded-circle"
-                                         alt="avatar1"></div>
-                                <div class="col-8 message-data">
-                                    <span class="chat_name">Peter</span><br/>
-                                    Online
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle text-warning"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="data">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="img/mailbox_imgs/6.jpg" class="message-img avatar rounded-circle"
-                                         alt="avatar1">
-                                </div>
-                                <div class="col-8 message-data">
-                                    <span class="chat_name">Devin Hartsell</span><br/>
-                                    Available
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle text-success"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="data">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="img/mailbox_imgs/4.jpg" class="message-img avatar rounded-circle"
-                                         alt="avatar1"></div>
-                                <div class="col-8 message-data">
-                                    <span class="chat_name">Kimy Zorda</span><br/>
-                                    Available
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle text-success"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="data">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="img/mailbox_imgs/5.jpg" class="message-img avatar rounded-circle"
-                                         alt="avatar1"></div>
-                                <div class="col-8 message-data">
-                                    <span class="chat_name">Jessica Bell</span><br/>
-                                    Offline
-                                </div>
-                                <div class="col-1">
-                                    <i class="fa fa-circle"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- /#content -->
     <div id="right">
         <div class="right_content">
@@ -591,25 +286,7 @@ z-index: 999999">
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <!--end of global scripts-->
-<script type="text/javascript" th:src="@{/js/jBootstrapPage.js}"></script>
-
-<script type="text/javascript">
-    $(function () {
-        //init page
-        function createPage(pageSize, buttons, total) {
-            $(".pagination").jBootstrapPage({
-                pageSize: pageSize,
-                total: total,
-                maxPageButton: buttons,
-                onPageClicked: function (obj, pageIndex) {
-                    alert(pageIndex);
-                }
-            });
-        }
-
-        createPage(10, 6, 80);
-    });
-</script>
+<script type="text/javascript" th:src="@{/js/pages/problem_list.js}"></script>
 
 </body>
 

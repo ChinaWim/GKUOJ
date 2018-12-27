@@ -8,12 +8,11 @@
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/vendors/modal/css/component.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/problem_submit.css}"/>
-
-
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/problem_detail.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/new_dashboard.css}"/>
 </head>
 
-<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left" >
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -32,7 +31,7 @@ z-index: 999999">
         <img src="img/loader.gif" style=" width: 50px;" alt="loading...">
     </div>
 </div>
-<div id="wrap">
+<div id="wrap" >
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
     <div class="wrapper fixedNav_top">
@@ -66,69 +65,86 @@ z-index: 999999">
             </header>
             <div class="outer">
                 <div class="inner bg-container">
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-8">
                             <div class="card card-block">
                                 <div class="text-center mt-2 mb-3">
-                                    <span  class="btn btn-success loading btn-sm ">
+                                    <span class=" btn-success loading btn-sm ">
                                         时间限制:[[${problem.time}]]ms
                                     </span>
-                                    <span  class="btn loading btn-warning btn-sm ">
+                                    <span class=" loading btn-warning btn-sm ml-1">
                                         内存限制:[[${problem.memory}]]kb
-
                                     </span>
-                                    <span  class="btn btn-danger loading btn-sm ">
+                                    <span class=" btn-danger loading btn-sm ml-1">
                                         难度:[[${problem.level}]]
                                     </span>
+                                    <div class="mt-1">
+                                        <a href="#">
+                                            <span class=" btn-primary loading btn-sm ">
+                                                测评情况
+                                            </span>
+                                        </a>
+                                        <a href="#">
+                                        <span class=" btn-info loading btn-sm ml-1">
+                                        讨论区
+                                        </span>
+                                        </a>
+                                    </div>
                                 </div>
                                 <h3 class=" card-title m-t-20"><strong>描述</strong></h3>
-                                <div class="card-text">
+                                <p class="card-text" style="white-space:pre-line">
                                     [[${problem.content}]]
-                                    abc/>
-                                    abc
-                                </div>
+                                </p>
                                 <h3 class=" card-title m-t-20"><strong>输入规范</strong></h3>
-                                <p class="card-text  ">
+                                <p class="card-text  " style="white-space:pre-line">
                                     [[${problem.inputDesc}]]
                                 </p>
-                                <h3 class="card-title m-t-20"><strong>输出规范</strong>
+                                <h3 class="card-title m-t-20" ><strong>输出规范</strong>
 
                                 </h3>
-                                <p class="card-text  ">
+                                <p class="card-text  " style="white-space:pre-line">
                                     [[${problem.outputDesc}]]
                                 </p>
                                 <h3 class="card-title m-t-20">
                                     <strong>样例输入</strong>
                                 </h3>
-                                <code>[[${problem.testcaseInput}]]</code>
+                                <code style="white-space:pre-line">[[${problem.testcaseInput}]]</code>
                                 <h3 class="card-title m-t-20"><strong>样例输出</strong></h3>
-                                <code>[[${problem.testcaseOutput}]]</code>
+                                <code style="white-space:pre-line">[[${problem.testcaseOutput}]]</code>
                             </div>
-                            <div class="row mt-3" >
+                            <div class="row mt-3">
                                 <div class="col-12">
                                     <div class="dropdown  float-left">
-                                        <button style="width: 150px" class="btn btn-outline-primary  glow_button dropdown-toggle" type="button"
+                                        <button style="width: 150px"
+                                                class="btn btn-outline-primary  glow_button dropdown-toggle"
+                                                type="button"
                                                 id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             选择编程语言
                                         </button>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" onclick="setCodeType('c')" href="javascript:void(0)">C</a>
-                                            <a class="dropdown-item" onclick="setCodeType('c++')" href="javascript:void(0)">C++</a>
-                                            <a class="dropdown-item" onclick="setCodeType('java8')" href="javascript:void(0)">Java8</a>
-                                            <a class="dropdown-item" onclick="setCodeType('python2')" href="javascript:void(0)">Python2</a>
-                                            <a class="dropdown-item" onclick="setCodeType('python3')" href="javascript:void(0)">Python3</a>
+                                            <a class="dropdown-item" onclick="setCodeType('c')"
+                                               href="javascript:void(0)">C</a>
+                                            <a class="dropdown-item" onclick="setCodeType('c++')"
+                                               href="javascript:void(0)">C++</a>
+                                            <a class="dropdown-item" onclick="setCodeType('java8')"
+                                               href="javascript:void(0)">Java8</a>
+                                            <a class="dropdown-item" onclick="setCodeType('python2')"
+                                               href="javascript:void(0)">Python2</a>
+                                            <a class="dropdown-item" onclick="setCodeType('python3')"
+                                               href="javascript:void(0)">Python3</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mt-2 " >
-                                    <div id = "editor" class="w-100 col-12" ></div>
+                                <div class="col-12 mt-2 ">
+                                    <div id="editor" class="w-100 col-12"></div>
                                     <div class="col-12 mt-2">
                                         <button class="ml-2 float-right btn btn-info  button-rounded">
                                             <i class="fa fa-cloud"></i>&nbsp;提交代码
                                         </button>
-                                        <button  class="ml-2 float-right btn  btn-secondary button-rounded "
-                                                 data-toggle="modal" data-href="#stack1" href="#stack1">
+                                        <button class="ml-2 float-right btn  btn-secondary button-rounded "
+                                                onclick="clearTestcase()"
+                                                data-toggle="modal" data-href="#stack1" href="#stack1">
                                             <i class="fa fa-play"></i>&nbsp;运行测试
                                         </button>
                                     </div>
@@ -140,30 +156,101 @@ z-index: 999999">
                             <div class="card ">
                                 <div class="card-header bg-white"><i class="fa fa-pie-chart"></i>&nbsp;题目统计</div>
                                 <div class="card-block">
-                                    <canvas id="myChart" class="w-100" style="height: 380px"></canvas>
+                                    <canvas id="myChart" class="w-100" style="height: 400px"></canvas>
                                 </div>
                             </div>
-                            <div class="card mt-3 ">
-                                <div class="card-header bg-white"><i class="fa  fa-flag"></i>&nbsp;推荐相关的题目</div>
-                                <div class="card-block">
-
+                            <div class="card mt-3" id="changeListApp">
+                                <div class="card-header bg-white">
+                                    <i class="fa fa-flag"></i>&nbsp;推荐相关题目
+                                </div>
+                                <div class="card-body">
+                                    <div v-for = "problem in suggestProblemList">
+                                        <div class="task-item">
+                                            <a   :href="'problem/problemDetail?problemId='+problem.id">{{problem.name}}</a>
+                                            <span class="float-right text-muted progress-danger">难度{{problem.level}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="task-item">
+                                        <button @click="changeList()" class=" w-100 btn btn-outline-primary glow_button glow_button"><i
+                                                class="fa fa-random"></i>&nbsp;更换一组
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card mt-3 ">
-                                <div class="card-header bg-white"><i class="fa fa-commenting"></i>&nbsp;<a href="#" class="text-primary">最新动态-讨论区</a></div>
-                                <div class="card-block">
-                                    <ul>
-                                        <li >
-                                            Cras justo odio
-                                            <span class="badge badge-pill badge-primary">14</span>
-                                        </li>
-                                        <li >Astala vista dio maricopa</li>
+                            <div class="card mt-3">
+                                <div class="card-header bg-white ">
+                                    <div class="twitter_section_head ">
+                                        <i class="fa fa-commenting"></i><a href="# "
+                                                                           class="text-primary">&nbsp;最新评论-讨论区</a>
+                                    </div>
+                                </div>
+                                <div class="card-block twitter_section">
+                                    <ul id="nt-example1" style="height: 255px; overflow: hidden;">
 
-                                        <li >
-                                            geria feito masta heon
-                                            <span class="badge badge-pill badge-primary">44</span>
+                                        <li style="margin-top: 0px;">
+                                            <div class="row">
+                                                <div class="col-2 col-lg-3 col-xl-2">
+                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
+                                                         alt="image not found">
+                                                </div>
+                                                <div class="col-10 col-lg-9 col-xl-10">
+                                                    <span class="name"><a href="#" class="text-primary">Ming</a></span>
+                                                    <span
+                                                            class="time">1m ago</span>
+                                                    <br> <span class="msg">
+                                                    <a href="#">给条活路吧!</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <hr>
                                         </li>
-                                        <li >terian becko chinas suo</li>
+                                        <li style="margin-top: 0px;">
+                                            <div class="row">
+                                                <div class="col-2 col-lg-3 col-xl-2">
+                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
+                                                         alt="image not found">
+                                                </div>
+                                                <div class="col-10 col-lg-9 col-xl-10">
+                                                    <span class="name">Ming</span> <span
+                                                        class="time">1m ago</span>
+                                                    <br> <span class="msg">
+                                                    给条活路吧!
+                                            </span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </li>
+                                        <li style="margin-top: 0px;">
+                                            <div class="row">
+                                                <div class="col-2 col-lg-3 col-xl-2">
+                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
+                                                         alt="image not found">
+                                                </div>
+                                                <div class="col-10 col-lg-9 col-xl-10">
+                                                    <span class="name">Ming</span> <span
+                                                        class="time">1m ago</span>
+                                                    <br> <span class="msg">
+                                                    给条活路吧!
+                                            </span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </li>
+                                        <li style="margin-top: 0px;">
+                                            <div class="row">
+                                                <div class="col-2 col-lg-3 col-xl-2">
+                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
+                                                         alt="image not found">
+                                                </div>
+                                                <div class="col-10 col-lg-9 col-xl-10">
+                                                    <span class="name">Ming</span> <span
+                                                        class="time">1m ago</span>
+                                                    <br> <span class="msg">
+                                                    给条活路吧!
+                                            </span>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -198,32 +285,31 @@ z-index: 999999">
         </form>
     </div>
 
-    <!--- stack1 model -->
+    <!--- stack1 model 运行测试-->
     <div class="modal fade bs-example-modal-sm in display_none" id="stack1" tabindex="-1" role="dialog"
          aria-hidden="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h4 class="modal-title text-white">Stack One</h4>
+                <div class="modal-header ">
+                    <h4 class="modal-title ">添加一组测试用例</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <p>One fine body…</p>
-                    <p>One fine body…</p>
-                    <p>One fine body…</p>
-                    <p>
-                        Name:
-                        <input id="name21" type="text" name="name" class="form-control"/>
-                    </p>
-                    <p>
-                        Password:
-                        <input id="name22" type="password" name="password" class="form-control">
-                    </p>
-                    <a class="btn btn-secondary" data-toggle="modal" href="#stack2">Launch modal</a>
+                    <div>
+                        输入字符串:
+                        <textarea id="testInput" style="height: 100px" type="text" name="testInput" class="form-control"></textarea>
+                    </div>
+                    <div>
+                        期望结果:
+                        <textarea id="eOutput" style="height: 100px" type="text" name="eOutput" class="form-control"></textarea>
+                    </div>
+                    <div class="mt-2">
+                        <a class="btn btn-secondary" data-toggle="modal" onclick="setTestcase()" href="javascript:void(0)">输入题目样例</a>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                    <button type="button" class="btn btn-primary">Ok</button>
+                    <!--<button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>-->
+                    <button type="button" class="btn btn-info" onclick="testRun()">运行</button>
                 </div>
             </div>
         </div>
@@ -300,14 +386,15 @@ z-index: 999999">
 <script type="text/javascript" th:src="@{/js/pages/modals.js}"></script>
 <!--end of plugin scripts-->
 <!--page scripts-->
-<script  th:src="@{/js/pages/problem_detail.js}"></script>
+<script th:src="@{/js/pages/problem_detail.js}"></script>
 
 </body>
 
 
-
 <script th:inline="javascript">
-    // chars
+    /*<![CDATA[*/
+
+
     var submitCount = [[${problem.submitCount}]];
     var acCount = [[${problem.acCount}]];
     var tleCount = [[${problem.tleCount}]];
@@ -317,6 +404,29 @@ z-index: 999999">
     var ceCount = [[${problem.ceCount}]];
     var waCount = [[${problem.waCount}]];
 
+
+
+    // vue
+    var changeListApp = new Vue({
+        el:'#changeListApp',
+        data:{
+            suggestProblemList:[]
+        },
+        methods:{
+            changeList:function () {
+                this.$http.get('/problem/suggestProblemList?proCategoryId='+[[${problem.proCategoryId}]]).then(function (res) {
+                    this.suggestProblemList = res.data.data;
+                }),function (res) {
+                    console.log(res.data.msg);
+                }
+            }
+        }
+    });
+    changeListApp.changeList();
+    // end of vue
+
+
+    //chars
     var ctx = document.getElementById('myChart').getContext('2d');
     var myDoughnutChart = new Chart(ctx, {
         type: 'doughnut',
@@ -347,10 +457,21 @@ z-index: 999999">
         options: {
             title: {
                 display: true,
-                text: '提交次数-'+submitCount+'次'
+                text: '提交次数-' + submitCount + '次'
             }
         }
     });
     // en of chars
+
+    function setTestcase(){
+        $("#testInput").html([[${problem.testcaseInput}]]);
+        $("#eOutput").html([[${problem.testcaseOutput}]]);
+    }
+    function clearTestcase(){
+        $("#testInput").html("");
+        $("#eOutput").html("");
+    }
+
+    /*]]>*/
 </script>
 </html>

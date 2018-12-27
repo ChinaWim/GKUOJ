@@ -39,6 +39,37 @@
         from problem
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="listSuggestProblem" resultType="com.oj.gkuoj.entity.Problem" parameterType="map">
+        select
+        id, pro_category_id, name,
+        tag, level, submit_count, ac_count, tle_count, pe_count, me_count, re_count, ce_count,
+        wa_count, time, memory, flag, create_time,update_time
+        from problem
+        where pro_category_id = #{proCategoryId} and flag = 0
+        order by rand()
+        limit 0,#{row}
+    </select>
+    <select id="countRandomProblemId" resultType="java.lang.Integer">
+        select id from problem
+        where flag = 0
+        order by rand()
+        limit 0,1
+    </select>
+    <select id="listAll" resultType="com.oj.gkuoj.entity.Problem" parameterType="map">
+        select <include refid="Base_Column_List"/> from problem
+        <where>
+            <if test="keyword != null and keyword !='' ">
+                id = #{keyword} or name = #{keyword} or tag = #{keyword}
+            </if>
+            <if test="categoryId != null and categoryId != -1 ">
+                and pro_category_id = #{categoryId}
+            </if>
+            <if test="level != null and level != -1 ">
+                and level = #{level}
+            </if>
+            and flag = 0
+        </where>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from problem
     where id = #{id,jdbcType=INTEGER}

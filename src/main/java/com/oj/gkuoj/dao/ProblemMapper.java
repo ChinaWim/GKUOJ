@@ -1,6 +1,9 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Problem;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ProblemMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,16 @@ public interface ProblemMapper {
     int updateByPrimaryKeySelective(Problem record);
 
     int updateByPrimaryKey(Problem record);
+
+    /**
+     * 根据分类Id 随机返回推荐题目
+     * @param proCategoryId
+     * @param row
+     * @return
+     */
+    List<Problem> listSuggestProblem(@Param("proCategoryId") Integer proCategoryId, @Param("row") int row);
+
+    Integer countRandomProblemId();
+
+    List<Problem> listAll(@Param("keyword")String keyword,@Param("level")Integer level,@Param("categoryId")Integer categoryId);
 }

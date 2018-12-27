@@ -14,4 +14,5 @@ public interface ProblemResultMapper {
     int updateByPrimaryKeySelective(ProblemResult record);
 
     int updateByPrimaryKey(ProblemResult record);
+
 }
