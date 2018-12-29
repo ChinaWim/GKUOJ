@@ -41,9 +41,9 @@ z-index: 999999">
             <header class="head">
                 <div class="main-bar">
                     <div class="row no-gutters">
-                        <div class="col-6">
-                            <h4 class="m-t-5">
-                                <i class="fa fa-pencil"></i>
+                        <div class="col-6 ">
+                            <h4 class="nav_top_align">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
                                 NO.[[${problem.id}]] [[${problem.name}]]
                             </h4>
                         </div>
@@ -51,13 +51,13 @@ z-index: 999999">
                             <ol class="breadcrumb float-right nav_breadcrumb_top_align">
                                 <li class="breadcrumb-item">
                                     <a th:href="@{/}">
-                                        <i class="fa fa-home" data-pack="default" data-tags=""></i>&nbsp;首页
+                                        <i class="fa fa-home" aria-hidden="true"></i> 首页
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a th:href="@{/problem/problemList}">题库</a>
                                 </li>
-                                <li class="active breadcrumb-item"> NO.[[${problem.id}]]</li>
+                                <li class="breadcrumb-item active">NO.[[${problem.id}]]</li>
                             </ol>
                         </div>
                     </div>

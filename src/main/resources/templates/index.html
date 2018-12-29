@@ -7,7 +7,7 @@
     <div th:replace="~{fragments/head-base}"></div>
 </head>
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
-<div class="preloader" style=" position: fixed;
+<!--<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -24,7 +24,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>
+</div>-->
 <!--wrap-->
 <div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
@@ -49,8 +49,9 @@ z-index: 999999">
                 <div class="inner bg-container">
                     <div class="row">
                         <div class="col-12">
-                            abc
-
+                            <h3>
+                                在洛谷，享受Coding的欢乐！
+                            </h3>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -63,7 +64,7 @@ z-index: 999999">
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img class="d-block w-100 h-25" th:src="@{/img/indexImg2.png}"
+                                        <img class="d-block w-100 h-25" th:src="@{/img/indexImg1.png}"
                                              alt="Second slide">
                                     </div>
                                     <div class="carousel-item">
@@ -85,10 +86,205 @@ z-index: 999999">
                         </div>
                         <!--#轮播图-->
                         <div class="col-6">
-                            十二月大 22 星期六
-                            距 NOIp2019 还剩 321 天
+                            <div class="text-center ">
+                                <h1 class="text-danger">[[${#dates.format(nowDate,'yyyy')}]]&nbsp;Years</h1>
+                                <h1 class="text-success">[[${#dates.format(nowDate,'MM')}]]&nbsp;Month</h1>
+                                <h1 class="text-primary">[[${#dates.format(nowDate,'dd')}]]&nbsp;Day</h1>
+                                <h3 class="text-warning">距 元旦 还剩 3 天</h3>
+                            </div>
                         </div>
                     </div>
+                    <div class="row mt-3">
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-block card_block_top_align ">
+                                    <p><i class="fa fa-paper-plane"></i>&nbsp;快速跳转</p>
+                                    <form th:action="@{/problem/problemDetail}">
+                                        <input type="text" name = "problemId" class="form-control   focused_input" placeholder="例：1001，可跳至“A+B问题">
+                                        <div class="mt-3">
+                                            <button class="btn btn-danger float-left" type="submit">跳转</button>
+                                            <button type="button" class="btn btn-primary ml-2 float-left" onclick="location.href='problem/randomProblem'">随机跳题</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="card">
+                                <div class="card-block card_block_top_align ">
+                                    <div class="row">
+                                        <img th:src="@{/img/indexStep1.png}" class="col-4">
+                                        <img th:src="@{/img/indexStep2.png}" class="col-4">
+                                        <img th:src="@{/img/indexStep3.png}" class="col-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <i class="fa fa fa-trophy"></i>近期比赛
+                                </div>
+                                <div class="card-block card_block_top_align ">
+                                    <div class="row">
+                                        <div class="col-4 ">
+                                            <div class="card card-outline-success">
+                                                <div class="card-header  bg-success">waaadreamer的圣诞虐题赛</div>
+                                                <div class="card-block">
+                                                    <div class="mt-2">
+                                                        <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
+                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span class=" btn-warning btn-sm">IOI</span>&nbsp;
+                                                        <a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card card-outline-success">
+                                                <div class="card-header  bg-success">xtq的小学生活  </div>
+                                                <div class="card-block">
+                                                    <div class="mt-2">
+                                                        <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
+                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span class=" btn-warning btn-sm">IOI</span>&nbsp;
+                                                        <a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card card-outline-success">
+                                                <div class="card-header  bg-success">元旦联欢会</div>
+                                                <div class="card-block">
+                                                    <div class="mt-2">
+                                                        <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
+                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span class=" btn-warning btn-sm">IOI</span>&nbsp;
+                                                        <a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-4 mt-3">
+                                            <div class="card card-outline-warning">
+                                                <div class="card-header  bg-warning">waaadreamer的圣诞虐题赛</div>
+                                                <div class="card-block">
+                                                    <div class="mt-2">
+                                                        <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
+                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span class=" btn-warning btn-sm">IOI</span>&nbsp;
+                                                        <a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mt-3">
+                                            <div class="card card-outline-warning">
+                                                <div class="card-header  bg-warning">xtq的小学生活  </div>
+                                                <div class="card-block">
+                                                    <div class="mt-2">
+                                                        <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
+                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span class=" btn-warning btn-sm">IOI</span>&nbsp;
+                                                        <a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mt-3">
+                                            <div class="card card-outline-warning">
+                                                <div class="card-header  bg-warning">元旦联欢会</div>
+                                                <div class="card-block">
+                                                    <div class="mt-2">
+                                                        <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
+                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span class=" btn-warning btn-sm">IOI</span>&nbsp;
+                                                        <a class="text-danger"> 12时59分后</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <i class="fa fa-bullhorn"></i>&nbsp;本站公告
+                                </div>
+                                <div class="card-block card_block_top_align ">
+                                    <ul>
+                                        <li>
+                                            <a href="#" class="text-primary">王菊 av视频网站</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="text-primary">啊泵 场地收租管理网站</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="text-primary">王菊 av视频网站</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="text-primary">啊泵 场地收租管理网站</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <i class="fa fa fa-commenting"></i>最新讨论
+                                </div>
+                                <div class="card-block card_block_top_align ">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+
+
+
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <i class="fa fa-user"></i>&nbsp;友情链接
+                                </div>
+                                <div class="card-block p-3">
+                                    <ul>
+                                        <li>
+                                            <a href="#" class="text-primary">王菊 av视频网站</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="text-primary">啊泵 场地收租管理网站</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

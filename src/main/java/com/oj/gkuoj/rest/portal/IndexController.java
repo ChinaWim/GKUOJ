@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @author m969130721@163.com
@@ -12,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String index(HttpServletRequest request){
+
+        //set data
+        request.setAttribute("nowDate",new Date());
         request.setAttribute("active1",true);
         return "index";
     }

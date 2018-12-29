@@ -59,7 +59,7 @@
         select <include refid="Base_Column_List"/> from problem
         <where>
             <if test="keyword != null and keyword !='' ">
-                id = #{keyword} or name = #{keyword} or tag = #{keyword}
+                id = #{keyword} or name like concat('%',#{keyword},'%') or tag like concat('%',#{keyword},'%')
             </if>
             <if test="categoryId != null and categoryId != -1 ">
                 and pro_category_id = #{categoryId}

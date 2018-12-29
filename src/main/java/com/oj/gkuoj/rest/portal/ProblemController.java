@@ -41,7 +41,7 @@ public class ProblemController {
      * @param categoryId
      * @return
      */
-    @RequestMapping("problemList")
+    @RequestMapping("/problemList")
     public String problemList(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize, String keyword,
                               @RequestParam(defaultValue = "-1")Integer level, @RequestParam(defaultValue = "-1")Integer categoryId) {
         //题目
@@ -71,7 +71,6 @@ public class ProblemController {
     @RequestMapping("/problemDetail")
     public String problemDetail(HttpServletRequest request,Integer problemId){
         Problem problem = problemService.getById(problemId).getData();
-
         //set data
         request.setAttribute("problem",problem);
         request.setAttribute("active2", true);
