@@ -1,8 +1,9 @@
 package com.oj.gkuoj.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ProblemCategory {
+public class Tag implements Serializable {
     private Integer id;
 
     private Integer parentId;
@@ -13,7 +14,7 @@ public class ProblemCategory {
 
     private Date updateTime;
 
-    public ProblemCategory(Integer id, Integer parentId, String name, Date createTime, Date updateTime) {
+    public Tag(Integer id, Integer parentId, String name, Date createTime, Date updateTime) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
@@ -21,7 +22,7 @@ public class ProblemCategory {
         this.updateTime = updateTime;
     }
 
-    public ProblemCategory() {
+    public Tag() {
         super();
     }
 
@@ -63,5 +64,17 @@ public class ProblemCategory {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", name='" + name + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

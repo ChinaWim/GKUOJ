@@ -1,11 +1,11 @@
 package com.oj.gkuoj.service.impl;
 
 import com.oj.gkuoj.common.ResponseCodeEnum;
+import com.oj.gkuoj.dao.TagMapper;
+import com.oj.gkuoj.entity.Tag;
 import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.common.StringConst;
-import com.oj.gkuoj.dao.ProblemCategoryMapper;
-import com.oj.gkuoj.entity.ProblemCategory;
-import com.oj.gkuoj.service.ProblemCategoryService;
+import com.oj.gkuoj.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +16,23 @@ import java.util.List;
  * @date 18-12-23 下午3:43
  */
 @Service
-public class ProblemCategoryImpl implements ProblemCategoryService {
+public class TagImpl implements TagService {
     @Autowired
-    private ProblemCategoryMapper categoryMapper;
+    private TagMapper tagMapper;
 
     @Override
-    public ServerResponseVO<List<ProblemCategory>> listAll() {
-        List<ProblemCategory> problemCategoryList = categoryMapper.listAll();
+    public ServerResponseVO<List<Tag>> listAll() {
+        List<Tag> problemCategoryList = tagMapper.listAll();
         return ServerResponseVO.createBySuccess(problemCategoryList);
     }
 
     @Override
-    public ServerResponseVO insert(ProblemCategory problemCategory) {
-        if (problemCategory == null) {
+    public ServerResponseVO insert(Tag tag) {
+        if (tag == null) {
             return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
-        int effect = categoryMapper.insertSelective(problemCategory);
+        int effect = tagMapper.insertSelective(tag);
         return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
                 : ServerResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
@@ -43,18 +43,18 @@ public class ProblemCategoryImpl implements ProblemCategoryService {
             return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
-        int effect = categoryMapper.deleteByPrimaryKey(id);
+        int effect = tagMapper.deleteByPrimaryKey(id);
         return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
                 : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override
-    public ServerResponseVO update(ProblemCategory problemCategory) {
-        if (problemCategory == null) {
+    public ServerResponseVO update(Tag tag) {
+        if (tag == null) {
             return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
-        int effect = categoryMapper.updateByPrimaryKeySelective(problemCategory);
+        int effect = tagMapper.updateByPrimaryKeySelective(tag);
         return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : ServerResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }

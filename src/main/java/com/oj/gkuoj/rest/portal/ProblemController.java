@@ -1,10 +1,10 @@
 package com.oj.gkuoj.rest.portal;
 
 import com.github.pagehelper.PageInfo;
-import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.Problem;
-import com.oj.gkuoj.entity.ProblemCategory;
-import com.oj.gkuoj.service.ProblemCategoryService;
+import com.oj.gkuoj.entity.Tag;
+import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.service.TagService;
 import com.oj.gkuoj.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class ProblemController {
     private ProblemService problemService;
 
     @Autowired
-    private ProblemCategoryService problemCategoryService;
+    private TagService tagService;
 
     private final Integer SUGGEST_PROBLEM_ROW = 5;
     /**
@@ -37,22 +37,22 @@ public class ProblemController {
      * @param pageSize
      * @param keyword
      * @param level
-     * @param categoryId
+     * @param tagId
      * @return
      */
     @RequestMapping("/problemList")
     public String problemList(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize, String keyword,
-                              @RequestParam(defaultValue = "-1")Integer level, @RequestParam(defaultValue = "-1")Integer categoryId) {
+                              @RequestParam(defaultValue = "-1")Integer level, @RequestParam(defaultValue = "-1")Integer tagId) {
         //题目
-        ServerResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, categoryId, pageNum, pageSize);
+        ServerResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, tagId, pageNum, pageSize);
         PageInfo pageInfo = result.getData();
 
         //题目分类
-        List<ProblemCategory> problemCategoryList = problemCategoryService.listAll().getData();
-        ProblemCategory problemCategory = new ProblemCategory();
-        problemCategory.setName("不限");
-        problemCategory.setId(-1);
-        problemCategoryList.add(0, problemCategory);
+        List<Tag> tagList = tagService.listAll().getData();
+        Tag tag = new Tag();
+        tag.setName("不限");
+        tag.setId(-1);
+        tagList.add(0, tag);
 
         //set data
 
@@ -61,8 +61,8 @@ public class ProblemController {
         request.setAttribute("pageNum",pageNum);
         request.setAttribute("keyword",keyword);
         request.setAttribute("level",level);
-        request.setAttribute("categoryId",categoryId);
-        request.setAttribute("problemCategoryList", problemCategoryList);
+        request.setAttribute("tagId",tagId);
+        request.setAttribute("tagList", tagList);
         request.setAttribute("active2", true);
         return "portal/problem/problem-list";
     }
@@ -85,13 +85,13 @@ public class ProblemController {
 
     /**
      * 随机返回5道推荐题目
-     * @param proCategoryId
+     * @param problemId
      * @return
      */
     @RequestMapping("/suggestProblemList")
     @ResponseBody
-    public ServerResponseVO<List<Problem>> suggestProblemList(Integer proCategoryId){
-        return problemService.listSuggestProblem(proCategoryId,SUGGEST_PROBLEM_ROW);
+    public ServerResponseVO<List<Problem>> suggestProblemList(Integer problemId){
+        return problemService.listSuggestProblem(problemId,SUGGEST_PROBLEM_ROW);
     }
 
     /**

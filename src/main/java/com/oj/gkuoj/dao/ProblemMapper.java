@@ -19,14 +19,14 @@ public interface ProblemMapper {
     int updateByPrimaryKey(Problem record);
 
     /**
-     * 根据分类Id 随机返回推荐题目
-     * @param proCategoryId
+     * 根据题目Id 随机返回推荐题目
+     * @param problemId
      * @param row
      * @return
      */
-    List<Problem> listSuggestProblem(@Param("proCategoryId") Integer proCategoryId, @Param("row") int row);
+    List<Problem> listSuggestProblem(@Param("problemId") Integer problemId, @Param("row") int row);
 
     Integer countRandomProblemId();
 
-    List<Problem> listAll(@Param("keyword")String keyword,@Param("level")Integer level,@Param("categoryId")Integer categoryId);
+    List<Problem> listAll(@Param("keyword")String keyword,@Param("level")Integer level,@Param("tagId")Integer tagId);
 }

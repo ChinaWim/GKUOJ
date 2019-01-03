@@ -59,7 +59,7 @@ z-index: 999999">
                             <div class="row">
                                 <div class="col-8">
                                     <form class="w-75" th:action="@{problem/problemList}">
-                                        <input type="hidden" th:value="${categoryId}" name="categoryId" />
+                                        <input type="hidden" th:value="${tagId}" name="tagId" />
                                         <input type="hidden" th:value="${level}" name="level" />
                                         <input type="hidden" th:value="${pageNum}" name="pageNum" />
                                         <div class="input-group">
@@ -81,11 +81,11 @@ z-index: 999999">
                                             难度
                                         </button>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=-1&categoryId='+${categoryId}+'&pageNum='+${pageNum}}">不限</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=1&categoryId='+${categoryId}+'&pageNum='+${pageNum}}">简单</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=2&categoryId='+${categoryId}+'&pageNum='+${pageNum}}">中等</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=3&categoryId='+${categoryId}+'&pageNum='+${pageNum}}">困难</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=4&categoryId='+${categoryId}+'&pageNum='+${pageNum}}">专家</a>
+                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=-1&tagId='+${tagId}+'&pageNum='+${pageNum}}">不限</a>
+                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=1&tagId='+${tagId}+'&pageNum='+${pageNum}}">简单</a>
+                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=2&tagId='+${tagId}+'&pageNum='+${pageNum}}">中等</a>
+                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=3&tagId='+${tagId}+'&pageNum='+${pageNum}}">困难</a>
+                                            <a class="dropdown-item" th:href="@{'problem/problemList?level=4&tagId='+${tagId}+'&pageNum='+${pageNum}}">专家</a>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ z-index: 999999">
                                             <td><i class="fa fa-minus"/>&nbsp;P[[${problem.id}]]</td>
                                             <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
                                                    class="text-primary">[[${problem.name}]]</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;[[${problem.tag}]]</td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;</td>
                                             <td>[[${problem.submitCount}]]</td>
                                             <td th:text="${problem.acCount}">%</td>
                                             <td>[[${#dates.format(problem.createTime,'yyyy')}]]</td>
@@ -156,11 +156,11 @@ z-index: 999999">
                                 <div class="card-block  ">
                                     <div class="row">
                                         <div class="col-12">
-                                            <span th:each="category,i: ${problemCategoryList}">
-                                                <a th:href="@{'/problem/problemList?categoryId='+${category.id}}"
-                                                   th:classappend="${categoryId eq (category.id)} ? 'active disabled':''"
+                                            <span th:each="tag,i: ${tagList}">
+                                                <a th:href="@{'/problem/problemList?tagId='+${tag.id}}"
+                                                   th:classappend="${tagId eq (tag.id)} ? 'active disabled':''"
                                                    class="btn btn-outline-primary mt-3 mr-3 glow_button">
-                                                    [[${category.name}]]
+                                                    [[${tag.name}]]
                                                 </a>
                                             </span>
                                         </div>
@@ -173,7 +173,7 @@ z-index: 999999">
                                 <div class="card-block  ">
                                     <div class="row">
                                         <div class="col-12">
-                                            <a th:href="@{'/problem/problemList?categoryId='+${categoryId}}"
+                                            <a th:href="@{'/problem/problemList?tagId='+${tagId}}"
                                                class="btn btn-secondary mt-3 mr-3 glow_button text-primary">
                                             </a>
                                         </div>

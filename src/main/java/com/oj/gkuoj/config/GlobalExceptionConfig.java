@@ -30,7 +30,7 @@ public class GlobalExceptionConfig {
         }
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         modelAndView.addObject("uri",request.getRequestURI());
-        modelAndView.addObject("data",exception.getMessage());
+        modelAndView.addObject("errorMsg",exception.getMessage());
         modelAndView.setViewName(ERROR_VIEW);
         return modelAndView;
     }

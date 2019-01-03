@@ -3,10 +3,10 @@ package com.oj.gkuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.ResponseCodeEnum;
+import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.ProblemMapper;
-import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,20 +67,20 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public ServerResponseVO<PageInfo> listProblemToPage(String keyword, Integer level, Integer categoryId, Integer pageNum, Integer pageSize) {
+    public ServerResponseVO<PageInfo> listProblemToPage(String keyword, Integer level, Integer tagId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize,true);
-        List<Problem> problemList = problemMapper.listAll(keyword, level, categoryId);
+        List<Problem> problemList = problemMapper.listAll(keyword, level, tagId);
         PageInfo<Problem> pageInfo = new PageInfo<>(problemList);
         return ServerResponseVO.createBySuccess(pageInfo);
     }
 
     @Override
-    public ServerResponseVO listSuggestProblem(Integer proCategoryId, Integer row) {
-        if (proCategoryId == null) {
+    public ServerResponseVO listSuggestProblem(Integer problemId, Integer row) {
+        if (problemId == null) {
             return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
-        List<Problem> problemList = problemMapper.listSuggestProblem(proCategoryId, row);
+        List<Problem> problemList = problemMapper.listSuggestProblem(problemId, row);
         return ServerResponseVO.createBySuccess(problemList);
     }
 

@@ -414,7 +414,7 @@ z-index: 999999">
         },
         methods:{
             changeList:function () {
-                this.$http.get('/problem/suggestProblemList?proCategoryId='+[[${problem.proCategoryId}]]).then(function (res) {
+                this.$http.get('/problem/suggestProblemList?problemId='+[[${problem.id}]]).then(function (res) {
                     this.suggestProblemList = res.data.data;
                 }),function (res) {
                     console.log(res.data.msg);
