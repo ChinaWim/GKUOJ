@@ -1,8 +1,7 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.Blog;
-import com.oj.gkuoj.entity.Problem;
 
 /**
  * @author m969130721@163.com
@@ -10,13 +9,13 @@ import com.oj.gkuoj.entity.Problem;
  */
 public interface BlogService {
 
-    ServerResponse getById(Integer blogId);
+    ServerResponseVO getById(Integer blogId);
 
-    ServerResponse insert(Blog blog);
+    ServerResponseVO insert(Blog blog);
 
-    ServerResponse delById(Integer id);
+    ServerResponseVO delById(Integer id);
 
-    ServerResponse update(Blog blog);
+    ServerResponseVO update(Blog blog);
 
 
 }

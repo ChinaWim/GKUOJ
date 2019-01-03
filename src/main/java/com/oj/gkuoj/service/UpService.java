@@ -1,7 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.common.ServerResponse;
-import com.oj.gkuoj.entity.Register;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.Up;
 
 /**
@@ -9,11 +8,11 @@ import com.oj.gkuoj.entity.Up;
  * @date 18-12-23 下午4:54
  */
 public interface UpService {
-    ServerResponse insert(Up up);
+    ServerResponseVO insert(Up up);
 
-    ServerResponse delById(Integer id);
+    ServerResponseVO delById(Integer id);
 
-    ServerResponse update(Up up);
+    ServerResponseVO update(Up up);
 
 
 }

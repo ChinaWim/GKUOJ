@@ -1,14 +1,13 @@
 package com.oj.gkuoj.rest.portal;
 
 import com.github.pagehelper.PageInfo;
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.entity.ProblemCategory;
 import com.oj.gkuoj.service.ProblemCategoryService;
 import com.oj.gkuoj.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,7 +44,7 @@ public class ProblemController {
     public String problemList(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize, String keyword,
                               @RequestParam(defaultValue = "-1")Integer level, @RequestParam(defaultValue = "-1")Integer categoryId) {
         //题目
-        ServerResponse<PageInfo> result = problemService.listProblemToPage(keyword, level, categoryId, pageNum, pageSize);
+        ServerResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, categoryId, pageNum, pageSize);
         PageInfo pageInfo = result.getData();
 
         //题目分类
@@ -68,6 +67,13 @@ public class ProblemController {
         return "portal/problem/problem-list";
     }
 
+
+    /**
+     * 题目详情页面
+     * @param request
+     * @param problemId
+     * @return
+     */
     @RequestMapping("/problemDetail")
     public String problemDetail(HttpServletRequest request,Integer problemId){
         Problem problem = problemService.getById(problemId).getData();
@@ -84,7 +90,7 @@ public class ProblemController {
      */
     @RequestMapping("/suggestProblemList")
     @ResponseBody
-    public ServerResponse<List<Problem>> suggestProblemList( Integer proCategoryId){
+    public ServerResponseVO<List<Problem>> suggestProblemList(Integer proCategoryId){
         return problemService.listSuggestProblem(proCategoryId,SUGGEST_PROBLEM_ROW);
     }
 
@@ -95,7 +101,7 @@ public class ProblemController {
     @RequestMapping("/randomProblem")
     public String randomProblem(HttpServletRequest request){
 
-        ServerResponse<Integer> serverResponse = problemService.randomProblemId();
+        ServerResponseVO<Integer> serverResponse = problemService.randomProblemId();
         if(serverResponse.isSuccess()){
             return "redirect:/problem/problemDetail?problemId="+serverResponse.getData();
         }else {

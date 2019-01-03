@@ -1,12 +1,13 @@
 package com.oj.gkuoj.rest.portal;
 
-import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.exception.UserNotFoundException;
 import com.oj.gkuoj.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +36,7 @@ public class UserController {
 
 
     /**
-     * 登录错误
+     * 登录错误处理
      */
 
     @RequestMapping("/loginError")
@@ -56,5 +57,29 @@ public class UserController {
     }
 
 
+    /**
+     * 用户主页
+     * @return
+     */
+    @RequestMapping("/main")
+    public String main(Integer userId,HttpServletRequest request){
+        ServerResponseVO response = userService.getById(userId);
+        if (response.isSuccess() && response.getData() != null){
+            request.setAttribute("user",response.getData());
+        }else {
+            throw new UserNotFoundException();
+        }
+        return "portal/user/main";
+    }
+
+    /**
+     * 个人信息修改页面
+     * @return
+     */
+    @RequestMapping("/profile")
+    @PreAuthorize("authentication.name.equals(#username)")//只能操作自己
+    public String profile(){
+        return "portal/user/profile";
+    }
 
 }

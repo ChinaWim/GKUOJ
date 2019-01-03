@@ -1,23 +1,18 @@
 package com.oj.gkuoj.service.impl;
 
 import com.oj.gkuoj.common.ResponseCodeEnum;
-import com.oj.gkuoj.common.ServerResponse;
-import com.oj.gkuoj.common.SessionKeyConst;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.RoleMapper;
 import com.oj.gkuoj.dao.UserMapper;
 import com.oj.gkuoj.dao.UserRoleMapper;
-import com.oj.gkuoj.dto.ImageCode;
 import com.oj.gkuoj.service.UserService;
 import com.oj.gkuoj.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.spring5.context.SpringContextUtils;
 
 /**
  * @author m969130721@163.com
@@ -38,56 +33,56 @@ public class UserServiceImpl implements UserService,UserDetailsService {
 
 
     @Override
-    public ServerResponse addSignCount(Integer userId) {
+    public ServerResponseVO addSignCount(Integer userId) {
         if (userId == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = userMapper.addSignCount(userId);
-        return effect > 0 ? ServerResponse.createBySuccess():ServerResponse.createByError();
+        return effect > 0 ? ServerResponseVO.createBySuccess():ServerResponseVO.createByError();
     }
 
     @Override
-    public ServerResponse getById(Integer userId) {
+    public ServerResponseVO<User> getById(Integer userId) {
         if (userId == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         User user = userMapper.selectByPrimaryKey(userId);
-        return ServerResponse.createBySuccess(user);
+        return ServerResponseVO.createBySuccess(user);
     }
 
     @Override
-    public ServerResponse insert(User user) {
+    public ServerResponseVO insert(User user) {
         if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = userMapper.insertSelective(user);
-        return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.ADD_SUCCESS)
-                : ServerResponse.createByErrorMessage(StringConst.ADD_FAIL);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
 
     @Override
-    public ServerResponse delById(Integer id) {
+    public ServerResponseVO delById(Integer id) {
         if (id == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = userMapper.deleteByPrimaryKey(id);
-        return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : ServerResponse.createByErrorMessage(StringConst.DEL_FAIL);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override
-    public ServerResponse update(User user) {
+    public ServerResponseVO update(User user) {
         if (user == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = userMapper.updateByPrimaryKeySelective(user);
-        return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
-                : ServerResponse.createByErrorMessage(StringConst.UPDATE_FAIL);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
 
 

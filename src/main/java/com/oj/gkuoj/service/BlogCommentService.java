@@ -1,7 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.common.ServerResponse;
-import com.oj.gkuoj.entity.Blog;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.BlogComment;
 
 /**
@@ -9,13 +8,13 @@ import com.oj.gkuoj.entity.BlogComment;
  * @date 18-12-23 下午4:48
  */
 public interface BlogCommentService {
-    ServerResponse getById(Integer blogCommentId);
+    ServerResponseVO getById(Integer blogCommentId);
 
-    ServerResponse insert(BlogComment blogComment);
+    ServerResponseVO insert(BlogComment blogComment);
 
-    ServerResponse delById(Integer id);
+    ServerResponseVO delById(Integer id);
 
-    ServerResponse update(BlogComment blogComment);
+    ServerResponseVO update(BlogComment blogComment);
 
 
 }

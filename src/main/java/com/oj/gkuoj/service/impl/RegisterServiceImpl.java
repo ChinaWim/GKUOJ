@@ -1,10 +1,9 @@
 package com.oj.gkuoj.service.impl;
 
 import com.oj.gkuoj.common.ResponseCodeEnum;
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.RegisterMapper;
-import com.oj.gkuoj.entity.ProblemCategory;
 import com.oj.gkuoj.entity.Register;
 import com.oj.gkuoj.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,35 +19,35 @@ public class RegisterServiceImpl implements RegisterService {
     private RegisterMapper registerMapper;
 
     @Override
-    public ServerResponse insert(Register register) {
+    public ServerResponseVO insert(Register register) {
         if (register == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = registerMapper.insertSelective(register);
-        return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.ADD_SUCCESS)
-                : ServerResponse.createByErrorMessage(StringConst.ADD_FAIL);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
 
     @Override
-    public ServerResponse delById(Integer id) {
+    public ServerResponseVO delById(Integer id) {
         if (id == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = registerMapper.deleteByPrimaryKey(id);
-        return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : ServerResponse.createByErrorMessage(StringConst.DEL_FAIL);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override
-    public ServerResponse update(Register register) {
+    public ServerResponseVO update(Register register) {
         if (register == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = registerMapper.updateByPrimaryKeySelective(register);
-        return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
-                : ServerResponse.createByErrorMessage(StringConst.UPDATE_FAIL);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
 }

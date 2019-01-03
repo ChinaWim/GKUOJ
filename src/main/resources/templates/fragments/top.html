@@ -41,7 +41,7 @@
                                 <span class="badge badge-pill badge-danger notifications_badge_top">9</span>
                             </a>
                             <div class="dropdown-menu drop_box_align" role="menu" id="notifications_dropdown">
-                                <div class="popover-title">You have 9 Notifications</div>
+                                <div class="popover-title">你有9个信息</div>
                                 <div id="notifications">
                                     <div class="data">
                                         <div class="row">
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="popover-footer">
-                                    <a href="#" class="text-white">View All</a>
+                                    <a href="#" class="text-white">查看所有</a>
                                 </div>
                             </div>
                         </div>
@@ -69,27 +69,29 @@
                     <div class="btn-group">
                         <div class="user-settings no-bg">
                             <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">
-                                <img src="img/admin.jpg" class="admin_img2  rounded-circle "
-                                     alt="avatar"> <strong>[[${#authentication.name}]]</strong>
+                                <img  th:src="${#authentication.principal.avatar} == null ? '/img/default_avatar.jpg' :
+                                 ${#authentication.principal.avatar}" class="admin_img2  rounded-circle "
+                                     alt="avatar" />
+                                <strong>[[${#authentication.name}]]</strong>
                                 <span class="fa fa-sort-down white_bg"></span>
                             </button>
                             <div class="dropdown-menu drop_box_align">
                                 <a class="dropdown-item title" href="#">
-                                    Ming</a>
-                                <a class="dropdown-item" href="edit_user.html"><i class="fa fa-cogs"></i>
-                                    Settings</a>
-                                <a class="dropdown-item" href="mail_inbox.html"><i class="fa fa-envelope"></i>
-                                    Inbox</a>
+                                    [[${#authentication.name}]]</a>
+                                <a class="dropdown-item" th:href="@{'/user/main?userId='+${#authentication.principal.id}}"><i class="fa fa-user"></i>
+                                    我的主页</a>
+                                <a class="dropdown-item" th:href="@{/user/profile}"><i class="fa fa-cog"></i>
+                                    信息编辑</a>
                                 <a class="dropdown-item" th:href="@{/user/logout}"><i class="fa fa-sign-out"></i>
-                                    Log Out</a>
+                                    退出</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="top_search_box float-right hidden-sm-down">
-                <form class="header_input_search float-right">
-                    <input type="text" placeholder="题目搜索" name="search">
+                <form class="header_input_search float-right" th:action="@{/problem/problemList}" method="post">
+                    <input type="text" placeholder="题目搜索" name="keyword">
                     <button type="submit">
                         <span class="font-icon-search"></span>
                     </button>

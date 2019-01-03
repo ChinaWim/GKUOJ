@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>我的主页</title>
+    <div th:replace="~{fragments/head-base}"></div>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/user_main.css}"/>
+</head>
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left ">
+<!--<div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
+    </div>
+</div>-->
+<!--wrap-->
+<div id="wrap">
+    <div th:replace="~{fragments/top :: top}"></div>
+    <!-- /#top -->
+    <div class="wrapper fixedNav_top">
+        <div th:replace="~{fragments/left :: left}"></div>
+        <!-- /#left -->
+        <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <h4 class="m-t-5">
+                                <i class="fa fa-user"></i>&nbsp;我的主页
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="outer">
+                <div class="inner bg-container">
+
+                        <div class="row mt-5">
+                            <div class="col-10 push-1">
+                                <div class="card " style="font-size: 24px">
+                                    <div class="card-block ">
+                                        <img class="user-profile-img"
+                                             th:src="${user.avatar} == null ? '/img/default_avatar.jpg':${user.avatar}"/>
+                                        <div style="margin-top: 120px">
+                                        <span style="margin: 0 auto">
+                                            [[${#authentication.name}]]&nbsp;<i class="fa fa-mars "></i>
+                                        </span>
+                                            <span class="float-right "><i class="fa fa-check " style="color: green"></i>&nbsp;通过率: 13.64%
+                                        <i class="fa fa-clock-o" style="color: #4FB7FE"></i>&nbsp;比赛次数: 1次</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-3 push-1">
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        <span>提交次数</span>
+                                        <span class="badge badge-pill badge-danger ">[[${user.submitCount}]]</span>
+                                    </div>
+                                    <div class="card-block ">
+                                        <canvas id="myChart" class="w-100" style="height: 400px"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-7 push-1">
+                                <div class="card">
+                                    <div class="card-header bg-white">最近做题</div>
+                                    <div class="card-block ">
+                                       <!-- <div class="list-group mt-3">
+                                            <a href="#" class="list-group-item list-group-item-action ">
+                                                A+B
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                                            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                                            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                                            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+                                        </div>-->
+                                        <ul class="list-group list-group-flush table-">
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-10 push-1">
+                                <div class="card">
+                                    <div class="card-header bg-white">提交统计
+                                    </div>
+                                    <div class="card-block ">
+                                        <div class="mt-3 float-right">
+                                            <button class="btn btn-primary btn-sm">近一月</button>
+                                            <button class="btn btn-primary btn-sm">近一年</button>
+                                        </div>
+                                        <canvas id="submitChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.inner -->
+    </div>
+    <!-- /.outer -->
+    <!-- /#content -->
+    <!-- Modal -->
+    <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <form th:action="@{/problem/problemList}" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="float-right" aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="input-group search_bar_small">
+                        <input type="text" class="form-control" placeholder="题目搜索" name="keyword">
+                        <span class="input-group-btn">
+                          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /#content -->
+    <div id="right">
+        <div class="right_content">
+            <div class="well-small dark m-t-15">
+                <div class="row m-0">
+                    <div class="col-lg-12 p-d-0">
+                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('blue_black_skin.css','css')">
+                            <div class="skin_blue skin_size b_t_r"></div>
+                            <div class="skin_blue_border skin_shaddow skin_size b_b_r"></div>
+                        </div>
+                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('green_black_skin.css','css')">
+                            <div class="skin_green skin_size b_t_r"></div>
+                            <div class="skin_green_border skin_shaddow skin_size b_b_r"></div>
+                        </div>
+                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('purple_black_skin.css','css')">
+                            <div class="skin_purple skin_size b_t_r"></div>
+                            <div class="skin_purple_border skin_shaddow skin_size b_b_r"></div>
+                        </div>
+                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('orange_black_skin.css','css')">
+                            <div class="skin_orange skin_size b_t_r"></div>
+                            <div class="skin_orange_border skin_shaddow skin_size b_b_r"></div>
+                        </div>
+                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('red_black_skin.css','css')">
+                            <div class="skin_red skin_size b_t_r"></div>
+                            <div class="skin_red_border skin_shaddow skin_size b_b_r"></div>
+                        </div>
+                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('mint_black_skin.css','css')">
+                            <div class="skin_mint skin_size b_t_r"></div>
+                            <div class="skin_mint_border skin_shaddow skin_size b_b_r"></div>
+                        </div>
+                        <!--</div>-->
+                        <div class="skin_btn skinsingle_btn skin_blue b_r height_40 skin_shaddow"
+                             onclick="javascript:loadjscssfile('blue_skin.css','css')"></div>
+                        <div class="skin_btn skinsingle_btn skin_green b_r height_40 skin_shaddow"
+                             onclick="javascript:loadjscssfile('green_skin.css','css')"></div>
+                        <div class="skin_btn skinsingle_btn skin_purple b_r height_40 skin_shaddow"
+                             onclick="javascript:loadjscssfile('purple_skin.css','css')"></div>
+                        <div class="skin_btn  skinsingle_btn skin_orange b_r height_40 skin_shaddow"
+                             onclick="javascript:loadjscssfile('orange_skin.css','css')"></div>
+                        <div class="skin_btn skinsingle_btn skin_red b_r height_40 skin_shaddow"
+                             onclick="javascript:loadjscssfile('red_skin.css','css')"></div>
+                        <div class="skin_btn skinsingle_btn skin_mint b_r height_40 skin_shaddow"
+                             onclick="javascript:loadjscssfile('mint_skin.css','css')"></div>
+                    </div>
+                    <div class="col-lg-12 text-center m-t-15">
+                        <button class="btn btn-dark button-rounded"
+                                onclick="javascript:loadjscssfile('black_skin.css','css')">Dark
+                        </button>
+                        <button class="btn btn-secondary button-rounded default_skin"
+                                onclick="javascript:loadjscssfile('default_skin.css','css')">Default
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- # right side -->
+</div>
+<!-- /#wrap -->
+<!-- global scripts-->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<!--end of global scripts-->
+<!--  plugin scripts -->
+<script type="text/javascript" th:src="@{/js/pluginjs/Chart.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/chart-utils.js}"></script>
+<!--end of plugin scripts-->
+</body>
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    //fixme exception when user not found
+    var submitCount = [[${user.submitCount}]];
+    var acCount = [[${user.acCount}]];
+    var tleCount = [[${user.tleCount}]];
+    var peCount = [[${user.peCount}]];
+    var meCount = [[${user.meCount}]];
+    var reCount = [[${user.reCount}]];
+    var ceCount = [[${user.ceCount}]];
+    var waCount = [[${user.waCount}]];
+
+
+    //chars
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [acCount, ceCount, peCount, reCount, tleCount, meCount, waCount],
+                backgroundColor: [
+                    '#4BC0C0',
+                    '#FFCD56',
+                    '#ed92ff',
+                    '#FF9F40',
+                    '#62b8ff',
+                    '#6574ff',
+                    '#FF6384'
+                ],
+                borderColor: []
+            }],
+            labels: [
+                'Accepted',
+                'Compile Error',
+                'Presentation Error',
+                'Runtime Error',
+                'Time Limit Exceeded',
+                'Memory Limit Exceeded',
+                'Wrong Answer'
+            ]
+        },
+        options: {
+            title: {
+                display: false,
+                text: '提交次数-' + submitCount + '次'
+            }
+        }
+    });
+
+
+    //提交统计
+
+    var MONTHS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+    var config = {
+        type: 'line',
+        data: {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            datasets: [{
+                label: 'Accepted',
+                backgroundColor: '#4BC0C0',
+                borderColor: '#4BC0C0',
+                data: [
+                    10,
+                    20,
+                    30,
+                    30,
+                    30,
+                    20,
+                    10,
+                    20,
+                    50,
+                    10,
+                    60,
+                    10
+                ],
+                fill: false,
+            }, {
+                label: 'Compile Error',
+                fill: false,
+                backgroundColor: '#FFCD56',
+                borderColor: '#FFCD56',
+                data: [
+                    10,
+                    20,
+                    30,
+                    30,
+                    30,
+                    20,
+                    10,
+                    20,
+                    50,
+                    10,
+                    60,
+                    10
+                ],
+
+            }, {
+                label: 'Presentation Error',
+                fill: false,
+                backgroundColor: '#ed92ff',
+                borderColor: '#ed92ff',
+                data: [
+                    10,
+                    20,
+                    30,
+                    30,
+                    30,
+                    20,
+                    10,
+                    20,
+                    50,
+                    10,
+                    60,
+                    10
+                ],
+
+            }, {
+                label: 'Runtime Error',
+                fill: false,
+                backgroundColor: '#FF9F40',
+                borderColor: '#FF9F40',
+                data: [
+                    10,
+                    20,
+                    30,
+                    30,
+                    30,
+                    20,
+                    10,
+                    20,
+                    50,
+                    10,
+                    60,
+                    10
+                ],
+
+            }, {
+                label: 'Time Limit Exceeded',
+                fill: false,
+                backgroundColor: '#62b8ff',
+                borderColor: '#62b8ff',
+                data: [
+                    10,
+                    20,
+                    30,
+                    30,
+                    30,
+                    20,
+                    10,
+                    20,
+                    50,
+                    10,
+                    60,
+                    10
+                ],
+
+            }, {
+                label: 'Memory Limit Exceeded',
+                fill: false,
+                backgroundColor: '#6574ff',
+                borderColor: '#6574ff',
+                data: [
+                    10,
+                    20,
+                    30,
+                    30,
+                    30,
+                    20,
+                    10,
+                    20,
+                    50,
+                    10,
+                    60,
+                    10
+                ],
+
+            }, {
+                label: 'Wrong Answer',
+                fill: false,
+                backgroundColor: '#FF6384',
+                borderColor: '#FF6384',
+                data: [
+                    20,
+                    30,
+                    40,
+                    50,
+                    60,
+                    70,
+                    80,
+                    40,
+                    20,
+                    60,
+                    60,
+                    20
+                ],
+
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: '最近一年',
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: '月份'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: '次数'
+                    }
+                }]
+            }
+        }
+    };
+
+    window.onload = function () {
+        var ctx = document.getElementById('submitChart').getContext('2d');
+        window.myLine = new Chart(ctx, config);
+    };
+    //end 提交统计
+    // en of chars
+
+
+
+
+
+
+    /*]]>*/
+</script>
+</html>

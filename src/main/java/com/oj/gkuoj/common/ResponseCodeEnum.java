@@ -20,7 +20,14 @@ public enum ResponseCodeEnum {
     /**
      * 非法参数
      */
-    ILLEGAL_ARGUMENT(2, "ILLEGAL_ARGUMENT");
+    ILLEGAL_ARGUMENT(400, "ILLEGAL_ARGUMENT"),
+
+    /**
+     *　用户未找到
+     */
+    USER_NOT_FOUND(9000,"USER_NOT_FOUND");
+
+
 
     private int code;
 

@@ -1,6 +1,6 @@
 package com.oj.gkuoj.rest.portal;
 
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.service.ProblemResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,12 @@ public class ProblemResultController {
     @Autowired
     private ProblemResultService problemResultService;
 
+
+    /**
+     * 测评记录列表
+     * @param request
+     * @return
+     */
     @RequestMapping("/problemResultList")
     public String testcaseList(HttpServletRequest request){
         //set data
@@ -28,11 +34,17 @@ public class ProblemResultController {
     }
 
 
+    /**
+     * 显示源码
+     * @param request
+     * @param problemResultId
+     * @return
+     */
     @RequestMapping("/showSourceCode")
     public String showCode(HttpServletRequest request,Integer problemResultId){
 
         //set data
-        ServerResponse<ProblemResult> serverResponse = problemResultService.getById(problemResultId);
+        ServerResponseVO<ProblemResult> serverResponse = problemResultService.getById(problemResultId);
         if(serverResponse.isSuccess()){
             request.setAttribute("sourceCode",serverResponse.getData().getSourceCode());
         }else {

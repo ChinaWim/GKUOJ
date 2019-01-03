@@ -1,6 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.Sign;
 
 /**
@@ -9,9 +9,9 @@ import com.oj.gkuoj.entity.Sign;
  */
 public interface SignService {
 
-    ServerResponse insert(Sign sign);
+    ServerResponseVO insert(Sign sign);
 
-    ServerResponse delById(Integer id);
+    ServerResponseVO delById(Integer id);
 
-    ServerResponse update(Sign sign);
+    ServerResponseVO update(Sign sign);
 }

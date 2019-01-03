@@ -1,7 +1,7 @@
 package com.oj.gkuoj.service.impl;
 
 import com.oj.gkuoj.common.ResponseCodeEnum;
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.entity.ProblemResult;
@@ -19,24 +19,24 @@ public class ProblemResultServiceImpl implements ProblemResultService {
     private ProblemResultMapper problemResultMapper;
 
     @Override
-    public ServerResponse<ProblemResult> getById(Integer problemResultId) {
+    public ServerResponseVO<ProblemResult> getById(Integer problemResultId) {
         if (problemResultId == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         ProblemResult problemResult = problemResultMapper.selectByPrimaryKey(problemResultId);
-        return problemResult != null ? ServerResponse.createBySuccess(problemResult)
-                : ServerResponse.createByError();
+        return problemResult != null ? ServerResponseVO.createBySuccess(problemResult)
+                : ServerResponseVO.createByError();
     }
 
     @Override
-    public ServerResponse delById(Integer problemResultId) {
+    public ServerResponseVO delById(Integer problemResultId) {
         if (problemResultId == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
                     ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
         }
         int effect = problemResultMapper.deleteByPrimaryKey(problemResultId);
-        return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : ServerResponse.createByErrorMessage(StringConst.DEL_FAIL);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 }

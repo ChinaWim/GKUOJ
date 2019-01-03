@@ -1,6 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.ProblemCategory;
 
 import java.util.List;
@@ -12,13 +12,13 @@ import java.util.List;
 
 public interface ProblemCategoryService {
 
-     ServerResponse<List<ProblemCategory>> listAll();
+     ServerResponseVO<List<ProblemCategory>> listAll();
 
-     ServerResponse insert(ProblemCategory problemCategory);
+     ServerResponseVO insert(ProblemCategory problemCategory);
 
-     ServerResponse delById(Integer id);
+     ServerResponseVO delById(Integer id);
 
-     ServerResponse update(ProblemCategory problemCategory);
+     ServerResponseVO update(ProblemCategory problemCategory);
 
 
 }

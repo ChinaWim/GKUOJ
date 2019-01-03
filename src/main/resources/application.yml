@@ -57,3 +57,5 @@ logging:
 #==================== project Setting =====================#
 project:
   debug: true
+file:
+    dir: /home/ming/Music

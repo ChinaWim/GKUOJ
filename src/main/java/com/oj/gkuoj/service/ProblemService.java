@@ -1,9 +1,8 @@
 package com.oj.gkuoj.service;
 
 import com.github.pagehelper.PageInfo;
-import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.Problem;
-import com.oj.gkuoj.entity.ProblemCategory;
 
 import java.util.List;
 
@@ -13,19 +12,19 @@ import java.util.List;
  */
 public interface ProblemService {
 
-    ServerResponse<Problem> getById(Integer problemId);
+    ServerResponseVO<Problem> getById(Integer problemId);
 
-    ServerResponse insert(Problem problem);
+    ServerResponseVO insert(Problem problem);
 
-    ServerResponse delById(Integer id);
+    ServerResponseVO delById(Integer id);
 
-    ServerResponse update(Problem problem);
+    ServerResponseVO update(Problem problem);
 
-    ServerResponse<PageInfo> listProblemToPage(String keyword, Integer level, Integer categoryId, Integer pageNum, Integer pageSize);
+    ServerResponseVO<PageInfo> listProblemToPage(String keyword, Integer level, Integer categoryId, Integer pageNum, Integer pageSize);
 
-    ServerResponse<List<Problem>> listSuggestProblem(Integer proCategoryId, Integer row);
+    ServerResponseVO<List<Problem>> listSuggestProblem(Integer proCategoryId, Integer row);
 
-    ServerResponse<Integer> randomProblemId();
+    ServerResponseVO<Integer> randomProblemId();
 
 
 }

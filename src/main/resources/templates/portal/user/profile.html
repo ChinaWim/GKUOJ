@@ -3,10 +3,10 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>注册</title>
+    <title>信息编辑</title>
     <div th:replace="~{fragments/head-base}"></div>
 </head>
-<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left ">
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left " >
 <!--<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -26,75 +26,30 @@ z-index: 999999">
     </div>
 </div>-->
 <!--wrap-->
-<div id="wrap">
+<div id="wrap" >
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
     <div class="wrapper fixedNav_top">
         <div th:replace="~{fragments/left :: left}"></div>
         <!-- /#left -->
         <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <h4 class="m-t-5">
+                                <i class="fa fa-cog"></i>&nbsp;信息编辑
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
             <div class="outer">
                 <div class="inner bg-container">
                     <div class="row">
                         <div style="margin: 0 auto">
                             <div class="card m-t-35" style="width: 400px">
-                                <!-- <div class="card-header bg-white">
-                                     登录
-                                 </div>-->
-                                <div class="card-block ">
-                                    <!-- logo -->
-                                    <div class="m-t-30 text-center">
-                                        <img src="img/loginLogo.png" style="width: 300px"/>
-                                        <h3 class="mt-4">欢迎加入洛谷 - 一起探索吧！</h3>
-                                    </div>
-                                    <form class=" mt-3">
-                                        <fieldset>
-                                            <!-- Name input-->
-                                            <div class="form-group row">
 
-                                                <div class="col-lg-12 user_icon_change2">
-                                                    <div class="input-group">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-user"></i>
-                                                            </span>
-                                                        <input type="text" class="form-control "
-                                                               name="username" placeholder="用户名或邮箱">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    <div class="input-group">
-                                                            <span class="input-group-addon">
-                                                            <i class="fa fa-lock"></i>
-                                                        </span>
-                                                        <input type="password" class="form-control" id="password"
-                                                               placeholder="密码">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="form-group row">
-                                                <div class="col-lg-12 push-3">
-                                                    <button class="btn btn-danger btn-lg glow_button">发送验证邮件</button>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6 ">
-                                                    <label class="custom-control custom-checkbox float-left">
-                                                        <input type="checkbox" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">记住我</span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-6">
-                                                    <a href="#" class="text-primary float-right">忘记密码?</a>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -188,5 +143,9 @@ z-index: 999999">
 <!--  plugin scripts -->
 <!--end of plugin scripts-->
 </body>
+<script>
+
+</script>
+
 
 </html>

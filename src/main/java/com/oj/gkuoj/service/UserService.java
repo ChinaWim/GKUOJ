@@ -1,8 +1,7 @@
 package com.oj.gkuoj.service;
 
 
-import com.oj.gkuoj.common.ServerResponse;
-import com.oj.gkuoj.entity.Blog;
+import com.oj.gkuoj.response.ServerResponseVO;
 import com.oj.gkuoj.entity.User;
 
 /**
@@ -11,15 +10,15 @@ import com.oj.gkuoj.entity.User;
  */
 public interface UserService {
 
-    ServerResponse addSignCount(Integer userId);
+    ServerResponseVO addSignCount(Integer userId);
 
-    ServerResponse getById(Integer userId);
+    ServerResponseVO<User> getById(Integer userId);
 
-    ServerResponse insert(User user);
+    ServerResponseVO insert(User user);
 
-    ServerResponse delById(Integer id);
+    ServerResponseVO delById(Integer id);
 
-    ServerResponse update(User user);
+    ServerResponseVO update(User user);
 
 
 

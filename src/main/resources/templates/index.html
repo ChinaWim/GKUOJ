@@ -38,8 +38,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-home"></i>
-                                首页
+                                <i class="fa fa-home"></i>&nbsp;首页
                             </h4>
                         </div>
                     </div>
@@ -71,6 +70,10 @@ z-index: 999999">
                                         <img class="d-block w-100 h-25" th:src="@{/img/indexImg2.png}"
                                              alt="Third slide">
                                     </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100 h-25" th:src="@{/img/indexImg3.png}"
+                                             alt="Third slide">
+                                    </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                                    data-slide="prev">
@@ -90,8 +93,7 @@ z-index: 999999">
                                 <h1 class="text-danger">[[${#dates.format(nowDate,'yyyy')}]]&nbsp;Years</h1>
                                 <h1 class="text-success">[[${#dates.format(nowDate,'MM')}]]&nbsp;Month</h1>
                                 <h1 class="text-primary">[[${#dates.format(nowDate,'dd')}]]&nbsp;Day</h1>
-                                <h3 class="text-warning">距 元旦 还剩 3 天</h3>
-                                <span class="runner btn-outline-success" data-layout="topCenter" data-type="success">Success</span>
+                                <h3 class="text-warning">距 第九届蓝桥杯 还剩  天</h3>
                             </div>
                         </div>
                     </div>
@@ -101,7 +103,7 @@ z-index: 999999">
                                 <div class="card-block card_block_top_align ">
                                     <p><i class="fa fa-paper-plane"></i>&nbsp;快速跳转</p>
                                     <form th:action="@{/problem/problemDetail}">
-                                        <input type="text" name = "problemId" class="form-control   focused_input" placeholder="例：1001，可跳至“A+B问题">
+                                        <input type="text" name = "problemId" class="form-control   focused_input" placeholder="例：1001，可跳至“A+B问题”">
                                         <div class="mt-3">
                                             <button class="btn btn-danger float-left" type="submit">跳转</button>
                                             <button type="button" class="btn btn-primary ml-2 float-left" onclick="location.href='problem/randomProblem'">随机跳题</button>
@@ -294,14 +296,14 @@ z-index: 999999">
     <!-- /#content -->
     <!-- Modal -->
     <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <form>
+        <form th:action="@{/problem/problemList}" method="post">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span class="float-right" aria-hidden="true">&times;</span>
                     </button>
                     <div class="input-group search_bar_small">
-                        <input type="text" class="form-control" placeholder="题目搜索" name="search">
+                        <input type="text" class="form-control" placeholder="题目搜索" name="keyword">
                         <span class="input-group-btn">
                           <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
                         </span>
