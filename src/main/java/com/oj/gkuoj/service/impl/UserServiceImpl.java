@@ -2,21 +2,29 @@ package com.oj.gkuoj.service.impl;
 
 import com.oj.gkuoj.common.ResponseCodeEnum;
 import com.oj.gkuoj.common.ServerResponse;
+import com.oj.gkuoj.common.SessionKeyConst;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.RoleMapper;
 import com.oj.gkuoj.dao.UserMapper;
 import com.oj.gkuoj.dao.UserRoleMapper;
+import com.oj.gkuoj.dto.ImageCode;
 import com.oj.gkuoj.service.UserService;
 import com.oj.gkuoj.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.social.connect.web.HttpSessionSessionStrategy;
+import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.spring5.context.SpringContextUtils;
 
 /**
  * @author m969130721@163.com
  * @date 18-12-17 下午1:45
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService,UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
@@ -25,6 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleMapper roleMapper;
+
+
 
 
     @Override
@@ -78,5 +88,17 @@ public class UserServiceImpl implements UserService {
         int effect = userMapper.updateByPrimaryKeySelective(user);
         return effect > 0 ? ServerResponse.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : ServerResponse.createByErrorMessage(StringConst.UPDATE_FAIL);
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userMapper.getByUserName(username);
+
+        if(user == null){
+            throw new UsernameNotFoundException("User Not Found");
+        }
+        System.out.println(user);
+        return user;
     }
 }

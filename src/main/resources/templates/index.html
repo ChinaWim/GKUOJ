@@ -7,7 +7,7 @@
     <div th:replace="~{fragments/head-base}"></div>
 </head>
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
-<!--<div class="preloader" style=" position: fixed;
+<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -24,7 +24,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>-->
+</div>
 <!--wrap-->
 <div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
@@ -91,6 +91,7 @@ z-index: 999999">
                                 <h1 class="text-success">[[${#dates.format(nowDate,'MM')}]]&nbsp;Month</h1>
                                 <h1 class="text-primary">[[${#dates.format(nowDate,'dd')}]]&nbsp;Day</h1>
                                 <h3 class="text-warning">距 元旦 还剩 3 天</h3>
+                                <span class="runner btn-outline-success" data-layout="topCenter" data-type="success">Success</span>
                             </div>
                         </div>
                     </div>
@@ -266,7 +267,6 @@ z-index: 999999">
                         <div class="col-4">
 
 
-
                             <div class="card">
                                 <div class="card-header bg-white">
                                     <i class="fa fa-user"></i>&nbsp;友情链接
@@ -310,7 +310,6 @@ z-index: 999999">
             </div>
         </form>
     </div>
-
     <!-- /#content -->
     <div id="right">
         <div class="right_content">
@@ -372,9 +371,10 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
-
 <!--end of global scripts-->
 <!--  plugin scripts -->
+<!--<script type="text/javascript" src="vendors/noty/js/jquery.noty.packaged.min.js"></script>-->
+<script type="text/javascript" src="js/pages/index.js"></script>
 <!--end of plugin scripts-->
 </body>
 

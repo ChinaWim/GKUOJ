@@ -3,17 +3,11 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>登录注册页面</title>
+    <title>登录</title>
     <div th:replace="~{fragments/head-base}"></div>
-    <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/vendors/modal/css/component.css}"/>
-
-
 </head>
-
-<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
-<div class="preloader" style=" position: fixed;
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left " >
+<!--<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -28,49 +22,95 @@
   top: 48%;
   background-position: center;
 z-index: 999999">
-        <img src="img/loader.gif" style=" width: 50px;" alt="loading...">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>
-<div id="wrap">
+</div>-->
+<!--wrap-->
+<div id="wrap" >
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
     <div class="wrapper fixedNav_top">
         <div th:replace="~{fragments/left :: left}"></div>
         <!-- /#left -->
         <div id="content" class="bg-container">
-            <header class="head">
-                <div class="main-bar">
-                    <div class="row no-gutters">
-                        <div class="col-6">
-                            <h4 class="m-t-5">
-                                <i class="fa fa-pencil"></i>
-                            </h4>
-                        </div>
-                        <div class="col-6 ">
-                            <ol class="breadcrumb float-right nav_breadcrumb_top_align">
-                                <li class="breadcrumb-item">
-                                    <a th:href="@{/}">
-                                        <i class="fa fa-home" data-pack="default" data-tags=""></i>&nbsp;首页
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a th:href="@{/problem/problemList}">题库</a>
-                                </li>
-                                <li class="active breadcrumb-item"> NO.</li>
-                            </ol>
+            <div class="outer">
+                <div class="inner bg-container">
+                    <div class="row">
+                        <div style="margin: 0 auto">
+                            <div class="card m-t-35" style="width: 400px">
+                                <!-- <div class="card-header bg-white">
+                                     登录
+                                 </div>-->
+                                <div class="card-block ">
+                                    <!-- logo -->
+                                    <div class="m-t-30 text-center">
+                                        <img src="img/loginLogo.png" style="width: 300px"/>
+                                        <h2 class="mt-4">欢迎来到洛谷</h2>
+                                    </div>
+                                    <form class=" mt-3" th:action="@{/user/loginProcess}" method="post">
+                                        <fieldset>
+                                            <!-- Name input-->
+                                            <div class="form-group row">
+
+                                                <div class="col-lg-12 user_icon_change2">
+                                                    <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-user"></i>
+                                                            </span>
+                                                        <input type="text" class="form-control "
+                                                               name="username" placeholder="用户名或邮箱">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-12">
+                                                    <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                            <i class="fa fa-lock"></i>
+                                                        </span>
+                                                        <input name="password" type="password" class="form-control" id="password"
+                                                               placeholder="密码">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <input name="imageCode" placeholder="验证码" class="w-50 form-control float-right"/>
+                                                </div>
+                                                <div class="col-6">
+                                                    <img th:src = "@{/validate/code}" class="float-left mt-1" onclick="this.src = 'validate/code?time='+new Date().getTime()"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mt-3">
+                                                <div class="col-lg-12 push-3">
+                                                    <button class="btn btn-danger btn-lg glow_button">进入洛谷！</button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 ">
+                                                    <label class="custom-control custom-checkbox float-left">
+                                                        <input type="checkbox" class="custom-control-input" value="true" name="remember-me">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">记住我</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="#" class="text-primary float-right">忘记密码?</a>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </header>
-            <div class="outer">
-                <div class="inner bg-container">
-                </div>
             </div>
         </div>
+        <!-- /.inner -->
     </div>
-    <!-- /.inner -->
     <!-- /.outer -->
-
     <!-- /#content -->
     <!-- Modal -->
     <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -83,16 +123,13 @@ z-index: 999999">
                     <div class="input-group search_bar_small">
                         <input type="text" class="form-control" placeholder="题目搜索" name="search">
                         <span class="input-group-btn">
-        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-      </span>
+                          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-
-
-    <!--wrapper-->
     <!-- /#content -->
     <div id="right">
         <div class="right_content">
@@ -153,19 +190,14 @@ z-index: 999999">
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
-<script th:replace="~{fragments/footer :: footer}"></script>
+<div th:replace="~{fragments/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script type="text/javascript" th:src="@{/js/pages/modals.js}"></script>
 <!--end of plugin scripts-->
-<!--page scripts-->
-<script  th:src="@{/js/pages/problem_detail.js}"></script>
-
 </body>
-
-
-
-<script th:inline="javascript">
+<script>
 
 </script>
+
+
 </html>

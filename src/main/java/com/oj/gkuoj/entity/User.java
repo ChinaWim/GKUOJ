@@ -1,9 +1,16 @@
 package com.oj.gkuoj.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class User implements Serializable {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+public class User implements Serializable,UserDetails {
     private Integer id;
 
     private String username;
@@ -28,7 +35,7 @@ public class User implements Serializable {
 
     private Integer submitCount;
 
-    private Integer soluctionCount;
+    private Integer solutionCount;
 
     private Integer acCount;
 
@@ -52,7 +59,38 @@ public class User implements Serializable {
 
     private Date updateTime;
 
-    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, Integer signCount, Integer submitCount, Integer soluctionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Date lastLoginTime, Date createTime, Date updateTime) {
+    private List<Role> roleList;
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return flag == 1;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        for (Role role : this.roleList) {
+            list.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return list;
+    }
+
+    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, Integer signCount, Integer submitCount, Integer solutionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Date lastLoginTime, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -65,7 +103,7 @@ public class User implements Serializable {
         this.phone = phone;
         this.signCount = signCount;
         this.submitCount = submitCount;
-        this.soluctionCount = soluctionCount;
+        this.solutionCount = solutionCount;
         this.acCount = acCount;
         this.tleCount = tleCount;
         this.peCount = peCount;
@@ -179,12 +217,12 @@ public class User implements Serializable {
         this.submitCount = submitCount;
     }
 
-    public Integer getSoluctionCount() {
-        return soluctionCount;
+    public Integer getSolutionCount() {
+        return solutionCount;
     }
 
-    public void setSoluctionCount(Integer soluctionCount) {
-        this.soluctionCount = soluctionCount;
+    public void setSolutionCount(Integer solutionCount) {
+        this.solutionCount = solutionCount;
     }
 
     public Integer getAcCount() {
@@ -290,7 +328,7 @@ public class User implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", signCount=" + signCount +
                 ", submitCount=" + submitCount +
-                ", soluctionCount=" + soluctionCount +
+                ", solutionCount=" + solutionCount +
                 ", acCount=" + acCount +
                 ", tleCount=" + tleCount +
                 ", peCount=" + peCount +

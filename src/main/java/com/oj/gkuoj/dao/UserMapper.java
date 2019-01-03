@@ -16,4 +16,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     int addSignCount(Integer userId);
+
+    User getByUserName(String username);
 }

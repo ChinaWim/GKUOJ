@@ -44,7 +44,7 @@ z-index: 999999">
                         <div class="col-6 ">
                             <h4 class="nav_top_align">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
-                                NO.[[${problem.id}]] [[${problem.name}]]
+                                P[[${problem.id}]] [[${problem.name}]]
                             </h4>
                         </div>
                         <div class="col-6 ">
@@ -57,7 +57,7 @@ z-index: 999999">
                                 <li class="breadcrumb-item">
                                     <a th:href="@{/problem/problemList}">题库</a>
                                 </li>
-                                <li class="breadcrumb-item active">NO.[[${problem.id}]]</li>
+                                <li class="breadcrumb-item active">P[[${problem.id}]]</li>
                             </ol>
                         </div>
                     </div>
@@ -179,10 +179,11 @@ z-index: 999999">
                             </div>
                             <div class="card mt-3">
                                 <div class="card-header bg-white ">
-                                    <div class="twitter_section_head ">
-                                        <i class="fa fa-commenting"></i><a href="# "
-                                                                           class="text-primary">&nbsp;最新评论-讨论区</a>
+                                    <div class="twitter_section_head  ">
+                                        <i class="fa fa-commenting"></i>
+                                        <a href="#" class="text-primary">&nbsp;最新评论-讨论区</a>
                                     </div>
+
                                 </div>
                                 <div class="card-block twitter_section">
                                     <ul id="nt-example1" style="height: 255px; overflow: hidden;">
@@ -287,8 +288,8 @@ z-index: 999999">
 
     <!--- stack1 model 运行测试-->
     <div class="modal fade bs-example-modal-sm in display_none" id="stack1" tabindex="-1" role="dialog"
-         aria-hidden="false">
-        <div class="modal-dialog modal-lg">
+         aria-hidden="false" >
+        <div class="modal-dialog modal-lg" style="width: 600px">
             <div class="modal-content">
                 <div class="modal-header ">
                     <h4 class="modal-title ">添加一组测试用例</h4>
@@ -383,7 +384,7 @@ z-index: 999999">
 <script type="text/javascript" th:src="@{/vendors/ace/src-noconflict/ace.js}"></script>
 <script th:src="@{/vendors/ace/src-noconflict/ext-language_tools.js}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" th:src="@{/js/pluginjs/Chart.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/pages/modals.js}"></script>
+
 <!--end of plugin scripts-->
 <!--page scripts-->
 <script th:src="@{/js/pages/problem_detail.js}"></script>

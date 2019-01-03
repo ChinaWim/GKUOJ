@@ -13,7 +13,7 @@ import java.util.Date;
 @Controller
 public class IndexController {
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public String index(HttpServletRequest request){
 
         //set data

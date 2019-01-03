@@ -16,6 +16,8 @@ public class Competition implements Serializable {
 
     private String password;
 
+    private Integer time;
+
     private Date startTime;
 
     private Date endTime;
@@ -24,13 +26,14 @@ public class Competition implements Serializable {
 
     private Date updateTime;
 
-    public Competition(Integer id, Integer userId, String name, String title, String content, String password, Date startTime, Date endTime, Date createTime, Date updateTime) {
+    public Competition(Integer id, Integer userId, String name, String title, String content, String password, Integer time, Date startTime, Date endTime, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.title = title;
         this.content = content;
         this.password = password;
+        this.time = time;
         this.startTime = startTime;
         this.endTime = endTime;
         this.createTime = createTime;
@@ -89,6 +92,14 @@ public class Competition implements Serializable {
         this.password = password == null ? null : password.trim();
     }
 
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -130,6 +141,7 @@ public class Competition implements Serializable {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", password='" + password + '\'' +
+                ", time=" + time +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", createTime=" + createTime +

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div id="left" class="fixed"  data-th-fragment="left">
-    <div class="menu_scroll" style="height: 5500px !important">
+    <div class="menu_scroll" style="height: 4500px !important">
         <br/>
         <ul id="menu">
             <li  th:classappend="${active1}? 'active':''">
-                <a th:href="@{/}"  data-toggle="tooltip" data-placement="right"  title="首页">
-                    <i class="fa fa-home"></i>
+                <a th:href="@{/index}"  data-toggle="tooltip" data-placement="right"  title="首页">
+                    <i class="fa fa-home "></i>
                     <span class="link-title menu_hide">&nbsp;首页</span>
                 </a>
             </li>

@@ -7,7 +7,6 @@
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
-
     <!--heard script-->
 
 </head>
@@ -16,7 +15,7 @@
 
 <!--end of Page head script-->
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
-<!--<div class="preloader" style=" position: fixed;
+<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -33,7 +32,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>-->
+</div>
 <div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
@@ -107,7 +106,7 @@ z-index: 999999">
                                     <i class="fa fa-flag "></i>&nbsp;题目列表
                                 </h5>-->
                                 <div class="card-body">
-                                    <table class="table  table-hover table-striped">
+                                    <table class="table  table-hover table-striped" id="table" >
                                         <thead>
                                         <tr>
                                             <th>题号</th>
@@ -121,7 +120,7 @@ z-index: 999999">
                                         </thead>
                                         <tbody>
                                         <tr th:each="problem,i : ${problemList}">
-                                            <td><i class="fa fa-minus"/>&nbsp;[[${problem.id}]]</td>
+                                            <td><i class="fa fa-minus"/>&nbsp;P[[${problem.id}]]</td>
                                             <td><a th:href="@{'/problem/problemDetail?problemId=1000'}"
                                                    class="text-primary">[[${problem.name}]]</a></td>
                                             <td><i class="fa fa-tags"></i>&nbsp;[[${problem.tag}]]</td>
@@ -145,7 +144,6 @@ z-index: 999999">
                                         </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -287,11 +285,10 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
-
 <!--end of global scripts-->
 <script type="text/javascript" th:src="@{/js/pages/problem_list.js}"></script>
-<script th:inline="javascript" type="text/javascript">
 
+<script th:inline="javascript" type="text/javascript">
 
 </script>
 

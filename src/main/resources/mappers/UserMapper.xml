@@ -15,7 +15,7 @@
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="sign_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="submit_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="soluction_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="solution_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="ac_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="tle_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="pe_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -29,17 +29,65 @@
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
+
+  <resultMap id="BaseResultMapWithRole" type="com.oj.gkuoj.entity.User">
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mood" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="avatar" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="flag" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="sex" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sign_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="submit_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="solution_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ac_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="tle_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="pe_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="me_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ce_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="re_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="wa_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="gold_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="last_login_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+    <collection property="roleList"  ofType="com.oj.gkuoj.entity.Role">
+      <id column="role_id" property="id"/>
+      <result column="role_name" property="name"/>
+    </collection>
+  </resultMap>
+
+
   <sql id="Base_Column_List" >
     id, username, password, name, mood, avatar, flag, sex, email, phone, sign_count, 
-    submit_count, soluction_count, ac_count, tle_count, pe_count, me_count, ce_count, 
+    submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count,
     re_count, wa_count, gold_count, last_login_time, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getByUserName" resultMap="BaseResultMapWithRole" parameterType="string">
+    select user.id, username, password, user.name, mood, avatar, flag, sex, email, phone, sign_count,
+    submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count,
+    re_count, wa_count, gold_count, last_login_time, user.create_time, user.update_time,
+    r.id as role_id,r.name as role_name from user
+    left join user_role ur on ur.user_id = user.id
+    left join role r on r.id = ur.role_id
+    where username = #{username}
+
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
@@ -48,7 +96,7 @@
     insert into user (id, username, password, 
       name, mood, avatar, 
       flag, sex, email, phone, 
-      sign_count, submit_count, soluction_count, 
+      sign_count, submit_count, solution_count,
       ac_count, tle_count, pe_count, 
       me_count, ce_count, re_count, 
       wa_count, gold_count, last_login_time, 
@@ -102,7 +150,7 @@
         submit_count,
       </if>
       <if test="soluctionCount != null" >
-        soluction_count,
+        solution_count,
       </if>
       <if test="acCount != null" >
         ac_count,
@@ -211,7 +259,7 @@
     update user set sign_count = sign_count + 1
     where id = #{userId}
   </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.User" >
     update user
     <set >
       <if test="username != null" >
@@ -248,7 +296,7 @@
         submit_count = #{submitCount,jdbcType=INTEGER},
       </if>
       <if test="soluctionCount != null" >
-        soluction_count = #{soluctionCount,jdbcType=INTEGER},
+        solution_count = #{soluctionCount,jdbcType=INTEGER},
       </if>
       <if test="acCount != null" >
         ac_count = #{acCount,jdbcType=INTEGER},
@@ -296,7 +344,7 @@
       phone = #{phone,jdbcType=VARCHAR},
       sign_count = #{signCount,jdbcType=INTEGER},
       submit_count = #{submitCount,jdbcType=INTEGER},
-      soluction_count = #{soluctionCount,jdbcType=INTEGER},
+      solution_count = #{soluctionCount,jdbcType=INTEGER},
       ac_count = #{acCount,jdbcType=INTEGER},
       tle_count = #{tleCount,jdbcType=INTEGER},
       pe_count = #{peCount,jdbcType=INTEGER},

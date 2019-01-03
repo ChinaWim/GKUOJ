@@ -2,6 +2,8 @@
 server:
   servlet:
     context-path: /
+    session:
+      timeout: 30m
   tomcat:
     uri-encoding: UTF-8
   port: 8081
@@ -11,7 +13,8 @@ spring:
     druid:
       username: root
       password: 47218382
-      driver-class-name: com.mysql.cj.jdbc.Driver
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/ojdb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       max-active: 50
       min-idle: 10

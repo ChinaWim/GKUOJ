@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.concurrent.Callable;
+
 @SpringBootApplication
 @MapperScan("com.oj.gkuoj.dao")
 @EnableTransactionManagement

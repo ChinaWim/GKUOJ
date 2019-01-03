@@ -29,6 +29,10 @@ public class PropertiesUtil {
     }
 
     public static String getProperty(String key) {
+        String string = "1";
+        string = new String();
+
+
         String value = props.getProperty(key.trim());
         if (StringUtils.isBlank(value)) {
             return null;
