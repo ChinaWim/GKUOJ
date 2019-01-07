@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(new ValidateCodeFilter(), UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
-                .loginPage("/user/login")
+                .loginPage("/user/loginPage")
                 .loginProcessingUrl("/user/loginProcess")
                 .successForwardUrl("/index")
                 .failureUrl("/user/loginError")
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/fonts/**",
-                        "/img/**", "/vendors/**", "/user/register", "/validate/**", "/index")
+                        "/img/**", "/vendors/**", "/user/registerPage", "/validate/**", "/index")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -308,9 +308,12 @@
     level, submit_count, ac_count, tle_count, pe_count, me_count, re_count, ce_count,
     wa_count, time, memory, flag, problem.create_time,problem.update_time from problem
     join problem_tag pt on pt.pro_id =  problem.id
+    join tag t on t.id = pt.tag_id
     <where>
       <if test="keyword != null and keyword !='' ">
-        id = #{keyword} or name like concat('%',#{keyword},'%') or tag like concat('%',#{keyword},'%')
+        problem.id = #{keyword}
+        or problem.name like concat('%',#{keyword},'%')
+        or t.name like concat('%',#{keyword},'%')
       </if>
       <if test="tagId != null and tagId != -1">
         and pt.tag_id = #{tagId}

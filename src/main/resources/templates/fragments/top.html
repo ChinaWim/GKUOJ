@@ -24,11 +24,11 @@
                     <i class="fa fa-search text-primary"></i>
                 </div>
                 <div sec:authorize="isAnonymous()">
-                    <a th:href="@{/user/register}" class="btn btn-info ml-2 button-rounded float-right mt-1 glow_button"
+                    <a th:href="@{/user/registerPage}" class="btn btn-info ml-2 button-rounded float-right mt-1 glow_button"
                        style="width: 60px">
                         注册
                     </a>
-                    <a th:href="@{/user/login}" class="btn btn-primary button-rounded  float-right mt-1 glow_button"
+                    <a th:href="@{/user/loginPage}" class="btn btn-primary button-rounded  float-right mt-1 glow_button"
                        style="width: 60px">
                         登录
                     </a>
@@ -78,9 +78,9 @@
                             <div class="dropdown-menu drop_box_align">
                                 <a class="dropdown-item title" href="#">
                                     [[${#authentication.name}]]</a>
-                                <a class="dropdown-item" th:href="@{'/user/main?userId='+${#authentication.principal.id}}"><i class="fa fa-user"></i>
+                                <a class="dropdown-item" th:href="@{'/user/mainPage?userId='+${#authentication.principal.id}}"><i class="fa fa-user"></i>
                                     我的主页</a>
-                                <a class="dropdown-item" th:href="@{/user/profile}"><i class="fa fa-cog"></i>
+                                <a class="dropdown-item" th:href="@{/user/profilePage}"><i class="fa fa-cog"></i>
                                     信息编辑</a>
                                 <a class="dropdown-item" th:href="@{/user/logout}"><i class="fa fa-sign-out"></i>
                                     退出</a>
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="top_search_box float-right hidden-sm-down">
-                <form class="header_input_search float-right" th:action="@{/problem/problemList}" method="post">
+                <form class="header_input_search float-right" th:action="@{/problem/problemListPage}" method="post">
                     <input type="text" placeholder="题目搜索" name="keyword">
                     <button type="submit">
                         <span class="font-icon-search"></span>

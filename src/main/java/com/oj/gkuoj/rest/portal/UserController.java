@@ -29,8 +29,8 @@ public class UserController {
      * 登录页面
      * @return
      */
-    @RequestMapping("/login")
-    public String login(){
+    @RequestMapping("/loginPage")
+    public String loginPage(){
         return "portal/login";
     }
 
@@ -51,8 +51,8 @@ public class UserController {
      * 用户注册页面
      * @return
      */
-    @RequestMapping("/register")
-    public String register(){
+    @RequestMapping("/registerPage")
+    public String registerPage(){
         return "portal/register";
     }
 
@@ -61,8 +61,8 @@ public class UserController {
      * 用户主页
      * @return
      */
-    @RequestMapping("/main")
-    public String main(Integer userId,HttpServletRequest request){
+    @RequestMapping("/mainPage")
+    public String mainPage(Integer userId,HttpServletRequest request){
         ServerResponseVO response = userService.getById(userId);
         if (response.isSuccess() && response.getData() != null){
             request.setAttribute("user",response.getData());
@@ -76,9 +76,9 @@ public class UserController {
      * 个人信息修改页面
      * @return
      */
-    @RequestMapping("/profile")
+    @RequestMapping("/profilePage")
     @PreAuthorize("authentication.name.equals(#username)")//只能操作自己
-    public String profile(){
+    public String profilePage(){
         return "portal/user/profile";
     }
 

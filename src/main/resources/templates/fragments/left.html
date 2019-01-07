@@ -11,14 +11,14 @@
                 </a>
             </li>
             <li th:classappend="${active2} ? 'active':''">
-                <a th:href="@{/problem/problemList}" data-toggle="tooltip" data-placement="right" title="题库">
+                <a th:href="@{/problem/problemListPage}" data-toggle="tooltip" data-placement="right" title="题库">
                     <i class="fa fa-book"></i>
                     <span class="link-title menu_hide">&nbsp;题库
                     </span>
                 </a>
             </li>
             <li th:classappend="${active3} ? 'active':''">
-                <a th:href="@{/competition/competitionList}" data-toggle="tooltip" data-placement="right"  title="比赛">
+                <a th:href="@{/competition/competitionListPage}" data-toggle="tooltip" data-placement="right"  title="比赛">
                     <i class="fa fa-trophy"></i>
                     <span class="link-title menu_hide"> &nbsp; 比赛</span>
                 </a>
@@ -32,13 +32,13 @@
             </li>
 
             <li th:classappend="${active5} ? 'active':''">
-                <a th:href="@{/problemResult/problemResultList}" data-toggle="tooltip" data-placement="right"  title="测评记录">
+                <a th:href="@{/problemResult/problemResultListPage}" data-toggle="tooltip" data-placement="right"  title="测评记录">
                     <i class="fa fa-pie-chart"></i>
                     <span class="link-title menu_hide"> &nbsp; 测评记录</span>
                 </a>
             </li>
             <li th:classappend="${active6} ? 'active':''">
-                <a th:href="@{/blog/blogList}" data-toggle="tooltip" data-placement="right"  title="讨论区">
+                <a th:href="@{/blog/blogListPage}" data-toggle="tooltip" data-placement="right"  title="讨论区">
                     <i class="fa fa-comments"></i>
                     <span class="link-title menu_hide">&nbsp; 讨论区</span>
                 </a>

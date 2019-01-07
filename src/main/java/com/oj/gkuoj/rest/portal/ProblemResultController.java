@@ -22,12 +22,12 @@ public class ProblemResultController {
 
 
     /**
-     * 测评记录列表
+     * 测评记录列表页面
      * @param request
      * @return
      */
-    @RequestMapping("/problemResultList")
-    public String testcaseList(HttpServletRequest request){
+    @RequestMapping("/problemResultListPage")
+    public String problemResultListPage(HttpServletRequest request){
         //set data
         request.setAttribute("active5",true);
         return "portal/problemResult/problemResult-list";
@@ -40,8 +40,8 @@ public class ProblemResultController {
      * @param problemResultId
      * @return
      */
-    @RequestMapping("/showSourceCode")
-    public String showCode(HttpServletRequest request,Integer problemResultId){
+    @RequestMapping("/showSourceCodePage")
+    public String showSourceCodePage(HttpServletRequest request,Integer problemResultId){
 
         //set data
         ServerResponseVO<ProblemResult> serverResponse = problemResultService.getById(problemResultId);

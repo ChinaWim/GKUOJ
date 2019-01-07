@@ -40,8 +40,8 @@ public class ProblemController {
      * @param tagId
      * @return
      */
-    @RequestMapping("/problemList")
-    public String problemList(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize, String keyword,
+    @RequestMapping("/problemListPage")
+    public String problemListPage(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize, String keyword,
                               @RequestParam(defaultValue = "-1")Integer level, @RequestParam(defaultValue = "-1")Integer tagId) {
         //题目
         ServerResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, tagId, pageNum, pageSize);
@@ -74,8 +74,8 @@ public class ProblemController {
      * @param problemId
      * @return
      */
-    @RequestMapping("/problemDetail")
-    public String problemDetail(HttpServletRequest request,Integer problemId){
+    @RequestMapping("/problemDetailPage")
+    public String problemDetailPage(HttpServletRequest request,Integer problemId){
         Problem problem = problemService.getById(problemId).getData();
         //set data
         request.setAttribute("problem",problem);
@@ -103,7 +103,7 @@ public class ProblemController {
 
         ServerResponseVO<Integer> serverResponse = problemService.randomProblemId();
         if(serverResponse.isSuccess()){
-            return "redirect:/problem/problemDetail?problemId="+serverResponse.getData();
+            return "redirect:/problem/problemDetailPage?problemId="+serverResponse.getData();
         }else {
             return "500";
         }
