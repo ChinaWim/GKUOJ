@@ -69,10 +69,7 @@
         </javaClientGenerator>
 
 
-      <!--  <table tableName="user" domainObjectName="User" enableCountByExample="false"
-                         enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-                         selectByExampleQueryId="false"></table>
-
+      <!--
         <table tableName="role" domainObjectName="Role" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
@@ -85,12 +82,6 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 
-
-
-
-        <table tableName="problem__result" domainObjectName="ProblemResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
 
         <table tableName="competition" domainObjectName="Competition" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
@@ -172,20 +163,29 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 -->
-        <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
+        <!--<table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
          enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-         selectByExampleQueryId="false"></table>
-      <table tableName="tag" domainObjectName="Tag" enableCountByExample="false"
+         selectByExampleQueryId="false"></table>-->
+    <!--  <table tableName="tag" domainObjectName="Tag" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
-        <table tableName="problem_tag" domainObjectName="ProblemTag" enableCountByExample="false"
+               selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="problem_tag" domainObjectName="ProblemTag" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+               selectByExampleQueryId="false"></table>-->
 
 <!--
         <table tableName="competition" domainObjectName="Competition" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
+
+        <table tableName="problem_result" domainObjectName="ProblemResult" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+
+        <table tableName="user" domainObjectName="User" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+
 
     </context>
 </generatorConfiguration>

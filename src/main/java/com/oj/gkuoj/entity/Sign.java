@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Sign implements Serializable {
+
+    private static final long serialVersionUID = -357070745823660366L;
+
     private Integer id;
 
     private Integer userId;

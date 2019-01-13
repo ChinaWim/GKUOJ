@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Up implements Serializable {
+
+    private static final long serialVersionUID = 4799170065386693202L;
+
     private Integer id;
 
     private Integer typeId;

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Tag implements Serializable {
+
+    private static final long serialVersionUID = -3299725064180888812L;
+
     private Integer id;
 
     private Integer parentId;

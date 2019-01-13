@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 public class User implements Serializable,UserDetails {
+
+    private static final long serialVersionUID = -3145390293109713500L;
+
     private Integer id;
 
     private String username;
@@ -30,6 +33,8 @@ public class User implements Serializable,UserDetails {
     private String email;
 
     private String phone;
+
+    private String school;
 
     private Integer signCount;
 
@@ -61,6 +66,52 @@ public class User implements Serializable,UserDetails {
 
     private List<Role> roleList;
 
+
+    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, String school, Integer signCount, Integer submitCount, Integer solutionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Date lastLoginTime, Date createTime, Date updateTime) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.mood = mood;
+        this.avatar = avatar;
+        this.flag = flag;
+        this.sex = sex;
+        this.email = email;
+        this.phone = phone;
+        this.school = school;
+        this.signCount = signCount;
+        this.submitCount = submitCount;
+        this.solutionCount = solutionCount;
+        this.acCount = acCount;
+        this.tleCount = tleCount;
+        this.peCount = peCount;
+        this.meCount = meCount;
+        this.ceCount = ceCount;
+        this.reCount = reCount;
+        this.waCount = waCount;
+        this.goldCount = goldCount;
+        this.lastLoginTime = lastLoginTime;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
+
+    public User() {
+        super();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -90,53 +141,7 @@ public class User implements Serializable,UserDetails {
         return list;
     }
 
-    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, Integer signCount, Integer submitCount, Integer solutionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Date lastLoginTime, Date createTime, Date updateTime) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.mood = mood;
-        this.avatar = avatar;
-        this.flag = flag;
-        this.sex = sex;
-        this.email = email;
-        this.phone = phone;
-        this.signCount = signCount;
-        this.submitCount = submitCount;
-        this.solutionCount = solutionCount;
-        this.acCount = acCount;
-        this.tleCount = tleCount;
-        this.peCount = peCount;
-        this.meCount = meCount;
-        this.ceCount = ceCount;
-        this.reCount = reCount;
-        this.waCount = waCount;
-        this.goldCount = goldCount;
-        this.lastLoginTime = lastLoginTime;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
-
-    public User() {
-        super();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-
+    @Override
     public String getPassword() {
         return password;
     }
@@ -199,6 +204,14 @@ public class User implements Serializable,UserDetails {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school == null ? null : school.trim();
     }
 
     public Integer getSignCount() {
@@ -326,6 +339,7 @@ public class User implements Serializable,UserDetails {
                 ", sex='" + sex + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", school='" + school + '\'' +
                 ", signCount=" + signCount +
                 ", submitCount=" + submitCount +
                 ", solutionCount=" + solutionCount +
@@ -340,6 +354,7 @@ public class User implements Serializable,UserDetails {
                 ", lastLoginTime=" + lastLoginTime +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", roleList=" + roleList +
                 '}';
     }
 }

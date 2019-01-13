@@ -13,6 +13,7 @@
       <arg column="sex" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="school" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="sign_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="submit_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="solution_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -30,6 +31,8 @@
     </constructor>
   </resultMap>
 
+
+
   <resultMap id="BaseResultMapWithRole" type="com.oj.gkuoj.entity.User">
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -42,6 +45,7 @@
       <arg column="sex" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="school" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="sign_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="submit_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="solution_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -65,29 +69,16 @@
 
 
   <sql id="Base_Column_List" >
-    id, username, password, name, mood, avatar, flag, sex, email, phone, sign_count, 
-    submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count,
+    id, username, password, name, mood, avatar, flag, sex, email, phone, school, sign_count, 
+    submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count, 
     re_count, wa_count, gold_count, last_login_time, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
+    select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-
-  <select id="getByUserName" resultMap="BaseResultMapWithRole" parameterType="string">
-    select user.id, username, password, user.name, mood, avatar, flag, sex, email, phone, sign_count,
-    submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count,
-    re_count, wa_count, gold_count, last_login_time, user.create_time, user.update_time,
-    r.id as role_id,r.name as role_name from user
-    left join user_role ur on ur.user_id = user.id
-    left join role r on r.id = ur.role_id
-    where username = #{username}
-
-  </select>
-
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
@@ -96,19 +87,21 @@
     insert into user (id, username, password, 
       name, mood, avatar, 
       flag, sex, email, phone, 
-      sign_count, submit_count, solution_count,
-      ac_count, tle_count, pe_count, 
-      me_count, ce_count, re_count, 
-      wa_count, gold_count, last_login_time, 
-      create_time)
+      school, sign_count, submit_count, 
+      solution_count, ac_count, tle_count, 
+      pe_count, me_count, ce_count, 
+      re_count, wa_count, gold_count, 
+      last_login_time, create_time
+      )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{mood,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
       #{flag,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{signCount,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, #{soluctionCount,jdbcType=INTEGER}, 
-      #{acCount,jdbcType=INTEGER}, #{tleCount,jdbcType=INTEGER}, #{peCount,jdbcType=INTEGER}, 
-      #{meCount,jdbcType=INTEGER}, #{ceCount,jdbcType=INTEGER}, #{reCount,jdbcType=INTEGER}, 
-      #{waCount,jdbcType=INTEGER}, #{goldCount,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      #{school,jdbcType=VARCHAR}, #{signCount,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, 
+      #{solutionCount,jdbcType=INTEGER}, #{acCount,jdbcType=INTEGER}, #{tleCount,jdbcType=INTEGER}, 
+      #{peCount,jdbcType=INTEGER}, #{meCount,jdbcType=INTEGER}, #{ceCount,jdbcType=INTEGER}, 
+      #{reCount,jdbcType=INTEGER}, #{waCount,jdbcType=INTEGER}, #{goldCount,jdbcType=INTEGER}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.User" >
     insert into user
@@ -143,13 +136,16 @@
       <if test="phone != null" >
         phone,
       </if>
+      <if test="school != null" >
+        school,
+      </if>
       <if test="signCount != null" >
         sign_count,
       </if>
       <if test="submitCount != null" >
         submit_count,
       </if>
-      <if test="soluctionCount != null" >
+      <if test="solutionCount != null" >
         solution_count,
       </if>
       <if test="acCount != null" >
@@ -214,14 +210,17 @@
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
       <if test="signCount != null" >
         #{signCount,jdbcType=INTEGER},
       </if>
       <if test="submitCount != null" >
         #{submitCount,jdbcType=INTEGER},
       </if>
-      <if test="soluctionCount != null" >
-        #{soluctionCount,jdbcType=INTEGER},
+      <if test="solutionCount != null" >
+        #{solutionCount,jdbcType=INTEGER},
       </if>
       <if test="acCount != null" >
         #{acCount,jdbcType=INTEGER},
@@ -255,10 +254,6 @@
       </if>
     </trim>
   </insert>
-  <update id="addSignCount" parameterType="int">
-    update user set sign_count = sign_count + 1
-    where id = #{userId}
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.User" >
     update user
     <set >
@@ -289,14 +284,17 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
       <if test="signCount != null" >
         sign_count = #{signCount,jdbcType=INTEGER},
       </if>
       <if test="submitCount != null" >
         submit_count = #{submitCount,jdbcType=INTEGER},
       </if>
-      <if test="soluctionCount != null" >
-        solution_count = #{soluctionCount,jdbcType=INTEGER},
+      <if test="solutionCount != null" >
+        solution_count = #{solutionCount,jdbcType=INTEGER},
       </if>
       <if test="acCount != null" >
         ac_count = #{acCount,jdbcType=INTEGER},
@@ -342,9 +340,10 @@
       sex = #{sex,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
       sign_count = #{signCount,jdbcType=INTEGER},
       submit_count = #{submitCount,jdbcType=INTEGER},
-      solution_count = #{soluctionCount,jdbcType=INTEGER},
+      solution_count = #{solutionCount,jdbcType=INTEGER},
       ac_count = #{acCount,jdbcType=INTEGER},
       tle_count = #{tleCount,jdbcType=INTEGER},
       pe_count = #{peCount,jdbcType=INTEGER},
@@ -357,4 +356,26 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+  <update id="addSignCount" parameterType="int">
+    update user set sign_count = sign_count + 1
+    where id = #{userId}
+  </update>
+
+
+  <select id="getByUserName" resultMap="BaseResultMapWithRole" parameterType="string">
+    select user.id, username, password, user.name, mood, avatar, flag, sex, email, phone, school, sign_count,
+    submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count,
+    re_count, wa_count, gold_count, last_login_time, user.create_time, user.update_time,
+    r.id as role_id,r.name as role_name from user
+    left join user_role ur on ur.user_id = user.id
+    left join role r on r.id = ur.role_id
+    where username = #{username}
+
+  </select>
+
+
+
 </mapper>

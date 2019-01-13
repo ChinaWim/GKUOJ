@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Register implements Serializable {
+
+    private static final long serialVersionUID = 401827306166537768L;
+
     private Integer id;
 
     private Integer userId;

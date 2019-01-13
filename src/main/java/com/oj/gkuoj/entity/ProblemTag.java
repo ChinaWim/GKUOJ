@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ProblemTag implements Serializable {
+
+    private static final long serialVersionUID = -7453779340520372396L;
+
     private Integer id;
 
     private Integer proId;

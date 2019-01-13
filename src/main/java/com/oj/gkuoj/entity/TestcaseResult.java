@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class TestcaseResult implements Serializable {
+
+    private static final long serialVersionUID = -447668979504603110L;
+
     private Integer id;
 
     private Integer proReId;

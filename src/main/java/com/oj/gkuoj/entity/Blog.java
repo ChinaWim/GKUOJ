@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Blog implements Serializable {
+
+    private static final long serialVersionUID = -8311667176944911623L;
+
     private Integer id;
 
     private Integer userId;

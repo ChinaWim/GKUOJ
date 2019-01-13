@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Problem implements Serializable {
+
+    private static final long serialVersionUID = 3900182906183274068L;
+
     private Integer id;
 
     private String name;

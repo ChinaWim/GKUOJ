@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ProblemResult implements Serializable {
+
+    private static final long serialVersionUID = 1198749854563595000L;
+
     private Integer id;
 
     private Integer userId;
@@ -20,13 +23,15 @@ public class ProblemResult implements Serializable {
 
     private Long memory;
 
+    private String errorMsg;
+
     private String sourceCode;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, Integer status, String type, Long time, Long memory, String sourceCode, Date createTime, Date updateTime) {
+    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, Integer status, String type, Long time, Long memory, String errorMsg, String sourceCode, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.problemId = problemId;
@@ -35,6 +40,7 @@ public class ProblemResult implements Serializable {
         this.type = type;
         this.time = time;
         this.memory = memory;
+        this.errorMsg = errorMsg;
         this.sourceCode = sourceCode;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -108,6 +114,14 @@ public class ProblemResult implements Serializable {
         this.memory = memory;
     }
 
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg == null ? null : errorMsg.trim();
+    }
+
     public String getSourceCode() {
         return sourceCode;
     }
@@ -132,6 +146,7 @@ public class ProblemResult implements Serializable {
         this.updateTime = updateTime;
     }
 
+
     @Override
     public String toString() {
         return "ProblemResult{" +
@@ -143,6 +158,7 @@ public class ProblemResult implements Serializable {
                 ", type='" + type + '\'' +
                 ", time=" + time +
                 ", memory=" + memory +
+                ", errorMsg='" + errorMsg + '\'' +
                 ", sourceCode='" + sourceCode + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

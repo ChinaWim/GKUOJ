@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class CompetitionProblem implements Serializable {
+    private static final long serialVersionUID = -2735818548511091887L;
+
     private Integer id;
 
     private Integer compId;
