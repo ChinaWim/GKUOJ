@@ -13,4 +13,7 @@ public interface ProblemResultService {
 
     ServerResponseVO delById(Integer problemResultId);
 
+    ServerResponseVO insert(ProblemResult problemResult);
+
+
 }

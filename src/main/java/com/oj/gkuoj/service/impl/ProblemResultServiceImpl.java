@@ -39,4 +39,15 @@ public class ProblemResultServiceImpl implements ProblemResultService {
         return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
                 : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
+
+    @Override
+    public ServerResponseVO insert(ProblemResult problemResult) {
+        if (problemResult == null) {
+            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+        }
+        int effect = problemResultMapper.insertSelective(problemResult);
+        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+    }
 }

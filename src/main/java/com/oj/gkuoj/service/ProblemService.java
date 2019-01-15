@@ -2,6 +2,7 @@ package com.oj.gkuoj.service;
 
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.request.Code;
 import com.oj.gkuoj.response.ServerResponseVO;
 
 import java.util.List;
@@ -25,6 +26,5 @@ public interface ProblemService {
     ServerResponseVO<List<Problem>> listSuggestProblem(Integer problemId, Integer row);
 
     ServerResponseVO<Integer> randomProblemId();
-
 
 }

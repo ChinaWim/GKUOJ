@@ -59,3 +59,13 @@ project:
   debug: true
 file:
     dir: /home/ming/Music
+
+#====================rocketMQ Setting =====================#
+rocketmq:
+  nameserver: 192.168.25.129:9876;192.168.25.130:9876
+  topic: ojcode
+  producer:
+    group: judgeProducerGroup
+    retry-times: 3
+#    max-thread: 128
+#    min-thread: 32

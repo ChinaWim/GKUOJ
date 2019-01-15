@@ -1,6 +1,6 @@
 package com.oj.gkuoj.config.filter;
 
-import com.oj.gkuoj.common.AddressConst;
+import com.oj.gkuoj.common.URIConst;
 import com.oj.gkuoj.common.SessionKeyConst;
 import com.oj.gkuoj.dto.ImageCode;
 import org.apache.commons.lang3.StringUtils;
@@ -30,14 +30,14 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals(request.getRequestURI(), AddressConst.LOGIN_PROCESS_URI) &&
+        if (StringUtils.equals(request.getRequestURI(), URIConst.LOGIN_PROCESS_URI) &&
                 request.getMethod().equalsIgnoreCase("post")) {
             try {
                 validate(new ServletWebRequest(request));
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 request.setAttribute("errorMsg",e.getMessage());
-                request.getServletContext().getRequestDispatcher(AddressConst.LOGIN_PAGE_URI).forward(request,response);
+                request.getServletContext().getRequestDispatcher(URIConst.LOGIN_PAGE_URI).forward(request,response);
                 return;
             }
         }
