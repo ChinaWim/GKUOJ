@@ -37,7 +37,11 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     cache: false
-
+#==================== mail Setting =====================#
+  mail:
+    host: smtp.qq.com
+    username: 969130721@qq.com
+    password: bdywgxmohaxcbbbi
 #==================== mybatis Setting =====================#
 mybatis:
   config-location: classpath:mybatis.config.xml
@@ -49,17 +53,28 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
-
 #==================== logging Setting =====================#
 logging:
   config: classpath:logback.xml
+
+
+
+
+
+
 
 #==================== project Setting =====================#
 project:
   debug: true
 file:
-    dir: /home/ming/Music
-
+  server:
+    http:
+      prefix: http://file.gkuoj.com/
+    dir: /home/ming/gkuoj/file
+    image:
+      dir: ${file.server.dir}/image
+    testcase:
+      dir: ${file.server.dir}/testcase
 #====================rocketMQ Setting =====================#
 rocketmq:
   nameserver: 192.168.25.129:9876;192.168.25.130:9876

@@ -19,7 +19,7 @@ public class UUIDUtil {
      *获取API UUID
      * @return
      */
-    public static String createByAPI() {
+    public static String createByAPI32() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
@@ -42,7 +42,4 @@ public class UUIDUtil {
         return DigestUtils.md5DigestAsHex(string.getBytes());
     }
 
-    public static void main(String[] args) {
-        System.out.println(UUIDUtil.createByTime());
-    }
 }

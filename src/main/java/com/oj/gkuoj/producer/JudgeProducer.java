@@ -1,30 +1,23 @@
 package com.oj.gkuoj.producer;
 
-import com.oj.gkuoj.common.StatusConst;
-import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.common.JudgeStatusConst;
 import com.oj.gkuoj.entity.ProblemResult;
-import com.oj.gkuoj.request.Code;
+import com.oj.gkuoj.request.CodeRequest;
 import com.oj.gkuoj.service.ProblemResultService;
-import com.oj.gkuoj.service.ProblemService;
 import com.oj.gkuoj.utils.JsonUtil;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.codec.EncodingException;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.validation.ConstraintDeclarationException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @author m969130721@163.com
@@ -64,7 +57,7 @@ public class JudgeProducer {
 
 //    @Transactional todo
 
-    public void send(Code code) {
+    public void send(CodeRequest code) {
         //add queueing
         try {
             ProblemResult problemResult = new ProblemResult();
@@ -73,7 +66,7 @@ public class JudgeProducer {
             problemResult.setSourceCode(code.getSourceCode());
             problemResult.setType(code.getType());
             problemResult.setProblemId(code.getProblemId());
-            problemResult.setStatus(StatusConst.QUEUING.getStatus());
+            problemResult.setStatus(JudgeStatusConst.QUEUING.getStatus());
             problemResultService.insert(problemResult);
             code.setProblemResultId(problemResult.getId());
 

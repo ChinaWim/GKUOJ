@@ -18,4 +18,6 @@ public interface UserMapper {
     int addSignCount(Integer userId);
 
     User getByUserName(String username);
+
+    int countByEmail(String email);
 }

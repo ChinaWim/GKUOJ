@@ -1,6 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.ProblemResult;
 
 /**
@@ -9,11 +9,11 @@ import com.oj.gkuoj.entity.ProblemResult;
  */
 public interface ProblemResultService {
 
-    ServerResponseVO<ProblemResult> getById(Integer problemResultId);
+    RestResponseVO<ProblemResult> getById(Integer problemResultId);
 
-    ServerResponseVO delById(Integer problemResultId);
+    RestResponseVO delById(Integer problemResultId);
 
-    ServerResponseVO insert(ProblemResult problemResult);
+    RestResponseVO insert(ProblemResult problemResult);
 
 
 }

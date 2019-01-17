@@ -1,6 +1,6 @@
 package com.oj.gkuoj.config;
 
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,7 +26,7 @@ public class GlobalExceptionConfig {
     public Object solveException(HttpServletRequest request, HttpServletResponse response,Exception exception){
         logger.error("requestURI:{} Exception:",request.getRequestURI(),exception);
         if(isAjaxRequest(request)){
-            return ServerResponseVO.createBySuccessMessage(exception.getMessage());
+            return RestResponseVO.createBySuccessMessage(exception.getMessage());
         }
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
         modelAndView.addObject("uri",request.getRequestURI());

@@ -1,8 +1,11 @@
 package com.oj.gkuoj.config.filter;
 
+import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.common.URIConst;
 import com.oj.gkuoj.common.SessionKeyConst;
 import com.oj.gkuoj.dto.ImageCode;
+import com.oj.gkuoj.response.RestResponseVO;
+import com.oj.gkuoj.utils.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
 /**
@@ -30,20 +34,24 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals(request.getRequestURI(), URIConst.LOGIN_PROCESS_URI) &&
+        String requestURI = request.getRequestURI();
+        if ((StringUtils.equals(requestURI, URIConst.LOGIN_PROCESS_URI) ||
+                StringUtils.equals(requestURI, URIConst.SEND_EMAIL_URI)) &&
                 request.getMethod().equalsIgnoreCase("post")) {
             try {
                 validate(new ServletWebRequest(request));
             } catch (Exception e) {
+                response.setContentType("application/json;charset=UTF-8");
                 logger.error(e.getMessage());
-                request.setAttribute("errorMsg",e.getMessage());
-                request.getServletContext().getRequestDispatcher(URIConst.LOGIN_PAGE_URI).forward(request,response);
+                PrintWriter writer = response.getWriter();
+                RestResponseVO<Object> responseVO = RestResponseVO.createByErrorStatusMessage(RestResponseEnum.VALIDATE_CODE_ERROR.getStatus(),
+                        RestResponseEnum.VALIDATE_CODE_ERROR.getDesc());
+                String responseStr = JsonUtil.obj2String(responseVO);
+                writer.write(responseStr);
                 return;
             }
         }
-
         filterChain.doFilter(request, response);
-
     }
 
 

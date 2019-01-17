@@ -1,7 +1,7 @@
 package com.oj.gkuoj.service;
 
 import com.oj.gkuoj.entity.Tag;
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import java.util.List;
 
 public interface TagService {
 
-     ServerResponseVO<List<Tag>> listAll();
+     RestResponseVO<List<Tag>> listAll();
 
-     ServerResponseVO insert(Tag tag);
+     RestResponseVO insert(Tag tag);
 
-     ServerResponseVO delById(Integer id);
+     RestResponseVO delById(Integer id);
 
-     ServerResponseVO update(Tag tag);
+     RestResponseVO update(Tag tag);
 
 
 }

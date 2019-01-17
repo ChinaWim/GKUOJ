@@ -1,7 +1,7 @@
 package com.oj.gkuoj.service.impl;
 
-import com.oj.gkuoj.common.ResponseCodeEnum;
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.BlogMapper;
 import com.oj.gkuoj.entity.Blog;
@@ -19,45 +19,41 @@ public class BlogServiceImpl implements BlogService {
     private BlogMapper blogMapper;
 
     @Override
-    public ServerResponseVO getById(Integer blogId) {
+    public RestResponseVO getById(Integer blogId) {
         if (blogId == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         Blog blog = blogMapper.selectByPrimaryKey(blogId);
-        return ServerResponseVO.createBySuccess(blog);
+        return RestResponseVO.createBySuccess(blog);
     }
 
     @Override
-    public ServerResponseVO insert(Blog blog) {
+    public RestResponseVO insert(Blog blog) {
         if (blog == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = blogMapper.insertSelective(blog);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
 
     @Override
-    public ServerResponseVO delById(Integer id) {
+    public RestResponseVO delById(Integer id) {
         if (id == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = blogMapper.deleteByPrimaryKey(id);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override
-    public ServerResponseVO update(Blog blog) {
+    public RestResponseVO update(Blog blog) {
         if (blog == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = blogMapper.updateByPrimaryKeySelective(blog);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
 }

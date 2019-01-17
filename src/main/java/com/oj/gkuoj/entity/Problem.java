@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Problem implements Serializable {
 
-    private static final long serialVersionUID = 3900182906183274068L;
+    private static final long serialVersionUID = -7742482817295006294L;
 
     private Integer id;
 
@@ -20,6 +20,8 @@ public class Problem implements Serializable {
     private String testcaseInput;
 
     private String testcaseOutput;
+
+    private String tags;
 
     private Integer level;
 
@@ -49,7 +51,7 @@ public class Problem implements Serializable {
 
     private Date updateTime;
 
-    public Problem(Integer id, String name, String content, String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
+    public Problem(Integer id, String name, String content, String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, String tags, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -57,6 +59,7 @@ public class Problem implements Serializable {
         this.outputDesc = outputDesc;
         this.testcaseInput = testcaseInput;
         this.testcaseOutput = testcaseOutput;
+        this.tags = tags;
         this.level = level;
         this.submitCount = submitCount;
         this.acCount = acCount;
@@ -131,6 +134,14 @@ public class Problem implements Serializable {
 
     public void setTestcaseOutput(String testcaseOutput) {
         this.testcaseOutput = testcaseOutput == null ? null : testcaseOutput.trim();
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags == null ? null : tags.trim();
     }
 
     public Integer getLevel() {
@@ -245,7 +256,6 @@ public class Problem implements Serializable {
         this.updateTime = updateTime;
     }
 
-
     @Override
     public String toString() {
         return "Problem{" +
@@ -256,6 +266,7 @@ public class Problem implements Serializable {
                 ", outputDesc='" + outputDesc + '\'' +
                 ", testcaseInput='" + testcaseInput + '\'' +
                 ", testcaseOutput='" + testcaseOutput + '\'' +
+                ", tags='" + tags + '\'' +
                 ", level=" + level +
                 ", submitCount=" + submitCount +
                 ", acCount=" + acCount +

@@ -1,6 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.Register;
 
 /**
@@ -9,10 +9,10 @@ import com.oj.gkuoj.entity.Register;
  */
 public interface RegisterService {
 
-    ServerResponseVO insert(Register register);
+    RestResponseVO insert(Register register);
 
-    ServerResponseVO delById(Integer id);
+    RestResponseVO delById(Integer id);
 
-    ServerResponseVO update(Register register);
+    RestResponseVO update(Register register);
 
 }

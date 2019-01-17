@@ -1,6 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.Blog;
 
 /**
@@ -9,13 +9,13 @@ import com.oj.gkuoj.entity.Blog;
  */
 public interface BlogService {
 
-    ServerResponseVO getById(Integer blogId);
+    RestResponseVO getById(Integer blogId);
 
-    ServerResponseVO insert(Blog blog);
+    RestResponseVO insert(Blog blog);
 
-    ServerResponseVO delById(Integer id);
+    RestResponseVO delById(Integer id);
 
-    ServerResponseVO update(Blog blog);
+    RestResponseVO update(Blog blog);
 
 
 }

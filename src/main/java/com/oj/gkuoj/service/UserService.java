@@ -1,7 +1,7 @@
 package com.oj.gkuoj.service;
 
 
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.User;
 
 /**
@@ -10,16 +10,17 @@ import com.oj.gkuoj.entity.User;
  */
 public interface UserService {
 
-    ServerResponseVO addSignCount(Integer userId);
+    RestResponseVO addSignCount(Integer userId);
 
-    ServerResponseVO<User> getById(Integer userId);
+    RestResponseVO<User> getById(Integer userId);
 
-    ServerResponseVO insert(User user);
+    RestResponseVO insert(User user);
 
-    ServerResponseVO delById(Integer id);
+    RestResponseVO delById(Integer id);
 
-    ServerResponseVO update(User user);
+    RestResponseVO update(User user);
 
+    RestResponseVO sendEmail(String email);
 
 
 }

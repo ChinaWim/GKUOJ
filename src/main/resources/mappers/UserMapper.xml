@@ -372,10 +372,13 @@
     r.id as role_id,r.name as role_name from user
     left join user_role ur on ur.user_id = user.id
     left join role r on r.id = ur.role_id
-    where username = #{username}
+    where username = #{username} or email = #{username}
 
   </select>
-
+  <select id="countByEmail" resultType="java.lang.Integer">
+    select count(email) from user
+    where email = #{email}
+  </select>
 
 
 </mapper>

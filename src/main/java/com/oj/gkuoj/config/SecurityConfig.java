@@ -1,5 +1,6 @@
 package com.oj.gkuoj.config;
 
+import com.oj.gkuoj.common.URIConst;
 import com.oj.gkuoj.config.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -36,6 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
 
+    @Autowired
+    private AuthenticationFailureHandler loginFailureHandler;
+
+    @Autowired
+    private AuthenticationSuccessHandler loginSuccessHandler;
+
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -51,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/user/loginPage")
                 .loginProcessingUrl("/user/loginProcess")
-                .successForwardUrl("/index")
-                .failureUrl("/user/loginError")
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler)
                 .permitAll()
                 .and()
                 .logout().logoutUrl("/user/logout").logoutSuccessUrl("/index").permitAll()
@@ -63,8 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/fonts/**",
-                        "/img/**", "/vendors/**", "/user/registerPage", "/validate/**", "/index")
+                .antMatchers(URIConst.PERMIT_ARRAY)
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -73,5 +81,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
+    }
+
+    public static void main(String[] args) {
+        String encode = new BCryptPasswordEncoder().encode("123");
     }
 }

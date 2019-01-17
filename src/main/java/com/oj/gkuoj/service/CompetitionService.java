@@ -1,6 +1,6 @@
 package com.oj.gkuoj.service;
 
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.Competition;
 
 /**
@@ -9,12 +9,12 @@ import com.oj.gkuoj.entity.Competition;
  */
 public interface CompetitionService {
 
-    ServerResponseVO getById(Integer competitionId);
+    RestResponseVO getById(Integer competitionId);
 
-    ServerResponseVO insert(Competition competition);
+    RestResponseVO insert(Competition competition);
 
-    ServerResponseVO delById(Integer id);
+    RestResponseVO delById(Integer id);
 
-    ServerResponseVO update(Competition competition);
+    RestResponseVO update(Competition competition);
 
 }

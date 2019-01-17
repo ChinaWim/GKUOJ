@@ -1,7 +1,7 @@
 package com.oj.gkuoj.service.impl;
 
-import com.oj.gkuoj.common.ResponseCodeEnum;
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.entity.ProblemResult;
@@ -19,35 +19,32 @@ public class ProblemResultServiceImpl implements ProblemResultService {
     private ProblemResultMapper problemResultMapper;
 
     @Override
-    public ServerResponseVO<ProblemResult> getById(Integer problemResultId) {
+    public RestResponseVO<ProblemResult> getById(Integer problemResultId) {
         if (problemResultId == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         ProblemResult problemResult = problemResultMapper.selectByPrimaryKey(problemResultId);
-        return problemResult != null ? ServerResponseVO.createBySuccess(problemResult)
-                : ServerResponseVO.createByError();
+        return problemResult != null ? RestResponseVO.createBySuccess(problemResult)
+                : RestResponseVO.createByError();
     }
 
     @Override
-    public ServerResponseVO delById(Integer problemResultId) {
+    public RestResponseVO delById(Integer problemResultId) {
         if (problemResultId == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = problemResultMapper.deleteByPrimaryKey(problemResultId);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override
-    public ServerResponseVO insert(ProblemResult problemResult) {
+    public RestResponseVO insert(ProblemResult problemResult) {
         if (problemResult == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = problemResultMapper.insertSelective(problemResult);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 }

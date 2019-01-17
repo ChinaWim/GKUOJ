@@ -59,11 +59,12 @@ z-index: 999999">
                             <div class="row">
                                 <div class="col-8">
                                     <form class="w-75" th:action="@{problem/problemListPage}">
-                                        <input type="hidden" th:value="${tagId}" name="tagId" />
-                                        <input type="hidden" th:value="${level}" name="level" />
-                                        <input type="hidden" th:value="${pageNum}" name="pageNum" />
+                                        <input type="hidden" th:value="${tagName}" name="tagName"/>
+                                        <input type="hidden" th:value="${level}" name="level"/>
+                                        <input type="hidden" th:value="${pageNum}" name="pageNum"/>
                                         <div class="input-group">
-                                            <input type="search" name = "keyword" th:value="${keyword}" placeholder="题号、标题、标签" class="form-control">
+                                            <input type="search" name="keyword" th:value="${keyword}"
+                                                   placeholder="题号、标题、标签" class="form-control">
                                             <span class="input-group-btn">
                                         <button class="btn btn-primary" type="submit">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true">
@@ -81,18 +82,24 @@ z-index: 999999">
                                             难度
                                         </button>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" th:href="@{'problem/problemListPage?level=-1&tagId='+${tagId}+'&pageNum='+${pageNum}}">不限</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemListPage?level=1&tagId='+${tagId}+'&pageNum='+${pageNum}}">简单</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemListPage?level=2&tagId='+${tagId}+'&pageNum='+${pageNum}}">中等</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemListPage?level=3&tagId='+${tagId}+'&pageNum='+${pageNum}}">困难</a>
-                                            <a class="dropdown-item" th:href="@{'problem/problemListPage?level=4&tagId='+${tagId}+'&pageNum='+${pageNum}}">专家</a>
+                                            <a class="dropdown-item" th:classappend="${level == -1} ? 'active':''"
+                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=-1&tagName='+${tagName}+'&pageNum='+${pageNum}}">不限</a>
+                                            <a class="dropdown-item" th:classappend="${level == 1} ? 'active':''"
+                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=1&tagName='+${tagName}+'&pageNum='+${pageNum}}">简单</a>
+                                            <a class="dropdown-item" th:classappend="${level == 2} ? 'active':''"
+                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=2&tagName='+${tagName}+'&pageNum='+${pageNum}}">中等</a>
+                                            <a class="dropdown-item" th:classappend="${level == 3} ? 'active':''"
+                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=3&tagName='+${tagName}+'&pageNum='+${pageNum}}">困难</a>
+                                            <a class="dropdown-item" th:classappend="${level == 4} ? 'active':''"
+                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=4&tagName='+${tagName}+'&pageNum='+${pageNum}}">专家</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-4">
-                            <button class=" w-100 btn button-rounded btn-primary glow_button glow_button" onclick="randomProblem()"><i
+                            <button class=" w-100 btn button-rounded btn-primary glow_button glow_button"
+                                    onclick="randomProblem()"><i
                                     class="fa fa-random"></i>&nbsp;帮我随机选择一题
                             </button>
                         </div>
@@ -101,13 +108,13 @@ z-index: 999999">
                         <!--table-->
                         <div class="col-8">
                             <div class="card">
-                                <!--<h5 class="card-header bg-white ">
-                                    <i class="fa fa-flag "></i>&nbsp;题目列表
-                                </h5>-->
+                                <!-- <h5 class="card-header  ">
+                                      <i class="fa fa-flag "></i>&nbsp;题目列表
+                                  </h5>-->
                                 <div class="card-body">
-                                    <table class="table  table-hover table-striped" id="table" >
+                                    <table class="table  table-hover table-striped" id="table">
                                         <thead>
-                                        <tr>
+                                        <tr class="">
                                             <th>题号</th>
                                             <th>标题</th>
                                             <th>标签</th>
@@ -119,25 +126,35 @@ z-index: 999999">
                                         </thead>
                                         <tbody>
                                         <tr th:each="problem,i : ${problemList}">
-                                            <td><i class="fa fa-minus"/>&nbsp;P[[${problem.id}]]</td>
-                                            <td><a th:href="@{'/problem/problemDetailPage?problemId=1000'}"
+                                            <td><i class="fa fa-check text-success"></i>&nbsp;P[[${problem.id}]]</td>
+                                            <td><a th:href="@{'/problem/problemDetailPage?problemId='+${problem.id}}"
                                                    class="text-primary">[[${problem.name}]]</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;</td>
+                                            <td><i class="fa fa-tags"></i>&nbsp;
+                                                <span class="mr-1" th:each="tag : ${#strings.arraySplit(problem.tags,',')}">
+                                                    <a th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level='+${level}+'&tagName='+${tag}+'&pageNum='+${pageNum}}">[[${tag}]]</a>
+                                                </span>
+                                            </td>
                                             <td>[[${problem.submitCount}]]</td>
-                                            <td th:text="${problem.acCount}">%</td>
+                                            <td>
+                                                <span th:if="${problem.submitCount != 0}">
+                                                    <span th:text="${#numbers.formatDecimal(problem.acCount*1.0/problem.submitCount*100,1,2)}"></span>
+                                                 </span>
+                                                <span th:if="${problem.submitCount == 0}">
+                                                    0.00
+                                                </span>%</td>
                                             <td>[[${#dates.format(problem.createTime,'yyyy')}]]</td>
                                             <td>
                                                 <span th:if="${problem.level == 1}">
-                                                    <a href="#" class="btn btn-success btn-sm purple">简单</a>
+                                                    <span class=" btn-success btn-sm purple">简单</span>
                                                 </span>
                                                 <span th:if="${problem.level == 2}">
-                                                    <a href="#" class="btn btn-primary btn-sm purple">中等</a>
+                                                    <span  class=" btn-primary btn-sm purple">中等</span>
                                                 </span>
                                                 <span th:if="${problem.level == 3}">
-                                                    <a href="#" class="btn btn-warning btn-sm purple">困难</a>
+                                                    <span class=" btn-warning btn-sm purple">困难</span>
                                                 </span>
                                                 <span th:if="${problem.level == 4}">
-                                                    <a href="#" class="btn btn-danger btn-sm purple">专家</a>
+                                                    <span  class=" btn-danger btn-sm purple">专家</span>
                                                 </span>
                                             </td>
                                         </tr>
@@ -157,9 +174,9 @@ z-index: 999999">
                                     <div class="row">
                                         <div class="col-12">
                                             <span th:each="tag,i: ${tagList}">
-                                                <a th:href="@{'/problem/problemListPage?tagId='+${tag.id}}"
-                                                   th:classappend="${tagId eq (tag.id)} ? 'active disabled':''"
-                                                   class="btn btn-outline-primary mt-3 mr-3 glow_button">
+                                                <a th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level='+${level}+'&tagName='+${tag.name}+'&pageNum='+${pageNum}}"
+                                                   th:classappend="${tagName eq (tag.name)} ? 'active disabled':''"
+                                                   class="btn btn-outline-primary   mt-3 mr-3 ">
                                                     [[${tag.name}]]
                                                 </a>
                                             </span>

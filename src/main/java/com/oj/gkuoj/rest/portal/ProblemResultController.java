@@ -1,14 +1,13 @@
 package com.oj.gkuoj.rest.portal;
 
-import com.oj.gkuoj.common.ResponseCodeEnum;
+import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.producer.JudgeProducer;
-import com.oj.gkuoj.request.Code;
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.request.CodeRequest;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.service.ProblemResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +54,7 @@ public class ProblemResultController {
     public String showSourceCodePage(HttpServletRequest request, Integer problemResultId) {
 
         //set data
-        ServerResponseVO<ProblemResult> serverResponse = problemResultService.getById(problemResultId);
+        RestResponseVO<ProblemResult> serverResponse = problemResultService.getById(problemResultId);
         if (serverResponse.isSuccess()) {
             request.setAttribute("sourceCode", serverResponse.getData().getSourceCode());
         } else {
@@ -66,13 +65,12 @@ public class ProblemResultController {
 
     @RequestMapping("/submit")
     @ResponseBody
-    public ServerResponseVO submit(@Validated Code code, BindingResult bindingResult) {
+    public RestResponseVO submit(@Validated CodeRequest code, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         producer.send(code);
-        return ServerResponseVO.createBySuccess(code.getProblemResultId());
+        return RestResponseVO.createBySuccess(code.getProblemResultId());
     }
 
 

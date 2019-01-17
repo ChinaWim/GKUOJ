@@ -185,7 +185,9 @@
         <table tableName="user" domainObjectName="User" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
-
+<!--        <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
+                       enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                       selectByExampleQueryId="false"></table>-->
 
     </context>
 </generatorConfiguration>

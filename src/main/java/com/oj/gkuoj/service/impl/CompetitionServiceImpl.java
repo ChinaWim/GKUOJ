@@ -1,7 +1,7 @@
 package com.oj.gkuoj.service.impl;
 
-import com.oj.gkuoj.common.ResponseCodeEnum;
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.CompetitionMapper;
 import com.oj.gkuoj.entity.Competition;
@@ -20,45 +20,41 @@ public class CompetitionServiceImpl implements CompetitionService {
      private CompetitionMapper competitionMapper;
 
      @Override
-     public ServerResponseVO getById(Integer competitionId) {
+     public RestResponseVO getById(Integer competitionId) {
           if (competitionId == null) {
-               return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+               return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
           }
           Competition competition = competitionMapper.selectByPrimaryKey(competitionId);
-          return ServerResponseVO.createBySuccess(competition);
+          return RestResponseVO.createBySuccess(competition);
      }
 
      @Override
-     public ServerResponseVO insert(Competition competition) {
+     public RestResponseVO insert(Competition competition) {
           if (competition == null) {
-               return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+               return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
           }
           int effect = competitionMapper.insertSelective(competition);
-          return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
-                  : ServerResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
+          return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+                  : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
      }
 
      @Override
-     public ServerResponseVO delById(Integer id) {
+     public RestResponseVO delById(Integer id) {
           if (id == null) {
-               return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+               return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
           }
           int effect = competitionMapper.deleteByPrimaryKey(id);
-          return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                  : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+          return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                  : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
      }
 
      @Override
-     public ServerResponseVO update(Competition competition) {
+     public RestResponseVO update(Competition competition) {
           if (competition == null) {
-               return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                       ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+               return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
           }
           int effect = competitionMapper.updateByPrimaryKeySelective(competition);
-          return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
-                  : ServerResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+          return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                  : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
      }
 }

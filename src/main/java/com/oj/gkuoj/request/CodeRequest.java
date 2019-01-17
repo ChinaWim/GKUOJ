@@ -4,11 +4,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-/**
+/**用户提交代码
  * @author m969130721@163.com
  * @date 19-1-15 下午5:19
  */
-public class Code implements Serializable {
+public class CodeRequest implements Serializable {
 
     private static final long serialVersionUID = -201455056342317704L;
 
@@ -82,7 +82,7 @@ public class Code implements Serializable {
 
     @Override
     public String toString() {
-        return "Code{" +
+        return "CodeRequest{" +
                 "userId=" + userId +
                 ", compId=" + compId +
                 ", sourceCode='" + sourceCode + '\'' +

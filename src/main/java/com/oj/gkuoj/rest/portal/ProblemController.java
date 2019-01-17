@@ -3,7 +3,7 @@ package com.oj.gkuoj.rest.portal;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.entity.Tag;
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.TagService;
 import com.oj.gkuoj.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,26 +33,26 @@ public class ProblemController {
     /**
      * 问题列表
      * @param request
-     * @param pageNum 标题、标签、分类或题目编号
+     * @param pageNum
      * @param pageSize
-     * @param keyword
+     * @param keyword 标题、标签、分类或题目编号
      * @param level
-     * @param tagId
+     * @param tagName
      * @return
      */
     @RequestMapping("/problemListPage")
-    public String problemListPage(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize, String keyword,
-                              @RequestParam(defaultValue = "-1")Integer level, @RequestParam(defaultValue = "-1")Integer tagId) {
+    public String problemListPage(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize,
+                                  @RequestParam(defaultValue = "") String keyword, @RequestParam(defaultValue = "-1")Integer level,@RequestParam(defaultValue = "不限") String tagName) {
         //题目
-        ServerResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, tagId, pageNum, pageSize);
+        RestResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, tagName, pageNum, pageSize);
         PageInfo pageInfo = result.getData();
 
-        //题目分类
+        //题目标签
         List<Tag> tagList = tagService.listAll().getData();
-        Tag tag = new Tag();
-        tag.setName("不限");
-        tag.setId(-1);
-        tagList.add(0, tag);
+        Tag t = new Tag();
+        t.setName("不限");
+        t.setId(-1);
+        tagList.add(0, t);
 
         //set data
 
@@ -61,7 +61,7 @@ public class ProblemController {
         request.setAttribute("pageNum",pageNum);
         request.setAttribute("keyword",keyword);
         request.setAttribute("level",level);
-        request.setAttribute("tagId",tagId);
+        request.setAttribute("tagName",tagName);
         request.setAttribute("tagList", tagList);
         request.setAttribute("active2", true);
         return "portal/problem/problem-list";
@@ -90,7 +90,7 @@ public class ProblemController {
      */
     @RequestMapping("/suggestProblemList")
     @ResponseBody
-    public ServerResponseVO<List<Problem>> suggestProblemList(Integer problemId){
+    public RestResponseVO<List<Problem>> suggestProblemList(Integer problemId){
         return problemService.listSuggestProblem(problemId,SUGGEST_PROBLEM_ROW);
     }
 
@@ -101,7 +101,7 @@ public class ProblemController {
     @RequestMapping("/randomProblem")
     public String randomProblem(HttpServletRequest request){
 
-        ServerResponseVO<Integer> serverResponse = problemService.randomProblemId();
+        RestResponseVO<Integer> serverResponse = problemService.randomProblemId();
         if(serverResponse.isSuccess()){
             return "redirect:/problem/problemDetailPage?problemId="+serverResponse.getData();
         }else {

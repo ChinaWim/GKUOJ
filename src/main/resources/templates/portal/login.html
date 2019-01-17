@@ -7,7 +7,7 @@
     <div th:replace="~{fragments/head-base}"></div>
 </head>
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left " >
-<!--<div class="preloader" style=" position: fixed;
+<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -24,7 +24,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>-->
+</div>
 <!--wrap-->
 <div id="wrap" >
     <div th:replace="~{fragments/top :: top}"></div>
@@ -41,7 +41,6 @@ z-index: 999999">
                                 <!-- <div class="card-header bg-white">
                                      登录
                                  </div>-->
-                                <!--todo alert-->
                                 <div>
                                     [[${errorMsg}]]
                                 </div>
@@ -51,7 +50,7 @@ z-index: 999999">
                                         <img src="img/loginLogo.png" style="width: 300px"/>
                                         <h2 class="mt-4">欢迎来到洛谷</h2>
                                     </div>
-                                    <form class=" mt-3" th:action="@{/user/loginProcess}" method="post">
+                                    <form class=" mt-3" id="loginForm">
                                         <fieldset>
                                             <!-- Name input-->
                                             <div class="form-group row">
@@ -61,7 +60,7 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-user"></i>
                                                             </span>
-                                                        <input type="text" class="form-control "
+                                                        <input type="text" class="form-control " id = "username"
                                                                name="username" placeholder="用户名或邮箱">
                                                     </div>
                                                 </div>
@@ -72,29 +71,29 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                             <i class="fa fa-lock"></i>
                                                         </span>
-                                                        <input name="password" type="password" class="form-control" id="password"
+                                                        <input id = "password" name="password" type="password" class="form-control"
                                                                placeholder="密码">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <input name="imageCode" placeholder="验证码" class="w-50 form-control float-right"/>
+                                                    <input id = "imageCode" name="imageCode" placeholder="验证码" class="w-50 form-control float-right"/>
                                                 </div>
                                                 <div class="col-6">
-                                                    <img th:src = "@{/validate/code}" class="float-left mt-1" onclick="this.src = 'validate/code?time='+new Date().getTime()"/>
+                                                    <img th:src = "@{/validate/code}" id = "imageCodeImg"class="float-left mt-1" onclick="this.src = 'validate/code?time='+new Date().getTime()"/>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row mt-3">
-                                                <div class="col-lg-12 push-3">
-                                                    <button class="btn btn-danger btn-lg glow_button">进入洛谷！</button>
+                                                <div class="col-lg-8" style="margin: 0 auto">
+                                                    <a href="javascript:void(0)" onclick="login()" class="btn text-white btn-danger w-100 btn-lg glow_button">进入洛谷</a>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6 ">
                                                     <label class="custom-control custom-checkbox float-left">
-                                                        <input type="checkbox" class="custom-control-input" value="true" name="remember-me">
+                                                        <input type="checkbox" class="custom-control-input" value="true" id = "remember-me" name="remember-me">
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description">记住我</span>
                                                     </label>
@@ -197,11 +196,8 @@ z-index: 999999">
 <div th:replace="~{fragments/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
+<script  th:src="@{/js/pages/login.js}"></script>
 <!--end of plugin scripts-->
 </body>
-<script>
-
-</script>
-
 
 </html>

@@ -1,7 +1,7 @@
 package com.oj.gkuoj.service.impl;
 
-import com.oj.gkuoj.common.ResponseCodeEnum;
-import com.oj.gkuoj.response.ServerResponseVO;
+import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.UpMapper;
 import com.oj.gkuoj.entity.Up;
@@ -20,35 +20,32 @@ public class UpServiceImpl implements UpService {
 
 
     @Override
-    public ServerResponseVO insert(Up up) {
+    public RestResponseVO insert(Up up) {
         if (up == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = upMapper.insertSelective(up);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
 
     @Override
-    public ServerResponseVO delById(Integer id) {
+    public RestResponseVO delById(Integer id) {
         if (id == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = upMapper.deleteByPrimaryKey(id);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override
-    public ServerResponseVO update(Up up) {
+    public RestResponseVO update(Up up) {
         if (up == null) {
-            return ServerResponseVO.createByErrorCodeMessage(ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
-                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getDesc());
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = upMapper.updateByPrimaryKeySelective(up);
-        return effect > 0 ? ServerResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
-                : ServerResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
 }

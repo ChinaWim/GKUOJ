@@ -28,5 +28,5 @@ public interface ProblemMapper {
 
     Integer countRandomProblemId();
 
-    List<Problem> listAll(@Param("keyword")String keyword,@Param("level")Integer level,@Param("tagId")Integer tagId);
+    List<Problem> listAll(@Param("keyword") String keyword, @Param("level") Integer level, @Param("tagName") String tagName);
 }

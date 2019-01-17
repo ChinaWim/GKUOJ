@@ -121,19 +121,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--二维码-->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>2.1</version>
         </dependency>
-
         <!--rocketMQ-->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
             <version>4.3.2</version>
         </dependency>
-
         <!--lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -163,6 +162,12 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.3</version>
+        </dependency>
+        <!-- mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>1.5.13.RELEASE</version>
         </dependency>
 
 
