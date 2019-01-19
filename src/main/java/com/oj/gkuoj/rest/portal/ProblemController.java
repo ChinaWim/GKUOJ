@@ -42,7 +42,8 @@ public class ProblemController {
      */
     @RequestMapping("/problemListPage")
     public String problemListPage(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize,
-                                  @RequestParam(defaultValue = "") String keyword, @RequestParam(defaultValue = "-1")Integer level,@RequestParam(defaultValue = "不限") String tagName) {
+                                  @RequestParam(defaultValue = "",required = false) String keyword, @RequestParam(defaultValue = "-1",required = false)Integer level,
+                                  @RequestParam(defaultValue = "不限",required = false) String tagName) {
         //题目
         RestResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, tagName, pageNum, pageSize);
         PageInfo pageInfo = result.getData();
@@ -105,6 +106,7 @@ public class ProblemController {
         if(serverResponse.isSuccess()){
             return "redirect:/problem/problemDetailPage?problemId="+serverResponse.getData();
         }else {
+            //fixme
             return "500";
         }
     }

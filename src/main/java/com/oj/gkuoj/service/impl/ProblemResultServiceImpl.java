@@ -1,6 +1,9 @@
 package com.oj.gkuoj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.ProblemResultVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.ProblemResultMapper;
@@ -8,6 +11,8 @@ import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.service.ProblemResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -46,5 +51,13 @@ public class ProblemResultServiceImpl implements ProblemResultService {
         int effect = problemResultMapper.insertSelective(problemResult);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+    }
+
+    @Override
+    public RestResponseVO<PageInfo> listProblemResult2Page(Integer problemId, String name, String type, Integer status, Integer pageNum,Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize,true);
+        List<ProblemResultVO> problemResultList = problemResultMapper.listProblemResult(problemId, name, type, status);
+        PageInfo<ProblemResultVO> pageInfo = new PageInfo<ProblemResultVO>(problemResultList);
+        return RestResponseVO.createBySuccess(pageInfo);
     }
 }

@@ -24,8 +24,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //token加密salt
-    private static final String KEY = "m969130721@163.com";
 
     @Bean
     public PasswordEncoder getPasswordEncode() {
@@ -62,9 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/user/loginProcess")
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler)
-                .permitAll()
                 .and()
-                .logout().logoutUrl("/user/logout").logoutSuccessUrl("/index").permitAll()
+                .logout().logoutUrl("/user/logout").logoutSuccessUrl("/index")
                 .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
@@ -72,10 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .and()
                 .authorizeRequests()
-                .antMatchers(URIConst.PERMIT_ARRAY)
-                .permitAll()
-                .anyRequest()
+                .antMatchers(URIConst.NOT_ALLOWED_ARRAY_URI)
                 .authenticated()
+                .anyRequest()
+                .permitAll()
                 .and()
                 .headers().frameOptions().sameOrigin()
                 .and()

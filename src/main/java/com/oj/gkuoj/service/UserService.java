@@ -20,7 +20,12 @@ public interface UserService {
 
     RestResponseVO update(User user);
 
-    RestResponseVO sendEmail(String email);
+    RestResponseVO sendRegisterEmail(String email);
 
 
+    RestResponseVO sendForgetEmail(String email);
+
+    RestResponseVO forgetRestPassword(String token,String password);
+
+    RestResponseVO register(String token, User user);
 }

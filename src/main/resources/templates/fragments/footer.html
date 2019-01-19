@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <title>页脚</title>
 </head>
-<div  data-th-fragment="footer"  style="margin: 0 auto">
-   <!-- <footer class="footer">
-        <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
-        </div>
-    </footer>-->
+<div data-th-fragment="footer" style="margin: 0 auto">
+    <!-- <footer class="footer">
+         <div class="container">
+             <span class="text-muted">Place sticky footer content here.</span>
+         </div>
+     </footer>-->
 
 
-        <!-- global scripts-->
+    <!-- global scripts-->
     <script type="text/javascript" th:src="@{/js/components.js}"></script>
     <script type="text/javascript" th:src="@{/js/custom.js}"></script>
     <script type="text/javascript" th:src="@{/vendors/Buttons/js/buttons.js}"></script>
@@ -20,9 +20,54 @@
     <script type="text/javascript" th:src="@{/js/pluginjs/vue-resource.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/pluginjs/modals.js}"></script>
 
-    <script  th:src="@{/js/toastr.min.js}"></script>
+    <script th:src="@{/js/toastr.min.js}"></script>
 
     <!--end of global scripts-->
+
+    <script type="text/javascript">
+
+
+
+
+
+
+
+
+        /**
+         *0 编译中　1 ac 2 ce 3 pe 4 re 5 tle 6 me 7 wa　8队列中 9判题中
+         * 根据判题status返回对应的颜色
+         * @param status
+         */
+        function getColorByStatus(status){
+            if(status == 1){
+                return '#4BC0C0';
+            }
+            if(status == 2){
+                return '#FFCD56';
+            }
+            if(status == 3){
+                return  '#ed92ff';
+            }
+            if(status == 4){
+                return  '#FF9F40';
+            }
+
+            if(status == 5){
+                return  '#62b8ff';
+            }
+            if(status == 6){
+                return'#6574ff';
+            }
+            if(status == 7){
+                return  '#FF6384'
+            }
+
+            return '';
+        }
+
+
+    </script>
+
 
 </div>
 </html>

@@ -357,4 +357,20 @@ public class User implements Serializable,UserDetails {
                 ", roleList=" + roleList +
                 '}';
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 }

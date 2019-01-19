@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -35,8 +37,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
-        if ((StringUtils.equals(requestURI, URIConst.LOGIN_PROCESS_URI) ||
-                StringUtils.equals(requestURI, URIConst.SEND_EMAIL_URI)) &&
+        if (Arrays.asList(URIConst.VALIDATE_CODE_ARRAY_URI).contains(requestURI)&&
                 request.getMethod().equalsIgnoreCase("post")) {
             try {
                 validate(new ServletWebRequest(request));

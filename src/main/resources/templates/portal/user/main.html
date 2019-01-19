@@ -48,80 +48,194 @@ z-index: 999999">
             <div class="outer">
                 <div class="inner bg-container">
 
-                        <div class="row mt-5">
-                            <div class="col-10 push-1">
-                                <div class="card " style="font-size: 24px">
-                                    <div class="card-block ">
-                                        <img class="user-profile-img"
-                                             th:src="${user.avatar} == null ? '/img/default_avatar.jpg':${user.avatar}"/>
-                                        <div style="margin-top: 120px">
-                                        <span style="margin: 0 auto">
-                                            [[${#authentication.name}]]&nbsp;<i class="fa fa-mars "></i>
-                                        </span>
-                                            <span class="float-right "><i class="fa fa-check " style="color: green"></i>&nbsp;通过率: 13.64%
-                                        <i class="fa fa-clock-o" style="color: #4FB7FE"></i>&nbsp;比赛次数: 1次</span>
+                    <div class="row mt-5">
+                        <div class="col-10 push-1">
+                            <div class="card " style="font-size: 20px">
+                                <div class="card-block ">
+                                    <img class="user-profile-img"
+                                         th:src="${user.avatar} == null ? '/img/default_avatar.jpg':${user.avatar}"/>
+                                    <div style="margin-top: 110px" >
+                                        <div>
+                                            <!-- <div  class=" text-center ">
+                                                 [[${user.name}]]&nbsp;<i class="fa fa-mars "></i>
+                                             </div>-->
+                                            <div class="float-right" >
+                                                <i class="fa fa-check text-success"></i>&nbsp;通过率:
+                                                <span th:if="${user.submitCount != 0}">
+                                                    <span th:text="${#numbers.formatDecimal(user.acCount*1.0/user.submitCount*100,1,2)}"></span>
+                                                 </span>
+                                                <span th:if="${user.submitCount == 0}">
+                                                    0.00
+                                                </span>
+                                                %
+                                                &nbsp;<i class="fa fa-clock-o text-primary"></i>&nbsp;比赛次数: 1次
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row mt-3">
-                            <div class="col-3 push-1">
-                                <div class="card">
-                                    <div class="card-header bg-white">
-                                        <span>提交次数</span>
-                                        <span class="badge badge-pill badge-danger ">[[${user.submitCount}]]</span>
-                                    </div>
-                                    <div class="card-block ">
-                                        <canvas id="myChart" class="w-100" style="height: 400px"></canvas>
-                                    </div>
+                    <div class="row mt-3">
+                        <div class="col-3 push-1">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <span>提交次数</span>
+                                    <span class="badge badge-pill badge-danger ">[[${user.submitCount}]]</span>
+                                </div>
+                                <div class="card-block ">
+                                    <canvas id="myChart" class="w-100" style="height: 400px"></canvas>
                                 </div>
                             </div>
-                            <div class="col-7 push-1">
-                                <div class="card">
-                                    <div class="card-header bg-white">最近做题</div>
-                                    <div class="card-block ">
-                                       <!-- <div class="list-group mt-3">
-                                            <a href="#" class="list-group-item list-group-item-action ">
-                                                A+B
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                                            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                                        </div>-->
-                                        <ul class="list-group list-group-flush table-">
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
-                                            <li class="list-group-item"><a class="text-primary" href="#">A+B</a></li>
+                        </div>
+                        <div class="col-7 push-1">
+                            <div class="card">
+                                <div class="card-header bg-white"><i class="fa fa-drivers-license-o"></i>个人信息</div>
+
+                                <div class="card-block ">
+                                    <div>
+                                        <ul class="nav nav-inline view_user_nav_padding">
+                                            <li class="nav-item card_nav_hover">
+                                                <a class="nav-link active" href="#user" id="home-tab" data-toggle="tab"
+                                                   aria-expanded="true">个人资料</a>
+                                            </li>
+                                            <li class="nav-item card_nav_hover">
+                                                <a class="nav-link" href="#tab2" id="hats-tab" data-toggle="tab"
+                                                   aria-expanded="false">最近做题</a>
+                                            </li>
+                                            <li class="nav-item card_nav_hover">
+                                                <a class="nav-link" href="#tab3" id="followers" data-toggle="tab"
+                                                   aria-expanded="false">通过题目</a>
+                                            </li>
                                         </ul>
+                                        <div id="clothing-nav-content" class="tab-content m-t-10">
+                                            <div role="tabpanel" class="tab-pane fade active show" id="user"
+                                                 aria-expanded="true">
+                                                <table class="table" id="users">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>账号</td>
+                                                        <td class="inline_edit">
+                                                            <span class="editable"
+                                                                  data-title="username">[[${user.username}]]</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>昵称</td>
+                                                        <td class="inline_edit">
+                                                            <span class="editable"
+                                                                  data-title="Edit User Name">[[${user.name}]]</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>性别</td>
+                                                        <td>
+                                                            <span class="editable" data-title="sex">[[${user.sex}]]</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>邮箱</td>
+                                                        <td>
+                                                            <span class="editable" data-title="email">[[${user.email}]]</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>学校</td>
+                                                        <td>
+                                                            <span class="editable"
+                                                                  data-title="school">[[${user.school}]]</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>签名</td>
+                                                        <td>
+                                                            <span class="editable"
+                                                                  data-title="mood">[[${user.mood}]]</span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab2" aria-expanded="false">
+                                                <table class="table table-hover" >
+                                                    <tr>
+                                                        <td><a href="#" class="text-primary">回文数字</a></td>
+                                                        <td><span class=" btn-sm btn-warning">CompileError</span></td>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="#" class="text-primary">回文数字</a></td>
+                                                        <td><span class=" btn-sm btn-warning">CompileError</span></td>
+                                                        <td>2019 1-1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="#" class="text-primary">回文数字</a></td>
+                                                        <td><span class=" btn-sm btn-warning">CompileError</span></td>
+                                                        <td>2019 1-1</td>
+                                                    </tr>
+                                                </table>
 
-                        <div class="row mt-3">
-                            <div class="col-10 push-1">
-                                <div class="card">
-                                    <div class="card-header bg-white">提交统计
-                                    </div>
-                                    <div class="card-block ">
-                                        <div class="mt-3 float-right">
-                                            <button class="btn btn-primary btn-sm">近一月</button>
-                                            <button class="btn btn-primary btn-sm">近一年</button>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab3" aria-expanded="false">
+                                                <!--<div class="card_nav_body_padding follower_images">
+                                                </div>-->
+
+                                                <table class="table " >
+                                                    <tr>
+                                                        <td><a href="#" class="text-primary">P1000</a></td>
+                                                        <td><a href="#" class="text-primary">P1001</a></td>
+                                                        <td><a href="#" class="text-primary">P1002</a></td>
+                                                        <td><a href="#" class="text-primary">P1003</a></td>
+                                                        <td><a href="#" class="text-primary">P1004</a></td>
+                                                        <td><a href="#" class="text-primary">P1005</a></td>
+                                                        <td><a href="#" class="text-primary">P1006</a></td>
+                                                        <td><a href="#" class="text-primary">P1007</a></td>
+                                                        <td><a href="#" class="text-primary">P1008</a></td>
+                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="#" class="text-primary">P1000</a></td>
+                                                        <td><a href="#" class="text-primary">P1001</a></td>
+                                                        <td><a href="#" class="text-primary">P1002</a></td>
+                                                        <td><a href="#" class="text-primary">P1003</a></td>
+                                                        <td><a href="#" class="text-primary">P1004</a></td>
+                                                        <td><a href="#" class="text-primary">P1005</a></td>
+                                                        <td><a href="#" class="text-primary">P1006</a></td>
+                                                        <td><a href="#" class="text-primary">P1007</a></td>
+                                                        <td><a href="#" class="text-primary">P1008</a></td>
+                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
                                         </div>
-                                        <canvas id="submitChart"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-10 push-1">
+                            <div class="card">
+                                <div class="card-header bg-white">提交统计
+                                </div>
+                                <div class="card-block ">
+                                    <div class="mt-3 float-right">
+                                        <button class="btn btn-primary btn-sm">近一月</button>
+                                        <button class="btn btn-primary btn-sm">近一年</button>
+                                    </div>
+                                    <canvas id="submitChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -451,10 +565,6 @@ z-index: 999999">
     };
     //end 提交统计
     // en of chars
-
-
-
-
 
 
     /*]]>*/

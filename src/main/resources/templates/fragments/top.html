@@ -48,7 +48,7 @@
                                             <div class="col-2">
                                                 <img src="img/mailbox_imgs/2.jpg"
                                                      class="message-img avatar rounded-circle"
-                                                     alt="avatar1"></div>
+                                                     alt="avatar"></div>
                                             <div class="col-10 message-data">
                                                 <i class="fa fa-clock-o"></i>
                                                 <strong>clay</strong>
@@ -72,12 +72,12 @@
                                 <img  th:src="${#authentication.principal.avatar} == null ? '/img/default_avatar.jpg' :
                                  ${#authentication.principal.avatar}" class="admin_img2  rounded-circle "
                                      alt="avatar" />
-                                <strong>[[${#authentication.name}]]</strong>
+                                <strong>[[${#authentication.principal.name}]]</strong>
                                 <span class="fa fa-sort-down white_bg"></span>
                             </button>
                             <div class="dropdown-menu drop_box_align">
                                 <a class="dropdown-item title" href="#">
-                                    [[${#authentication.name}]]</a>
+                                    [[${#authentication.principal.name}]]</a>
                                 <a class="dropdown-item" th:href="@{'/user/mainPage?userId='+${#authentication.principal.id}}"><i class="fa fa-user"></i>
                                     我的主页</a>
                                 <a class="dropdown-item" th:href="@{/user/profilePage}"><i class="fa fa-cog"></i>

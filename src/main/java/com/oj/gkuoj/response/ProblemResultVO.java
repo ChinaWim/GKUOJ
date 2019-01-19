@@ -1,60 +1,34 @@
-package com.oj.gkuoj.entity;
+package com.oj.gkuoj.response;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 
-public class ProblemResult implements Serializable {
-
-    private static final long serialVersionUID = 1198749854563595000L;
+/**
+ * @author m969130721@163.com
+ * @date 19-1-19 下午8:46
+ */
+public class ProblemResultVO {
 
     private Integer id;
 
     private Integer userId;
 
-    @NotNull
+    private String name;
+
     private Integer problemId;
 
     private Integer compId;
 
     private Integer status;
 
-    @NotBlank
     private String type;
 
     private Long time;
 
     private Long memory;
 
-    private String errorMsg;
-
-    @NotBlank
-    private String sourceCode;
-
     private Date createTime;
-
-    private Date updateTime;
-
-    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, Integer status, String type, Long time, Long memory, String errorMsg, String sourceCode, Date createTime, Date updateTime) {
-        this.id = id;
-        this.userId = userId;
-        this.problemId = problemId;
-        this.compId = compId;
-        this.status = status;
-        this.type = type;
-        this.time = time;
-        this.memory = memory;
-        this.errorMsg = errorMsg;
-        this.sourceCode = sourceCode;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
-
-    public ProblemResult() {
-        super();
-    }
 
     public Integer getId() {
         return id;
@@ -70,6 +44,14 @@ public class ProblemResult implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getProblemId() {
@@ -101,7 +83,7 @@ public class ProblemResult implements Serializable {
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 
     public Long getTime() {
@@ -120,22 +102,6 @@ public class ProblemResult implements Serializable {
         this.memory = memory;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg == null ? null : errorMsg.trim();
-    }
-
-    public String getSourceCode() {
-        return sourceCode;
-    }
-
-    public void setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode == null ? null : sourceCode.trim();
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -144,30 +110,19 @@ public class ProblemResult implements Serializable {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-
     @Override
     public String toString() {
-        return "ProblemResult{" +
+        return "ProblemResultVO{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", name='" + name + '\'' +
                 ", problemId=" + problemId +
                 ", compId=" + compId +
                 ", status=" + status +
                 ", type='" + type + '\'' +
                 ", time=" + time +
                 ", memory=" + memory +
-                ", errorMsg='" + errorMsg + '\'' +
-                ", sourceCode='" + sourceCode + '\'' +
                 ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 '}';
     }
 }

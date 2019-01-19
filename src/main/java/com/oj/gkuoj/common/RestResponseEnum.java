@@ -14,7 +14,7 @@ public enum RestResponseEnum {
 
     INVALID_REQUEST(400, "无效的请求"),
 
-    UNAUTHORIZED(401, "未认证"),
+    UNAUTHORIZED(401, "未认证,请先登录"),
 
     FORBIDDEN(403, "无权限"),
 
@@ -40,12 +40,6 @@ public enum RestResponseEnum {
     VALIDATE_CODE_ERROR(462, "哎呀,验证码错误"),
 
 
-
-
-
-
-
-
     //token校验失败
     TOKEN_ERROR(700, "token校验失败"),
 
@@ -55,7 +49,18 @@ public enum RestResponseEnum {
     EMAIL_SEND_ERROR(701, "邮箱发送错误,请稍后再试"),
 
     //邮箱重复错误
-    EMAIL_REPEATED_ERROR(702, "该邮箱已被注册");
+    EMAIL_REPEATED_ERROR(702, "该邮箱已被注册"),
+
+    //邮箱还未注册
+    EMAIL_NOT_FOUND_ERROR(703, "该邮箱还未注册"),
+
+    //文件格式错误
+    FILE_TYPE_ERROR(704,"文件格式错误"),
+
+    //文件权限错误
+    FILE_PERMISSION_ERROR(705,"没有该文件操作权限");
+
+
 
 
     private Integer status;

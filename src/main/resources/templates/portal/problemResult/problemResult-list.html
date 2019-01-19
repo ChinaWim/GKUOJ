@@ -54,49 +54,56 @@ z-index: 999999">
                     <div class="row">
                         <!--table-->
                         <div class="col-12">
-                            <div class="row">
-                                <div class="col-2">
-                                    <input type="text" class="form-control focused_input " placeholder="题目ID">
+                            <form th:action="@{/problemResult/problemResultListPage}" method="post">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="number" name="problemId" class="form-control focused_input "
+                                               th:value="${problemId}" placeholder="题目ID">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" th:value="${name}" name="name"
+                                               class="form-control focused_input"
+                                               placeholder="用户名">
+                                    </div>
+                                    <div class="col-2">
+                                        <select name="type" class="form-control">
+                                            <option value="">--语言--</option>
+                                            <option value="C">C</option>
+                                            <option value="C++">C++</option>
+                                            <option value="Java8">Java8</option>
+                                            <option value="Python2">Python2</option>
+                                            <option value="Python3">Python3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <select name="status" class="form-control ">
+                                            <option value="">--结果--</option>
+                                            <option value="0">编译中</option>
+                                            <option value="8">队列中</option>
+                                            <option value="9">判题中</option>
+                                            <option value="1">答案正确</option>
+                                            <option value="2">编译错误</option>
+                                            <option value="3">格式错误</option>
+                                            <option value="4">运行错误</option>
+                                            <option value="5">时间超限</option>
+                                            <option value="6">内存超限</option>
+                                            <option value="7">答案错误</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <button class="btn btn-outline-primary"><i class="fa fa-search"></i>&nbsp;开始查找
+                                        </button>
+                                        <button class="btn ml-3 btn-outline-primary"><i class="fa fa-user"></i>&nbsp;我的提交
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <input type="text" class="form-control focused_input" placeholder="用户名">
-                                </div>
-                                <div class="col-2">
-                                    <select class="form-control">
-                                        <option>--语言--</option>
-                                        <option>C</option>
-                                        <option>C++</option>
-                                        <option>Java8</option>
-                                        <option>Python2</option>
-                                        <option>Python3</option>
-                                    </select>
-                                </div>
-                                <div class="col-2">
-                                    <select class="form-control ">
-                                        <option>--结果--</option>
-                                        <option>编译中</option>
-                                        <option>队列中</option>
-                                        <option>判题中</option>
-                                        <option>答案正确</option>
-                                        <option>答案错误</option>
-                                        <option>编译错误</option>
-                                        <option>格式错误</option>
-                                        <option>运行错误</option>
-                                        <option>时间超限</option>
-                                        <option>内存超限</option>
-                                    </select>
-                                </div>
-                                <div class="col-2">
-                                    <button class="btn btn-outline-primary"><i class="fa fa-search"></i>&nbsp;开始查找</button>
-                                    <button class="btn ml-3 btn-outline-primary"><i class="fa fa-user"></i>&nbsp;我的提交</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-12 mt-3">
                             <div class="card">
                                 <div class="card-body">
                                     <table class="table  table-hover ">
-                                        <thead >
+                                        <thead>
                                         <tr>
                                             <th>运行编号</th>
                                             <th>用户名</th>
@@ -110,17 +117,59 @@ z-index: 999999">
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Ming</td>
-                                            <td>123</td>
-                                            <td>Java8</td>
-                                            <td>300MS</td>
-                                            <td>1MB</td>
-                                            <td><span class="btn btn-sm btn-warning">Compile Err</span></td>
-                                            <td>大约13分钟前</td>
+                                        <tr th:each="problemResult,i : ${problemResultList}">
+                                            <td>[[${problemResult.id}]]</td>
+                                            <td><a th:href="@{'/user/mainPage?userId='+${problemResult.userId}}">[[${problemResult.name}]]</a>
+                                            </td>
+                                            <td>[[${problemResult.problemId}]]</td>
+                                            <td>[[${problemResult.type}]]</td>
+                                            <td>[[${problemResult.time}]]ms</td>
+                                            <td>[[${problemResult.memory}]]MB</td>
                                             <td>
-                                                <a class="btn btn-sm btn-secondary" th:href="@{'/problemResult/showSourceCodePage?problemResultId=1732'}">查看源码</a>
+                                                <span class="btn-sm "
+                                                      th:if="${problemResult.status == 0}">
+                                                    <i class="fa fa-spinner fa-pulse"></i>&nbsp;编译中
+                                                </span>
+                                                <span class=" btn-sm text-white" style="background-color: #4BC0C0"
+                                                      th:if="${problemResult.status == 1}">
+                                                    答案正确
+                                                </span>
+                                                <span class=" btn-sm text-white" style="background-color: #FFCD56"
+                                                      th:if="${problemResult.status == 2}">
+                                                    编译错误
+                                                </span>
+                                                <span class=" btn-sm text-white" style="background-color: #ed92ff"
+                                                      th:if="${problemResult.status == 3}">
+                                                    格式错误
+                                                </span>
+                                                <span class=" btn-sm text-white" style="background-color: #FF9F40"
+                                                      th:if="${problemResult.status == 4}">
+                                                    运行错误
+                                                </span>
+                                                <span class=" btn-sm text-white" style="background-color: #62b8ff"
+                                                      th:if="${problemResult.status == 5}">
+                                                    时间超限
+                                                </span>
+                                                <span class=" btn-sm text-white" style="background-color: #6574ff"
+                                                      th:if="${problemResult.status == 6}">
+                                                    内存超限
+                                                </span>
+                                                <span class=" btn-sm  text-white" style="background-color:#FF6384 "
+                                                      th:if="${problemResult.status == 7}">
+                                                    答案错误
+                                                </span>
+                                                <span class=" btn-sm bg-success" th:if="${problemResult.status == 8}">
+                                                   　<i class="fa fa-spinner fa-pulse"></i>&nbsp;队列中
+                                                </span>
+                                                <span class=" btn-sm " th:if="${problemResult.status == 9}">
+                                                       <i class="fa fa-spinner fa-spin"></i>&nbsp;判题中
+                                                </span>
+                                            </td>
+                                            <td>[[${#dates.format(problemResult.createTime,'yyyy-MM-dd HH:mm:ss')}]]
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-secondary"
+                                                   th:href="@{'/problemResult/showSourceCodePage?problemResultId=1732'}">查看源码</a>
                                             </td>
                                         </tr>
                                         </tbody>

@@ -1,7 +1,16 @@
 package com.oj.gkuoj.rest.common;
 
+import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.response.RestResponseVO;
+import com.oj.gkuoj.service.FileService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,25 +22,25 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/file")
 public class FileController {
 
+    @Autowired
+    private FileService fileService;
 
-
-    @RequestMapping("/upload")
-    public RestResponseVO upload(MultipartFile multipartFile) {
-        if(multipartFile == null || multipartFile.isEmpty()){
-            return RestResponseVO.createByErrorMessage("上传文件不能空");
-
+    @RequestMapping(value = "/uploadImage",method = RequestMethod.POST)
+    public RestResponseVO uploadImage(@RequestParam("file") MultipartFile multipartFile, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
-
-        return null;
-
-
-
-
-
-
-
-
-
+        return fileService.uploadImage(multipartFile,userDetails.getUsername());
     }
+
+    @RequestMapping("/get")
+    public RestResponseVO<byte[]> get(String token,String path){
+        //todo token
+        if(StringUtils.isBlank(token)){
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.TOKEN_ERROR);
+        }
+        return fileService.get(path);
+    }
+
 
 }

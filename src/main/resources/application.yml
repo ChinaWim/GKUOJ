@@ -62,7 +62,6 @@ logging:
 
 
 
-
 #==================== project Setting =====================#
 project:
   debug: true
@@ -75,6 +74,9 @@ file:
       dir: ${file.server.dir}/image
     testcase:
       dir: ${file.server.dir}/testcase
+    type:
+      image: jpg,png,bmp,gif,jpeg,psd,svg
+      doc: doc,docx,xls,xlsx,txt,in,out
 #====================rocketMQ Setting =====================#
 rocketmq:
   nameserver: 192.168.25.129:9876;192.168.25.130:9876

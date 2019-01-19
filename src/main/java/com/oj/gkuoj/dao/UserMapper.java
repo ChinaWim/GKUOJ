@@ -1,6 +1,7 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -20,4 +21,6 @@ public interface UserMapper {
     User getByUserName(String username);
 
     int countByEmail(String email);
+
+    int resetPasswordByEmail(@Param("email") String email, @Param("password") String password);
 }

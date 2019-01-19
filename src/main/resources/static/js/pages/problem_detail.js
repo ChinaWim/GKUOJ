@@ -24,7 +24,9 @@ editor.setOptions({
  * @param type
  */
 function setCodeType(type) {
-    if ("c" == type) {
+    $("#dropdownMenuButton").html(type);
+    $("#type").val(type);
+    if ("C" == type) {
         editor.session.setMode("ace/mode/c_cpp");
         editor.setValue("#include <stdio.h>\n" +
             "\n" +
@@ -34,8 +36,7 @@ function setCodeType(type) {
             "    printf(\"%d\", a+b);\n" +
             "    return 0;\n" +
             "}");
-        $("#dropdownMenuButton").html("c");
-    } else if ("c++" == type) {
+    } else if ("C++" == type) {
         editor.session.setMode("ace/mode/c_cpp");
         editor.setValue("#include <iostream>\n" +
             "#include <cstdio>\n" +
@@ -48,8 +49,7 @@ function setCodeType(type) {
             "    cout << a+b;\n" +
             "    return 0;\n" +
             "}");
-        $("#dropdownMenuButton").html("c++");
-    } else if ("java8" == type) {
+    } else if ("Java8" == type) {
         editor.session.setMode("ace/mode/java");
         editor.setValue("import java.io.*;\n" +
             "import java.util.*;\n" +
@@ -60,31 +60,33 @@ function setCodeType(type) {
             "        System.out.println(a+b);\n" +
             "    }\n" +
             "}");
-        $("#dropdownMenuButton").html("java8");
-    } else if ("python2" == type) {
+    } else if ("Python2" == type) {
         editor.session.setMode("ace/mode/python");
         editor.setValue("s = raw_input().split()\n" +
             "print int(s[0]) + int(s[1])");
         $("#dropdownMenuButton").html("python2");
-    } else if ("python3" == type) {
+        $("#type").val("python2");
+    } else if ("Python3" == type) {
         editor.session.setMode("ace/mode/python");
         editor.setValue("s = input().split()\n" +
             "print(int(s[0]) + int(s[1]))");
-        $("#dropdownMenuButton").html("python3");
     }
+    editor.moveCursorTo(0, 0);
 };
 
 /**
  * 测试样例运行
  */
-function testRun(){
-    var inputHtml = $("#testInput").html;
-    var eOutputHtml = $("#eOutput").html("");
-        if (!inputHtml || !eOutputHtml){
-
-        }
-
+function testRun() {
+    var inputHtml = $("#testInput").val();
+    var eOutputHtml = $("#eOutput").val();
+    if (!inputHtml || !eOutputHtml) {
+        toastr.warning("输入不能为空", "提示");
+    }
 
 }
+
+
+
 
 

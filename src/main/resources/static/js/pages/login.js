@@ -3,7 +3,7 @@ function login(){
     var password = $("#password").val();
     var imageCode = $("#imageCode").val();
     if(!username || !password || !imageCode){
-        toastr.info("输入不能为空哦","提示");
+        toastr.warning("输入不能为空哦","提示");
         return;
     }
     var content = $("#loginForm").serialize();

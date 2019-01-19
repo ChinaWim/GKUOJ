@@ -1,6 +1,10 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.ProblemResult;
+import com.oj.gkuoj.response.ProblemResultVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ProblemResultMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +18,7 @@ public interface ProblemResultMapper {
     int updateByPrimaryKeySelective(ProblemResult record);
 
     int updateByPrimaryKey(ProblemResult record);
+
+    List<ProblemResultVO> listProblemResult(@Param("problemId") Integer problemId, @Param("name")String name,
+                                            @Param("type") String type, @Param("status") Integer status);
 }

@@ -1,8 +1,8 @@
 package com.oj.gkuoj.producer;
 
-import com.oj.gkuoj.common.JudgeStatusConst;
+import com.oj.gkuoj.common.JudgeStatusEnum;
 import com.oj.gkuoj.entity.ProblemResult;
-import com.oj.gkuoj.request.CodeRequest;
+import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.ProblemResultService;
 import com.oj.gkuoj.utils.JsonUtil;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -36,7 +38,7 @@ public class JudgeProducer {
 
     private Logger logger = LoggerFactory.getLogger(JudgeProducer.class);
 
-    @PostConstruct
+//    @PostConstruct
     private void initMQProducer() {
         producer = new DefaultMQProducer(environment.getProperty("rocketmq.producer.group"));
         producer.setNamesrvAddr(environment.getProperty("rocketmq.nameserver"));
@@ -55,28 +57,22 @@ public class JudgeProducer {
         }
     }
 
-//    @Transactional todo
-
-    public void send(CodeRequest code) {
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponseVO send(ProblemResult problemResult) {
         //add queueing
         try {
-            ProblemResult problemResult = new ProblemResult();
-            problemResult.setUserId(code.getUserId());
-            problemResult.setCompId(code.getCompId());
-            problemResult.setSourceCode(code.getSourceCode());
-            problemResult.setType(code.getType());
-            problemResult.setProblemId(code.getProblemId());
-            problemResult.setStatus(JudgeStatusConst.QUEUING.getStatus());
+            problemResult.setStatus(JudgeStatusEnum.QUEUING.getStatus());
             problemResultService.insert(problemResult);
-            code.setProblemResultId(problemResult.getId());
 
-            String body = JsonUtil.obj2String(code);
-            Message message = new Message(environment.getProperty("topic"), body.getBytes(RemotingHelper.DEFAULT_CHARSET));
+            String body = JsonUtil.obj2String(problemResult);
+            Message message = new Message(environment.getProperty("rocketmq.topic"), body.getBytes(RemotingHelper.DEFAULT_CHARSET));
             SendResult sendResult = producer.send(message);
-            logger.info(Thread.currentThread().getName() + "发送消息：{}", sendResult);
+            logger.info("{},发送消息：{}", Thread.currentThread().getName(), sendResult);
+            return RestResponseVO.createBySuccess(problemResult.getId());
         } catch (Exception e) {
-            //todo
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             logger.error("发送异常,{}", e.getMessage());
+            return RestResponseVO.createByErrorMessage("发送异常,请稍后再试," + e.getMessage());
         }
     }
 

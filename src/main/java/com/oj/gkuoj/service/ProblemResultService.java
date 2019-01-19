@@ -16,4 +16,6 @@ public interface ProblemResultService {
     RestResponseVO insert(ProblemResult problemResult);
 
 
+    RestResponseVO listProblemResult2Page(Integer problemId, String name, String type, Integer status, Integer pageNum,Integer pageSize);
+
 }

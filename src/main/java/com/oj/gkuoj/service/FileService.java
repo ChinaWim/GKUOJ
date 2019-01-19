@@ -9,7 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface FileService {
 
-    RestResponseVO upload(MultipartFile multipartFile);
+    RestResponseVO uploadImage(MultipartFile multipartFile,String username);
 
 
+    RestResponseVO<byte[]> get(String path);
 }

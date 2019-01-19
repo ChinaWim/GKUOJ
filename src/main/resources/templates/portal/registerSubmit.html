@@ -3,10 +3,10 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>登录</title>
+    <title>注册</title>
     <div th:replace="~{fragments/head-base}"></div>
 </head>
-<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left " >
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left ">
 <div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
@@ -26,7 +26,7 @@ z-index: 999999">
     </div>
 </div>
 <!--wrap-->
-<div id="wrap" >
+<div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
     <div class="wrapper fixedNav_top">
@@ -35,32 +35,31 @@ z-index: 999999">
         <div id="content" class="bg-container">
             <div class="outer">
                 <div class="inner bg-container">
-                    <!--start-->
-                    <!--end-->
-
-                    <div class="row  ">
-                        <div style="margin: 0 auto" class="">
-                            <div class=" m-t-35  signin_wid" style="width: 400px">
+                    <div class="row">
+                        <div style="margin: 0 auto">
+                            <div class="signin_wid m-t-35" style="width: 400px">
                                 <!-- <div class="card-header bg-white">
                                      登录
                                  </div>-->
-                                <div>
+                                <div class=" ">
                                     <!-- logo -->
                                     <div class="m-t-30 text-center">
-                                        <img src="img/loginLogo.png" style="width: 300px"/>
-                                        <h2 class="mt-4">欢迎来到洛谷</h2>
+                                        <!--<img src="img/loginLogo.png" style="width: 300px"/>-->
+                                        <h2 class="mt-4">欢迎加入洛谷 - 最后一步！</h2>
                                     </div>
                                     <form class=" mt-3" id="loginForm">
                                         <fieldset>
                                             <!-- Name input-->
                                             <div class="form-group row">
+
                                                 <div class="col-lg-12 user_icon_change2">
                                                     <div class="input-group">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-user"></i>
                                                             </span>
-                                                        <input type="text" class="form-control " id = "username"
-                                                               name="username" placeholder="账号或邮箱">
+                                                        <input type="text" class="form-control" maxlength="20"
+                                                               minlength="6" id="username"
+                                                               name="username" placeholder="账号，中英文下划线6-25位">
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,34 +69,68 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                             <i class="fa fa-lock"></i>
                                                         </span>
-                                                        <input id = "password" name="password" type="password" class="form-control"
-                                                               placeholder="密码">
+                                                        <input id="password" name="password" maxlength="30"
+                                                               minlength="6" type="password" class="form-control"
+                                                               placeholder="密码，6-30位">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-12">
+                                                    <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                            <i class="fa fa-lock"></i>
+                                                        </span>
+                                                        <input id="rePassword" name="password" maxlength="30"
+                                                               minlength="6" type="password" class="form-control"
+                                                               placeholder="确认密码">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-12">
+                                                    <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </span>
+                                                        <input id="email" name="email" type="text"
+                                                               class="form-control disabled">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
-                                                    <input id = "imageCode" name="imageCode" placeholder="验证码" class="w-50 form-control float-right"/>
+                                                <div class="col-3">
+                                                    性别：
                                                 </div>
-                                                <div class="col-6">
-                                                    <img th:src = "@{/validate/code}" id = "imageCodeImg"class="float-left mt-1" onclick="this.src = 'validate/code?time='+new Date().getTime()"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mt-3">
-                                                <div class="col-lg-8" style="margin: 0 auto">
-                                                    <a href="javascript:void(0)" onclick="login()" class="btn text-white btn-danger w-100 btn-lg glow_button">进入洛谷</a>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6 ">
-                                                    <label class="custom-control custom-checkbox float-left">
-                                                        <input type="checkbox" class="custom-control-input" value="true" id = "remember-me" name="remember-me">
+                                                <div class="col-9">
+                                                    <label class=" custom-control custom-radio">
+                                                        <input name="sex" type="radio" value="男"
+                                                               class="custom-control-input" checked="checked">
                                                         <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">记住我</span>
+                                                        <span class="custom-control-description">汉子</span>
+                                                    </label>
+                                                    <label class=" custom-control custom-radio">
+                                                        <input name="sex" type="radio" value="女"
+                                                               class="custom-control-input">
+                                                        <span class="custom-control-indicator"></span>
+                                                        <span class="custom-control-description">妹子</span>
                                                     </label>
                                                 </div>
-                                                <div class="col-6">
-                                                    <a th:href="@{/user/forgetPage}" class="text-primary float-right">忘记密码?</a>
+                                            </div>
+                                            <div>
+                                                <label class="custom-control custom-checkbox mr-0" >
+                                                    <input type="checkbox" class="custom-control-input" checked="checked" id = "agree" name="agree">
+                                                    <span class="custom-control-indicator "></span>
+                                                    <span >*我同意</span>
+
+                                                </label>
+                                                <a th:href="@{/}" target="_blank" class="text-primary">《用户协议》</a>
+                                            </div>
+
+                                            <div class="form-group row ">
+                                                <div class="col-lg-8" style="margin: 0 auto">
+                                                    <a href="javascript:void(0)" onclick="registerSubmitProcess()"
+                                                       class="btn text-white btn-danger w-100 btn-lg glow_button">加入洛谷</a>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -194,7 +227,7 @@ z-index: 999999">
 <div th:replace="~{fragments/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script  th:src="@{/js/pages/login.js}"></script>
+<script th:src="@{/js/pages/registerSubmit.js}"></script>
 <!--end of plugin scripts-->
 </body>
 

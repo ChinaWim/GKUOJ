@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>题库</title>
+    <title>题目-[[${problem.name}]]</title>
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
@@ -123,16 +123,17 @@ z-index: 999999">
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             选择编程语言
                                         </button>
+                                        <span  id="type" value="-1" hidden="hidden" >sadasdasdasdasdas</span>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" id = "c" onclick="setCodeType('c')"
+                                            <a class="dropdown-item" id = "C" onclick="setCodeType('C')"
                                                href="javascript:void(0)">C</a>
-                                            <a class="dropdown-item" id = "c++" onclick="setCodeType('c++')"
+                                            <a class="dropdown-item" id = "C++" onclick="setCodeType('C++')"
                                                href="javascript:void(0)">C++</a>
-                                            <a class="dropdown-item" id = "java8" onclick="setCodeType('java8')"
+                                            <a class="dropdown-item" id = "Java8" onclick="setCodeType('Java8')"
                                                href="javascript:void(0)">Java8</a>
-                                            <a class="dropdown-item" id = "python2" onclick="setCodeType('python2')"
+                                            <a class="dropdown-item" id = "Python2" onclick="setCodeType('Python2')"
                                                href="javascript:void(0)">Python2</a>
-                                            <a class="dropdown-item" id = "python3" onclick="setCodeType('python3')"
+                                            <a class="dropdown-item" id = "Python3" onclick="setCodeType('Python3')"
                                                href="javascript:void(0)">Python3</a>
                                         </div>
                                     </div>
@@ -140,7 +141,7 @@ z-index: 999999">
                                 <div class="col-12 mt-2 ">
                                     <div id="editor" class="w-100 col-12"></div>
                                     <div class="col-12 mt-2">
-                                        <button class="ml-2 float-right btn btn-info  button-rounded">
+                                        <button onclick="submit()" class="ml-2 float-right btn btn-info  button-rounded">
                                             <i class="fa fa-cloud"></i>&nbsp;提交代码
                                         </button>
                                         <button class="ml-2 float-right btn  btn-secondary button-rounded "
@@ -314,7 +315,7 @@ z-index: 999999">
                 </div>
                 <div class="modal-footer">
                     <!--<button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>-->
-                    <button type="button" class="btn btn-info" onclick="testRun()">运行</button>
+                    <button type="button" id = "submitRun" class="btn btn-info" onclick="testRun()">运行</button>
                 </div>
             </div>
         </div>
@@ -398,7 +399,6 @@ z-index: 999999">
 <script th:inline="javascript">
     /*<![CDATA[*/
 
-
     var submitCount = [[${problem.submitCount}]];
     var acCount = [[${problem.acCount}]];
     var tleCount = [[${problem.tleCount}]];
@@ -408,6 +408,7 @@ z-index: 999999">
     var ceCount = [[${problem.ceCount}]];
     var waCount = [[${problem.waCount}]];
 
+    var problemId = [[${problem.id}]];
 
 
     // vue
@@ -467,14 +468,45 @@ z-index: 999999">
     });
     // en of chars
 
+    //输入测试样例
     function setTestcase(){
-        $("#testInput").html([[${problem.testcaseInput}]]);
-        $("#eOutput").html([[${problem.testcaseOutput}]]);
+        $("#testInput").val([[${problem.testcaseInput}]]);
+        $("#eOutput").val([[${problem.testcaseOutput}]]);
     }
     function clearTestcase(){
-        $("#testInput").html("");
-        $("#eOutput").html("");
+        $("#testInput").val("");
+        $("#eOutput").val("");
     }
+
+
+    /**
+     * 提交代码
+     */
+    function submit() {
+        var type = $("#type").val();
+        var sourceCode = editor.getValue();
+        if (!type || type == -1) {
+            toastr.warning("请选择编程语言", "提示");
+            return;
+        }
+        if (!sourceCode) {
+            toastr.warning("请编写代码", "提示");
+            return;
+        }
+
+        $.post("problemResult/submit", {"problemId":problemId,"type":type,"sourceCode":sourceCode}, function (resp) {
+            if(resp.status == 200){
+                toastr.success(resp.msg);
+            }else {
+                toastr.error(resp.msg, "错误提示");
+            }
+        });
+    }
+
+
+
+
+
 
     /*]]>*/
 </script>

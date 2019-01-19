@@ -2,6 +2,7 @@ package com.oj.gkuoj.rest.portal;
 
 import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.exception.UserNotFoundException;
 import com.oj.gkuoj.service.UserService;
@@ -38,19 +39,6 @@ public class UserController {
         return "portal/login";
     }
 
-
-    /**
-     * 登录错误处理
-     */
-
-    @RequestMapping("/loginError")
-    public String loginError(HttpServletRequest request){
-        request.setAttribute("msg","账号或密码错误");
-        logger.info("账号或密码错误");
-        return "portal/login";
-    }
-
-
     /**
      * 用户注册页面
      * @return
@@ -58,6 +46,36 @@ public class UserController {
     @RequestMapping("/registerPage")
     public String registerPage(){
         return "portal/register";
+    }
+
+    /**
+     * 忘记密码页面
+     * @return
+     */
+    @RequestMapping("/forgetPage")
+    public String forgetPage(){
+        return "portal/forget";
+    }
+
+
+    /**
+     * 注册提交页面
+     * @return
+     */
+    @RequestMapping("/registerSubmitPage")
+    public String registerSubmitPage(String token,HttpServletRequest request){
+        request.setAttribute("token",token);
+        return "portal/registerSubmit";
+    }
+
+    /**
+     * 忘记密码提交修改页面
+     * @return
+     */
+    @RequestMapping("/forgetSubmitPage")
+    public String forgetSubmitPage(String token,HttpServletRequest request){
+        request.setAttribute("token",token);
+        return "portal/forgetSubmit";
     }
 
 
@@ -86,12 +104,59 @@ public class UserController {
         return "portal/user/profile";
     }
 
-
-    @RequestMapping("/sendEmail")
+    /**
+     * 发送注册邮件
+     * @param email
+     * @return
+     */
+    @RequestMapping("/sendRegisterEmail")
     @ResponseBody
-    public RestResponseVO sendEmail(String email){
-        return userService.sendEmail(email);
+    public RestResponseVO sendRegisterEmail(String email){
+        return userService.sendRegisterEmail(email);
     }
+
+    /**
+     * 发送忘记密码验证邮件
+     * @param email
+     * @return
+     */
+    @RequestMapping("/sendForgetEmail")
+    @ResponseBody
+    public RestResponseVO sendForgetEmail(String email){
+        return userService.sendForgetEmail(email);
+    }
+
+
+    /**
+     * 忘记密码提交修改
+     * @param token
+     * @param password
+     * @return
+     */
+    @RequestMapping("/forgetSubmitProcess")
+    @ResponseBody
+    public RestResponseVO forgetSubmitProcess(String token,String password){
+        return userService.forgetRestPassword(token,password);
+    }
+
+
+    /**
+     * 提交注册
+     * @param token
+     * @param user
+     * @return
+     */
+    @RequestMapping("/registerSubmitProcess")
+    @ResponseBody
+    public RestResponseVO registerSubmitProcess(String token,User user){
+        return userService.register(token,user);
+    }
+
+
+
+
+
+
 
 
 }
