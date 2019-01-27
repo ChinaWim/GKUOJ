@@ -15,7 +15,7 @@ public class BlogController {
 
     @RequestMapping("/blogListPage")
     public String blogListPage(HttpServletRequest request){
-        request.setAttribute("active5",true);
+        request.setAttribute("active6",true);
         return "portal/blog/blog-list";
     }
 

@@ -9,8 +9,12 @@ public final class ExceptionStatusConst {
     /**
      *用户未找到
      */
-    public static final Integer USER_NOT_FOUND_EXP = 90001;
+    public static final Integer USER_NOT_FOUND_EXP = 90000;
 
+    /**
+     *题目未找到
+     */
+    public static final Integer PROBLEM_NOT_FOUND_EXP = 90001;
 
 
 

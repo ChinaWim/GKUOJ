@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 /**
  * @author m969130721@163.com
@@ -44,7 +45,7 @@ public class ProblemResultController {
     @RequestMapping("/problemResultListPage")
     public String problemResultListPage(HttpServletRequest request, @RequestParam(required = false) Integer problemId,
                                         @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "30") Integer pageSize,
-                                        @RequestParam(defaultValue = "")String name, String type, @RequestParam(required = false) Integer status) {
+                                        @RequestParam(defaultValue = "") String name, String type, @RequestParam(required = false) Integer status) {
 
         RestResponseVO<PageInfo> responseVO = problemResultService.listProblemResult2Page(problemId, name, type, status, pageNum, pageSize);
         PageInfo pageInfo = responseVO.getData();
@@ -52,13 +53,12 @@ public class ProblemResultController {
 
         //set data
         request.setAttribute("active5", true);
-        request.setAttribute("problemId",problemId);
-        request.setAttribute("pageNum",pageNum);
-        request.setAttribute("name",name);
-        request.setAttribute("type",type);
-        request.setAttribute("status",status);
+        request.setAttribute("problemId", problemId);
+        request.setAttribute("pageNum", pageNum);
+        request.setAttribute("name", name);
+        request.setAttribute("type", type);
+        request.setAttribute("status", status);
         request.setAttribute("problemResultList", pageInfo.getList());
-
 
 
         return "portal/problemResult/problemResult-list";
@@ -87,17 +87,16 @@ public class ProblemResultController {
 
     @RequestMapping("/submit")
     @ResponseBody
-    public RestResponseVO submit(Authentication authentication, @Validated ProblemResult problemResult, BindingResult bindingResult) {
-        if (authentication == null) {
+    public RestResponseVO submit(@AuthenticationPrincipal Principal principal, @Validated ProblemResult problemResult, BindingResult bindingResult) {
+        if (!(principal instanceof UserDetails)) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
         if (bindingResult.hasErrors()) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        User user = (User) authentication.getPrincipal();
+        User user = (User) principal;
         problemResult.setUserId(user.getId());
         return producer.send(problemResult);
     }
-
 
 }

@@ -6,8 +6,8 @@
     <title>登录</title>
     <div th:replace="~{fragments/head-base}"></div>
 </head>
-<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left " >
-<div class="preloader" style=" position: fixed;
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left ">
+<!--<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -24,9 +24,9 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>
+</div>-->
 <!--wrap-->
-<div id="wrap" >
+<div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
     <div class="wrapper fixedNav_top">
@@ -38,8 +38,8 @@ z-index: 999999">
                     <!--start-->
                     <!--end-->
 
-                    <div class="row  ">
-                        <div style="margin: 0 auto" class="">
+                    <div class="row" >
+                        <div style="margin: 0 auto;">
                             <div class=" m-t-35  signin_wid" style="width: 400px">
                                 <!-- <div class="card-header bg-white">
                                      登录
@@ -59,7 +59,7 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-user"></i>
                                                             </span>
-                                                        <input type="text" class="form-control " id = "username"
+                                                        <input type="text" class="form-control" maxlength="25" id="username"
                                                                name="username" placeholder="账号或邮箱">
                                                     </div>
                                                 </div>
@@ -70,34 +70,40 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                             <i class="fa fa-lock"></i>
                                                         </span>
-                                                        <input id = "password" name="password" type="password" class="form-control"
+                                                        <input id = "password" name="password" type="password" maxlength="30" class="form-control"
                                                                placeholder="密码">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <input id = "imageCode" name="imageCode" placeholder="验证码" class="w-50 form-control float-right"/>
+                                                    <input id="imageCode" name="imageCode" placeholder="验证码" maxlength="4"
+                                                           class="w-50 form-control float-right"/>
                                                 </div>
                                                 <div class="col-6">
-                                                    <img th:src = "@{/validate/code}" id = "imageCodeImg"class="float-left mt-1" onclick="this.src = 'validate/code?time='+new Date().getTime()"/>
+                                                    <img th:src="@{/validate/code}" id="imageCodeImg"
+                                                         class="float-left mt-1"
+                                                         onclick="this.src = 'validate/code?time='+new Date().getTime()"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row mt-3">
                                                 <div class="col-lg-8" style="margin: 0 auto">
-                                                    <a href="javascript:void(0)" onclick="login()" class="btn text-white btn-danger w-100 btn-lg glow_button">进入洛谷</a>
+                                                    <a href="javascript:void(0)" onclick="login()"
+                                                       class="btn text-white btn-danger w-100 btn-lg glow_button">进入洛谷</a>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6 ">
                                                     <label class="custom-control custom-checkbox float-left">
-                                                        <input type="checkbox" class="custom-control-input" value="true" id = "remember-me" name="remember-me">
+                                                        <input type="checkbox" class="custom-control-input" value="true"
+                                                               id="remember-me" name="remember-me">
                                                         <span class="custom-control-indicator"></span>
                                                         <span class="custom-control-description">记住我</span>
                                                     </label>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a th:href="@{/user/forgetPage}" class="text-primary float-right">忘记密码?</a>
+                                                    <a th:href="@{/user/forgetPage}"
+                                                       class="text-primary float-right">忘记密码?</a>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -194,7 +200,7 @@ z-index: 999999">
 <div th:replace="~{fragments/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script  th:src="@{/js/pages/login.js}"></script>
+<script th:src="@{/js/pages/login.js}"></script>
 <!--end of plugin scripts-->
 </body>
 

@@ -38,7 +38,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-warning"></i>&nbsp;错误
+                                <i class="fa fa-warning "></i>&nbsp;错误
                             </h4>
                         </div>
                     </div>
@@ -50,12 +50,13 @@ z-index: 999999">
                         <div class="col-10 push-1">
 
                             <div class="card " style="font-size: 24px">
-                                <div class="card-header bg-danger text-center">
-                                    <span>出错啦</span>
+                                <div class="card-header  bg-danger text-center" style="font-size: 35px">
+                                    <span>哎呀，系统出错</span>
                                 </div>
                                 <div class="card-block text-center">
                                     <p class="mt-3">请求地址：[[${uri}]]</p>
                                     <p>错误说明：[[${errorMsg}]]</p>
+                                    <img th:src="error.png" />
                                 </div>
                             </div>
                         </div>

@@ -16,6 +16,12 @@ public class ImageCode implements Serializable {
 
     private LocalDateTime expireTime;
 
+    public ImageCode(String code,LocalDateTime expireTime){
+        this.code = code;
+        this.expireTime = expireTime;
+    }
+
+
     public ImageCode(BufferedImage bufferedImage,String code,int time){
         this.bufferedImage = bufferedImage;
         this.code = code;

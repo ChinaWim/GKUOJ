@@ -7,7 +7,7 @@
     <div th:replace="~{fragments/head-base}"></div>
 </head>
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left ">
-<div class="preloader" style=" position: fixed;
+<!--<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -24,7 +24,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>
+</div>-->
 <!--wrap-->
 <div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
@@ -57,7 +57,7 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-user"></i>
                                                             </span>
-                                                        <input type="text" class="form-control" maxlength="20"
+                                                        <input type="text" class="form-control" maxlength="25"
                                                                minlength="6" id="username"
                                                                name="username" placeholder="账号，中英文下划线6-25位">
                                                     </div>
@@ -83,7 +83,7 @@ z-index: 999999">
                                                         </span>
                                                         <input id="rePassword" name="password" maxlength="30"
                                                                minlength="6" type="password" class="form-control"
-                                                               placeholder="确认密码">
+                                                               placeholder="请再输入一遍">
                                                     </div>
                                                 </div>
                                             </div>

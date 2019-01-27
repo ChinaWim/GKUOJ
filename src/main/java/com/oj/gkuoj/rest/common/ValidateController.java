@@ -29,41 +29,42 @@ public class ValidateController {
     @RequestMapping("/code")
     public void validateCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = createImageCode(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request),SessionKeyConst.IMAGE_CODE,imageCode);
-        ImageIO.write(imageCode.getBufferedImage(),"JPEG",response.getOutputStream());
+        ImageCode sessionImageCode = new ImageCode(imageCode.getCode(),imageCode.getExpireTime());
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SessionKeyConst.IMAGE_CODE, sessionImageCode);
+        ImageIO.write(imageCode.getBufferedImage(), "JPEG", response.getOutputStream());
     }
 
     private ImageCode createImageCode(HttpServletRequest request) {
         int width = 60;
         int height = 25;
-        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         Graphics g = image.getGraphics();
 
         Random random = new Random();
 
-        g.setColor(getRandColor(200,250));
-        g.fillRect(0,0,width,height);
-        g.setFont(new Font("Times New Roman",Font.ITALIC,20));
-        g.setColor(getRandColor(160,200));
-        for (int i = 0; i < 155 ; i++){
+        g.setColor(getRandColor(200, 250));
+        g.fillRect(0, 0, width, height);
+        g.setFont(new Font("Times New Roman", Font.ITALIC, 20));
+        g.setColor(getRandColor(160, 200));
+        for (int i = 0; i < 155; i++) {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
             int xl = random.nextInt(12);
             int yl = random.nextInt(12);
-            g.drawLine(x,y,x+xl,y+yl);
+            g.drawLine(x, y, x + xl, y + yl);
         }
         String sRand = "";
-        for (int i = 0; i < 4 ; i++){
+        for (int i = 0; i < 4; i++) {
             String rand = String.valueOf(random.nextInt(10));
             sRand += rand;
             g.setColor(new Color(20 + random.nextInt(110),
-                    20+random.nextInt(110),
+                    20 + random.nextInt(110),
                     20 + random.nextInt(110)));
-            g.drawString(rand,13 * i + 6, 20);
+            g.drawString(rand, 13 * i + 6, 20);
         }
         g.dispose();
-        return new ImageCode(image,sRand,60);
+        return new ImageCode(image, sRand, 60);
     }
 
 

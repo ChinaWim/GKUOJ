@@ -9,7 +9,7 @@ function login(){
     var content = $("#loginForm").serialize();
     $.post("user/loginProcess",content,function (resp) {
         if(resp.status == 200){
-            location.href = "index"
+            location.href = "/";
         }else {
             toastr.error(resp.msg,"错误提示");
             $("#imageCodeImg").attr("src","validate/code");

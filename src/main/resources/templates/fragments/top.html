@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<!--导航栏-->
+<!--导航栏 fixed-->
 <div id="top" class="fixed" data-th-fragment="top">
     <!-- .navbar -->
     <nav class="navbar navbar-static-top">
         <div class="container-fluid m-0">
-            <a class="navbar-brand float-left" href="index.html">
+            <a class="navbar-brand float-left" th:href="@{/}">
                 <h4><img th:src="@{/img/logo1.png}" class="admin_img" alt="logo"/>&nbsp;计算机程序在线性能测评系统</h4>
             </a>
             <!-- center-->
@@ -24,7 +24,8 @@
                     <i class="fa fa-search text-primary"></i>
                 </div>
                 <div sec:authorize="isAnonymous()">
-                    <a th:href="@{/user/registerPage}" class="btn btn-info ml-2 button-rounded float-right mt-1 glow_button"
+                    <a th:href="@{/user/registerPage}"
+                       class="btn btn-info ml-2 button-rounded float-right mt-1 glow_button"
                        style="width: 60px">
                         注册
                     </a>
@@ -69,16 +70,18 @@
                     <div class="btn-group">
                         <div class="user-settings no-bg">
                             <button type="button" class="btn btn-default no-bg micheal_btn" data-toggle="dropdown">
-                                <img  th:src="${#authentication.principal.avatar} == null ? '/img/default_avatar.jpg' :
+                                <img th:src="${#authentication.principal.avatar} == null ? '/img/default_avatar.jpg' :
                                  ${#authentication.principal.avatar}" class="admin_img2  rounded-circle "
-                                     alt="avatar" />
+                                     alt="avatar"/>
                                 <strong>[[${#authentication.principal.name}]]</strong>
                                 <span class="fa fa-sort-down white_bg"></span>
                             </button>
                             <div class="dropdown-menu drop_box_align">
                                 <a class="dropdown-item title" href="#">
                                     [[${#authentication.principal.name}]]</a>
-                                <a class="dropdown-item" th:href="@{'/user/mainPage?userId='+${#authentication.principal.id}}"><i class="fa fa-user"></i>
+                                <a class="dropdown-item"
+                                   th:href="@{'/user/mainPage?userId='+${#authentication.principal.id}}"><i
+                                        class="fa fa-user"></i>
                                     我的主页</a>
                                 <a class="dropdown-item" th:href="@{/user/profilePage}"><i class="fa fa-cog"></i>
                                     信息编辑</a>

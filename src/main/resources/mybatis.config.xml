@@ -14,4 +14,17 @@
         <!--开启驼峰命名规范 Table(create_time) -> Entity(createTime)-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!-- 方言 -->
+            <property name="dialect" value="mysql"/>
+            <!-- 该参数默认为false -->
+            <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+            <property name="rowBoundsWithCount" value="true"/>
+        </plugin>
+    </plugins>
+
+
 </configuration>

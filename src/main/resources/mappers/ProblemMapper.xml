@@ -33,7 +33,7 @@
     wa_count, time, memory, flag, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from problem
     where id = #{id,jdbcType=INTEGER}
@@ -290,29 +290,31 @@
     select   <include refid="Base_Column_List" /> from problem
     <where>
       <if test="keyword != null and keyword !='' ">
+        and (
         id = #{keyword}
         or name like concat('%',#{keyword},'%')
         or tags like concat('%',#{keyword},'%')
+        )
       </if>
       <if test="tagName != null and tagName != '' and tagName != '不限'">
-        and tags like concat('%',#{tagName},'%')
+        and (tags like concat('%',#{tagName},'%'))
       </if>
       <if test="level != null and level != -1 ">
-        and level = #{level}
+        and (level = #{level})
       </if>
       and flag = 0
     </where>
   </select>
 
   <select id="listSuggestProblem" resultType="com.oj.gkuoj.entity.Problem" parameterType="map">
-        select
-        <include refid="Base_Column_List" />
-        from problem
-        where flag = 0
-        and level = (select level from problem where id = #{problemId})
-        order by rand()
-        limit 0,#{row}
-    </select>
+    select
+    <include refid="Base_Column_List" />
+    from problem
+    where flag = 0
+    and level = (select level from problem where id = #{problemId})
+    order by rand()
+    limit 0,#{row}
+  </select>
 
   <select id="countRandomProblemId" resultType="java.lang.Integer">
         select id from problem

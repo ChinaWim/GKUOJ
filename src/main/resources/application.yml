@@ -28,6 +28,9 @@ spring:
   http:
     encoding:
       charset: UTF-8
+#==================== spring session Setting =====================#
+  session:
+    store-type: none
 #==================== thymeleaf Setting =====================#
   thymeleaf:
     servlet:
@@ -42,17 +45,24 @@ spring:
     host: smtp.qq.com
     username: 969130721@qq.com
     password: bdywgxmohaxcbbbi
+#==================== redis Setting =====================#
+#  redis:
+#    host: 127.0.0.1
+#    port: 5555
+#    jedis:
+#      pool:
+#        max-active: 16
+#        max-idle: 8
+#        min-idle: 0
+#==================== spring mvc Setting =====================#
+#  cache:
+#    type: redis
 #==================== mybatis Setting =====================#
 mybatis:
   config-location: classpath:mybatis.config.xml
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: com.oj.gkuoj.entity
 
-pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
 #==================== logging Setting =====================#
 logging:
   config: classpath:logback.xml
@@ -84,5 +94,3 @@ rocketmq:
   producer:
     group: judgeProducerGroup
     retry-times: 3
-#    max-thread: 128
-#    min-thread: 32

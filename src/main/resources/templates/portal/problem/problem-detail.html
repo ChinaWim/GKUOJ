@@ -9,11 +9,11 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/vendors/modal/css/component.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/problem_detail.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/new_dashboard.css}"/>
+
 </head>
 
-<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left" >
-<div class="preloader" style=" position: fixed;
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
+<!--<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -30,8 +30,8 @@
 z-index: 999999">
         <img src="img/loader.gif" style=" width: 50px;" alt="loading...">
     </div>
-</div>
-<div id="wrap" >
+</div>-->
+<div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
     <div class="wrapper fixedNav_top">
@@ -43,13 +43,14 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6 ">
                             <h4 class="nav_top_align">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;P[[${problem.id}]] [[${problem.name}]]
+                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;P[[${problem.id}]]
+                                [[${problem.name}]]
                             </h4>
                         </div>
                         <div class="col-6 ">
                             <ol class="breadcrumb float-right nav_breadcrumb_top_align">
                                 <li class="breadcrumb-item">
-                                    <a th:href="@{/index}">
+                                    <a th:href="@{/}">
                                         <i class="fa fa-home" aria-hidden="true"></i> 首页
                                     </a>
                                 </li>
@@ -98,7 +99,7 @@ z-index: 999999">
                                 <p class="card-text  " style="white-space:pre-line">
                                     [[${problem.inputDesc}]]
                                 </p>
-                                <h3 class="card-title m-t-20" ><strong>输出规范</strong>
+                                <h3 class="card-title m-t-20"><strong>输出规范</strong>
 
                                 </h3>
                                 <p class="card-text  " style="white-space:pre-line">
@@ -107,7 +108,7 @@ z-index: 999999">
                                 <h3 class="card-title m-t-20">
                                     <strong>样例输入</strong>
                                 </h3>
-                                <code style="white-space:pre-line">[[${problem.testcaseInput}]]</code>
+                                <code style="white-space:pre-line"><a  href="javascript:void(0)"  data-clipboard-target="#inputDesc"  class="float-right clipboard" onclick="copyToClipboard()" id="clipboard">复制</a><div id="inputDesc">[[${problem.testcaseInput}]]</div></code>
                                 <h3 class="card-title m-t-20"><strong>样例输出</strong></h3>
                                 <code style="white-space:pre-line">[[${problem.testcaseOutput}]]</code>
                                 <h3 class="card-title m-t-20"><strong>标签</strong></h3>
@@ -123,17 +124,17 @@ z-index: 999999">
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             选择编程语言
                                         </button>
-                                        <span  id="type" value="-1" hidden="hidden" >sadasdasdasdasdas</span>
+                                        <span id="type" value="-1" hidden="hidden">sadasdasdasdasdas</span>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" id = "C" onclick="setCodeType('C')"
+                                            <a class="dropdown-item" id="C" onclick="setCodeType('C')"
                                                href="javascript:void(0)">C</a>
-                                            <a class="dropdown-item" id = "C++" onclick="setCodeType('C++')"
+                                            <a class="dropdown-item" id="C++" onclick="setCodeType('C++')"
                                                href="javascript:void(0)">C++</a>
-                                            <a class="dropdown-item" id = "Java8" onclick="setCodeType('Java8')"
+                                            <a class="dropdown-item" id="Java8" onclick="setCodeType('Java8')"
                                                href="javascript:void(0)">Java8</a>
-                                            <a class="dropdown-item" id = "Python2" onclick="setCodeType('Python2')"
+                                            <a class="dropdown-item" id="Python2" onclick="setCodeType('Python2')"
                                                href="javascript:void(0)">Python2</a>
-                                            <a class="dropdown-item" id = "Python3" onclick="setCodeType('Python3')"
+                                            <a class="dropdown-item" id="Python3" onclick="setCodeType('Python3')"
                                                href="javascript:void(0)">Python3</a>
                                         </div>
                                     </div>
@@ -141,7 +142,8 @@ z-index: 999999">
                                 <div class="col-12 mt-2 ">
                                     <div id="editor" class="w-100 col-12"></div>
                                     <div class="col-12 mt-2">
-                                        <button onclick="submit()" class="ml-2 float-right btn btn-info  button-rounded">
+                                        <button onclick="submit()"
+                                                class="ml-2 float-right btn btn-info  button-rounded">
                                             <i class="fa fa-cloud"></i>&nbsp;提交代码
                                         </button>
                                         <button class="ml-2 float-right btn  btn-secondary button-rounded "
@@ -166,9 +168,9 @@ z-index: 999999">
                                     <i class="fa fa-flag"></i>&nbsp;推荐题目
                                 </div>
                                 <div class="card-body">
-                                    <div v-for = "problem in suggestProblemList">
+                                    <div v-for="problem in suggestProblemList">
                                         <div class="task-item">
-                                            <a   :href="'problem/problemDetailPage?problemId='+problem.id">{{problem.name}}</a>
+                                            <a :href="'problem/problemDetailPage?problemId='+problem.id">{{problem.name}}</a>
                                             <span class="float-right">
                                                    {{problem.tags}}
                                             </span>
@@ -176,7 +178,8 @@ z-index: 999999">
                                         </div>
                                     </div>
                                     <div class="task-item">
-                                        <button @click="changeList()" class=" w-100 btn btn-outline-primary glow_button glow_button"><i
+                                        <button @click="changeList()"
+                                                class=" w-100 btn btn-outline-primary glow_button glow_button"><i
                                                 class="fa fa-random"></i>&nbsp;更换一组
                                         </button>
                                     </div>
@@ -192,7 +195,6 @@ z-index: 999999">
                                 </div>
                                 <div class="card-block twitter_section">
                                     <ul id="nt-example1" style="height: 255px; overflow: hidden;">
-
                                         <li style="margin-top: 0px;">
                                             <div class="row">
                                                 <div class="col-2 col-lg-3 col-xl-2">
@@ -293,7 +295,7 @@ z-index: 999999">
 
     <!--- stack1 model 运行测试-->
     <div class="modal fade bs-example-modal-sm in display_none" id="stack1" tabindex="-1" role="dialog"
-         aria-hidden="false" >
+         aria-hidden="false">
         <div class="modal-dialog modal-lg" style="width: 600px">
             <div class="modal-content">
                 <div class="modal-header ">
@@ -303,19 +305,22 @@ z-index: 999999">
                 <div class="modal-body">
                     <div>
                         输入字符串:
-                        <textarea id="testInput" style="height: 100px" type="text" name="testInput" class="form-control"></textarea>
+                        <textarea id="testInput" style="height: 100px" type="text" name="testInput"
+                                  class="form-control"></textarea>
                     </div>
                     <div>
                         期望结果:
-                        <textarea id="eOutput" style="height: 100px" type="text" name="eOutput" class="form-control"></textarea>
+                        <textarea id="eOutput" style="height: 100px" type="text" name="eOutput"
+                                  class="form-control"></textarea>
                     </div>
                     <div class="mt-2">
-                        <a class="btn btn-secondary" data-toggle="modal" onclick="setTestcase()" href="javascript:void(0)">输入题目样例</a>
+                        <a class="btn btn-secondary" data-toggle="modal" onclick="setTestcase()"
+                           href="javascript:void(0)">输入题目样例</a>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <!--<button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>-->
-                    <button type="button" id = "submitRun" class="btn btn-info" onclick="testRun()">运行</button>
+                    <button type="button" id="submitRun" class="btn btn-info" onclick="testRun()">运行</button>
                 </div>
             </div>
         </div>
@@ -398,6 +403,8 @@ z-index: 999999">
 
 <script th:inline="javascript">
     /*<![CDATA[*/
+    //初始化黏贴版
+    var clipboard = new ClipboardJS('#clipboard');
 
     var submitCount = [[${problem.submitCount}]];
     var acCount = [[${problem.acCount}]];
@@ -413,15 +420,15 @@ z-index: 999999">
 
     // vue
     var changeListApp = new Vue({
-        el:'#changeListApp',
-        data:{
-            suggestProblemList:[]
+        el: '#changeListApp',
+        data: {
+            suggestProblemList: []
         },
-        methods:{
-            changeList:function () {
-                this.$http.get('/problem/suggestProblemList?problemId='+[[${problem.id}]]).then(function (res) {
+        methods: {
+            changeList: function () {
+                this.$http.get('/problem/suggestProblemList?problemId=' + [[${problem.id}]]).then(function (res) {
                     this.suggestProblemList = res.data.data;
-                }),function (res) {
+                }), function (res) {
                     console.log(res.data.msg);
                 }
             }
@@ -469,11 +476,12 @@ z-index: 999999">
     // en of chars
 
     //输入测试样例
-    function setTestcase(){
+    function setTestcase() {
         $("#testInput").val([[${problem.testcaseInput}]]);
         $("#eOutput").val([[${problem.testcaseOutput}]]);
     }
-    function clearTestcase(){
+
+    function clearTestcase() {
         $("#testInput").val("");
         $("#eOutput").val("");
     }
@@ -494,18 +502,18 @@ z-index: 999999">
             return;
         }
 
-        $.post("problemResult/submit", {"problemId":problemId,"type":type,"sourceCode":sourceCode}, function (resp) {
-            if(resp.status == 200){
+        $.post("problemResult/submit", {
+            "problemId": problemId,
+            "type": type,
+            "sourceCode": sourceCode
+        }, function (resp) {
+            if (resp.status == 200) {
                 toastr.success(resp.msg);
-            }else {
+            } else {
                 toastr.error(resp.msg, "错误提示");
             }
         });
     }
-
-
-
-
 
 
     /*]]>*/

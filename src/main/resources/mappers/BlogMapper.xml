@@ -5,16 +5,16 @@
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="bc_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="problem_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="view_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, title, content, problem_id, view_count, create_time, update_time
+    id, user_id, bc_id, title, content, view_count, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,11 +27,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Blog" >
-    insert into blog (id, user_id, title, 
-      content, problem_id, view_count, 
+    insert into blog (id, user_id, bc_id, 
+      title, content, view_count, 
       create_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{problemId,jdbcType=INTEGER}, #{viewCount,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bcId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Blog" >
@@ -43,20 +43,20 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="bcId != null" >
+        bc_id,
+      </if>
       <if test="title != null" >
         title,
       </if>
       <if test="content != null" >
         content,
       </if>
-      <if test="problemId != null" >
-        problem_id,
-      </if>
       <if test="viewCount != null" >
         view_count,
       </if>
       <if test="createTime != null" >
-        create_time,
+        create_time
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -66,22 +66,21 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="bcId != null" >
+        #{bcId,jdbcType=INTEGER},
+      </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="problemId != null" >
-        #{problemId,jdbcType=INTEGER},
-      </if>
       <if test="viewCount != null" >
         #{viewCount,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=TIMESTAMP}
       </if>
-
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.Blog" >
@@ -90,31 +89,30 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="bcId != null" >
+        bc_id = #{bcId,jdbcType=INTEGER},
+      </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="problemId != null" >
-        problem_id = #{problemId,jdbcType=INTEGER},
-      </if>
       <if test="viewCount != null" >
         view_count = #{viewCount,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
       </if>
-
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.Blog" >
     update blog
     set user_id = #{userId,jdbcType=INTEGER},
+      bc_id = #{bcId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      problem_id = #{problemId,jdbcType=INTEGER},
       view_count = #{viewCount,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

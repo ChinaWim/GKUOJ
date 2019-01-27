@@ -15,7 +15,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.3.RELEASE</version>
-        <relativePath/>
     </parent>
 
     <properties>
@@ -48,12 +47,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
+        <!--热部署-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -90,7 +89,45 @@
             <artifactId>spring-social-web</artifactId>
             <version>1.1.6.RELEASE</version>
         </dependency>
-        <!--连接池-->
+
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.1.2.RELEASE</version>
+        </dependency>
+
+        <!--spring-session-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+            <!-- 1.5的版本默认采用的连接池技术是jedis  2.0以上版本默认连接池是lettuce, 在这里采用jedis，所以需要排除lettuce的jar -->
+            <exclusions>
+                <exclusion>
+                    <groupId>redis.clients</groupId>
+                    <artifactId>jedis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>2.1.2.RELEASE</version>
+        </dependency>
+        <!-- 添加jedis客户端 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <!--spring2.0集成redis所需common-pool2-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
+        <!--mysql连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
@@ -112,14 +149,13 @@
         <!--mybatis分页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.3</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.mybatis.spring.boot</groupId>
-                    <artifactId>mybatis-spring-boot-starter</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>0.9.5</version>
         </dependency>
         <!--二维码-->
         <dependency>
@@ -146,16 +182,16 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.apache.commons</groupId>
+             <artifactId>commons-collections</artifactId>
+             <version>4.2</version>
+         </dependency>
+         <dependency>
+             <groupId>org.apache.commons</groupId>
+             <artifactId>commons-beanutils</artifactId>
+             <version>1.9.3</version>
+         </dependency>-->
 
         <!--时间处理-->
         <dependency>
@@ -169,8 +205,6 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>1.5.13.RELEASE</version>
         </dependency>
-
-
 
 
     </dependencies>
@@ -193,6 +227,7 @@
                 <configuration>
                     <target>11</target>
                     <source>11</source>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>

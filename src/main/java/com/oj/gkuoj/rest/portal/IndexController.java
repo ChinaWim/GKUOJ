@@ -13,14 +13,12 @@ import java.util.Date;
  */
 @Controller
 public class IndexController {
-
-
     /**
      * 首页
      * @param request
      * @return
      */
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String index(HttpServletRequest request){
         //set data
         request.setAttribute("nowDate",new Date());

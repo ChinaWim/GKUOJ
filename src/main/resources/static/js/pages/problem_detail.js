@@ -87,6 +87,11 @@ function testRun() {
 }
 
 
+/**
+ * 复制测试样例
+ */
+function copyToClipboard() {
+}
 
 
 

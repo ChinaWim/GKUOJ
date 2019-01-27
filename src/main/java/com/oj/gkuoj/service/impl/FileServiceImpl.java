@@ -25,7 +25,7 @@ import java.util.List;
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Value("${file.server.http.prefix")
+    @Value("${file.server.http.prefix}")
     private String fileServerHttpPrefix;
 
     @Value("${file.server.dir}")
@@ -40,45 +40,47 @@ public class FileServiceImpl implements FileService {
     @Value("${file.server.type.image}")
     private String fileServerTypeImage;
 
-
     private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
     @Override
-    public RestResponseVO uploadImage(MultipartFile multipartFile, String username) {
-        if(StringUtils.isBlank(username) || multipartFile == null || multipartFile.isEmpty()){
+    public RestResponseVO uploadImageByMD(MultipartFile multipartFile, String guid, String username) {
+        if (!StringUtils.isNoneBlank(username, guid) || multipartFile == null || multipartFile.isEmpty()) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         String originalFilename = multipartFile.getOriginalFilename();
-        String type = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-        List<String> typeArray = Arrays.asList(fileServerTypeImage.split(","));
-        if (!typeArray.contains(type)) {
-            logger.info("不支持此图片文件格式,{}", type);
-            return RestResponseVO.createByErrorEnum(RestResponseEnum.FILE_TYPE_ERROR);
-        }
-        String newFileName = String.valueOf(UUIDUtil.createByTime());
-        String savePath = fileServerImageDir + "/" + username + "/" + newFileName + "." + type;
-
-        File saveFile = new File(savePath);
-        File parentFile = saveFile.getParentFile();
-        if (!parentFile.exists()) {
-            parentFile.mkdirs();
-            if (!parentFile.canWrite()) {
-                logger.info("文件{},没有操作权限", savePath);
-                return RestResponseVO.createByErrorEnum(RestResponseEnum.FILE_PERMISSION_ERROR);
-            }
-        }
         try {
+            String type = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+            List<String> typeArray = Arrays.asList(fileServerTypeImage.split(","));
+            if (!typeArray.contains(type)) {
+                logger.info("不支持此图片文件格式,{}", type);
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.FILE_TYPE_ERROR);
+            }
+            String newUri = username + "/blog/" + guid + "." + type;
+            String savePath = fileServerImageDir + "/" + newUri;
+            String url = fileServerHttpPrefix + "image/" + newUri;
+
+            File saveFile = new File(savePath);
+            File parentFile = saveFile.getParentFile();
+            if (!parentFile.exists()) {
+                parentFile.mkdirs();
+                if (!parentFile.canWrite()) {
+                    logger.info("文件{},没有操作权限", savePath);
+                    return RestResponseVO.createByErrorEnum(RestResponseEnum.FILE_PERMISSION_ERROR);
+                }
+            }
+
             FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), saveFile);
+
+            return RestResponseVO.createBySuccess(url);
         } catch (Exception e) {
             logger.info("文件IO异常", e.getMessage());
             return RestResponseVO.createByErrorMessage(e.getMessage());
         }
-        return RestResponseVO.createBySuccess();
     }
 
     @Override
     public RestResponseVO<byte[]> get(String path) {
-        if(StringUtils.isBlank(path)){
+        if (StringUtils.isBlank(path)) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         String absolutePath = fileServerDir + "/" + path;

@@ -7,6 +7,7 @@
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/markdown/editormd.min.css}"/>
     <!--heard script-->
 
 </head>
@@ -15,7 +16,7 @@
 
 <!--end of Page head script-->
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
-<div class="preloader" style=" position: fixed;
+<!--div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -32,7 +33,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>
+</div>-->
 <div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
@@ -45,7 +46,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-book"></i>&nbsp;讨论区
+                                <i class="fa fa-comments"></i>&nbsp;讨论区
                             </h4>
                         </div>
                     </div>
@@ -58,52 +59,112 @@ z-index: 999999">
                         <!--table-->
                         <div class="col-8">
                             <div class="card">
-                                <!-- <h5 class="card-header  ">
-                                      <i class="fa fa-flag "></i>&nbsp;题目列表
-                                  </h5>-->
-                                <div class="card-block">
-                                    123123123
+                                <div class="card-block twitter_section">
+                                    <ul style="overflow: hidden;">
+                                        <li style="margin-top: 0px;">
+                                            <div class="row">
+                                                <div class="col-1  ">
+                                                    <img src="img/default_avatar.jpg"
+                                                         class="rounded-circle hidden-sm-down"
+                                                         alt="image not found">
+                                                </div>
+                                                <div class="col-11  ">
+                                                    <span class="name"><a href="#" class="text-primary">小菜鸡感觉这样也行呀，不用C++不用贪心，但为什么是错的。恳请各位大  </a></span>
+                                                    <span class="name ml-3  btn-success btn-sm text-white">P-11</span>
+                                                    <span class="name ml-3  btn-danger btn-sm text-white">热</span>
+                                                    <br>
+                                                    <span class="msg">
+                                                    <a href="#">作者：MAYASA</a>
+                                                        <span class="ml-3" style="color: #A6A6A6">今天 17:30:50</span>
+                                                        <span class="ml-3"><span style="color: #A6A6A6">发表在</span><a
+                                                                href="#">[猿生活]</a></span>
+                                                         <span class="ml-3" style="color: #A6A6A6">最后回复:2019-01-18 17:30:50</span>
+                                                    </span>
+                                                    <span class="time">回复&nbsp;185&nbsp;|&nbsp;赞&nbsp;24&nbsp;|&nbsp;浏览&nbsp;27202&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="signin_wid mt-3">
-                                <!-- <h5 class="card-header  ">
-                                      <i class="fa fa-flag "></i>&nbsp;题目列表
-                                  </h5>-->
-                                <div class="">
-                                    1231231231
+                            <!--#bloglist-->
+                            <!--page-->
+                            <div class="row mt-3">
+                                <div class="col-6" style="margin: 0 auto">
+                                    <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
                                 </div>
                             </div>
-                        </div>
+                            <!--#page-->
+                            <!--md-->
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header   bg-white">
+                                            <button class="btn btn-danger">发表评论</button>
+                                            <button class="btn btn-info">重置评论</button>
+                                        </div>
+                                        <div class=" card_block_top_align">
+                                            <div id="editormd-div">
+                                                <textarea id = "editormd-textarea" name="content" style="display:none;"></textarea>
+                                            </div>
 
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--＃md-->
+                        </div>
                         <!--#table-->
 
                         <!--right-->
-                        <div class="col-4">
+                        <div class="col-4 blog-right">
                             <div class="card">
-                                <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;题目分类</div>
-                                <div class="card-block  ">
-                                    <div class="row">
-                                        <div class="col-12">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header bg-white"><i class="fa fa-tags"></i>&nbsp;标签云</div>
-                                <div class="card-block  ">
-                                    <div class="row">
-                                        <div class="col-12">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header bg-white"><i class="fa fa-clock-o"></i>&nbsp;时间</div>
+                                <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;进入板块</div>
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-12">
+                                           <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                    全部
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                    题目总版
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                    技术交流
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                   笔试面经
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                   资源分享
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                    反馈专版
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                    站内公告
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
+                                                   猿生活
+                                                </a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -111,6 +172,8 @@ z-index: 999999">
                         </div>
                         <!--#right-->
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -200,10 +263,54 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
+<script type="text/javascript" th:src="@{/markdown/editormd.min.js}"></script>
 <!--end of global scripts-->
 
 <script th:inline="javascript" type="text/javascript">
 
+    /*<![CDATA[*/
+    function tt(dd) {
+        alert(dd);
+    }
+    $("#page").initPage(71, 1, tt);
+
+    var testEditor = editormd("editormd-div", {
+        placeholder: "此处开始编写您要发布的内容...",
+        width: "98%",
+        height: 730,
+        path: '/markdown/lib/',
+        markdown: '',
+        codeFold: true,
+        /* theme: "dark",//工具栏主题
+        previewTheme: "dark",//预览主题
+        // editorTheme: "pastel-on-dark",//编辑主题  */
+        saveHTMLToTextarea: true,
+        searchReplace: true,
+        htmlDecode: "style,script,iframe|on*",
+        emoji: true,
+        taskList: true,
+        onfullscreen: function () {
+            $(".blog-right").attr("style", "display:none");
+            $("#left").attr("style", "display:none");
+            $("#top").attr("style", "display:none");
+        },
+        onfullscreenExit: function () {
+            $(".blog-right").attr("style", "display:''");
+            $("#left").attr("style", "display:''");
+            $("#top").attr("style", "display:''");
+        },
+        tocm: true,         // Using [TOCM]
+        tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+        flowChart: true,             // 开启流程图支持，默认关闭
+        sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+        imageUpload: true,
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL: "file/uploadImageByMD",
+        onload: function () {
+        }
+    });
+
+    /*]]>*/
 </script>
 
 </body>

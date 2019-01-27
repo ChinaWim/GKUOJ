@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface FileService {
 
-    RestResponseVO uploadImage(MultipartFile multipartFile,String username);
+    RestResponseVO uploadImageByMD(MultipartFile multipartFile,String guid,String username);
 
 
     RestResponseVO<byte[]> get(String path);

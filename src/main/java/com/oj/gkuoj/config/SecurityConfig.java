@@ -5,6 +5,7 @@ import com.oj.gkuoj.config.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,10 +26,6 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder getPasswordEncode() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Autowired
     private DataSource dataSource;
@@ -51,6 +48,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return tokenRepository;
     }
 
+    @Bean
+    public PasswordEncoder getPasswordEncode() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * 用自己的userDetailService 和　密码认证
+     *
+     * @param auth
+     * @throws Exception
+     */
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncode());
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -61,16 +73,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler)
                 .and()
-                .logout().logoutUrl("/user/logout").logoutSuccessUrl("/index")
+                .logout().logoutUrl("/user/logout").logoutSuccessUrl("/")
                 .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(3600 * 24)
                 .userDetailsService(userDetailsService)
                 .and()
+              .sessionManagement()
+                //记录session失效的一些行为
+//                .invalidSessionUrl()
+                //一个用户只有一个Session
+                .maximumSessions(1)
+                //当网站有一个用户的Session登录了，当达到最大数量后，别的不允许登录
+//                .maxSessionsPreventsLogin(true)
+                //记录谁的登录导致session被替换，失效了
+//                .expiredSessionStrategy()
+                .and()
+                .and()
                 .authorizeRequests()
                 .antMatchers(URIConst.NOT_ALLOWED_ARRAY_URI)
-                .authenticated()
+                .hasRole("ADMIN")
                 .anyRequest()
                 .permitAll()
                 .and()
@@ -80,7 +103,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    public static void main(String[] args) {
-        String encode = new BCryptPasswordEncoder().encode("123");
-    }
 }

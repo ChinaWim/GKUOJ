@@ -26,12 +26,10 @@
                 password="47218382">
         </jdbcConnection>
 
-
         <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
-
 
         <!-- Model模型生成器,用来生成含有主键key的类，记录类 以及查询Example类
             targetPackage     指定生成的model生成所在的包名
@@ -116,11 +114,7 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
 -->
-       <!-- <table tableName="blog" domainObjectName="Blog" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <columnOverride column="content" jdbcType="VARCHAR"/>
-        </table>
+       <!--
         <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
@@ -188,6 +182,17 @@
 <!--        <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                        selectByExampleQueryId="false"></table>-->
+
+      <!--  <table tableName="blog" domainObjectName="Blog" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="content" jdbcType="VARCHAR"/>
+        </table>
+        <table tableName="blog_category" domainObjectName="BlogCategory" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+
 
     </context>
 </generatorConfiguration>

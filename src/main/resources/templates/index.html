@@ -7,7 +7,7 @@
     <div th:replace="~{fragments/head-base}"></div>
 </head>
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
-<div class="preloader" style=" position: fixed;
+<!--<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -24,7 +24,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>
+</div>-->
 <!--wrap-->
 <div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
@@ -60,6 +60,7 @@ z-index: 999999">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
@@ -93,7 +94,7 @@ z-index: 999999">
                                 <h1 class="text-danger">[[${#dates.format(nowDate,'yyyy')}]]&nbsp;Years</h1>
                                 <h1 class="text-success">[[${#dates.format(nowDate,'MM')}]]&nbsp;Month</h1>
                                 <h1 class="text-primary">[[${#dates.format(nowDate,'dd')}]]&nbsp;Day</h1>
-                                <h3 class="text-warning">距 第九届蓝桥杯 还剩  天</h3>
+                                <h3 class="text-warning">距 第九届蓝桥杯 还剩 天</h3>
                             </div>
                         </div>
                     </div>
@@ -102,13 +103,16 @@ z-index: 999999">
                             <div class="card">
                                 <div class="card-block card_block_top_align ">
                                     <p><i class="fa fa-paper-plane"></i>&nbsp;快速跳转</p>
-                                    <form th:action="@{/problem/problemDetailPage}">
-                                        <input type="text" name = "problemId" class="form-control   focused_input" placeholder="例：1001，可跳至“A+B问题”">
-                                        <div class="mt-3">
-                                            <button class="btn btn-danger float-left" type="submit">跳转</button>
-                                            <button type="button" class="btn btn-primary ml-2 float-left" onclick="location.href='problem/randomProblem'">随机跳题</button>
-                                        </div>
-                                    </form>
+                                    <input type="number" id="problemId" name="problemId"
+                                           class="form-control   focused_input" placeholder="例：1001，可跳至“A+B问题”">
+                                    <div class="mt-3">
+                                        <button onclick="skipProblemDetail()" class="btn btn-danger float-left"
+                                                type="submit">跳转
+                                        </button>
+                                        <button type="button" class="btn btn-primary ml-2 float-left"
+                                                onclick="location.href='problem/randomProblem'">随机跳题
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +143,8 @@ z-index: 999999">
                                                 <div class="card-block">
                                                     <div class="mt-2">
                                                         <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
-                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                        <span class="text-success">未开始</span><a class="text-danger">
+                                                        12时59分后</a>
                                                     </div>
                                                     <div class="mt-2">
                                                         <span class=" btn-warning btn-sm">IOI</span>&nbsp;
@@ -150,11 +155,12 @@ z-index: 999999">
                                         </div>
                                         <div class="col-4">
                                             <div class="card card-outline-success">
-                                                <div class="card-header  bg-success">xtq的小学生活  </div>
+                                                <div class="card-header  bg-success">xtq的小学生活</div>
                                                 <div class="card-block">
                                                     <div class="mt-2">
                                                         <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
-                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                        <span class="text-success">未开始</span><a class="text-danger">
+                                                        12时59分后</a>
                                                     </div>
                                                     <div class="mt-2">
                                                         <span class=" btn-warning btn-sm">IOI</span>&nbsp;
@@ -169,7 +175,8 @@ z-index: 999999">
                                                 <div class="card-block">
                                                     <div class="mt-2">
                                                         <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
-                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                        <span class="text-success">未开始</span><a class="text-danger">
+                                                        12时59分后</a>
                                                     </div>
                                                     <div class="mt-2">
                                                         <span class=" btn-warning btn-sm">IOI</span>&nbsp;
@@ -186,7 +193,8 @@ z-index: 999999">
                                                 <div class="card-block">
                                                     <div class="mt-2">
                                                         <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
-                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                        <span class="text-success">未开始</span><a class="text-danger">
+                                                        12时59分后</a>
                                                     </div>
                                                     <div class="mt-2">
                                                         <span class=" btn-warning btn-sm">IOI</span>&nbsp;
@@ -197,11 +205,12 @@ z-index: 999999">
                                         </div>
                                         <div class="col-4 mt-3">
                                             <div class="card card-outline-warning">
-                                                <div class="card-header  bg-warning">xtq的小学生活  </div>
+                                                <div class="card-header  bg-warning">xtq的小学生活</div>
                                                 <div class="card-block">
                                                     <div class="mt-2">
                                                         <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
-                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                        <span class="text-success">未开始</span><a class="text-danger">
+                                                        12时59分后</a>
                                                     </div>
                                                     <div class="mt-2">
                                                         <span class=" btn-warning btn-sm">IOI</span>&nbsp;
@@ -216,7 +225,8 @@ z-index: 999999">
                                                 <div class="card-block">
                                                     <div class="mt-2">
                                                         <span class=" btn-primary btn-sm">个人赛</span>&nbsp;
-                                                        <span class="text-success">未开始</span><a class="text-danger"> 12时59分后</a>
+                                                        <span class="text-success">未开始</span><a class="text-danger">
+                                                        12时59分后</a>
                                                     </div>
                                                     <div class="mt-2">
                                                         <span class=" btn-warning btn-sm">IOI</span>&nbsp;
@@ -377,6 +387,8 @@ z-index: 999999">
 <!--<script type="text/javascript" src="vendors/noty/js/jquery.noty.packaged.min.js"></script>-->
 <script type="text/javascript" th:src="@{/js/pages/index.js}"></script>
 <!--end of plugin scripts-->
+<script type="text/javascript" th:inline="javascript">
+</script>
 </body>
 
 </html>

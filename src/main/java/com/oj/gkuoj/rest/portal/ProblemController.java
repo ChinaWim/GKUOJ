@@ -1,8 +1,10 @@
 package com.oj.gkuoj.rest.portal;
 
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.entity.Tag;
+import com.oj.gkuoj.exception.ProblemNotFoundException;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.TagService;
 import com.oj.gkuoj.service.ProblemService;
@@ -30,20 +32,22 @@ public class ProblemController {
     private TagService tagService;
 
     private final Integer SUGGEST_PROBLEM_ROW = 5;
+
     /**
      * 问题列表
+     *
      * @param request
      * @param pageNum
      * @param pageSize
-     * @param keyword 标题、标签、分类或题目编号
+     * @param keyword  标题、标签、分类或题目编号
      * @param level
      * @param tagName
      * @return
      */
     @RequestMapping("/problemListPage")
-    public String problemListPage(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "40") Integer pageSize,
-                                  @RequestParam(defaultValue = "",required = false) String keyword, @RequestParam(defaultValue = "-1",required = false)Integer level,
-                                  @RequestParam(defaultValue = "不限",required = false) String tagName) {
+    public String problemListPage(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "20") Integer pageSize,
+                                  @RequestParam(defaultValue = "", required = false) String keyword, @RequestParam(defaultValue = "-1", required = false) Integer level,
+                                  @RequestParam(defaultValue = "不限", required = false) String tagName) {
         //题目
         RestResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, tagName, pageNum, pageSize);
         PageInfo pageInfo = result.getData();
@@ -56,61 +60,69 @@ public class ProblemController {
         tagList.add(0, t);
 
         //set data
-
-        request.setAttribute("total",pageInfo.getTotal());
-        request.setAttribute("problemList",pageInfo.getList());
         request.setAttribute("pageNum",pageNum);
-        request.setAttribute("keyword",keyword);
-        request.setAttribute("level",level);
-        request.setAttribute("tagName",tagName);
+        request.setAttribute("total", pageInfo.getTotal());
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("level", level);
+        request.setAttribute("tagName", tagName);
+
+        request.setAttribute("problemList", pageInfo.getList());
         request.setAttribute("tagList", tagList);
         request.setAttribute("active2", true);
-        return "portal/problem/problem-list";
+
+
+        return  "portal/problem/problem-list";
     }
 
 
     /**
      * 题目详情页面
+     *
      * @param request
      * @param problemId
      * @return
      */
     @RequestMapping("/problemDetailPage")
-    public String problemDetailPage(HttpServletRequest request,Integer problemId){
+    public String problemDetailPage(HttpServletRequest request, Integer problemId) {
         Problem problem = problemService.getById(problemId).getData();
+        //todo
+        if (problem == null) {
+            throw new ProblemNotFoundException(ExceptionStatusConst.PROBLEM_NOT_FOUND_EXP,"未找到该题号的题目");
+        }
         //set data
-        request.setAttribute("problem",problem);
+        request.setAttribute("problem", problem);
         request.setAttribute("active2", true);
         return "portal/problem/problem-detail";
     }
 
     /**
      * 随机返回5道推荐题目
+     *
      * @param problemId
      * @return
      */
     @RequestMapping("/suggestProblemList")
     @ResponseBody
-    public RestResponseVO<List<Problem>> suggestProblemList(Integer problemId){
-        return problemService.listSuggestProblem(problemId,SUGGEST_PROBLEM_ROW);
+    public RestResponseVO<List<Problem>> suggestProblemList(Integer problemId) {
+        return problemService.listSuggestProblem(problemId, SUGGEST_PROBLEM_ROW);
     }
 
     /**
      * 随机选择一道题目
+     *
      * @return
      */
     @RequestMapping("/randomProblem")
-    public String randomProblem(HttpServletRequest request){
+    public String randomProblem(HttpServletRequest request) {
 
         RestResponseVO<Integer> serverResponse = problemService.randomProblemId();
-        if(serverResponse.isSuccess()){
-            return "redirect:/problem/problemDetailPage?problemId="+serverResponse.getData();
-        }else {
+        if (serverResponse.isSuccess()) {
+            return "redirect:/problem/problemDetailPage?problemId=" + serverResponse.getData();
+        } else {
             //fixme
             return "500";
         }
     }
-
 
 
 }
