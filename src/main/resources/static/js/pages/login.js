@@ -3,7 +3,10 @@ function login(){
     var password = $("#password").val();
     var imageCode = $("#imageCode").val();
     if(!username || !password || !imageCode){
-        toastr.warning("输入不能为空哦","提示");
+        $.message({
+            message:'输入不能为空',
+            type:'warning'
+        });
         return;
     }
     var content = $("#loginForm").serialize();
@@ -11,7 +14,10 @@ function login(){
         if(resp.status == 200){
             location.href = "/";
         }else {
-            toastr.error(resp.msg,"错误提示");
+            $.message({
+                message:resp.msg,
+                type:'error'
+            });
             $("#imageCodeImg").attr("src","validate/code");
         }
     });

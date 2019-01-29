@@ -58,11 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @param auth
      * @throws Exception
-     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncode());
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

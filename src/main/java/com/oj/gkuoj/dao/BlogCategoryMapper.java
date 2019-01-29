@@ -2,6 +2,8 @@ package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.BlogCategory;
 
+import java.util.List;
+
 public interface BlogCategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface BlogCategoryMapper {
     int updateByPrimaryKeySelective(BlogCategory record);
 
     int updateByPrimaryKey(BlogCategory record);
+
+    List<BlogCategory> listAll();
 }

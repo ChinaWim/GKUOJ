@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>帖子详情</title>
+    <div th:replace="~{fragments/head-base}"></div>
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" th:href="@{/plugins/markdown/editormd.min.css}"/>
+    <!--heard script-->
+</head>
+
+<!--Page head script-->
+
+<!--end of Page head script-->
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
+<!--div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
+    </div>
+</div>-->
+<div id="wrap">
+    <div th:replace="~{fragments/top :: top}"></div>
+    <!-- /#top -->
+    <div class="wrapper fixedNav_top">
+        <div th:replace="~{fragments/left :: left}"></div>
+        <!-- /#left -->
+        <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <h4 class="m-t-5">
+                                讨论详情
+                            </h4>
+                        </div>
+                        <div class="col-6 ">
+                            <ol class="breadcrumb float-right nav_breadcrumb_top_align">
+                                <li class="breadcrumb-item">
+                                    <a th:href="@{/blog/blogListPage}">
+                                        <i class="fa fa-home" aria-hidden="true"></i> 首页
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a th:href="@{'/blog/blogListPage?bcId='+${blogDetail.bcId}}">[[${blogDetail.bcName}]]</a>
+                                </li>
+                                <li class="breadcrumb-item active">讨论详情</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="outer">
+                <div class="inner bg-container">
+
+                    <div class="row mt-3">
+                        <!--table-->
+                        <div class="col-8">
+                            <!--blogList-->
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h2 align="center" class="mt-3">[[${blogDetail.title}]]</h2>
+                                    <div class="mt-5">
+                                        <a th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">
+                                            <img class="admin_img3  float-left rounded-circle" th:src="${blogDetail.avatar==null}?'img/default_avatar.jpg':${blogDetail.avatar}">
+                                        </a>
+                                        <div class="float-left ml-3">
+                                            <div ><a class="text-danger" th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">[[${blogDetail.name}]]</a></div>
+                                            <div class="mt-2">
+                                                <span>编辑于：[[${#dates.format(blogDetail.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                            </div>
+                                        </div>
+                                        <div class="float-right">
+                                            <div>&nbsp;</div>
+                                            <div class="mt-2">
+                                                <span>回复&nbsp;[[${blogDetail.replyCount}]]&nbsp;|&nbsp;赞&nbsp;[[${blogDetail.upCount}]]&nbsp;|&nbsp;浏览&nbsp;[[${blogDetail.viewCount}]]&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-block">
+                                    <div  th:utext="${blogDetail.htmlContent}"></div>
+                                    <div class="mt-3 float-right">
+                                        <a href="#">
+                                            <i class="fa fa-thumbs-up"></i>&nbsp;点个赞
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-commenting ml-3"></i>&nbsp;回复
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--#bloglist-->
+                            <!--page-->
+                            <div class="row mt-3">
+                                <div class="col-6" style="margin: 0 auto">
+                                    <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
+                                </div>
+                            </div>
+                            <!--#page-->
+
+                            <!--md-->
+                            <div class="row">
+                                <div class="col-12 ">
+                                    <div id="editormd-div">
+                                        <textarea id="editormd-textarea" name="content"
+                                                  style="display:none;"></textarea>
+                                    </div>
+                                    <div class="mr-3  float-right">
+                                        <button class="mr-3 btn btn-secondary" style="width: 100px;font-size: 18px">取消
+                                        </button>
+                                        <button class=" btn btn-danger" style="width: 100px;font-size: 18px">发布</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--＃md-->
+                        </div>
+                        <!--#table-->
+
+                        <!--right-->
+                        <div class="col-4 blog-right">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row  ">
+                                                <div class="col-12 ">
+                                                    <a th:href="'blog/blogDetailPage?blogId='+${blogDetail.id}+'#editormd-div'"
+                                                       class="btn btn-danger text-white">回复帖子</a>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--#right-->
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.inner -->
+        </div>
+        <!-- /.outer -->
+
+        <!-- /#content -->
+        <!-- Modal -->
+        <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <form th:action="@{/problem/problemListPage}" method="post">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="float-right" aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="input-group search_bar_small">
+                            <input type="text" class="form-control" placeholder="题目搜索" name="keyword">
+                            <span class="input-group-btn">
+                          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--wrapper-->
+        <!-- /#content -->
+        <div id="right">
+            <div class="right_content">
+                <div class="well-small dark m-t-15">
+                    <div class="row m-0">
+                        <div class="col-lg-12 p-d-0">
+                            <div class="skinmulti_btn" onclick="javascript:loadjscssfile('blue_black_skin.css','css')">
+                                <div class="skin_blue skin_size b_t_r"></div>
+                                <div class="skin_blue_border skin_shaddow skin_size b_b_r"></div>
+                            </div>
+                            <div class="skinmulti_btn" onclick="javascript:loadjscssfile('green_black_skin.css','css')">
+                                <div class="skin_green skin_size b_t_r"></div>
+                                <div class="skin_green_border skin_shaddow skin_size b_b_r"></div>
+                            </div>
+                            <div class="skinmulti_btn"
+                                 onclick="javascript:loadjscssfile('purple_black_skin.css','css')">
+                                <div class="skin_purple skin_size b_t_r"></div>
+                                <div class="skin_purple_border skin_shaddow skin_size b_b_r"></div>
+                            </div>
+                            <div class="skinmulti_btn"
+                                 onclick="javascript:loadjscssfile('orange_black_skin.css','css')">
+                                <div class="skin_orange skin_size b_t_r"></div>
+                                <div class="skin_orange_border skin_shaddow skin_size b_b_r"></div>
+                            </div>
+                            <div class="skinmulti_btn" onclick="javascript:loadjscssfile('red_black_skin.css','css')">
+                                <div class="skin_red skin_size b_t_r"></div>
+                                <div class="skin_red_border skin_shaddow skin_size b_b_r"></div>
+                            </div>
+                            <div class="skinmulti_btn" onclick="javascript:loadjscssfile('mint_black_skin.css','css')">
+                                <div class="skin_mint skin_size b_t_r"></div>
+                                <div class="skin_mint_border skin_shaddow skin_size b_b_r"></div>
+                            </div>
+                            <!--</div>-->
+                            <div class="skin_btn skinsingle_btn skin_blue b_r height_40 skin_shaddow"
+                                 onclick="javascript:loadjscssfile('blue_skin.css','css')"></div>
+                            <div class="skin_btn skinsingle_btn skin_green b_r height_40 skin_shaddow"
+                                 onclick="javascript:loadjscssfile('green_skin.css','css')"></div>
+                            <div class="skin_btn skinsingle_btn skin_purple b_r height_40 skin_shaddow"
+                                 onclick="javascript:loadjscssfile('purple_skin.css','css')"></div>
+                            <div class="skin_btn  skinsingle_btn skin_orange b_r height_40 skin_shaddow"
+                                 onclick="javascript:loadjscssfile('orange_skin.css','css')"></div>
+                            <div class="skin_btn skinsingle_btn skin_red b_r height_40 skin_shaddow"
+                                 onclick="javascript:loadjscssfile('red_skin.css','css')"></div>
+                            <div class="skin_btn skinsingle_btn skin_mint b_r height_40 skin_shaddow"
+                                 onclick="javascript:loadjscssfile('mint_skin.css','css')"></div>
+                        </div>
+                        <div class="col-lg-12 text-center m-t-15">
+                            <button class="btn btn-dark button-rounded"
+                                    onclick="javascript:loadjscssfile('black_skin.css','css')">Dark
+                            </button>
+                            <button class="btn btn-secondary button-rounded default_skin"
+                                    onclick="javascript:loadjscssfile('default_skin.css','css')">Default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- # right side -->
+</div>
+<!-- /#wrap -->
+<!-- global scripts-->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script type="text/javascript" th:src="@{/plugins/markdown/editormd.min.js}"></script>
+<!--end of global scripts-->
+
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    $(function () {
+
+        /**
+         * 分页
+         * @param dd
+         */
+        function tt(dd) {
+            alert(dd);
+        }
+
+        $("#page").initPage(71, 1, tt);
+
+
+        /**
+         * md
+         */
+        var testEditor = editormd("editormd-div", {
+            placeholder: "写下你的评论",
+            width: "98%",
+            height: 450,
+            path: '/plugins/markdown/lib/',
+            markdown: '',
+            codeFold: true,
+            /* theme: "dark",//工具栏主题
+            previewTheme: "dark",//预览主题
+            // editorTheme: "pastel-on-dark",//编辑主题  */
+            saveHTMLToTextarea: true,
+            searchReplace: true,
+            htmlDecode: "style,script,iframe|on*",
+            emoji: true,
+            taskList: true,
+            onfullscreen: function () {
+                $("#left").attr("style", "display:none");
+                $("#top").attr("style", "display:none");
+            },
+            onfullscreenExit: function () {
+                $("#left").attr("style", "display:''");
+                $("#top").attr("style", "display:''");
+            },
+            tocm: true,         // Using [TOCM]
+            tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart: true,             // 开启流程图支持，默认关闭
+            sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            watch: false,//关闭预览
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "file/uploadImageByMD",
+            onload: function () {
+            }
+        });
+
+    });
+
+    /*]]>*/
+</script>
+
+</body>
+
+</html>

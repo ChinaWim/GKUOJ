@@ -87,16 +87,43 @@ public class ProblemResultController {
 
     @RequestMapping("/submit")
     @ResponseBody
-    public RestResponseVO submit(@AuthenticationPrincipal Principal principal, @Validated ProblemResult problemResult, BindingResult bindingResult) {
-        if (!(principal instanceof UserDetails)) {
+    public RestResponseVO submit(@AuthenticationPrincipal UserDetails userDetails, @Validated ProblemResult problemResult, BindingResult bindingResult) {
+        if (userDetails == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
         if (bindingResult.hasErrors()) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        User user = (User) principal;
+        User user = (User) userDetails;
         problemResult.setUserId(user.getId());
         return producer.send(problemResult);
     }
+
+
+
+    /**
+     * todo
+     * @param request
+     * @param problemResultId
+     * @return
+     */
+    @RequestMapping("/problemResultPage")
+    public String problemResultPage(HttpServletRequest request,Integer problemResultId){
+        RestResponseVO<ProblemResult> problemResultVO = problemResultService.getById(problemResultId);
+        ProblemResult problemResult = problemResultVO.getData();
+
+        return  "portal/problem/problem-result";
+    }
+
+
+
+
+    @RequestMapping("/problemResultNow")
+    @ResponseBody
+    public RestResponseVO problemResultNow(Integer problemResultId){
+        RestResponseVO<ProblemResult> problemResultVO = problemResultService.getById(problemResultId);
+        return problemResultVO;
+    }
+
 
 }

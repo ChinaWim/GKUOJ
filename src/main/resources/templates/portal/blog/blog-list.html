@@ -6,10 +6,7 @@
     <title>讨论区</title>
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/general_components.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/markdown/editormd.min.css}"/>
     <!--heard script-->
-
 </head>
 
 <!--Page head script-->
@@ -58,29 +55,40 @@ z-index: 999999">
                     <div class="row mt-3">
                         <!--table-->
                         <div class="col-8">
-                            <div class="card">
+                            <!--blogList-->
+                            <div class="card" th:each="blog,status : ${blogList}"
+                                 th:classappend="${status.index == 0}? '':'mt-3'">
                                 <div class="card-block twitter_section">
                                     <ul style="overflow: hidden;">
                                         <li style="margin-top: 0px;">
                                             <div class="row">
-                                                <div class="col-1  ">
-                                                    <img src="img/default_avatar.jpg"
-                                                         class="rounded-circle hidden-sm-down"
-                                                         alt="image not found">
+                                                <div class="col-1">
+                                                    <a th:href="@{'/user/mainPage?userId='+${blog.userId}}">
+                                                        <img th:src="${blog.avatar == null} ?'img/default_avatar.jpg' : ${blog.avatar}"
+                                                             class="rounded-circle hidden-sm-down"
+                                                             alt="image not found">
+                                                    </a>
                                                 </div>
                                                 <div class="col-11  ">
-                                                    <span class="name"><a href="#" class="text-primary">小菜鸡感觉这样也行呀，不用C++不用贪心，但为什么是错的。恳请各位大  </a></span>
-                                                    <span class="name ml-3  btn-success btn-sm text-white">P-11</span>
-                                                    <span class="name ml-3  btn-danger btn-sm text-white">热</span>
-                                                    <br>
-                                                    <span class="msg">
-                                                    <a href="#">作者：MAYASA</a>
-                                                        <span class="ml-3" style="color: #A6A6A6">今天 17:30:50</span>
-                                                        <span class="ml-3"><span style="color: #A6A6A6">发表在</span><a
-                                                                href="#">[猿生活]</a></span>
-                                                         <span class="ml-3" style="color: #A6A6A6">最后回复:2019-01-18 17:30:50</span>
-                                                    </span>
-                                                    <span class="time">回复&nbsp;185&nbsp;|&nbsp;赞&nbsp;24&nbsp;|&nbsp;浏览&nbsp;27202&nbsp;</span>
+                                                    <!--<div style="width:50px;overflow: hidden; text-overflow:ellipsis" ></div>-->
+                                                    <div class="name">
+                                                        <a th:href="@{'/blog/blogDetailPage?blogId='+${blog.id}}"
+                                                           class="text-primary">[[${blog.title}]]
+                                                        </a>
+                                                        <span class="ml-2"  th:each="tag : ${#strings.arraySplit(blog.tags,',')}">
+                                                             <a class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
+                                                        </span>
+                                                    </div>
+                                                    <div class="msg mt-2">
+                                                        作者：<a th:href="@{'/user/mainPage?userId='+${blog.userId}}"><span
+                                                            class="text-danger">[[${blog.name}]]</span></a>
+                                                        <span class="ml-3" style="color: #A6A6A6">[[${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                                        <span class="ml-3"><span style="color: #A6A6A6">发表在</span>
+                                                            <a href="#" th:text="'['+${blog.bcName}+']'"></a></span>
+                                                        <span th:if="${blog.replyTime != null}" class="ml-3"
+                                                              style="color: #A6A6A6">最后回复：[[${#dates.format(blog.replyTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                                        <span class="time">回复&nbsp;[[${blog.replyCount}]]&nbsp;|&nbsp;赞&nbsp;[[${blog.upCount}]]&nbsp;|&nbsp;浏览&nbsp;[[${blog.viewCount}]]&nbsp;</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -91,30 +99,10 @@ z-index: 999999">
                             <!--page-->
                             <div class="row mt-3">
                                 <div class="col-6" style="margin: 0 auto">
-                                    <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
+                                    <ul class="page" maxshowpageitem="5" pagelistcount="25" id="page"></ul>
                                 </div>
                             </div>
                             <!--#page-->
-                            <!--md-->
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header   bg-white">
-                                            <button class="btn btn-danger">发表评论</button>
-                                            <button class="btn btn-info">重置评论</button>
-                                        </div>
-                                        <div class=" card_block_top_align">
-                                            <div id="editormd-div">
-                                                <textarea id = "editormd-textarea" name="content" style="display:none;"></textarea>
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!--＃md-->
                         </div>
                         <!--#table-->
 
@@ -125,46 +113,33 @@ z-index: 999999">
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-12">
-                                           <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                    全部
+                                            <span th:each="blogCategory : ${blogCategoryList}">
+                                                <a th:classappend="${blogCategory.id == bcId}? ' disabled active':''"
+                                                   th:href="@{'/blog/blogListPage?bcId='+${blogCategory.id}}"
+                                                   class="btn btn-outline-info mt-3 mr-3 ">
+                                                    [[${blogCategory.name}]]
                                                 </a>
                                             </span>
-                                            <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                    题目总版
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                    技术交流
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                   笔试面经
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                   资源分享
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                    反馈专版
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                    站内公告
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <a href="#" class="btn btn-primary   mt-3 mr-3 ">
-                                                   猿生活
-                                                </a>
-                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <div class="input-group">
+                                                <input type="search" name="keyword" value="" placeholder="用户、标题、标签"
+                                                       class="form-control">
+                                                <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="submit">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true">
+                                                </span><i class="fa fa-search"></i>
+                                                </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <a th:href="@{/blog/blogEditPage}"
+                                               class="btn btn-danger text-white">发布帖子</a>
                                         </div>
                                     </div>
                                 </div>
@@ -263,52 +238,22 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
-<script type="text/javascript" th:src="@{/markdown/editormd.min.js}"></script>
 <!--end of global scripts-->
 
 <script th:inline="javascript" type="text/javascript">
-
     /*<![CDATA[*/
-    function tt(dd) {
-        alert(dd);
-    }
-    $("#page").initPage(71, 1, tt);
+    var total = [[${total}]];
+    var pageNum = [[${pageNum}]];
+    var keyword = [[${keyword}]];
+    var bcId = [[${bcId}]];
 
-    var testEditor = editormd("editormd-div", {
-        placeholder: "此处开始编写您要发布的内容...",
-        width: "98%",
-        height: 730,
-        path: '/markdown/lib/',
-        markdown: '',
-        codeFold: true,
-        /* theme: "dark",//工具栏主题
-        previewTheme: "dark",//预览主题
-        // editorTheme: "pastel-on-dark",//编辑主题  */
-        saveHTMLToTextarea: true,
-        searchReplace: true,
-        htmlDecode: "style,script,iframe|on*",
-        emoji: true,
-        taskList: true,
-        onfullscreen: function () {
-            $(".blog-right").attr("style", "display:none");
-            $("#left").attr("style", "display:none");
-            $("#top").attr("style", "display:none");
-        },
-        onfullscreenExit: function () {
-            $(".blog-right").attr("style", "display:''");
-            $("#left").attr("style", "display:''");
-            $("#top").attr("style", "display:''");
-        },
-        tocm: true,         // Using [TOCM]
-        tex: true,                   // 开启科学公式TeX语言支持，默认关闭
-        flowChart: true,             // 开启流程图支持，默认关闭
-        sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
-        imageUpload: true,
-        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-        imageUploadURL: "file/uploadImageByMD",
-        onload: function () {
-        }
-    });
+    function tt(dd) {
+        var url = "blog/blogListPage?pageNum=" + dd + "&keyword=" + keyword + "&bcId=" + bcId;
+        location.href = url;
+    }
+
+    $("#page").initPage(total, pageNum, tt);
+
 
     /*]]>*/
 </script>

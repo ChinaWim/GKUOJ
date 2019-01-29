@@ -20,7 +20,8 @@
     from blog_comment
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_comment
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -94,4 +95,25 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+  <select id="listBlogCommentVO" resultType="com.oj.gkuoj.response.BlogCommentVO" parameterType="map">
+    select bco.id, bco.user_id, u.avatar,u.name, blog_id, content,
+    bco.create_time, bco.update_time, count(up.id) up_count
+    from blog_comment bco
+    join user u on u.id = bco.user_id
+    left join up on up.type_id = bco.id and up.type = 1
+    <where>
+      blog_id = #{blogId}
+    </where>
+    group by bco.id
+    <if test="sort != null and sort == 1">
+      order by bco.update_time desc
+    </if>
+    <if test="sort != null and sort == 2">
+      order by count(up.id) desc,bco.update_time desc
+    </if>
+  </select>
+
 </mapper>

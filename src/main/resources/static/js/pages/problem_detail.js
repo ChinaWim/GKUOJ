@@ -74,16 +74,65 @@ function setCodeType(type) {
     editor.moveCursorTo(0, 0);
 };
 
+
+
+/**
+ * 提交代码
+ */
+function submit() {
+    var type = $("#type").val();
+    var sourceCode = editor.getValue();
+    if (!type || type == -1) {
+        $.message({
+            message:"请选择编程语言",
+            type:'warning'
+        });
+        return;
+    }
+    if (!sourceCode) {
+        $.message({
+            message:"请编写代码",
+            type:'warning'
+        });
+        return;
+    }
+
+    $.post("problemResult/submit", {
+        "problemId": problemId,
+        "type": type,
+        "sourceCode": sourceCode
+    }, function (resp) {
+        if (resp.status == 200) {
+            $.message({
+                message:resp.msg,
+                type:'success'
+            });
+        } else {
+            $.message({
+                message:resp.msg,
+                type:'error'
+            });
+        }
+    });
+}
+
+/**
+ * 消息框
+ */
+
 /**
  * 测试样例运行
  */
 function testRun() {
+
     var inputHtml = $("#testInput").val();
     var eOutputHtml = $("#eOutput").val();
     if (!inputHtml || !eOutputHtml) {
-        toastr.warning("输入不能为空", "提示");
+        $.message({
+            message:'输入不能为空',
+            type:'warning'
+        });
     }
-
 }
 
 

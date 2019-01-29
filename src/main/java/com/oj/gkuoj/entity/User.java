@@ -124,7 +124,7 @@ public class User implements Serializable,UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return flag == 1;
+        return flag == 0;
     }
 
     @Override

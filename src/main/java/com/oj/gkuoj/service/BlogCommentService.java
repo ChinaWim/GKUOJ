@@ -1,7 +1,11 @@
 package com.oj.gkuoj.service;
 
+import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.response.BlogCommentVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.BlogComment;
+
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -16,5 +20,5 @@ public interface BlogCommentService {
 
     RestResponseVO update(BlogComment blogComment);
 
-
+    RestResponseVO<PageInfo> listByBlogId2Page(Integer sort, Integer pageNum, Integer pageSize, Integer blogId);
 }

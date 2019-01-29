@@ -48,9 +48,9 @@ z-index: 999999">
                 <div class="inner bg-container">
                     <div class="row">
                         <div class="col-12">
-                            <h3>
+                            <h4>
                                 在这里，享受Coding的欢乐！
-                            </h3>
+                            </h4>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -91,17 +91,18 @@ z-index: 999999">
                         <!--#轮播图-->
                         <div class="col-6">
                             <div class="text-center ">
-                                <h1 class="text-danger">[[${#dates.format(nowDate,'yyyy')}]]&nbsp;Years</h1>
-                                <h1 class="text-success">[[${#dates.format(nowDate,'MM')}]]&nbsp;Month</h1>
-                                <h1 class="text-primary">[[${#dates.format(nowDate,'dd')}]]&nbsp;Day</h1>
-                                <h3 class="text-warning">距 第九届蓝桥杯 还剩 天</h3>
+                                <h3>欢迎回来，<a class="text-primary">Ming</a></h3>
+                                <h3 class="text-danger">[[${#dates.format(nowDate,'yyyy')}]]&nbsp;Years</h3>
+                                <h3 class="text-success">[[${#dates.format(nowDate,'MM')}]]&nbsp;Month</h3>
+                                <h3 class="text-primary">[[${#dates.format(nowDate,'dd')}]]&nbsp;Day</h3>
+                                <h5 class="text-warning">距 第九届蓝桥杯 还剩 天</h5>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-3">
                             <div class="card">
-                                <div class="card-block card_block_top_align ">
+                                <div class="card-block ">
                                     <p><i class="fa fa-paper-plane"></i>&nbsp;快速跳转</p>
                                     <input type="number" id="problemId" name="problemId"
                                            class="form-control   focused_input" placeholder="例：1001，可跳至“A+B问题”">
@@ -110,7 +111,7 @@ z-index: 999999">
                                                 type="submit">跳转
                                         </button>
                                         <button type="button" class="btn btn-primary ml-2 float-left"
-                                                onclick="location.href='problem/randomProblem'">随机跳题
+                                                onclick="randomProblem()">随机跳题
                                         </button>
                                     </div>
                                 </div>
@@ -118,7 +119,7 @@ z-index: 999999">
                         </div>
                         <div class="col-9">
                             <div class="card">
-                                <div class="card-block card_block_top_align ">
+                                <div class="card-block  ">
                                     <div class="row">
                                         <img th:src="@{/img/indexStep1.png}" class="col-4">
                                         <img th:src="@{/img/indexStep2.png}" class="col-4">
@@ -135,7 +136,7 @@ z-index: 999999">
                                 <div class="card-header bg-white">
                                     <i class="fa fa fa-trophy"></i>近期比赛
                                 </div>
-                                <div class="card-block card_block_top_align ">
+                                <div class="card-block  ">
                                     <div class="row">
                                         <div class="col-4 ">
                                             <div class="card card-outline-success">
@@ -245,7 +246,7 @@ z-index: 999999">
                                 <div class="card-header bg-white">
                                     <i class="fa fa-bullhorn"></i>&nbsp;本站公告
                                 </div>
-                                <div class="card-block card_block_top_align ">
+                                <div class="card-block  ">
                                     <ul>
                                         <li>
                                             <a href="#" class="text-primary">王菊 视频网站</a>
@@ -271,7 +272,7 @@ z-index: 999999">
                                 <div class="card-header bg-white">
                                     <i class="fa fa fa-commenting"></i>最新讨论
                                 </div>
-                                <div class="card-block card_block_top_align ">
+                                <div class="card-block  ">
 
                                 </div>
                             </div>
@@ -282,7 +283,7 @@ z-index: 999999">
                                 <div class="card-header bg-white">
                                     <i class="fa fa-user"></i>&nbsp;友情链接
                                 </div>
-                                <div class="card-block p-3">
+                                <div class="card-block ">
                                     <ul>
                                         <li>
                                             <a href="#" class="text-primary">王菊 av视频网站</a>
@@ -384,10 +385,12 @@ z-index: 999999">
 <div th:replace="~{fragments/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<!--<script type="text/javascript" src="vendors/noty/js/jquery.noty.packaged.min.js"></script>-->
 <script type="text/javascript" th:src="@{/js/pages/index.js}"></script>
 <!--end of plugin scripts-->
 <script type="text/javascript" th:inline="javascript">
+
+
+
 </script>
 </body>
 

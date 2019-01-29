@@ -183,16 +183,16 @@
                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                        selectByExampleQueryId="false"></table>-->
 
-      <!--  <table tableName="blog" domainObjectName="Blog" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <columnOverride column="content" jdbcType="VARCHAR"/>
-        </table>
+      <!--
         <table tableName="blog_category" domainObjectName="BlogCategory" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>-->
-
+       <!-- <table tableName="blog" domainObjectName="Blog" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="content" jdbcType="VARCHAR"/>
+        </table>-->
 
     </context>
 </generatorConfiguration>

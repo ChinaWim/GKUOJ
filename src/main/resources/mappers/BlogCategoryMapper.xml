@@ -18,6 +18,7 @@
     from blog_category
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_category
     where id = #{id,jdbcType=INTEGER}
@@ -69,4 +70,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listAll" resultType="com.oj.gkuoj.entity.BlogCategory">
+    select <include refid="Base_Column_List"/>
+    from blog_category
+  </select>
+
+
 </mapper>

@@ -1,6 +1,9 @@
 package com.oj.gkuoj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.BlogCommentVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.BlogCommentMapper;
@@ -8,6 +11,8 @@ import com.oj.gkuoj.entity.BlogComment;
 import com.oj.gkuoj.service.BlogCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -55,5 +60,13 @@ public class BlogCommentServiceImpl implements BlogCommentService {
         int effect = blogCommentMapper.updateByPrimaryKeySelective(blogComment);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+    }
+
+    @Override
+    public RestResponseVO<PageInfo> listByBlogId2Page(Integer sort, Integer pageNum, Integer pageSize, Integer blogId) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<BlogCommentVO> blogCommentVOList = blogCommentMapper.listBlogCommentVO(sort, blogId);
+        PageInfo<BlogCommentVO> pageInfo = new PageInfo<>(blogCommentVOList);
+        return RestResponseVO.createBySuccess(pageInfo);
     }
 }

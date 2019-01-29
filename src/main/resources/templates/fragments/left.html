@@ -44,6 +44,13 @@
                     <span class="link-title menu_hide">&nbsp; 讨论区</span>
                 </a>
             </li>
+            <li th:classappend="${active7} ? 'active':''">
+                <a th:href="@{/index/about}" data-toggle="tooltip" data-placement="right"  title="关于">
+                    <i class="fa fa-info-circle"></i>
+                    <span class="link-title menu_hide">&nbsp; 关于</span>
+                </a>
+            </li>
+
         </ul>
         <!-- /#menu -->
     </div>

@@ -3,9 +3,11 @@ package com.oj.gkuoj.rest.portal;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.entity.Tag;
 import com.oj.gkuoj.exception.ProblemNotFoundException;
 import com.oj.gkuoj.response.RestResponseVO;
+import com.oj.gkuoj.service.ProblemResultService;
 import com.oj.gkuoj.service.TagService;
 import com.oj.gkuoj.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -27,6 +30,9 @@ public class ProblemController {
 
     @Autowired
     private ProblemService problemService;
+
+    @Autowired
+    private ProblemResultService problemResultService;
 
     @Autowired
     private TagService tagService;
@@ -45,7 +51,9 @@ public class ProblemController {
      * @return
      */
     @RequestMapping("/problemListPage")
-    public String problemListPage(HttpServletRequest request, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "20") Integer pageSize,
+    public String problemListPage(HttpServletRequest request,
+                                  @RequestParam(defaultValue = "1") Integer pageNum,
+                                  @RequestParam(defaultValue = "25") Integer pageSize,
                                   @RequestParam(defaultValue = "", required = false) String keyword, @RequestParam(defaultValue = "-1", required = false) Integer level,
                                   @RequestParam(defaultValue = "不限", required = false) String tagName) {
         //题目
@@ -114,7 +122,6 @@ public class ProblemController {
      */
     @RequestMapping("/randomProblem")
     public String randomProblem(HttpServletRequest request) {
-
         RestResponseVO<Integer> serverResponse = problemService.randomProblemId();
         if (serverResponse.isSuccess()) {
             return "redirect:/problem/problemDetailPage?problemId=" + serverResponse.getData();
@@ -123,6 +130,7 @@ public class ProblemController {
             return "500";
         }
     }
+
 
 
 }

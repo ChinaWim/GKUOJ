@@ -3,42 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>题目-[[${problem.name}]]</title>
+    <title>题目-</title>
     <div th:replace="~{fragments/head-base}"></div>
-    <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" th:href="@{/plugins/modal/css/component.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/problem_detail.css}"/>
 
-    <style type="text/css">
-        .ech{
-            box-shadow: 0 1px 6px rgba(0,0,0,.2);
-            /*padding: 10px 16px;*/
-            background: #fff;
-            border-radius: 4px;
-            overflow: hidden;
-            /*margin-bottom: 10px;*/
-        }
-       /* .ech{
-            -webkit-box-shadow: 0 1px 6px rgba(0,0,0,0.2);
-            box-shadow: 0 1px 6px rgba(0,0,0,0.2);
-            padding: 10px 16px;
-            background: #fff;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 10px;
-            position: relative;
-        }*/
-        .ech:after{
-            background: #2d8cf0;
-            content: '';
-            display: block;
-            width: 3px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-        }
-    </style>
 </head>
 
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
@@ -72,21 +39,21 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6 ">
                             <h4 class="nav_top_align">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;P[[${problem.id}]]
-                                [[${problem.name}]]
+                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;P
+
                             </h4>
                         </div>
                         <div class="col-6 ">
                             <ol class="breadcrumb float-right nav_breadcrumb_top_align">
                                 <li class="breadcrumb-item">
                                     <a th:href="@{/}">
-                                        <i class="fa fa-home" aria-hidden="true"></i> 首页
+                                        <i class="fa fa-home" aria-hidden="true"></i> 评测详情
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a th:href="@{/problem/problemListPage}">题库</a>
+                                    <a th:href="@{/problem/problemListPage}">返回题目</a>
                                 </li>
-                                <li class="breadcrumb-item active">P[[${problem.id}]]</li>
+                                <li class="breadcrumb-item active">测评结果</li>
                             </ol>
                         </div>
                     </div>
@@ -171,9 +138,8 @@ z-index: 999999">
                                 <div class="col-12 mt-2 ">
                                     <div id="editor" class="w-100 col-12"></div>
                                     <div class="col-12 mt-2">
-                                        <!--onclick="submit()"-->
-                                        <button
-                                                class="notify ml-2 float-right btn btn-info  button-rounded">
+                                        <button onclick="submit()"
+                                                class="ml-2 float-right btn btn-info  button-rounded">
                                             <i class="fa fa-cloud"></i>&nbsp;提交代码
                                         </button>
                                         <button class="ml-2 float-right btn  btn-secondary button-rounded "
@@ -421,103 +387,15 @@ z-index: 999999">
 <script th:replace="~{fragments/footer :: footer}"></script>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script type="text/javascript" th:src="@{/plugins/ace/src-noconflict/ace.js}"></script>
-<script th:src="@{/plugins/ace/src-noconflict/ext-language_tools.js}" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" th:src="@{/js/pluginjs/Chart.min.js}"></script>
 <!--end of plugin scripts-->
 <!--page scripts-->
-<script th:src="@{/js/pages/problem_detail.js}"></script>
+<script th:src="@{/js/pages/problem_result.js}"></script>
 <!--end of page scripts-->
 </body>
 
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    //初始化黏贴版
-    var clipboard = new ClipboardJS('#clipboard');
-
-    var submitCount = [[${problem.submitCount}]];
-    var acCount = [[${problem.acCount}]];
-    var tleCount = [[${problem.tleCount}]];
-    var peCount = [[${problem.peCount}]];
-    var meCount = [[${problem.meCount}]];
-    var reCount = [[${problem.reCount}]];
-    var ceCount = [[${problem.ceCount}]];
-    var waCount = [[${problem.waCount}]];
-
-    var problemId = [[${problem.id}]];
-
-
-    // vue
-    var changeListApp = new Vue({
-        el: '#changeListApp',
-        data: {
-            suggestProblemList: []
-        },
-        methods: {
-            changeList: function () {
-                this.$http.get('/problem/suggestProblemList?problemId=' + [[${problem.id}]]).then(function (res) {
-                    this.suggestProblemList = res.data.data;
-                }), function (res) {
-                    console.log(res.data.msg);
-                }
-            }
-        }
-    });
-    changeListApp.changeList();
-    // end of vue
-
-
-    //chars
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myDoughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [acCount, ceCount, peCount, reCount, tleCount, meCount, waCount],
-                backgroundColor: [
-                    '#4BC0C0',
-                    '#FFCD56',
-                    '#ed92ff',
-                    '#FF9F40',
-                    '#62b8ff',
-                    '#6574ff',
-                    '#FF6384'
-                ],
-                borderColor: []
-            }],
-            labels: [
-                'Accepted',
-                'Compile Error',
-                'Presentation Error',
-                'Runtime Error',
-                'Time Limit Exceeded',
-                'Memory Limit Exceeded',
-                'Wrong Answer'
-            ]
-        },
-        options: {
-            title: {
-                display: true,
-                text: '提交次数-' + submitCount + '次'
-            }
-        }
-    });
-    // en of chars
-
-    //输入测试样例
-    function setTestcase() {
-        $("#testInput").val([[${problem.testcaseInput}]]);
-        $("#eOutput").val([[${problem.testcaseOutput}]]);
-    }
-
-    function clearTestcase() {
-        $("#testInput").val("");
-        $("#eOutput").val("");
-    }
-
-
-
 
 
     /*]]>*/

@@ -34,10 +34,10 @@ public enum RestResponseEnum {
     ORIGINAL_PASSWORD_ERROR(460, "原始密码不一致"),
 
     //账号或密码错误
-    USERNAME_OR_PASSWORD_ERROR(461, "账号或密码错误啦"),
+    USERNAME_OR_PASSWORD_ERROR(461, "账号或密码错误"),
 
-    //验证码错误
-    VALIDATE_CODE_ERROR(462, "哎呀,验证码错误"),
+    //验证码错误ｏ
+    VALIDATE_CODE_ERROR(462, "验证码错误"),
 
 
     //token校验失败
