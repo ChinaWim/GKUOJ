@@ -15,13 +15,13 @@
     id, user_id, blog_id, content, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from blog_comment
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blog_comment
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -108,12 +108,18 @@
       blog_id = #{blogId}
     </where>
     group by bco.id
+    <if test="sort == null || sort == -1">
+      order by bco.create_time
+    </if>
     <if test="sort != null and sort == 1">
-      order by bco.update_time desc
+      order by bco.create_time desc
     </if>
     <if test="sort != null and sort == 2">
-      order by count(up.id) desc,bco.update_time desc
+      order by count(up.id) desc,bco.create_time desc
     </if>
+
   </select>
+
+
 
 </mapper>

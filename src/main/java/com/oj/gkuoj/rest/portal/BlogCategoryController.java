@@ -24,6 +24,11 @@ public class BlogCategoryController {
     @Autowired
     private BlogCategoryService blogCategoryService;
 
+
+    /**
+     * 返回所有博客分类给select2　
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/listSelect2")
     public List<Select2VO> listSelect2() {

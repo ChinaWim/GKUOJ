@@ -24,7 +24,7 @@ public interface BlogService {
 
     RestResponseVO<PageInfo> listBlogVO2(Integer pageNum, Integer pageSize, String keyword, Integer bcId);
 
-    RestResponseVO<BlogDetailVO> getBlogDetailVOById(Integer blogId);
+    RestResponseVO<BlogDetailVO> getBlogDetailVOById(Integer blogId,Integer userId);
 
     RestResponseVO updateViewCount(Integer blogId);
 

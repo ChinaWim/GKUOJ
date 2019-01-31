@@ -37,6 +37,8 @@ public class BlogDetailVO {
 
     private Integer replyCount;
 
+    private Boolean userUpStatus;
+
     public Integer getId() {
         return id;
     }
@@ -159,6 +161,14 @@ public class BlogDetailVO {
         this.htmlContent = htmlContent;
     }
 
+    public Boolean getUserUpStatus() {
+        return userUpStatus;
+    }
+
+    public void setUserUpStatus(Boolean userUpStatus) {
+        this.userUpStatus = userUpStatus;
+    }
+
     @Override
     public String toString() {
         return "BlogDetailVO{" +
@@ -177,6 +187,7 @@ public class BlogDetailVO {
                 ", viewCount=" + viewCount +
                 ", upCount=" + upCount +
                 ", replyCount=" + replyCount +
+                ", userUpStatus=" + userUpStatus +
                 '}';
     }
 }

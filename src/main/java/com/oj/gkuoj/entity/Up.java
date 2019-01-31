@@ -1,12 +1,8 @@
 package com.oj.gkuoj.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Up implements Serializable {
-
-    private static final long serialVersionUID = 4799170065386693202L;
-
+public class Up {
     private Integer id;
 
     private Integer typeId;
@@ -15,13 +11,13 @@ public class Up implements Serializable {
 
     private Integer userId;
 
-    private Integer status;
+    private Boolean status;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public Up(Integer id, Integer typeId, Integer type, Integer userId, Integer status, Date createTime, Date updateTime) {
+    public Up(Integer id, Integer typeId, Integer type, Integer userId, Boolean status, Date createTime, Date updateTime) {
         this.id = id;
         this.typeId = typeId;
         this.type = type;
@@ -67,11 +63,11 @@ public class Up implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -89,18 +85,5 @@ public class Up implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Up{" +
-                "id=" + id +
-                ", typeId=" + typeId +
-                ", type=" + type +
-                ", userId=" + userId +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
     }
 }

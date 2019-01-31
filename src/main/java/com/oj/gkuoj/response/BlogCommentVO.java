@@ -26,6 +26,8 @@ public class BlogCommentVO {
 
     private Integer upCount;
 
+    private Boolean userUpStatus;
+
     public Integer getId() {
         return id;
     }
@@ -98,6 +100,14 @@ public class BlogCommentVO {
         this.upCount = upCount;
     }
 
+    public Boolean getUserUpStatus() {
+        return userUpStatus;
+    }
+
+    public void setUserUpStatus(Boolean userUpStatus) {
+        this.userUpStatus = userUpStatus;
+    }
+
     @Override
     public String toString() {
         return "BlogCommentVO{" +
@@ -110,6 +120,7 @@ public class BlogCommentVO {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", upCount=" + upCount +
+                ", userUpStatus=" + userUpStatus +
                 '}';
     }
 }

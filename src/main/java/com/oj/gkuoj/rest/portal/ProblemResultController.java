@@ -85,6 +85,14 @@ public class ProblemResultController {
         return "portal/problemResult/source-code";
     }
 
+
+    /**
+     * 提交题目代码
+     * @param userDetails
+     * @param problemResult
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping("/submit")
     @ResponseBody
     public RestResponseVO submit(@AuthenticationPrincipal UserDetails userDetails, @Validated ProblemResult problemResult, BindingResult bindingResult) {
@@ -100,9 +108,8 @@ public class ProblemResultController {
     }
 
 
-
     /**
-     * todo
+     * 跳转到题目结果页面
      * @param request
      * @param problemResultId
      * @return
@@ -116,8 +123,11 @@ public class ProblemResultController {
     }
 
 
-
-
+    /**
+     * 获取题目状态
+     * @param problemResultId
+     * @return
+     */
     @RequestMapping("/problemResultNow")
     @ResponseBody
     public RestResponseVO problemResultNow(Integer problemResultId){

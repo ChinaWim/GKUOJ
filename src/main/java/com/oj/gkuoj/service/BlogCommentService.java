@@ -20,5 +20,5 @@ public interface BlogCommentService {
 
     RestResponseVO update(BlogComment blogComment);
 
-    RestResponseVO<PageInfo> listByBlogId2Page(Integer sort, Integer pageNum, Integer pageSize, Integer blogId);
+    RestResponseVO<PageInfo> listByBlogId2Page(Integer userId,Integer sort, Integer pageNum, Integer pageSize, Integer blogId);
 }

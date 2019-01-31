@@ -116,7 +116,7 @@ z-index: 999999">
                                             <span th:each="blogCategory : ${blogCategoryList}">
                                                 <a th:classappend="${blogCategory.id == bcId}? ' disabled active':''"
                                                    th:href="@{'/blog/blogListPage?bcId='+${blogCategory.id}}"
-                                                   class="btn btn-outline-info mt-3 mr-3 ">
+                                                   class="btn btn-outline-primary mt-3 mr-3 ">
                                                     [[${blogCategory.name}]]
                                                 </a>
                                             </span>
@@ -142,6 +142,30 @@ z-index: 999999">
                                                class="btn btn-danger text-white">发布帖子</a>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header bg-white"><i class="fa fa-comment"></i>&nbsp;热门话题</div>
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header bg-white"><i class="fa fa-fire"></i>&nbsp;近期热帖</div>
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -3,6 +3,8 @@ package com.oj.gkuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.dao.UpMapper;
+import com.oj.gkuoj.entity.Up;
 import com.oj.gkuoj.response.BlogDetailVO;
 import com.oj.gkuoj.response.BlogListVO;
 import com.oj.gkuoj.response.RestResponseVO;
@@ -23,6 +25,10 @@ import java.util.List;
 public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogMapper blogMapper;
+
+    @Autowired
+    private UpMapper upMapper;
+
 
     @Override
     public RestResponseVO<Blog> getById(Integer blogId) {
@@ -72,12 +78,17 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public RestResponseVO<BlogDetailVO> getBlogDetailVOById(Integer blogId) {
+    public RestResponseVO<BlogDetailVO> getBlogDetailVOById(Integer blogId, Integer userId) {
         if (blogId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         BlogDetailVO blogDetailVO = blogMapper.getBlogDetailVO(blogId);
-
+        if (userId != null) {
+            Up up = upMapper.getByBlogIdUserId(blogId, userId);
+            if (up != null) {
+                blogDetailVO.setUserUpStatus(up.getStatus());
+            }
+        }
         return RestResponseVO.createBySuccess(blogDetailVO);
     }
 

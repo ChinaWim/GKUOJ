@@ -4,12 +4,14 @@ import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.entity.Blog;
 import com.oj.gkuoj.entity.BlogCategory;
+import com.oj.gkuoj.entity.BlogComment;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.BlogDetailVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.BlogCategoryService;
 import com.oj.gkuoj.service.BlogCommentService;
 import com.oj.gkuoj.service.BlogService;
+import com.oj.gkuoj.service.UpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -41,7 +43,19 @@ public class BlogController {
     @Autowired
     private BlogCommentService blogCommentService;
 
+    @Autowired
+    private UpService upService;
 
+    /**
+     * 跳转到博客首页
+     *
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @param keyword
+     * @param bcId
+     * @return
+     */
     @RequestMapping("/blogListPage")
     public String blogListPage(HttpServletRequest request,
                                @RequestParam(defaultValue = "1") Integer pageNum,
@@ -59,21 +73,27 @@ public class BlogController {
         BlogCategory blogCategory = new BlogCategory();
         blogCategory.setId(-1);
         blogCategory.setName("全部");
-        blogCategoryList.add(0,blogCategory);
+        blogCategoryList.add(0, blogCategory);
 
         //set data
         request.setAttribute("blogList", blogList);
         request.setAttribute("blogCategoryList", blogCategoryList);
         request.setAttribute("total", total);
-        request.setAttribute("pageNum",pageNum);
-        request.setAttribute("keyword",keyword);
-        request.setAttribute("bcId",bcId);
+        request.setAttribute("pageNum", pageNum);
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("bcId", bcId);
         request.setAttribute("active6", true);
         return "portal/blog/blog-list";
     }
 
+    /**
+     * 跳转到博客编辑页面
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/blogEditPage")
-    public String blogEditPage(HttpServletRequest request){
+    public String blogEditPage(HttpServletRequest request) {
         RestResponseVO<List<BlogCategory>> blogCategoryResponse = blogCategoryService.listAll();
         List<BlogCategory> blogCategoryList = blogCategoryResponse.getData();
 
@@ -83,42 +103,96 @@ public class BlogController {
         return "portal/blog/blog-edit";
     }
 
+
+    /**
+     * 跳转到博客详情页面
+     *
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @param sort
+     * @param blogId
+     * @return
+     */
     @RequestMapping("/blogDetailPage")
     public String blogDetailPage(HttpServletRequest request,
-                                 @RequestParam(defaultValue = "1")Integer pageNum,
-                                 @RequestParam(defaultValue = "5")Integer pageSize,
-                                 @RequestParam(defaultValue = "1",required = false)Integer sort,
-                                 Integer blogId){
+                                 @RequestParam(defaultValue = "1") Integer pageNum,
+                                 @RequestParam(defaultValue = "5") Integer pageSize,
+                                 @RequestParam(defaultValue = "1", required = false) Integer sort,
+                                 Integer blogId,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
 
         //updateBlogViewCount
         blogService.updateViewCount(blogId);
-
-        RestResponseVO<BlogDetailVO> blogResponse = blogService.getBlogDetailVOById(blogId);
-
-        RestResponseVO<PageInfo> pageInfoResponse = blogCommentService.listByBlogId2Page(sort, pageNum, pageSize, blogId);
-        PageInfo pageInfo = pageInfoResponse.getData();
+        Integer userId = null;
+        if (userDetails != null) {
+            userId = ((User) userDetails).getId();
+        }
+        RestResponseVO<BlogDetailVO> blogResponse = blogService.getBlogDetailVOById(blogId, userId);
 
         //set data
-        if(blogResponse.isSuccess()){
+        if (blogResponse.isSuccess()) {
             BlogDetailVO blogDetailVO = blogResponse.getData();
-            request.setAttribute("blogDetail",blogDetailVO);
+            request.setAttribute("blogDetail", blogDetailVO);
         }
         request.setAttribute("active6", true);
-        request.setAttribute("blogCommentList",pageInfo.getList());
         return "portal/blog/blog-detail";
     }
 
 
-    @RequestMapping("/saveBlog")
+    /**
+     * 保存博客
+     *
+     * @param blog
+     * @param userDetails
+     * @return
+     */
+    @PostMapping("/saveBlog")
     @ResponseBody
-    public RestResponseVO saveBlog(Blog blog, @AuthenticationPrincipal UserDetails userDetails){
-        if (userDetails  == null) {
+    public RestResponseVO saveBlog(Blog blog, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
         User user = (User) userDetails;
         blog.setUserId(user.getId());
 
         return blogService.insert(blog);
+    }
+
+    /**
+     * 　博客点赞
+     *
+     * @param blogId
+     * @param userDetails
+     * @return
+     */
+    @RequestMapping("/blogUp")
+    @ResponseBody
+    public RestResponseVO blogUp(Integer blogId, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
+        }
+        User user = (User) userDetails;
+        return upService.blogUp(blogId, user.getId());
+    }
+
+    /**
+     * 提交博客评论
+     *
+     * @param blogComment
+     * @param userDetails
+     * @return
+     */
+    @PostMapping("/saveBlogComment")
+    @ResponseBody
+    public RestResponseVO saveBlogComment(BlogComment blogComment, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
+        }
+        User user = (User) userDetails;
+        blogComment.setUserId(user.getId());
+
+        return blogCommentService.insert(blogComment);
     }
 
 

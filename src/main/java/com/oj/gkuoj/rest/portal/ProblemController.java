@@ -40,7 +40,7 @@ public class ProblemController {
     private final Integer SUGGEST_PROBLEM_ROW = 5;
 
     /**
-     * 问题列表
+     * 跳转到题库首页
      *
      * @param request
      * @param pageNum

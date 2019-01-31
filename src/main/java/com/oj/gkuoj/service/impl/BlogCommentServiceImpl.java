@@ -3,12 +3,15 @@ package com.oj.gkuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.dao.UpMapper;
+import com.oj.gkuoj.entity.Up;
 import com.oj.gkuoj.response.BlogCommentVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.BlogCommentMapper;
 import com.oj.gkuoj.entity.BlogComment;
 import com.oj.gkuoj.service.BlogCommentService;
+import com.oj.gkuoj.service.UpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,9 @@ import java.util.List;
 public class BlogCommentServiceImpl implements BlogCommentService {
     @Autowired
     private BlogCommentMapper blogCommentMapper;
+
+    @Autowired
+    private UpMapper upMapper;
 
     @Override
     public RestResponseVO getById(Integer blogCommentId) {
@@ -63,9 +69,17 @@ public class BlogCommentServiceImpl implements BlogCommentService {
     }
 
     @Override
-    public RestResponseVO<PageInfo> listByBlogId2Page(Integer sort, Integer pageNum, Integer pageSize, Integer blogId) {
-        PageHelper.startPage(pageNum,pageSize);
+    public RestResponseVO<PageInfo> listByBlogId2Page(Integer userId, Integer sort, Integer pageNum, Integer pageSize, Integer blogId) {
+        PageHelper.startPage(pageNum, pageSize);
         List<BlogCommentVO> blogCommentVOList = blogCommentMapper.listBlogCommentVO(sort, blogId);
+        if (userId != null) {
+            for (BlogCommentVO blogCommentVO : blogCommentVOList) {
+                Up up = upMapper.getByBlogCommentIdUserId(blogCommentVO.getId(), userId);
+                if (up != null) {
+                    blogCommentVO.setUserUpStatus(up.getStatus());
+                }
+            }
+        }
         PageInfo<BlogCommentVO> pageInfo = new PageInfo<>(blogCommentVOList);
         return RestResponseVO.createBySuccess(pageInfo);
     }

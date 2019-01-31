@@ -7,6 +7,7 @@
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" th:href="@{/plugins/markdown/editormd.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/blog_detail.css}"/>
     <!--heard script-->
 </head>
 
@@ -69,62 +70,137 @@ z-index: 999999">
                     <div class="row mt-3">
                         <!--table-->
                         <div class="col-8">
-                            <!--blogList-->
+                            <!--blogDetail-->
                             <div class="card">
                                 <div class="card-header bg-white">
                                     <h2 align="center" class="mt-3">[[${blogDetail.title}]]</h2>
                                     <div class="mt-5">
-                                        <a th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">
-                                            <img class="admin_img3  float-left rounded-circle" th:src="${blogDetail.avatar==null}?'img/default_avatar.jpg':${blogDetail.avatar}">
-                                        </a>
-                                        <div class="float-left ml-3">
-                                            <div ><a class="text-danger" th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">[[${blogDetail.name}]]</a></div>
-                                            <div class="mt-2">
-                                                <span>编辑于：[[${#dates.format(blogDetail.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                        <div class="row mb-1">
+                                            <div class="col-1">
+                                                <a th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">
+                                                    <img class=" user_img  float-left rounded-circle"
+                                                         th:src="${blogDetail.avatar==null}?'img/default_avatar.jpg':${blogDetail.avatar}">
+                                                </a>
                                             </div>
-                                        </div>
-                                        <div class="float-right">
-                                            <div>&nbsp;</div>
-                                            <div class="mt-2">
-                                                <span>回复&nbsp;[[${blogDetail.replyCount}]]&nbsp;|&nbsp;赞&nbsp;[[${blogDetail.upCount}]]&nbsp;|&nbsp;浏览&nbsp;[[${blogDetail.viewCount}]]&nbsp;</span>
+                                            <div class="col-11">
+                                                <div>
+                                                    <a class="text-danger"
+                                                       th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">[[${blogDetail.name}]]
+                                                    </a>
+                                                    <a  th:href="@{'/blog/blogListPage?bcId='+${blogDetail.bcId}}" class="float-right  text-primary">[[${blogDetail.bcName}]]</a>
+                                                </div>
+                                                <div class="mt-2 gray-font">
+                                                    <span>编辑于：[[${#dates.format(blogDetail.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                                    <span class="float-right">回复&nbsp;[[${blogDetail.replyCount}]]&nbsp;|&nbsp;赞&nbsp;<span
+                                                            id="blogDetailTitleUpCount">[[${blogDetail.upCount}]]</span>&nbsp;|&nbsp;浏览&nbsp;[[${blogDetail.viewCount}]]&nbsp;</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-block">
-                                    <div  th:utext="${blogDetail.htmlContent}"></div>
-                                    <div class="mt-3 float-right">
-                                        <a href="#">
-                                            <i class="fa fa-thumbs-up"></i>&nbsp;点个赞
-                                        </a>
-                                        <a href="#">
-                                            <i class="fa fa-commenting ml-3"></i>&nbsp;回复
-                                        </a>
+                                    <div class="markdown-body" th:utext="${blogDetail.htmlContent}"></div>
+                                    <div class="mt-5">
+                                        <div class="float-left">
+                                            <i class="fa fa-tags"></i>&nbsp;标签：
+                                            <span class="mr-2"
+                                                  th:each="tag : ${#strings.arraySplit(blogDetail.tags,',')}">
+                                                <a class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
+                                            </span>
+                                        </div>
+                                        <div class="float-right">
+                                            <a href="javascript:void(0)" th:onclick="'blogUp('+${blogDetail.id}+')'">
+                                                <i class="fa fa-thumbs-up"></i>&nbsp;
+                                                <span id="blogDetailUp" th:if="${blogDetail.userUpStatus}">已赞</span>
+                                                <span id="blogDetailUp" th:if="!${blogDetail.userUpStatus}">点赞</span>
+                                            </a>
+                                            <a th:href="'blog/blogDetailPage?blogId='+${blogDetail.id}+'#editormd-div'">
+                                                <i class="fa fa-commenting ml-3"></i>&nbsp;回复
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--#bloglist-->
-                            <!--page-->
-                            <div class="row mt-3">
-                                <div class="col-6" style="margin: 0 auto">
-                                    <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
+                            <!--#blogDetail-->
+                            <!--blogcomment-->
+                            <div class="card mt-3" id="blogCommentApp">
+                                <div class="card-block">
+                                    <div class="row mb-5">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">共{{total}}条回帖</div>
+                                                <div class="col-6">
+                                                    <a th:href="'blog/blogDetailPage?blogId='+${blogDetail.id}+'#editormd-div'"
+                                                       class="btn btn-primary text-white float-right">回复帖子</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-for="(blogComment,index) in blogCommentList">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <a th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">
+                                                    <img :src="blogComment.avatar" v-if="blogComment.avatar != null"
+                                                         class="user_img  float-left rounded-circle">
+                                                    <img src="img/default_avatar.jpg" v-if="blogComment.avatar == null"
+                                                         class="user_img  float-left rounded-circle">
+                                                </a>
+                                            </div>
+                                            <div class="col-11">
+                                                <div>
+                                                    <a class="text-danger"
+                                                       th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">{{blogComment.name}}</a>
+                                                    <span class="btn btn-gray btn-sm float-right">{{index+1}}#</span>
+                                                </div>
+                                                <div class="mt-2 markdown-body " v-html="blogComment.content">
+                                                </div>
+                                                <div class="mt-2 ">
+                                                    <span class="gray-font">编辑于：{{blogComment.createTime | formatDate}}</span>
+                                                    <span class="float-right ">
+                                                        <a href="javascript:void(0)"
+                                                           @click="blogCommentUp(blogComment.id)" class="text-primary">
+                                                            <i class="fa fa-thumbs-o-up"></i>&nbsp;
+                                                            <span :id="'blogCommentUpCount-'+blogComment.id">{{blogComment.upCount}}</span>人赞
+                                                        </a>
+                                                        <a href="#" class="text-primary ml-3">
+                                                            <i class="fa fa-commenting-o"></i>&nbsp;回复
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr v-if="index != blogCommentList.length - 1" class="mt-3">
+                                    </div>
+
                                 </div>
+                                <!--page-->
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-6" style="margin: 0 auto">
+                                        <ul class="page" maxshowpageitem="5" pagelistcount="10" id="page"></ul>
+                                    </div>
+                                </div>
+                                <!--#page-->
                             </div>
-                            <!--#page-->
+                            <!--#blogcomment-->
+
 
                             <!--md-->
-                            <div class="row">
-                                <div class="col-12 ">
-                                    <div id="editormd-div">
+                            <div class="mt-3 card">
+                                <div class="row card-block">
+                                    <div class="col-12">
+                                        <div id="editormd-div">
                                         <textarea id="editormd-textarea" name="content"
                                                   style="display:none;"></textarea>
-                                    </div>
-                                    <div class="mr-3  float-right">
-                                        <button class="mr-3 btn btn-secondary" style="width: 100px;font-size: 18px">取消
-                                        </button>
-                                        <button class=" btn btn-danger" style="width: 100px;font-size: 18px">发布</button>
-                                    </div>
+                                        </div>
+                                        <div class="mr-2  float-right">
+                                            </button>
+                                            <button th:onclick="'saveBlogComment('+${blogDetail.id}+')'"
+                                                    class=" btn btn-primary"
+                                                    style="width: 100px;font-size: 18px">回帖
+                                            </button>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
                             <!--＃md-->
@@ -133,22 +209,15 @@ z-index: 999999">
 
                         <!--right-->
                         <div class="col-4 blog-right">
-                            <div class="card">
+                            <div class="card ">
+                                <div class="card-header bg-white"><i class="fa fa-fire"></i>&nbsp;近期热帖</div>
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="row  ">
-                                                <div class="col-12 ">
-                                                    <a th:href="'blog/blogDetailPage?blogId='+${blogDetail.id}+'#editormd-div'"
-                                                       class="btn btn-danger text-white">回复帖子</a>
-                                                </div>
 
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <!--#right-->
                         </div>
@@ -247,62 +316,84 @@ z-index: 999999">
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
 <script type="text/javascript" th:src="@{/plugins/markdown/editormd.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/pages/blog_detail.js}"></script>
 <!--end of global scripts-->
 
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
-    $(function () {
 
-        /**
-         * 分页
-         * @param dd
-         */
-        function tt(dd) {
-            alert(dd);
+    // vue
+
+    var blogCommentApp = new Vue({
+        el: '#blogCommentApp',
+        data: {
+            total: 0,
+            blogCommentList: []
+        },
+        filters: {
+            formatDate: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                var month = padDate(value.getMonth() + 1);
+                var day = padDate(value.getDate());
+                var hour = padDate(value.getHours());
+                var minutes = padDate(value.getMinutes());
+                var seconds = padDate(value.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+            }
+        },
+        methods: {
+            listBlogComment: function (pageNum) {
+                this.$http.get('/blogComment/listBlogComment2Page?pageNum=' + pageNum + '&blogId=' + [[${blogDetail.id}]]).then(function (res) {
+                    this.total = res.data.data.total;
+                    this.blogCommentList = res.data.data.list;
+                    var total = res.data.data.total;
+                    var pageNum = res.data.data.pageNum;
+                    if (total != 0) {
+                        $("#page").initPage(total, pageNum, clickPage);
+                    }
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
+            }
         }
+    });
+    blogCommentApp.listBlogComment(1);
 
-        $("#page").initPage(71, 1, tt);
+    function clickPage(pageNum) {
+        blogCommentApp.listBlogComment(pageNum);
+    }
+
+    // end of vue
 
 
-        /**
-         * md
-         */
-        var testEditor = editormd("editormd-div", {
-            placeholder: "写下你的评论",
-            width: "98%",
-            height: 450,
-            path: '/plugins/markdown/lib/',
-            markdown: '',
-            codeFold: true,
-            /* theme: "dark",//工具栏主题
-            previewTheme: "dark",//预览主题
-            // editorTheme: "pastel-on-dark",//编辑主题  */
-            saveHTMLToTextarea: true,
-            searchReplace: true,
-            htmlDecode: "style,script,iframe|on*",
-            emoji: true,
-            taskList: true,
-            onfullscreen: function () {
-                $("#left").attr("style", "display:none");
-                $("#top").attr("style", "display:none");
-            },
-            onfullscreenExit: function () {
-                $("#left").attr("style", "display:''");
-                $("#top").attr("style", "display:''");
-            },
-            tocm: true,         // Using [TOCM]
-            tex: true,                   // 开启科学公式TeX语言支持，默认关闭
-            flowChart: true,             // 开启流程图支持，默认关闭
-            sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
-            watch: false,//关闭预览
-            imageUpload: true,
-            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "file/uploadImageByMD",
-            onload: function () {
+    function saveBlogComment(blogId) {
+        var content = testEditor.getHTML();
+        if (!content) {
+            $.message({
+                message: "内容不能为空",
+                type: "warning"
+            });
+            return;
+        }
+        $.post("/blog/saveBlogComment", {"content": content, "blogId": blogId}, function (resp) {
+            if (resp.status == 200) {
+                //clear markdown
+                testEditor.clear();
+                blogCommentApp.listBlogComment(1);
+                $.message({
+                    message: resp.msg,
+                    type: "success"
+                });
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: "error"
+                });
             }
         });
-
-    });
+    }
 
     /*]]>*/
 </script>
