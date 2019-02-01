@@ -7,6 +7,7 @@ import com.oj.gkuoj.entity.BlogCategory;
 import com.oj.gkuoj.entity.BlogComment;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.BlogDetailVO;
+import com.oj.gkuoj.response.BlogVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.BlogCategoryService;
 import com.oj.gkuoj.service.BlogCommentService;
@@ -46,45 +47,60 @@ public class BlogController {
     @Autowired
     private UpService upService;
 
+    private final Integer SIZE_HOT_BLOG = 10;
+
     /**
      * 跳转到博客首页
      *
      * @param request
-     * @param pageNum
-     * @param pageSize
-     * @param keyword
-     * @param bcId
      * @return
      */
     @RequestMapping("/blogListPage")
-    public String blogListPage(HttpServletRequest request,
-                               @RequestParam(defaultValue = "1") Integer pageNum,
-                               @RequestParam(defaultValue = "25") Integer pageSize,
-                               @RequestParam(defaultValue = "", required = false) String keyword,
-                               @RequestParam(defaultValue = "-1", required = false) Integer bcId) {
-        RestResponseVO<PageInfo> responseVO = blogService.listBlogVO2(pageNum, pageSize, keyword, bcId);
+    public String blogListPage(HttpServletRequest request) {
 
-        PageInfo pageInfo = responseVO.getData();
-        long total = pageInfo.getTotal();
-        List blogList = pageInfo.getList();
+
+        //分类
         RestResponseVO<List<BlogCategory>> blogCategoryResponse = blogCategoryService.listAll();
         List<BlogCategory> blogCategoryList = blogCategoryResponse.getData();
-
         BlogCategory blogCategory = new BlogCategory();
         blogCategory.setId(-1);
         blogCategory.setName("全部");
         blogCategoryList.add(0, blogCategory);
 
+        //近期热帖
+        RestResponseVO<List<BlogVO>> hotBlogVO = blogService.listHotBlogVO(SIZE_HOT_BLOG);
+        List<BlogVO> hotBlogList = hotBlogVO.getData();
+
+
+        //热门标签
+
         //set data
-        request.setAttribute("blogList", blogList);
+        request.setAttribute("hotBlogList", hotBlogList);
         request.setAttribute("blogCategoryList", blogCategoryList);
-        request.setAttribute("total", total);
-        request.setAttribute("pageNum", pageNum);
-        request.setAttribute("keyword", keyword);
-        request.setAttribute("bcId", bcId);
         request.setAttribute("active6", true);
         return "portal/blog/blog-list";
     }
+
+    /**
+     * 博客list
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param sort     1date desc　２点赞 desc
+     * @param keyword
+     * @param bcId
+     * @return
+     */
+    @RequestMapping("/listBlog2Page")
+    @ResponseBody
+    public RestResponseVO<PageInfo> listBlog2Page(@RequestParam(defaultValue = "1") Integer pageNum,
+                                                  @RequestParam(defaultValue = "20") Integer pageSize,
+                                                  @RequestParam(defaultValue = "-1") Integer sort,
+                                                  @RequestParam(defaultValue = "", required = false) String keyword,
+                                                  @RequestParam(defaultValue = "-1", required = false) Integer bcId) {
+        return blogService.listBlogVO2Page(pageNum, pageSize, sort, keyword, bcId);
+    }
+
 
     /**
      * 跳转到博客编辑页面
@@ -130,11 +146,17 @@ public class BlogController {
         }
         RestResponseVO<BlogDetailVO> blogResponse = blogService.getBlogDetailVOById(blogId, userId);
 
+        //近期热帖
+        RestResponseVO<List<BlogVO>> hotBlogVO = blogService.listHotBlogVO(SIZE_HOT_BLOG);
+        List<BlogVO> hotBlogList = hotBlogVO.getData();
+
+
         //set data
         if (blogResponse.isSuccess()) {
             BlogDetailVO blogDetailVO = blogResponse.getData();
             request.setAttribute("blogDetail", blogDetailVO);
         }
+        request.setAttribute("hotBlogList", hotBlogList);
         request.setAttribute("active6", true);
         return "portal/blog/blog-detail";
     }

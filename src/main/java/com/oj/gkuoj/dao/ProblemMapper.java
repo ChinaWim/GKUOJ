@@ -1,6 +1,7 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.response.ProblemVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,5 +29,8 @@ public interface ProblemMapper {
 
     Integer countRandomProblemId();
 
-    List<Problem> listAll(@Param("keyword") String keyword, @Param("level") Integer level, @Param("tagName") String tagName);
+    List<ProblemVO> listAll2VO(@Param("sort") Integer sort, @Param("keyword") String keyword, @Param("level") Integer level, @Param("tagName") String tagName);
+
+
+
 }

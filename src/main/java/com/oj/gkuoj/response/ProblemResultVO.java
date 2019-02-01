@@ -51,7 +51,7 @@ public class ProblemResultVO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Integer getProblemId() {
@@ -83,7 +83,7 @@ public class ProblemResultVO {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type == null ? null : type.trim();
     }
 
     public Long getTime() {

@@ -2,9 +2,12 @@ package com.oj.gkuoj.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.common.JudgeStatusEnum;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.ProblemMapper;
+import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.response.ProblemVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.service.ProblemService;
@@ -22,6 +25,9 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Autowired
     private ProblemMapper problemMapper;
+
+    @Autowired
+    private ProblemResultMapper problemResultMapper;
 
     @Override
     public RestResponseVO getById(Integer problemId) {
@@ -63,10 +69,25 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public RestResponseVO<PageInfo> listProblemToPage(String keyword, Integer level, String tagName, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize,true);
-        List<Problem> problemList = problemMapper.listAll(keyword, level, tagName);
-        PageInfo<Problem> pageInfo = new PageInfo<>(problemList);
+    public RestResponseVO<PageInfo> listProblemToPage(Integer userId, Integer sort, String keyword, Integer level, String tagName, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize, true);
+        List<ProblemVO> problemList = problemMapper.listAll2VO(sort, keyword, level, tagName);
+        if (userId != null) {
+            for (ProblemVO problemVO : problemList) {
+                int allCount = problemResultMapper.countUserIdProblemId(userId, problemVO.getId());
+                if (allCount > 0) {
+                    int acCount = problemResultMapper.countUserIdProblemIdByStatus(userId, problemVO.getId(), JudgeStatusEnum.ACCEPTED.getStatus());
+                    if (acCount > 0) {
+                        //2通过
+                        problemVO.setUserStatus(2);
+                    } else {
+                        //1尝试
+                        problemVO.setUserStatus(1);
+                    }
+                }
+            }
+        }
+        PageInfo<ProblemVO> pageInfo = new PageInfo<>(problemList);
         return RestResponseVO.createBySuccess(pageInfo);
     }
 
@@ -82,9 +103,9 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public RestResponseVO<Integer> randomProblemId() {
         Integer randomProblemId = problemMapper.countRandomProblemId();
-        if (randomProblemId != null){
+        if (randomProblemId != null) {
             return RestResponseVO.createBySuccess(randomProblemId);
-        }else {
+        } else {
             return RestResponseVO.createByError();
         }
 

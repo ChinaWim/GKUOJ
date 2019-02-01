@@ -52,7 +52,7 @@ public class BlogDetailVO {
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 
     public Integer getUserId() {
@@ -68,7 +68,7 @@ public class BlogDetailVO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getTitle() {
@@ -76,7 +76,7 @@ public class BlogDetailVO {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title == null ? null : title.trim();
     }
 
     public String getContent() {
@@ -84,7 +84,7 @@ public class BlogDetailVO {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getBcId() {
@@ -100,7 +100,7 @@ public class BlogDetailVO {
     }
 
     public void setBcName(String bcName) {
-        this.bcName = bcName;
+        this.bcName = bcName == null ? null : bcName.trim();
     }
 
     public Date getCreateTime() {
@@ -149,7 +149,7 @@ public class BlogDetailVO {
     }
 
     public void setTags(String tags) {
-        this.tags = tags;
+        this.tags = tags == null ? null : tags.trim();
     }
 
 
@@ -158,7 +158,7 @@ public class BlogDetailVO {
     }
 
     public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
+        this.htmlContent = htmlContent == null ? null : htmlContent.trim();
     }
 
     public Boolean getUserUpStatus() {

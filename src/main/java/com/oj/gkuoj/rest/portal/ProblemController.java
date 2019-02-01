@@ -5,12 +5,15 @@ import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.entity.Tag;
+import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.exception.ProblemNotFoundException;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.ProblemResultService;
 import com.oj.gkuoj.service.TagService;
 import com.oj.gkuoj.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,26 +43,12 @@ public class ProblemController {
     private final Integer SUGGEST_PROBLEM_ROW = 5;
 
     /**
-     * 跳转到题库首页
-     *
+     * 跳转到题目List页面
      * @param request
-     * @param pageNum
-     * @param pageSize
-     * @param keyword  标题、标签、分类或题目编号
-     * @param level
-     * @param tagName
      * @return
      */
     @RequestMapping("/problemListPage")
-    public String problemListPage(HttpServletRequest request,
-                                  @RequestParam(defaultValue = "1") Integer pageNum,
-                                  @RequestParam(defaultValue = "25") Integer pageSize,
-                                  @RequestParam(defaultValue = "", required = false) String keyword, @RequestParam(defaultValue = "-1", required = false) Integer level,
-                                  @RequestParam(defaultValue = "不限", required = false) String tagName) {
-        //题目
-        RestResponseVO<PageInfo> result = problemService.listProblemToPage(keyword, level, tagName, pageNum, pageSize);
-        PageInfo pageInfo = result.getData();
-
+    public String problemListPage(HttpServletRequest request) {
         //题目标签
         List<Tag> tagList = tagService.listAll().getData();
         Tag t = new Tag();
@@ -68,18 +57,37 @@ public class ProblemController {
         tagList.add(0, t);
 
         //set data
-        request.setAttribute("pageNum",pageNum);
-        request.setAttribute("total", pageInfo.getTotal());
-        request.setAttribute("keyword", keyword);
-        request.setAttribute("level", level);
-        request.setAttribute("tagName", tagName);
-
-        request.setAttribute("problemList", pageInfo.getList());
         request.setAttribute("tagList", tagList);
         request.setAttribute("active2", true);
+        return "portal/problem/problem-list";
+    }
 
 
-        return  "portal/problem/problem-list";
+    /**
+     * 题目列表
+     * @param userDetails
+     * @param pageNum
+     * @param pageSize
+     * @param sort
+     * @param keyword
+     * @param level
+     * @param tagName
+     * @return
+     */
+    @RequestMapping("/listProblem2Page")
+    @ResponseBody
+    public RestResponseVO<PageInfo> listProblem2Page(@AuthenticationPrincipal UserDetails userDetails,
+                                                     @RequestParam(defaultValue = "1") Integer pageNum,
+                                                     @RequestParam(defaultValue = "20") Integer pageSize,
+                                                     @RequestParam(defaultValue = "-1", required = false) Integer sort,
+                                                     @RequestParam(defaultValue = "", required = false) String keyword,
+                                                     @RequestParam(defaultValue = "-1", required = false) Integer level,
+                                                     @RequestParam(defaultValue = "不限", required = false) String tagName) {
+        Integer userId = null;
+        if (userDetails != null) {
+            userId = ((User) userDetails).getId();
+        }
+        return problemService.listProblemToPage(userId, sort, keyword, level, tagName, pageNum, pageSize);
     }
 
 
@@ -95,7 +103,7 @@ public class ProblemController {
         Problem problem = problemService.getById(problemId).getData();
         //todo
         if (problem == null) {
-            throw new ProblemNotFoundException(ExceptionStatusConst.PROBLEM_NOT_FOUND_EXP,"未找到该题号的题目");
+            throw new ProblemNotFoundException(ExceptionStatusConst.PROBLEM_NOT_FOUND_EXP, "未找到该题号的题目");
         }
         //set data
         request.setAttribute("problem", problem);
@@ -130,7 +138,6 @@ public class ProblemController {
             return "500";
         }
     }
-
 
 
 }

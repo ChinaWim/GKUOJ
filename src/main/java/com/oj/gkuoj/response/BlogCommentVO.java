@@ -49,7 +49,7 @@ public class BlogCommentVO {
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 
     public String getName() {
@@ -57,7 +57,7 @@ public class BlogCommentVO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Integer getBlogId() {
@@ -73,7 +73,7 @@ public class BlogCommentVO {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content == null ? null : content.trim();
     }
 
     public Date getCreateTime() {

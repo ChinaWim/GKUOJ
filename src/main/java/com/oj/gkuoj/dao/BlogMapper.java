@@ -2,7 +2,7 @@ package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Blog;
 import com.oj.gkuoj.response.BlogDetailVO;
-import com.oj.gkuoj.response.BlogListVO;
+import com.oj.gkuoj.response.BlogVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,9 +20,12 @@ public interface BlogMapper {
 
     int updateByPrimaryKey(Blog record);
 
-    List<BlogListVO> list2BlogVO(@Param("keyword") String keyword, @Param("bcId") Integer bcId);
+    List<BlogVO> list2BlogVO(@Param("sort") Integer sort, @Param("keyword") String keyword, @Param("bcId") Integer bcId);
 
     BlogDetailVO getBlogDetailVO(Integer blogId);
 
     int updateViewCountIncrease(Integer blogId);
+
+    List<BlogVO> listHotBlogVO(Integer pageSize);
+
 }

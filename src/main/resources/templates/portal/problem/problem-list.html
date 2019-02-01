@@ -14,7 +14,7 @@
 
 <!--end of Page head script-->
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
-<!--<div class="preloader" style=" position: fixed;
+<div class="preloader" style=" position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -31,7 +31,7 @@
 z-index: 999999">
         <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
     </div>
-</div>-->
+</div>
 <div id="wrap">
     <div th:replace="~{fragments/top :: top}"></div>
     <!-- /#top -->
@@ -52,171 +52,189 @@ z-index: 999999">
             </header>
             <div class="outer">
                 <div class="inner bg-container">
-                    <!--title-->
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="row">
-                                <div class="col-8">
-                                    <form class="w-75" th:action="@{problem/problemListPage}">
-                                        <input type="hidden" th:value="${tagName}" name="tagName"/>
-                                        <input type="hidden" th:value="${level}" name="level"/>
-                                        <input type="hidden" th:value="${pageNum}" name="pageNum"/>
-                                        <div class="input-group">
-                                            <input type="search" name="keyword" th:value="${keyword}"
-                                                   placeholder="题号、标题、标签" class="form-control">
-                                            <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit">
+                    <div id="problemApp">
+                        <!--title-->
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="w-75">
+                                            <div class="input-group">
+                                                <input type="search" id="keyword" name="keyword" value=""
+                                                       placeholder="题号、标题、标签" class="form-control">
+                                                <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" onclick="clickPage(1)">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true">
                                         </span><i class="fa fa-search"></i>
                                         </button>
                                         </span>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="col-4">
-                                    <div class="dropdown  float-right">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                id="dropdownMenuButton"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            难度
-                                        </button>
-                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" th:classappend="${level == -1} ? 'active':''"
-                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=-1&tagName='+${tagName}}">不限</a>
-                                            <a class="dropdown-item" th:classappend="${level == 1} ? 'active':''"
-                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=1&tagName='+${tagName}}">简单</a>
-                                            <a class="dropdown-item" th:classappend="${level == 2} ? 'active':''"
-                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=2&tagName='+${tagName}}">中等</a>
-                                            <a class="dropdown-item" th:classappend="${level == 3} ? 'active':''"
-                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=3&tagName='+${tagName}}">困难</a>
-                                            <a class="dropdown-item" th:classappend="${level == 4} ? 'active':''"
-                                               th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level=4&tagName='+${tagName}}">专家</a>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="float-right">
+                                            <div class="float-right ml-3">
+                                                <select id="level" name="level" onchange="clickPage(1)"
+                                                        class="select2-level"
+                                                        style="width: 100px;">
+                                                    <option value="-1">不限</option>
+                                                    <option value="1">简单</option>
+                                                    <option value="2">中等</option>
+                                                    <option value="3">困难</option>
+                                                    <option value="4">专家</option>
+                                                </select>
+                                            </div>
+
+                                            <select id="sort" name="sort" onchange="clickPage(1)" class="select2-sort" style="width: 100px;">
+                                                <option value="-1">默认排序</option>
+                                                <option value="1">最新排序</option>
+                                                <option value="2">最多通过</option>
+                                            </select>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <button class=" w-100 btn button-rounded btn-primary glow_button glow_button"
+                                        onclick="randomProblem()"><i
+                                        class="fa fa-random"></i>&nbsp;帮我随机选择一题
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <button class=" w-100 btn button-rounded btn-primary glow_button glow_button"
-                                    onclick="randomProblem()"><i
-                                    class="fa fa-random"></i>&nbsp;帮我随机选择一题
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <!--table-->
-                        <div class="col-8">
-                            <div class="card" >
-                                <!-- <h5 class="card-header  ">
-                                      <i class="fa fa-flag "></i>&nbsp;题目列表
-                                  </h5>-->
-                                <div class="card-body"  >
-                                    <table class="table  table-hover table-striped" id="table">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center">题号</th>
-                                            <th class="">标题</th>
-                                            <th class="">标签</th>
-                                            <th class="text-center">提交</th>
-                                            <th class="text-center">通过率</th>
-                                            <th class="text-center">年份</th>
-                                            <th class="text-center">难度</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="problem,i : ${problemList}" class="">
-                                            <td class="text-center">P[[${problem.id}]]</td>
-                                            <td><a th:href="@{'/problem/problemDetailPage?problemId='+${problem.id}}"
-                                                   class="text-primary">[[${problem.name}]]</a></td>
-                                            <td><i class="fa fa-tags"></i>&nbsp;
-                                                <span class="mr-2"
-                                                      th:each="tag : ${#strings.arraySplit(problem.tags,',')}">
-                                                    <a th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level='+${level}+'&tagName='+${tag}+'&pageNum='+${pageNum}}">[[${tag}]]</a>
-                                                </span>
-                                            </td>
-                                            <td class="text-center">[[${problem.submitCount}]]</td>
-                                            <td class="text-center">
-                                                <span th:if="${problem.submitCount != 0}">
-                                                    <span th:text="${#numbers.formatDecimal(problem.acCount*1.0/problem.submitCount*100,1,2)}"></span>
-                                                 </span>
-                                                <span th:if="${problem.submitCount == 0}">
+                        <div class="row mt-3">
+                            <!--problemList-->
+                            <div class="col-8">
+                                <div class="card">
+                                    <!-- <h5 class="card-header  ">
+                                          <i class="fa fa-flag "></i>&nbsp;题目列表
+                                      </h5>-->
+                                    <div class="card-body">
+                                        <table class="table  table-hover table-striped" id="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">状态</th>
+                                                <th class="text-center">题号</th>
+                                                <th class="">标题</th>
+                                                <th class="">标签</th>
+                                                <th class="text-center">提交</th>
+                                                <th class="text-center">通过率</th>
+                                                <th class="text-center">年份</th>
+                                                <th class="text-center">难度</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="(problem,index) in problemList">
+
+                                                <td class="text-center" v-if="problem.userStatus == null"></td>
+                                                <td class="text-center" v-if="problem.userStatus == 1"><i
+                                                        class="fa fa-minus text-warning"></i></td>
+                                                <td class="text-center" v-if="problem.userStatus == 2"><i
+                                                        class="fa fa-check text-success "></i></td>
+
+                                                <td class="text-center">{{problem.id}}</td>
+                                                <td>
+                                                    <a :href="'/problem/problemDetailPage?problemId='+problem.id"
+                                                       class="text-primary">
+                                                        <div style="width: 250px;text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                                                            {{problem.name}}
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <div style="width: 150px">
+                                                        <i class="fa fa-tags"></i>&nbsp;
+                                                        <span v-if="problem.tags != null">
+                                                        <span class="mr-2" v-for="tag in problem.tags.split(',')">
+                                                        <a>{{tag}}</a>
+                                                        </span>
+                                                    </span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">{{problem.submitCount}}</td>
+                                                <td class="text-center">
+                                                    <span v-if="problem.submitCount != 0">
+                                                        <span>{{(problem.acCount*1.0/problem.submitCount*100) | formatNum}}</span>
+                                                     </span>
+                                                    <span v-if="problem.submitCount == 0">
                                                     0.00
                                                 </span>%
-                                            </td>
-                                            <td class="text-center">[[${#dates.format(problem.createTime,'yyyy')}]]</td>
-                                            <td class="text-center">
-                                                <span th:if="${problem.level == 1}">
+                                                </td>
+                                                <td class="text-center">{{problem.createTime | formatYear}}</td>
+                                                <td class="text-center">
+                                                <span v-if="problem.level == 1">
                                                     <span class=" btn-success btn-sm purple">简单</span>
                                                 </span>
-                                                <span th:if="${problem.level == 2}">
+                                                    <span v-if="problem.level == 2">
                                                     <span class=" btn-primary btn-sm purple">中等</span>
                                                 </span>
-                                                <span th:if="${problem.level == 3}">
+                                                    <span v-if="problem.level == 3">
                                                     <span class=" btn-warning btn-sm purple">困难</span>
                                                 </span>
-                                                <span th:if="${problem.level == 4}">
+                                                    <span v-if="problem.level == 4">
                                                     <span class=" btn-danger btn-sm purple">专家</span>
                                                 </span>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--page-->
-                            <div class="row mt-3">
-                                <div class="col-6" style="margin: 0 auto">
-                                    <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
+                                <!--page-->
+                                <div class="row mt-3">
+                                    <div class="col-6" style="margin: 0 auto">
+                                        <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
+                                    </div>
                                 </div>
+                                <!--#page-->
                             </div>
-                            <!--#page-->
-                        </div>
 
-                        <!--#table-->
+                            <!--#problemList-->
 
-                        <!--right-->
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;题目分类</div>
-                                <div class="card-block  ">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <span th:each="tag,i: ${tagList}">
-                                                <a th:href="@{'problem/problemListPage?keyword='+${keyword}+'&level='+${level}+'&tagName='+${tag.name}}"
-                                                   th:classappend="${tagName eq (tag.name)} ? 'active disabled':''"
-                                                   class="btn btn-outline-primary   mt-3 mr-3 ">
+                            <!--right-->
+                            <div class="col-4">
+                                <div class="card">
+                                    <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;题目分类</div>
+                                    <div class="card-block  ">
+                                        <div class="row">
+                                            <div class="col-12">
+                                            <span th:each="tag,i : ${tagList}">
+                                                <a href="javascript:void(0)"
+                                                   th:classappend="${tag.id == -1} ? 'active focus':''"
+                                                   class="btn btn-outline-primary mt-3 mr-3 ">
                                                     [[${tag.name}]]
                                                 </a>
                                             </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="card mt-3">
-                                <div class="card-header bg-white"><i class="fa fa-tags"></i>&nbsp;标签云</div>
-                                <div class="card-block  ">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <a th:href="@{'/problem/problemListPage?tagId='+${tagId}}"
-                                               class="btn btn-secondary mt-3 mr-3 glow_button text-primary">
-                                            </a>
+                                <div class="card mt-3">
+                                    <div class="card-header bg-white"><i class="fa fa-tags"></i>&nbsp;标签云</div>
+                                    <div class="card-block  ">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <a th:href="@{'/problem/problemListPage?tagId='+${tagId}}"
+                                                   class="btn btn-secondary mt-3 mr-3 glow_button text-primary">
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="card mt-3">
-                                <div class="card-header bg-white"><i class="fa fa-clock-o"></i>&nbsp;时间</div>
-                                <div class="card-block">
-                                    <div class="row">
-                                        <div class="col-12">
+                                <div class="card mt-3">
+                                    <div class="card-header bg-white"><i class="fa fa-clock-o"></i>&nbsp;时间</div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-12">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--#right-->
                         </div>
-                        <!--#right-->
                     </div>
                 </div>
             </div>
@@ -227,24 +245,8 @@ z-index: 999999">
 
     <!-- /#content -->
     <!-- Modal -->
-    <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <form th:action="@{/problem/problemListPage}" method="post">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="float-right" aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="input-group search_bar_small">
-                        <input type="text" class="form-control" placeholder="题目搜索" name="keyword">
-                        <span class="input-group-btn">
-                          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
+    <div th:replace="~{fragments/modal}"></div>
+    <!--#Modal-->
     <!--wrapper-->
     <!-- /#content -->
     <div id="right">
@@ -313,19 +315,79 @@ z-index: 999999">
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
 
-    var total = [[${total}]];
-    var pageNum = [[${pageNum}]];
+    // vue
 
-    function tt(dd) {
-        var pageNum = dd;
-        var keyword = [[${keyword}]];
-        var level = [[${level}]];
-        var tagName = [[${tagName}]];
-        var url = "problem/problemListPage?pageNum=" + pageNum
-        + "&keyword=" + keyword + "&level=" + level + "&tagName" + tagName;
-        location.href = url;
-    };
-    $("#page").initPage(total, pageNum, tt);
+    var problemApp = new Vue({
+        el: '#problemApp',
+        data: {
+            total: 0,
+            problemList: []
+        },
+        filters: {
+            formatDate: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                var month = padDate(value.getMonth() + 1);
+                var day = padDate(value.getDate());
+                var hour = padDate(value.getHours());
+                var minutes = padDate(value.getMinutes());
+                var seconds = padDate(value.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+            },
+            formatYear: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                return year;
+            },
+            formatNum: function (val) {
+                //四舍五入
+                var realVal = parseFloat(val).toFixed(2);
+                return parseFloat(realVal);
+            }
+        },
+        methods: {
+            listProblem: function (pageNum) {
+                var keyword = $("#keyword").val();
+                var level = $('#level').val();
+                var sort = $('#sort').val();
+                var tagName = "";
+                var url = 'problem/listProblem2Page?pageNum=' + pageNum + '&keyword=' + keyword
+                    + "&tagName=" + tagName + "&sort=" + sort + "&level=" + level;
+
+                this.$http.get(url).then(function (res) {
+                    this.total = res.data.data.total;
+                    this.problemList = res.data.data.list;
+                    var total = this.total;
+                    var pageNum = res.data.data.pageNum;
+                    $("#page").initPage(total, pageNum, clickPage);
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
+            }
+        }
+    });
+    problemApp.listProblem(1);
+
+    //分页点击方法
+    function clickPage(pageNum) {
+        problemApp.listProblem(pageNum);
+    }
+
+    // end of vue
+
+    /**
+     * select2
+     */
+    $('.select2-sort').select2({
+        placeholder: '排序',
+        theme: 'bootstrap4'
+    });
+    $('.select2-level').select2({
+        placeholder: '难度',
+        theme: 'bootstrap4'
+    });
+
+
     /*]]>*/
 </script>
 

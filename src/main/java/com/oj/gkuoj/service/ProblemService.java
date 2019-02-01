@@ -20,7 +20,7 @@ public interface ProblemService {
 
     RestResponseVO update(Problem problem);
 
-    RestResponseVO<PageInfo> listProblemToPage(String keyword, Integer level, String tagName, Integer pageNum, Integer pageSize);
+    RestResponseVO<PageInfo> listProblemToPage(Integer userId,Integer sort,String keyword, Integer level, String tagName, Integer pageNum, Integer pageSize);
 
     RestResponseVO<List<Problem>> listSuggestProblem(Integer problemId, Integer row);
 

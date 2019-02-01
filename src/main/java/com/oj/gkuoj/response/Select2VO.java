@@ -30,7 +30,7 @@ public class Select2VO {
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.text = text == null ? null : text.trim();
     }
 
     public Boolean getSelected() {

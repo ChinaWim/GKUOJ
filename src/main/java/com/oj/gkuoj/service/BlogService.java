@@ -2,7 +2,7 @@ package com.oj.gkuoj.service;
 
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.response.BlogDetailVO;
-import com.oj.gkuoj.response.BlogListVO;
+import com.oj.gkuoj.response.BlogVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.Blog;
 
@@ -22,10 +22,12 @@ public interface BlogService {
 
     RestResponseVO update(Blog blog);
 
-    RestResponseVO<PageInfo> listBlogVO2(Integer pageNum, Integer pageSize, String keyword, Integer bcId);
+    RestResponseVO<PageInfo> listBlogVO2Page(Integer pageNum, Integer pageSize,Integer sort, String keyword, Integer bcId);
 
     RestResponseVO<BlogDetailVO> getBlogDetailVOById(Integer blogId,Integer userId);
 
     RestResponseVO updateViewCount(Integer blogId);
+
+    RestResponseVO<List<BlogVO>> listHotBlogVO(Integer pageSize);
 
 }

@@ -6,7 +6,7 @@ import java.util.Date;
  * @author m969130721@163.com
  * @date 19-1-27 下午3:54
  */
-public class BlogListVO {
+public class BlogVO {
 
     private Integer id;
 
@@ -47,7 +47,7 @@ public class BlogListVO {
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        this.avatar = avatar == null ? null : avatar.trim();
     }
 
     public Integer getUserId() {
@@ -63,7 +63,7 @@ public class BlogListVO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getTitle() {
@@ -71,7 +71,7 @@ public class BlogListVO {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title == null ? null : title.trim();
     }
 
     public Integer getBcId() {
@@ -87,7 +87,7 @@ public class BlogListVO {
     }
 
     public void setBcName(String bcName) {
-        this.bcName = bcName;
+        this.bcName = bcName == null ? null : bcName.trim();
     }
 
     public Date getCreateTime() {
@@ -135,12 +135,12 @@ public class BlogListVO {
     }
 
     public void setTags(String tags) {
-        this.tags = tags;
+        this.tags = tags == null ? null :tags.trim();
     }
 
     @Override
     public String toString() {
-        return "BlogListVO{" +
+        return "BlogVO{" +
                 "id=" + id +
                 ", avatar='" + avatar + '\'' +
                 ", userId=" + userId +

@@ -6,7 +6,7 @@ import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.UpMapper;
 import com.oj.gkuoj.entity.Up;
 import com.oj.gkuoj.response.BlogDetailVO;
-import com.oj.gkuoj.response.BlogListVO;
+import com.oj.gkuoj.response.BlogVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.BlogMapper;
@@ -70,10 +70,10 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public RestResponseVO<PageInfo> listBlogVO2(Integer pageNum, Integer pageSize, String keyword, Integer bcId) {
+    public RestResponseVO<PageInfo> listBlogVO2Page(Integer pageNum, Integer pageSize,Integer sort, String keyword, Integer bcId) {
         PageHelper.startPage(pageNum, pageSize, true);
-        List<BlogListVO> list = blogMapper.list2BlogVO(keyword, bcId);
-        PageInfo<BlogListVO> pageInfo = new PageInfo<>(list);
+        List<BlogVO> list = blogMapper.list2BlogVO(sort,keyword, bcId);
+        PageInfo<BlogVO> pageInfo = new PageInfo<>(list);
         return RestResponseVO.createBySuccess(pageInfo);
     }
 
@@ -100,5 +100,11 @@ public class BlogServiceImpl implements BlogService {
         int effect = blogMapper.updateViewCountIncrease(blogId);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+    }
+
+    @Override
+    public RestResponseVO listHotBlogVO(Integer pageSize) {
+        List<BlogVO> blogVOList = blogMapper.listHotBlogVO(pageSize);
+        return RestResponseVO.createBySuccess(blogVOList);
     }
 }

@@ -29,26 +29,29 @@
     </select>
 
     <select id="listProblemResult" parameterType="map" resultType="com.oj.gkuoj.response.ProblemResultVO">
-      select
+        select
         p.id, user_id, u.name, problem_id, comp_id, status, type, time, memory,
         p.create_time
         from problem_result p
         join user u on u.id = p.user_id
-      <where>
-          <if test="problemId != null">
-              problem_id = #{problemId}
-          </if>
-          <if test="name != null and name !=''">
-              and u.name like concat('%',#{name},'%')
-          </if>
-          <if test="type != null and type !=''">
-              and type = #{type}
-          </if>
-          <if test="status != null">
-              and status = #{status}
-          </if>
-      </where>
+        <where>
+            <if test="problemId != null">
+                problem_id = #{problemId}
+            </if>
+            <if test="name != null and name !=''">
+                and u.name like concat('%',#{name},'%')
+            </if>
+            <if test="type != null and type !=''">
+                and type = #{type}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
     </select>
+
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from problem_result
     where id = #{id,jdbcType=INTEGER}
@@ -188,4 +191,21 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+    <select id="countUserIdProblemIdByStatus" resultType="java.lang.Integer" parameterType="map">
+      select count(*) from problem_result
+      where user_id = #{userId}
+      and problem_id = #{problemId}
+      and status = #{status}
+    </select>
+
+
+    <select id="countUserIdProblemId" resultType="java.lang.Integer" parameterType="map">
+      select count(*) from problem_result
+      where user_id = #{userId}
+      and problem_id = #{problemId}
+    </select>
+
 </mapper>

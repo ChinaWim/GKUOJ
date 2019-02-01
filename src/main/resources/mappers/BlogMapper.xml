@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.oj.gkuoj.dao.BlogMapper" >
-  <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.Blog" >
-    <constructor >
-      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="bc_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="html_content" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="tags" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="view_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.oj.gkuoj.dao.BlogMapper">
+    <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.Blog">
+        <constructor>
+            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="bc_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="html_content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="tags" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="view_count" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, user_id, bc_id, title, content, html_content, tags, view_count, create_time,
     update_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from blog
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from blog
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Blog" >
+    <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Blog">
     insert into blog (id, user_id, bc_id, 
       title, content, html_content, 
       tags, view_count, create_time)
@@ -37,98 +37,98 @@
       #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{htmlContent,jdbcType=VARCHAR}, 
       #{tags,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Blog" >
-    insert into blog
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="bcId != null" >
-        bc_id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-      <if test="htmlContent != null" >
-        html_content,
-      </if>
-      <if test="tags != null" >
-        tags,
-      </if>
-      <if test="viewCount != null" >
-        view_count,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="bcId != null" >
-        #{bcId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="htmlContent != null" >
-        #{htmlContent,jdbcType=VARCHAR},
-      </if>
-      <if test="tags != null" >
-        #{tags,jdbcType=VARCHAR},
-      </if>
-      <if test="viewCount != null" >
-        #{viewCount,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.Blog" >
-    update blog
-    <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="bcId != null" >
-        bc_id = #{bcId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="htmlContent != null" >
-        html_content = #{htmlContent,jdbcType=VARCHAR},
-      </if>
-      <if test="tags != null" >
-        tags = #{tags,jdbcType=VARCHAR},
-      </if>
-      <if test="viewCount != null" >
-        view_count = #{viewCount,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.Blog" >
+    <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Blog">
+        insert into blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="bcId != null">
+                bc_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="htmlContent != null">
+                html_content,
+            </if>
+            <if test="tags != null">
+                tags,
+            </if>
+            <if test="viewCount != null">
+                view_count,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="bcId != null">
+                #{bcId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="htmlContent != null">
+                #{htmlContent,jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                #{tags,jdbcType=VARCHAR},
+            </if>
+            <if test="viewCount != null">
+                #{viewCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.Blog">
+        update blog
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="bcId != null">
+                bc_id = #{bcId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="htmlContent != null">
+                html_content = #{htmlContent,jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                tags = #{tags,jdbcType=VARCHAR},
+            </if>
+            <if test="viewCount != null">
+                view_count = #{viewCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.Blog">
     update blog
     set user_id = #{userId,jdbcType=INTEGER},
       bc_id = #{bcId,jdbcType=INTEGER},
@@ -142,32 +142,40 @@
   </update>
 
 
+    <select id="list2BlogVO" resultType="com.oj.gkuoj.response.BlogVO" parameterType="map">
+        select b.id, u.avatar,b.user_id,u.name, bc_id, bc.name bc_name, title, view_count,b.tags,
+        b.create_time,count(distinct bco.id) reply_count, max(bco.create_time) reply_time,count(distinct up.id) up_count
+        from blog b
+        join user u on u.id = b.user_id
+        join blog_category bc on bc.id = b.bc_id
+        left join blog_comment bco on bco.blog_id = b.id
+        left join up on up.type_id = b.id and up.type = 0 and up.status = true
+        <where>
+            <if test="keyword != null and keyword !=''">
+                u.name like concat('%',#{keyword},'%')
+                or title like concat('%',#{keyword},'%')
+                or b.tags like concat('%',#{keyword},'%')
+            </if>
+            <if test="bcId != null and bcId != -1">
+                and b.bc_id = #{bcId}
+            </if>
+        </where>
+        group by b.id
+        <if test="sort != null and sort == 1">
+            order by reply_time desc , b.create_time desc
+        </if>
+        <if test="sort != null and sort == 2">
+            order by view_count desc,reply_count desc,up_count desc,b.create_time desc,reply_time desc
+        </if>
+        <if test="sort == null || sort == -1">
+            order by b.create_time desc , reply_time desc
+        </if>
+    </select>
 
-  <select id="list2BlogVO" resultType="com.oj.gkuoj.response.BlogListVO" parameterType="map">
-    select b.id, u.avatar,b.user_id,u.name, bc_id, bc.name bc_name, title, view_count,b.tags,
-    b.create_time,count(distinct bco.id) reply_count, max(bco.create_time) reply_time,count(distinct up.id) up_count
-    from blog b
-    join user u on u.id = b.user_id
-    join blog_category bc on bc.id = b.bc_id
-    left join blog_comment bco on bco.blog_id = b.id
-    left join up  on up.type_id = b.id and up.type = 0 and up.status = true
-    <where>
-      <if test="keyword != null and keyword !=''">
-        u.name like conect('%',#{keyword},'%')
-      </if>
-      <if test="bcId != null and bcId != -1">
-        and b.bc_id = #{bcId}
-      </if>
-    </where>
-    group by b.id
-    order by b.create_time desc , max(bco.create_time) desc
-  </select>
 
-
-
-  <select id="getBlogDetailVO" resultType="com.oj.gkuoj.response.BlogDetailVO" parameterType="map">
+    <select id="getBlogDetailVO" resultType="com.oj.gkuoj.response.BlogDetailVO" parameterType="map">
         select b.id,u.avatar,b.content,b.html_content,b.user_id,u.name, bc_id, bc.name bc_name, title, view_count,
-        b.create_time,b.update_time,count(distinct bco.id) reply_count,b.tags,count(distinct up.id) up_count
+        b.create_time,b.update_time,count(distinct bco.id) reply_count,b.tags, count(distinct up.id) up_count
         from blog b
         join user u on u.id = b.user_id
         join blog_category bc on bc.id = b.bc_id
@@ -176,8 +184,19 @@
         where b.id = #{blogId}
         group by b.id
     </select>
+    <select id="listHotBlogVO" resultType="com.oj.gkuoj.response.BlogVO" parameterType="map">
+      select b.id,b.user_id, title, view_count,b.tags,
+        b.create_time,count(distinct bco.id) reply_count,
+        max(bco.create_time) reply_time,count(distinct up.id) up_count
+        from blog b
+        left join blog_comment bco on bco.blog_id = b.id
+        left join up on up.type_id = b.id and up.type = 0 and up.status = true
+        group by b.id
+        order by view_count desc,reply_count desc,up_count desc,b.create_time desc,reply_time desc
+        limit 0 , #{pageSize}
+    </select>
 
-  <update id="updateViewCountIncrease" parameterType="map">
+    <update id="updateViewCountIncrease" parameterType="map">
         update blog set view_count = view_count + 1
         where id = #{blogId}
     </update>

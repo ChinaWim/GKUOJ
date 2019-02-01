@@ -103,7 +103,7 @@
     bco.create_time, bco.update_time, count(up.id) up_count
     from blog_comment bco
     join user u on u.id = bco.user_id
-    left join up on up.type_id = bco.id and up.type = 1
+    left join up on up.type_id = bco.id and up.type = 1 and status = true
     <where>
       blog_id = #{blogId}
     </where>

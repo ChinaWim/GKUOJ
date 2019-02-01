@@ -286,7 +286,7 @@
 
 
 
-  <select id="listAll" resultType="com.oj.gkuoj.entity.Problem" parameterType="map">
+  <select id="listAll2VO" resultType="com.oj.gkuoj.response.ProblemVO" parameterType="map">
     select   <include refid="Base_Column_List" /> from problem
     <where>
       <if test="keyword != null and keyword !='' ">
@@ -304,6 +304,13 @@
       </if>
       and flag = 0
     </where>
+    <if test="sort != null and sort == 1">
+      order by create_time desc
+    </if>
+    <if test="sort != null and sort == 2">
+      order by ac_count desc
+    </if>
+
   </select>
 
   <select id="listSuggestProblem" resultType="com.oj.gkuoj.entity.Problem" parameterType="map">
