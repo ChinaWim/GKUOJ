@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public class User implements Serializable,UserDetails {
+public class User implements Serializable, UserDetails {
 
     private static final long serialVersionUID = -3145390293109713500L;
 
@@ -58,6 +58,8 @@ public class User implements Serializable,UserDetails {
 
     private Integer goldCount;
 
+    private Integer rating;
+
     private Date lastLoginTime;
 
     private Date createTime;
@@ -67,7 +69,7 @@ public class User implements Serializable,UserDetails {
     private List<Role> roleList;
 
 
-    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, String school, Integer signCount, Integer submitCount, Integer solutionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Date lastLoginTime, Date createTime, Date updateTime) {
+    public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, String school, Integer signCount, Integer submitCount, Integer solutionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Integer rating, Date lastLoginTime, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -93,6 +95,7 @@ public class User implements Serializable,UserDetails {
         this.lastLoginTime = lastLoginTime;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.rating = rating;
     }
 
     public User() {
@@ -326,36 +329,12 @@ public class User implements Serializable,UserDetails {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", mood='" + mood + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", flag=" + flag +
-                ", sex='" + sex + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", school='" + school + '\'' +
-                ", signCount=" + signCount +
-                ", submitCount=" + submitCount +
-                ", solutionCount=" + solutionCount +
-                ", acCount=" + acCount +
-                ", tleCount=" + tleCount +
-                ", peCount=" + peCount +
-                ", meCount=" + meCount +
-                ", ceCount=" + ceCount +
-                ", reCount=" + reCount +
-                ", waCount=" + waCount +
-                ", goldCount=" + goldCount +
-                ", lastLoginTime=" + lastLoginTime +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", roleList=" + roleList +
-                '}';
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public static long getSerialVersionUID() {
@@ -363,7 +342,7 @@ public class User implements Serializable,UserDetails {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
     public List<Role> getRoleList() {
@@ -373,6 +352,7 @@ public class User implements Serializable,UserDetails {
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -404,6 +384,7 @@ public class User implements Serializable,UserDetails {
         if (reCount != null ? !reCount.equals(user.reCount) : user.reCount != null) return false;
         if (waCount != null ? !waCount.equals(user.waCount) : user.waCount != null) return false;
         if (goldCount != null ? !goldCount.equals(user.goldCount) : user.goldCount != null) return false;
+        if (rating != null ? !rating.equals(user.rating) : user.rating != null) return false;
         if (lastLoginTime != null ? !lastLoginTime.equals(user.lastLoginTime) : user.lastLoginTime != null)
             return false;
         if (createTime != null ? !createTime.equals(user.createTime) : user.createTime != null) return false;
@@ -435,10 +416,44 @@ public class User implements Serializable,UserDetails {
         result = 31 * result + (reCount != null ? reCount.hashCode() : 0);
         result = 31 * result + (waCount != null ? waCount.hashCode() : 0);
         result = 31 * result + (goldCount != null ? goldCount.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
         result = 31 * result + (lastLoginTime != null ? lastLoginTime.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (roleList != null ? roleList.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", mood='" + mood + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", flag=" + flag +
+                ", sex='" + sex + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", school='" + school + '\'' +
+                ", signCount=" + signCount +
+                ", submitCount=" + submitCount +
+                ", solutionCount=" + solutionCount +
+                ", acCount=" + acCount +
+                ", tleCount=" + tleCount +
+                ", peCount=" + peCount +
+                ", meCount=" + meCount +
+                ", ceCount=" + ceCount +
+                ", reCount=" + reCount +
+                ", waCount=" + waCount +
+                ", goldCount=" + goldCount +
+                ", rating=" + rating +
+                ", lastLoginTime=" + lastLoginTime +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", roleList=" + roleList +
+                '}';
     }
 }

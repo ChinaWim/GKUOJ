@@ -85,7 +85,8 @@ z-index: 999999">
                                                 </select>
                                             </div>
 
-                                            <select id="sort" name="sort" onchange="clickPage(1)" class="select2-sort" style="width: 100px;">
+                                            <select id="sort" name="sort" onchange="clickPage(1)" class="select2-sort"
+                                                    style="width: 100px;">
                                                 <option value="-1">默认排序</option>
                                                 <option value="1">最新排序</option>
                                                 <option value="2">最多通过</option>
@@ -106,12 +107,12 @@ z-index: 999999">
                             <!--problemList-->
                             <div class="col-8">
                                 <div class="card">
-                                    <!-- <h5 class="card-header  ">
+                                   <!-- <h5 class="card-header  ">
                                           <i class="fa fa-flag "></i>&nbsp;题目列表
                                       </h5>-->
                                     <div class="card-body">
-                                        <table class="table  table-hover table-striped" id="table">
-                                            <thead>
+                                        <table class="table table-hover " id="table">
+                                            <thead class="">
                                             <tr>
                                                 <th class="text-center">状态</th>
                                                 <th class="text-center">题号</th>
@@ -134,12 +135,14 @@ z-index: 999999">
 
                                                 <td class="text-center">{{problem.id}}</td>
                                                 <td>
-                                                    <a :href="'/problem/problemDetailPage?problemId='+problem.id"
-                                                       class="text-primary">
-                                                        <div style="width: 250px;text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+
+                                                    <div style="width: 250px;text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                                                        <a :href="'/problem/problemDetailPage?problemId='+problem.id"
+                                                           class="text-primary">
                                                             {{problem.name}}
-                                                        </div>
-                                                    </a>
+                                                        </a>
+                                                    </div>
+
                                                 </td>
                                                 <td>
                                                     <div style="width: 150px">
@@ -182,7 +185,7 @@ z-index: 999999">
                                 </div>
                                 <!--page-->
                                 <div class="row mt-3">
-                                    <div class="col-6" style="margin: 0 auto">
+                                    <div class="" style="margin: 0 auto">
                                         <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
                                     </div>
                                 </div>

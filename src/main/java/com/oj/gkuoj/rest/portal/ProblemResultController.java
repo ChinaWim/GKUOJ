@@ -52,7 +52,7 @@ public class ProblemResultController {
 
 
         //set data
-        request.setAttribute("active5", true);
+        request.setAttribute("active4", true);
         request.setAttribute("problemId", problemId);
         request.setAttribute("pageNum", pageNum);
         request.setAttribute("name", name);

@@ -1,6 +1,9 @@
 package com.oj.gkuoj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.RankVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.RoleMapper;
@@ -24,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -184,6 +188,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS) :
                 RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
+    }
+
+    @Override
+    public RestResponseVO<PageInfo> listRankUser2Page(Integer pageNum, Integer pageSize, String keyword) {
+        PageHelper.startPage(pageNum,pageSize,true);
+        List<RankVO> userList = userMapper.listRankUser(keyword);
+        PageInfo<RankVO> pageInfo = new PageInfo<>(userList);
+        return RestResponseVO.createBySuccess(pageInfo);
     }
 
     @Override

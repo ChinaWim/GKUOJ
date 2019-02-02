@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>排行榜</title>
+    <div th:replace="~{fragments/head-base}"></div>
+    <!--Page level styles-->
+    <style type="text/css">
+
+    </style>
+</head>
+
+<!--Page head script-->
+
+<!--end of Page head script-->
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
+<div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
+    </div>
+</div>
+<div id="wrap">
+    <div th:replace="~{fragments/top :: top}"></div>
+    <!-- /#top -->
+    <div class="wrapper fixedNav_top">
+        <div th:replace="~{fragments/left :: left}"></div>
+        <!-- /#left -->
+        <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <h4 class="m-t-5">
+                                <i class="fa fa-bar-chart"></i>&nbsp; 排行榜
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="outer">
+                <div class="inner bg-container">
+                    <!--app-->
+                    <div id="rankApp">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="w-25 float-right">
+                                    <div class="input-group">
+                                        <input type="search" id="keyword" name="keyword" value=""
+                                               placeholder="输入用户名进行搜索" class="form-control"/>
+                                        <span class="input-group-btn">
+                                                    <button class="btn btn-primary" type="button"
+                                                            onclick="clickPage(1)">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true">
+                                                    </span><i class="fa fa-search"></i>
+                                                    </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--rankList-->
+                            <div class="col-12 mt-3">
+                                <div class="card">
+
+                                    <div class="card-body ">
+                                        <table border="0" class="table   table-hover">
+                                            <thead class="">
+                                            <tr >
+                                                <th class="text-center">排名</th>
+                                                <th class="text-center">用户名</th>
+                                                <th class="">个性签名</th>
+                                                <th class="text-center">解决题数</th>
+                                                <th class="text-center">提交次数</th>
+                                                <th class="text-center">通过率</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody >
+                                            <tr v-for="(user,index) in rankList">
+                                                <td class="text-center">
+                                                    <div v-if="index == 0">
+                                                        <img th:src="@{/img/rank1.svg}">
+                                                    </div>
+                                                    <div v-if="index == 1">
+                                                        <img th:src="@{/img/rank2.svg}">
+                                                    </div>
+                                                    <div v-if="index == 2">
+                                                        <img th:src="@{/img/rank3.svg}">
+                                                    </div>
+                                                    <div v-if="index > 2">
+                                                        {{index + 1}}
+                                                    </div>
+                                                </td>
+                                                <td class="text-center"><a :href="'/user/mainPage?userId='+user.id"
+                                                                           class="text-primary">{{user.name}}</a></td>
+                                                <td>
+                                                    <div>
+                                                        {{user.mood}}
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">{{user.solutionCount}}</td>
+                                                <td class="text-center">{{user.submitCount}}</td>
+                                                <td class="text-center">
+                                                    <span v-if="user.submitCount > 0">
+                                                    {{user.acCount*1.0 / user.submitCount * 100 | formatNum}}&nbsp;%
+                                                    </span>
+                                                    <span v-if="user.submitCount == 0">0.00&nbsp;%
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--page-->
+                                <div class="row mt-3">
+                                    <div style="margin: 0 auto">
+                                        <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
+                                    </div>
+                                </div>
+                                <!--#page-->
+                            </div>
+                            <!--#rankList-->
+                        </div>
+                    </div>
+                    <!--#app-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.inner -->
+</div>
+<!-- /.outer -->
+
+<!-- /#content -->
+<!-- Modal -->
+<div th:replace="~{fragments/modal}"></div>
+<!--#Modal-->
+
+<!--wrapper-->
+<!-- /#content -->
+<div id="right">
+    <div class="right_content">
+        <div class="well-small dark m-t-15">
+            <div class="row m-0">
+                <div class="col-lg-12 p-d-0">
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('blue_black_skin.css','css')">
+                        <div class="skin_blue skin_size b_t_r"></div>
+                        <div class="skin_blue_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('green_black_skin.css','css')">
+                        <div class="skin_green skin_size b_t_r"></div>
+                        <div class="skin_green_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('purple_black_skin.css','css')">
+                        <div class="skin_purple skin_size b_t_r"></div>
+                        <div class="skin_purple_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('orange_black_skin.css','css')">
+                        <div class="skin_orange skin_size b_t_r"></div>
+                        <div class="skin_orange_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('red_black_skin.css','css')">
+                        <div class="skin_red skin_size b_t_r"></div>
+                        <div class="skin_red_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('mint_black_skin.css','css')">
+                        <div class="skin_mint skin_size b_t_r"></div>
+                        <div class="skin_mint_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <!--</div>-->
+                    <div class="skin_btn skinsingle_btn skin_blue b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('blue_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_green b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('green_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_purple b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('purple_skin.css','css')"></div>
+                    <div class="skin_btn  skinsingle_btn skin_orange b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('orange_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_red b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('red_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_mint b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('mint_skin.css','css')"></div>
+                </div>
+                <div class="col-lg-12 text-center m-t-15">
+                    <button class="btn btn-dark button-rounded"
+                            onclick="javascript:loadjscssfile('black_skin.css','css')">Dark
+                    </button>
+                    <button class="btn btn-secondary button-rounded default_skin"
+                            onclick="javascript:loadjscssfile('default_skin.css','css')">Default
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- # right side -->
+</div>
+<!-- /#wrap -->
+<!-- global scripts-->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!--end of global scripts-->
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+
+    // vue
+    var rankApp = new Vue({
+        el: '#rankApp',
+        data: {
+            total: 0,
+            rankList: []
+        },
+        filters: {
+            formatDate: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                var month = padDate(value.getMonth() + 1);
+                var day = padDate(value.getDate());
+                var hour = padDate(value.getHours());
+                var minutes = padDate(value.getMinutes());
+                var seconds = padDate(value.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+            },
+            formatYear: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                return year;
+            },
+            formatNum: function (val) {
+                //四舍五入
+                var realVal = parseFloat(val).toFixed(2);
+                return parseFloat(realVal);
+            }
+        },
+        methods: {
+            listRank: function (pageNum) {
+                var keyword = $("#keyword").val();
+                var url = '/listRank2Page?pageNum=' + pageNum + '&keyword=' + keyword;
+
+                this.$http.get(url).then(function (res) {
+                    this.total = res.data.data.total;
+                    this.rankList = res.data.data.list;
+                    $("#page").initPage(this.total, pageNum, clickPage);
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
+            }
+        }
+    });
+    rankApp.listRank(1);
+
+    //分页点击方法
+    function clickPage(pageNum) {
+        rankApp.listRank(pageNum);
+    }
+
+    // end of vue
+
+    /*]]>*/
+</script>
+
+</body>
+
+</html>

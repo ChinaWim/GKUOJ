@@ -1,8 +1,11 @@
 package com.oj.gkuoj.service;
 
 
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.User;
+
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -28,4 +31,6 @@ public interface UserService {
     RestResponseVO forgetRestPassword(String token,String password);
 
     RestResponseVO register(String token, User user);
+
+    RestResponseVO<PageInfo> listRankUser2Page(Integer pageNum, Integer pageSize, String keyword);
 }

@@ -1,7 +1,10 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.response.RankVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -23,4 +26,7 @@ public interface UserMapper {
     int countByEmail(String email);
 
     int resetPasswordByEmail(@Param("email") String email, @Param("password") String password);
+
+    List<RankVO> listRankUser(@Param("keyword") String keyword);
+
 }
