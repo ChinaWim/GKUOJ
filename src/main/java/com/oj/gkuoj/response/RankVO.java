@@ -28,6 +28,8 @@ public class RankVO {
 
     private Integer rating;
 
+    private Integer rank;
+
     private Date lastLoginTime;
 
     private Date createTime;
@@ -129,6 +131,14 @@ public class RankVO {
         this.rating = rating;
     }
 
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
     @Override
     public String toString() {
         return "RankVO{" +
@@ -142,6 +152,7 @@ public class RankVO {
                 ", acCount=" + acCount +
                 ", goldCount=" + goldCount +
                 ", rating=" + rating +
+                ", rank=" + rank +
                 ", lastLoginTime=" + lastLoginTime +
                 ", createTime=" + createTime +
                 '}';

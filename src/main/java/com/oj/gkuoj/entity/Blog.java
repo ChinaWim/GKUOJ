@@ -1,5 +1,7 @@
 package com.oj.gkuoj.entity;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 
 public class Blog {

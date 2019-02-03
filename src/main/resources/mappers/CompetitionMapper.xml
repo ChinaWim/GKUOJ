@@ -9,7 +9,6 @@
       <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="time" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="start_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -17,7 +16,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, name, title, content, password, time, start_time, end_time, create_time, 
+    id, user_id, name, title, content, password, start_time, end_time, create_time,
     update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -26,18 +25,19 @@
     from competition
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from competition
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert"  keyProperty="id" parameterType="com.oj.gkuoj.entity.Competition" >
     insert into competition (id, user_id, name, 
       title, content, password, 
-      time, start_time, end_time, 
+      start_time, end_time,
       create_time )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{time,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Competition" >
@@ -60,9 +60,6 @@
       </if>
       <if test="password != null" >
         password,
-      </if>
-      <if test="time != null" >
-        time,
       </if>
       <if test="startTime != null" >
         start_time,
@@ -93,9 +90,6 @@
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="time != null" >
-        #{time,jdbcType=INTEGER},
-      </if>
       <if test="startTime != null" >
         #{startTime,jdbcType=TIMESTAMP},
       </if>
@@ -125,9 +119,6 @@
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=INTEGER},
-      </if>
       <if test="startTime != null" >
         start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
@@ -147,10 +138,27 @@
       title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      time = #{time,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getCompetitionDetailVOById" resultType="com.oj.gkuoj.response.CompetitionDetailVO" parameterType="int">
+   select  com.id, u.id user_id, u.avatar,u.name,com.name competition_name,title,content,
+           com.password,start_time,end_time,com.create_time,com.update_time
+   from competition com join user u
+   on com.user_id = u.id
+   where com.id = #{competitionId}
+
+
+  </select>
+  <select id="listCompetitionVO" resultType="com.oj.gkuoj.response.CompetitionVO">
+    select comp.id, comp.name, comp.title, comp.start_time, comp.end_time, comp.create_time , count(r.id) register_count
+    from competition comp
+    left join register r on r.comp_id = comp.id
+    group by comp.id
+  </select>
+
 </mapper>

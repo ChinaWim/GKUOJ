@@ -3,10 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>比赛首页</title>
+    <title>比赛列表</title>
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
-    <!--heard script-->
+    <style type="text/css">
+
+    </style>
 </head>
 
 <!--Page head script-->
@@ -43,7 +45,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-comments"></i>&nbsp;讨论区
+                                <i class="fa fa-trophy"></i>&nbsp; 比赛
                             </h4>
                         </div>
                     </div>
@@ -51,264 +53,166 @@ z-index: 999999">
             </header>
             <div class="outer">
                 <div class="inner bg-container">
-                    <div id="blogApp">
-                        <div class="row mt-3">
-                            <!--table-->
-                            <div class="col-8">
-                                <!--blogList-->
-                                <div id="">
-                                    <div v-for="(blog,index) in blogList" :class="index == 0 ? 'card':'card mt-3'">
-                                        <div class="card-block twitter_section">
-                                            <ul style="overflow: hidden;">
-                                                <li style="margin-top: 0px;">
-                                                    <div class="row">
-                                                        <div class="col-1">
-                                                            <a :href="'/user/mainPage?userId='+blog.userId">
-                                                                <img :src="blog.avatar == null ? 'img/default_avatar.jpg' : blog.avatar"
-                                                                     class="rounded-circle hidden-sm-down"
-                                                                     alt="image not found">
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-11  ">
-                                                            <!--<div style="width:50px;overflow: hidden; text-overflow:ellipsis" ></div>-->
-                                                            <div class="name">
-                                                                <a :href="'/blog/blogDetailPage?blogId='+blog.id"
-                                                                   class="text-primary">{{blog.title}}
-                                                                </a>
-                                                                <span v-if="blog.tags != null && blog.tags.length > 0">
-                                                                    <span class="ml-2"
-                                                                          v-for="tag in blog.tags.split(',')">
-                                                                      <a class="btn btn-secondary badge-pill btn-sm">{{tag}}</a>
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                            <div class="msg mt-2">
-                                                                作者：<a :href="'/user/mainPage?userId='+blog.userId"><span
-                                                                    class="text-danger">{{blog.name}}</span></a>
-                                                                <span class="ml-3" style="color: #A6A6A6">{{blog.createTime | formatDate}}</span>
-                                                                <span class="ml-3"><span
-                                                                        style="color: #A6A6A6">发表在</span>
-                                                            <a href="#">[{{blog.bcName}}]</a></span>
-                                                                <span v-if="blog.replyTime != null" class="ml-3"
-                                                                      style="color: #A6A6A6">最后回复：{{blog.replyTime | formatDate}}</span>
-                                                                <span class="time">回复&nbsp;{{blog.replyCount}}&nbsp;|&nbsp;赞&nbsp;{{blog.upCount}}&nbsp;|&nbsp;浏览&nbsp;{{blog.viewCount}}&nbsp;</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                    <!--app-->
+                    <div id="competitionApp">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="w-25 float-right">
+                                    <div class="input-group">
+                                        <input type="search" id="keyword" name="keyword" value=""
+                                               placeholder="输入比赛名称进行搜索" class="form-control"/>
+                                        <span class="input-group-btn">
+                                                    <button class="btn btn-primary" type="button"
+                                                            onclick="clickPage(1)">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true">
+                                                    </span><i class="fa fa-search"></i>
+                                                    </button>
+                                        </span>
                                     </div>
                                 </div>
-                                <!--#bloglist-->
+                            </div>
+                            <!--rankList-->
+                            <div class="col-12 mt-3">
+                                <div class="card p-3">
+
+                                    <div class="card-body ">
+                                        <table class="table   table-hover">
+                                            <thead class="">
+                                            <tr>
+                                                <th class="text-center">赛制</th>
+                                                <th class="">比赛</th>
+                                                <th class="text-center">开始时间</th>
+                                                <th class="text-center">比赛时长</th>
+                                                <th class="text-center">参加人数</th>
+                                                <th class="text-center">状态</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="(competition,index) in competitionList"
+                                                :class="competition.startTime |
+                                                    competitionStatus(competition.endTime) =='已结束' ? 'gray-font':'tr-active'">
+                                                <td class="text-center">OI</td>
+                                                <td class="">
+                                                    <a :href="'/competition/competitionDetailPage/?competitionId='+competition.id"
+                                                       class="text-primary">{{competition.name}}
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    {{competition.startTime | formatDate}}
+                                                <td class="text-center">
+                                                    <div>
+                                                        {{competition.startTime | differDate(competition.endTime)}}
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">{{competition.registerCount}}</td>
+                                                <td class="text-center">{{competition.startTime |
+                                                    competitionStatus(competition.endTime)}}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                                 <!--page-->
-                                <div class="row mt-3" id="pageDiv">
-                                    <div class="col-6" style="margin: 0 auto">
+                                <div class="row mt-3">
+                                    <div style="margin: 0 auto">
                                         <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
                                     </div>
                                 </div>
                                 <!--#page-->
                             </div>
-                            <!--#table-->
-
-                            <!--right-->
-                            <div class="col-4 blog-right">
-                                <div class="card">
-                                    <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;进入板块</div>
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <input id="bcId" name="bcId" type="hidden" value="-1"/>
-                                                <span th:each="blogCategory : ${blogCategoryList}">
-                                                    <a th:onclick="'intoCategory(this,'+${blogCategory.id}+')'"
-                                                       th:classappend="${blogCategory.id == -1}?'active focus':''"
-                                                       href="javascript:void(0)"
-                                                       class="btn btn-outline-primary mt-3 mr-3 categoryItem">
-                                                        [[${blogCategory.name}]]
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-3">
-                                            <div class="col-10 w-100">
-                                                <div class="input-group">
-                                                    <input type="search" id="keyword" name="keyword"
-                                                           placeholder="用户、标题、标签"
-                                                           class="form-control">
-                                                    <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="button"
-                                                        onclick="clickPage(1)">
-                                                <span class="glyphicon glyphicon-search" aria-hidden="true">
-                                                </span><i class="fa fa-search"></i>
-                                                </button>
-                                                </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-3">
-                                            <div class="col-12 ">
-                                                排序方式：
-                                                <select id="sort" name="sort" onchange="clickPage(1)"
-                                                        class="select2-sort" style="width: 100px;">
-                                                    <option value="-1">综合排序</option>
-                                                    <option value="1">最新回复</option>
-                                                    <option value="2">最热在前</option>
-                                                </select>
-                                            </div>
-
-
-                                        </div>
-
-                                        <div class="row mt-3">
-                                            <div class="col-12">
-                                                <a th:href="@{/blog/blogEditPage}"
-                                                   class="btn btn-danger text-white">发布帖子</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card mt-3">
-                                    <div class="card-header bg-white"><i class="fa fa-comment"></i>&nbsp;热门话题</div>
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-12">
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="card mt-3">
-                                    <div class="card-header bg-white"><i class="fa fa-fire"></i>&nbsp;近期热帖</div>
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div th:each="hotBlog,status : ${hotBlogList}">
-                                                    <a th:href="@{'/blog/blogDetailPage?blogId='+${hotBlog.id}}">
-                                                        <div>[[${hotBlog.title}]]</div>
-                                                    </a>
-                                                    <div class="mt-1">
-                                                        <span class="gray-font ">发表于：[[${#dates.format(hotBlog.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
-                                                        <span class="gray-font  float-right">浏览&nbsp;[[${hotBlog.viewCount}]]</span>
-                                                    </div>
-                                                    <hr th:if="${status.count != status.size}" class="mt-3" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!--#right-->
+                            <!--#rankList-->
                         </div>
                     </div>
-
-
+                    <!--#app-->
                 </div>
             </div>
         </div>
-        <!-- /.inner -->
     </div>
-    <!-- /.outer -->
+    <!-- /.inner -->
+</div>
+<!-- /.outer -->
 
-    <!-- /#content -->
-    <!-- Modal -->
-    <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <form th:action="@{/problem/problemListPage}" method="post">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="float-right" aria-hidden="true">&times;</span>
+<!-- /#content -->
+<!-- Modal -->
+<div th:replace="~{fragments/modal}"></div>
+<!--#Modal-->
+
+<!--wrapper-->
+<!-- /#content -->
+<div id="right">
+    <div class="right_content">
+        <div class="well-small dark m-t-15">
+            <div class="row m-0">
+                <div class="col-lg-12 p-d-0">
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('blue_black_skin.css','css')">
+                        <div class="skin_blue skin_size b_t_r"></div>
+                        <div class="skin_blue_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('green_black_skin.css','css')">
+                        <div class="skin_green skin_size b_t_r"></div>
+                        <div class="skin_green_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('purple_black_skin.css','css')">
+                        <div class="skin_purple skin_size b_t_r"></div>
+                        <div class="skin_purple_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('orange_black_skin.css','css')">
+                        <div class="skin_orange skin_size b_t_r"></div>
+                        <div class="skin_orange_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('red_black_skin.css','css')">
+                        <div class="skin_red skin_size b_t_r"></div>
+                        <div class="skin_red_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('mint_black_skin.css','css')">
+                        <div class="skin_mint skin_size b_t_r"></div>
+                        <div class="skin_mint_border skin_shaddow skin_size b_b_r"></div>
+                    </div>
+                    <!--</div>-->
+                    <div class="skin_btn skinsingle_btn skin_blue b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('blue_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_green b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('green_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_purple b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('purple_skin.css','css')"></div>
+                    <div class="skin_btn  skinsingle_btn skin_orange b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('orange_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_red b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('red_skin.css','css')"></div>
+                    <div class="skin_btn skinsingle_btn skin_mint b_r height_40 skin_shaddow"
+                         onclick="javascript:loadjscssfile('mint_skin.css','css')"></div>
+                </div>
+                <div class="col-lg-12 text-center m-t-15">
+                    <button class="btn btn-dark button-rounded"
+                            onclick="javascript:loadjscssfile('black_skin.css','css')">Dark
                     </button>
-                    <div class="input-group search_bar_small">
-                        <input type="text" class="form-control" placeholder="题目搜索" name="keyword">
-                        <span class="input-group-btn">
-                          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <!--wrapper-->
-    <!-- /#content -->
-    <div id="right">
-        <div class="right_content">
-            <div class="well-small dark m-t-15">
-                <div class="row m-0">
-                    <div class="col-lg-12 p-d-0">
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('blue_black_skin.css','css')">
-                            <div class="skin_blue skin_size b_t_r"></div>
-                            <div class="skin_blue_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('green_black_skin.css','css')">
-                            <div class="skin_green skin_size b_t_r"></div>
-                            <div class="skin_green_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('purple_black_skin.css','css')">
-                            <div class="skin_purple skin_size b_t_r"></div>
-                            <div class="skin_purple_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('orange_black_skin.css','css')">
-                            <div class="skin_orange skin_size b_t_r"></div>
-                            <div class="skin_orange_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('red_black_skin.css','css')">
-                            <div class="skin_red skin_size b_t_r"></div>
-                            <div class="skin_red_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('mint_black_skin.css','css')">
-                            <div class="skin_mint skin_size b_t_r"></div>
-                            <div class="skin_mint_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <!--</div>-->
-                        <div class="skin_btn skinsingle_btn skin_blue b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('blue_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_green b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('green_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_purple b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('purple_skin.css','css')"></div>
-                        <div class="skin_btn  skinsingle_btn skin_orange b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('orange_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_red b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('red_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_mint b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('mint_skin.css','css')"></div>
-                    </div>
-                    <div class="col-lg-12 text-center m-t-15">
-                        <button class="btn btn-dark button-rounded"
-                                onclick="javascript:loadjscssfile('black_skin.css','css')">Dark
-                        </button>
-                        <button class="btn btn-secondary button-rounded default_skin"
-                                onclick="javascript:loadjscssfile('default_skin.css','css')">Default
-                        </button>
-                    </div>
+                    <button class="btn btn-secondary button-rounded default_skin"
+                            onclick="javascript:loadjscssfile('default_skin.css','css')">Default
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- # right side -->
+</div>
+<!-- # right side -->
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
+
 <!--end of global scripts-->
 
-<script th:inline="javascript" type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
 
-    // vue
 
-    var blogApp = new Vue({
-        el: '#blogApp',
+    // vue
+    var competitionApp = new Vue({
+        el: '#competitionApp',
         data: {
             total: 0,
-            blogList: []
+            competitionList: []
         },
         filters: {
             formatDate: function (val) {
@@ -318,49 +222,65 @@ z-index: 999999">
                 var day = padDate(value.getDate());
                 var hour = padDate(value.getHours());
                 var minutes = padDate(value.getMinutes());
-                var seconds = padDate(value.getSeconds());
-                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+                // var seconds = padDate(value.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes;
+            },
+            differDate: function (date1, date2) {
+                var result;
+                var totalTime = Math.abs(new Date(date1).getTime() - new Date(date2).getTime());
+                var minTime = (totalTime / 1000 / 60);
+                if (minTime < 60) {
+                    result = minTime + " 分钟";
+                } else {
+                    var hourNum = parseInt(minTime / 60);
+                    var minNum = minTime % 60;
+                    result = hourNum + " 小时 " + minNum + " 分钟";
+                }
+                return result;
+            },
+            competitionStatus: function (startTime, endTime) {
+                var result;
+                var start = new Date(startTime);
+                var end = new Date(endTime);
+                var now = new Date();
+                if (now.getTime() - start.getTime() < 0) {
+                    result = "未开始";
+                } else if (now.getTime() - start.getTime() >= 0 && now.getTime() - end.getTime() <= 0) {
+                    result = "进行中";
+                } else if (now.getTime() - end.getTime() > 0) {
+                    result = "已结束";
+                }
+                return result;
+            },
+            formatNum: function (val) {
+                //四舍五入
+                var realVal = parseFloat(val).toFixed(2);
+                return parseFloat(realVal);
             }
         },
         methods: {
-            listBlog: function (pageNum) {
+            listCompetition: function (pageNum) {
                 var keyword = $("#keyword").val();
-                var sort = $("#sort").val();
-                var bcId = $("#bcId").val();
-                var url = 'blog/listBlog2Page?pageNum=' + pageNum + '&keyword=' + keyword + "&bcId=" + bcId + "&sort=" + sort;
+                var url = '/competition/listCompetition2Page?pageNum=' + pageNum + '&keyword=' + keyword;
+
                 this.$http.get(url).then(function (res) {
                     this.total = res.data.data.total;
-                    this.blogList = res.data.data.list;
-                    var total = this.total;
-                    var pageNum = res.data.data.pageNum;
-                    $("#page").initPage(total, pageNum, clickPage);
+                    this.competitionList = res.data.data.list;
+                    $("#page").initPage(this.total, pageNum, clickPage);
                 }), function (res) {
                     console.log(res.data.msg);
                 }
             }
         }
     });
-    blogApp.listBlog(1);
+    competitionApp.listCompetition(1);
 
     //分页点击方法
     function clickPage(pageNum) {
-        blogApp.listBlog(pageNum);
+        competitionApp.listCompetition(pageNum);
     }
-
-    //分类点击方法
-    function intoCategory(item, bcId) {
-        $(".categoryItem").removeClass("active focus");
-        $(item).addClass("active focus");
-        $("#bcId").val(bcId);
-        blogApp.listBlog(1);
-    }
-
 
     // end of vue
-    $('.select2-sort').select2({
-        placeholder: '排序',
-        theme: 'bootstrap4'
-    });
 
     /*]]>*/
 </script>

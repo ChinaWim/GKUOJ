@@ -399,17 +399,14 @@
         select
         id, name, mood, avatar, sign_count,
         submit_count, solution_count, ac_count,
-        gold_count, rating, last_login_time, create_time
-        from user
+        gold_count, rating, last_login_time, create_time,
+        (select count(distinct b.rating) from user b where b.rating > a.rating) + 1 as rank
+        from user a
         <if test="keyword != null and keyword != ''">
             where name like concat ('%',#{keyword},'%')
             and flag = 0
         </if>
-        order by rating desc
-        solution_count desc ,
-        (ac_count/submit_count) desc ,
-        submit_count desc
-
+        order by rank
     </select>
 
 

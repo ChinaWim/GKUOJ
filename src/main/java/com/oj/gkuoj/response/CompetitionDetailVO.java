@@ -1,16 +1,22 @@
-package com.oj.gkuoj.entity;
+package com.oj.gkuoj.response;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Competition implements Serializable {
-    private static final long serialVersionUID = -8904979538392043373L;
+/**
+ * @author m969130721@163.com
+ * @date 19-2-3 上午12:58
+ */
+public class CompetitionDetailVO {
 
     private Integer id;
 
     private Integer userId;
 
+    private String avatar;
+
     private String name;
+
+    private String competitionName;
 
     private String title;
 
@@ -26,10 +32,12 @@ public class Competition implements Serializable {
 
     private Date updateTime;
 
-    public Competition(Integer id, Integer userId, String name, String title, String content, String password,  Date startTime, Date endTime, Date createTime, Date updateTime) {
+    public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, String password, Date startTime, Date endTime, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
+        this.avatar = avatar;
         this.name = name;
+        this.competitionName = competitionName;
         this.title = title;
         this.content = content;
         this.password = password;
@@ -39,7 +47,7 @@ public class Competition implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Competition() {
+    public CompetitionDetailVO() {
         super();
     }
 
@@ -123,12 +131,32 @@ public class Competition implements Serializable {
         this.updateTime = updateTime;
     }
 
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
+    }
+
+    public String getCompetitionName() {
+        return competitionName;
+    }
+
+    public void setCompetitionName(String competitionName) {
+        this.competitionName = competitionName == null ? null : competitionName.trim();
+    }
+
+
     @Override
     public String toString() {
-        return "Competition{" +
+        return "CompetitionDetailVO{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", avatar='" + avatar + '\'' +
                 ", name='" + name + '\'' +
+                ", competitionName='" + competitionName + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", password='" + password + '\'' +

@@ -1,5 +1,7 @@
 package com.oj.gkuoj.service;
 
+import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.response.CompetitionDetailVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.Competition;
 
@@ -16,5 +18,9 @@ public interface CompetitionService {
     RestResponseVO delById(Integer id);
 
     RestResponseVO update(Competition competition);
+
+    RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer competitionId);
+
+    RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize,Integer pageNum);
 
 }
