@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -44,11 +41,13 @@ public class ProblemController {
 
     /**
      * 跳转到题目List页面
+     *
      * @param request
      * @return
      */
     @RequestMapping("/problemListPage")
-    public String problemListPage(HttpServletRequest request) {
+    public String problemListPage(HttpServletRequest request,
+                                  @RequestParam(defaultValue = "") String keyword) {
         //题目标签
         List<Tag> tagList = tagService.listAll().getData();
         Tag t = new Tag();
@@ -58,6 +57,7 @@ public class ProblemController {
 
         //set data
         request.setAttribute("tagList", tagList);
+        request.setAttribute("keyword", keyword);
         request.setAttribute("active2", true);
         return "portal/problem/problem-list";
     }
@@ -65,6 +65,7 @@ public class ProblemController {
 
     /**
      * 题目列表
+     *
      * @param userDetails
      * @param pageNum
      * @param pageSize

@@ -78,7 +78,8 @@ z-index: 999999">
                                                                 <span v-if="blog.tags != null && blog.tags.length > 0">
                                                                     <span class="ml-2"
                                                                           v-for="tag in blog.tags.split(',')">
-                                                                      <a class="btn btn-secondary badge-pill btn-sm">{{tag}}</a>
+                                                                      <a @click="searchByTag(tag)"
+                                                                         class="btn btn-secondary badge-pill btn-sm">{{tag}}</a>
                                                                     </span>
                                                                 </span>
                                                             </div>
@@ -118,10 +119,10 @@ z-index: 999999">
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-12">
-                                                <input id="bcId" name="bcId" type="hidden" value="-1"/>
+                                                <input id="bcId" name="bcId" type="hidden" th:value="${bcId}"/>
                                                 <span th:each="blogCategory : ${blogCategoryList}">
                                                     <a th:onclick="'intoCategory(this,'+${blogCategory.id}+')'"
-                                                       th:classappend="${blogCategory.id == -1}?'active focus':''"
+                                                       th:classappend="${blogCategory.id == bcId}?'active focus':''"
                                                        href="javascript:void(0)"
                                                        class="btn btn-outline-primary mt-3 mr-3 categoryItem">
                                                         [[${blogCategory.name}]]
@@ -133,7 +134,8 @@ z-index: 999999">
                                         <div class="row mt-3">
                                             <div class="col-10 w-100">
                                                 <div class="input-group">
-                                                    <input type="search" id="keyword" name="keyword"
+                                                    <input  th:value="${keyword}" type="search" id="keyword"
+                                                           name="keyword"
                                                            placeholder="用户、标题、标签"
                                                            class="form-control">
                                                     <span class="input-group-btn">
@@ -195,7 +197,7 @@ z-index: 999999">
                                                         <span class="gray-font ">发表于：[[${#dates.format(hotBlog.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
                                                         <span class="gray-font  float-right">浏览&nbsp;[[${hotBlog.viewCount}]]</span>
                                                     </div>
-                                                    <hr th:if="${status.count != status.size}" class="mt-3" />
+                                                    <hr th:if="${status.count != status.size}" class="mt-3"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -352,6 +354,12 @@ z-index: 999999">
         $(".categoryItem").removeClass("active focus");
         $(item).addClass("active focus");
         $("#bcId").val(bcId);
+        blogApp.listBlog(1);
+    }
+
+    //tag click
+    function searchByTag(tag){
+        $("#keyword").val(tag);
         blogApp.listBlog(1);
     }
 

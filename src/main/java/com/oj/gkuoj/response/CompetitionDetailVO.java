@@ -32,6 +32,9 @@ public class CompetitionDetailVO {
 
     private Date updateTime;
 
+    private Integer registerCount;
+
+
     public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, String password, Date startTime, Date endTime, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
@@ -148,6 +151,14 @@ public class CompetitionDetailVO {
         this.competitionName = competitionName == null ? null : competitionName.trim();
     }
 
+    public Integer getRegisterCount() {
+        return registerCount;
+    }
+
+    public void setRegisterCount(Integer registerCount) {
+        this.registerCount = registerCount;
+    }
+
 
     @Override
     public String toString() {
@@ -164,6 +175,9 @@ public class CompetitionDetailVO {
                 ", endTime=" + endTime +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", registerCount=" + registerCount +
                 '}';
     }
+
+
 }

@@ -1,0 +1,87 @@
+#top .navbar {
+    margin-bottom: 0;
+    background: #f2f2f2;
+    color: #000 !important;
+}
+
+#left {
+    background-color: #f2f2f2;
+    color: #000 !important;
+}
+#top .nav > li > a:hover, #top .nav > li > a:focus
+{
+    color: #000 !important;
+}
+
+.badge {
+    background-color: #777;
+}
+
+.skin_txt {color: #4f4d4d;}
+
+.user-media .media-body ul.user-info li {color: #ccc;}
+
+
+/* Left Menu */
+#top .navbar-nav>li>.dropdown-menu {
+    background: #e0e0e0;
+}
+
+#top .nav>li:hover, #top .nav>li:focus {
+    background: #e0e0e0;
+}
+
+#top .nav>li:hover, #top .nav>li.active {
+    background: #e0e0e0;
+}
+
+#menu li {
+    border-bottom: none;
+}
+#menu li a {
+    color: #000;
+}
+#menu ul {
+    background:  #f2f2f2;
+}
+#menu>li.active {
+    background: #e0e0e0 !important;
+}
+#menu li.active a {
+    color: #000;
+}
+#menu li.active>ul {
+    background:  #f2f2f2;
+}
+#menu li.active ul li.active>a {
+    color: #000;
+    background-color: #e0e0e0;
+}
+#menu li:hover {
+    background: #f2f2f2;
+}
+#menu li ul li:hover {
+    background: #f7f7f7;
+}
+
+#menu li.active ul li:hover>a{
+    color: #000;
+}
+#menu li.active > ul
+{
+    background-color: #fff !important;
+    border-bottom: 1px solid #D2D9D9;
+}
+.text-white
+{
+    color: #000 !important;
+}
+.messages
+{
+    border: 1px solid #ccc;
+}
+.user-settings button
+{
+    color: #000;
+}
+

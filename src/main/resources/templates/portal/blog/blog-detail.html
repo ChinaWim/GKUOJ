@@ -6,7 +6,7 @@
     <title>帖子详情</title>
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" th:href="@{/plugins/markdown/editormd.min.css}"/>
+
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/blog_detail.css}"/>
     <!--heard script-->
 </head>
@@ -44,21 +44,25 @@ z-index: 999999">
                 <div class="main-bar">
                     <div class="row no-gutters">
                         <div class="col-6">
-                            <h4 class="m-t-5">
+                            <h4 class="nav_top_align">
+                                <i class="fa fa-comments"></i>&nbsp;
                                 讨论详情
                             </h4>
                         </div>
                         <div class="col-6 ">
                             <ol class="breadcrumb float-right nav_breadcrumb_top_align">
                                 <li class="breadcrumb-item">
-                                    <a th:href="@{/blog/blogListPage}">
-                                        <i class="fa fa-home" aria-hidden="true"></i> 首页
+                                    <i class="fa fa-home" aria-hidden="true"></i>&nbsp;
+                                    <a th:href="@{/}">
+                                       首页
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a th:href="@{'/blog/blogListPage?bcId='+${blogDetail.bcId}}">[[${blogDetail.bcName}]]</a>
+                                    <a th:href="@{/blog/blogListPage}">
+                                        讨论区
+                                    </a>
                                 </li>
-                                <li class="breadcrumb-item active">讨论详情</li>
+                                <li class="breadcrumb-item active">[[${blogDetail.title}]]</li>
                             </ol>
                         </div>
                     </div>
@@ -77,7 +81,7 @@ z-index: 999999">
                                     <div class="mt-5">
                                         <div class="row mb-1">
                                             <div class="col-1">
-                                                <a th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">
+                                                <a target="_blank" th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">
                                                     <img class=" img-50  float-left rounded-circle"
                                                          th:src="${blogDetail.avatar==null}?'img/default_avatar.jpg':${blogDetail.avatar}">
                                                 </a>
@@ -87,7 +91,7 @@ z-index: 999999">
                                                     <a class="text-danger"
                                                        th:href="@{'/user/mainPage?userId='+${blogDetail.userId}}">[[${blogDetail.name}]]
                                                     </a>
-                                                    <a th:href="@{'/blog/blogListPage?bcId='+${blogDetail.bcId}}"
+                                                    <a target="_blank" th:href="@{'/blog/blogListPage?bcId='+${blogDetail.bcId}}"
                                                        class="float-right  text-primary">[[${blogDetail.bcName}]]</a>
                                                 </div>
                                                 <div class="mt-2 gray-font ">
@@ -106,7 +110,7 @@ z-index: 999999">
                                             <i class="fa fa-tags"></i>&nbsp;标签：
                                             <span class="mr-2"
                                                   th:each="tag : ${#strings.arraySplit(blogDetail.tags,',')}">
-                                                <a class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
+                                                <a target="_blank" th:href="@{'/blog/blogListPage?keyword='+${tag}}" class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
                                             </span>
                                         </div>
                                         <div class="float-right">
@@ -150,7 +154,7 @@ z-index: 999999">
                                     <div v-for="(blogComment,index) in blogCommentList">
                                         <div class="row">
                                             <div class="col-1">
-                                                <a :href="'/user/mainPage?userId='+blogComment.userId">
+                                                <a target="_blank" :href="'/user/mainPage?userId='+blogComment.userId">
                                                     <img :src="blogComment.avatar == null ? 'img/default_avatar.jpg': blogComment.avatar"
                                                          class="img-50  float-left rounded-circle">
                                                 </a>
@@ -229,17 +233,15 @@ z-index: 999999">
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="col-12">
-                                                <div th:each="hotBlog,status : ${hotBlogList}">
-                                                    <a th:href="@{'/blog/blogDetailPage?blogId='+${hotBlog.id}}">
-                                                        <div>[[${hotBlog.title}]]</div>
-                                                    </a>
-                                                    <div class="mt-1">
-                                                        <span class="gray-font ">发表于：[[${#dates.format(hotBlog.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
-                                                        <span class="gray-font  float-right">浏览&nbsp;[[${hotBlog.viewCount}]]</span>
-                                                    </div>
-                                                    <hr th:if="${status.count != status.size}" class="mt-3"/>
+                                            <div th:each="hotBlog,status : ${hotBlogList}">
+                                                <a target="_blank" th:href="@{'/blog/blogDetailPage?blogId='+${hotBlog.id}}">
+                                                    <div>[[${hotBlog.title}]]</div>
+                                                </a>
+                                                <div class="mt-1">
+                                                    <span class="gray-font ">发表于：[[${#dates.format(hotBlog.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                                    <span class="gray-font  float-right">浏览&nbsp;[[${hotBlog.viewCount}]]</span>
                                                 </div>
+                                                <hr th:if="${status.count != status.size}" class="mt-3"/>
                                             </div>
                                         </div>
                                     </div>
@@ -341,7 +343,7 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
-<script type="text/javascript" th:src="@{/plugins/markdown/editormd.min.js}"></script>
+
 
 <script type="text/javascript" th:src="@{/js/pages/blog_detail.js}"></script>
 <!--end of global scripts-->
@@ -382,7 +384,7 @@ z-index: 999999">
                     // this.pageSize = res.data.data.pageSize;
                     this.total = res.data.data.total;
                     this.blogCommentList = res.data.data.list;
-                    $("#page").initPage( this.total, pageNum, clickPage);
+                    $("#page").initPage(this.total, pageNum, clickPage);
                 }), function (res) {
                     console.log(res.data.msg);
                 }

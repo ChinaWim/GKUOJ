@@ -146,12 +146,13 @@
 
 
   <select id="getCompetitionDetailVOById" resultType="com.oj.gkuoj.response.CompetitionDetailVO" parameterType="int">
-   select  com.id, u.id user_id, u.avatar,u.name,com.name competition_name,title,content,
-           com.password,start_time,end_time,com.create_time,com.update_time
-   from competition com join user u
-   on com.user_id = u.id
-   where com.id = #{competitionId}
-
+   select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,
+           comp.password,start_time,end_time,comp.create_time,comp.update_time,count(r.id) register_count
+   from competition comp
+   join user u on comp.user_id = u.id
+   left join register r on r.comp_id = comp.id
+   where comp.id = #{competitionId}
+   group by comp.id
 
   </select>
   <select id="listCompetitionVO" resultType="com.oj.gkuoj.response.CompetitionVO">
@@ -159,6 +160,7 @@
     from competition comp
     left join register r on r.comp_id = comp.id
     group by comp.id
+    order by comp.create_time desc
   </select>
 
 </mapper>

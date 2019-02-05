@@ -56,8 +56,9 @@ public class BlogController {
      * @return
      */
     @RequestMapping("/blogListPage")
-    public String blogListPage(HttpServletRequest request) {
-
+    public String blogListPage(HttpServletRequest request,
+                               @RequestParam(defaultValue = "-1") Integer bcId,
+                               @RequestParam(defaultValue = "") String keyword) {
 
         //分类
         RestResponseVO<List<BlogCategory>> blogCategoryResponse = blogCategoryService.listAll();
@@ -72,9 +73,11 @@ public class BlogController {
         List<BlogVO> hotBlogList = hotBlogVO.getData();
 
 
-        //热门标签
+        //热门标签 todo
 
         //set data
+        request.setAttribute("bcId", bcId);
+        request.setAttribute("keyword", keyword);
         request.setAttribute("hotBlogList", hotBlogList);
         request.setAttribute("blogCategoryList", blogCategoryList);
         request.setAttribute("active6", true);

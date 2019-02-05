@@ -1,0 +1,445 @@
+.tooltip.top,
+.chartist-tooltip.top {
+    margin-top: -3px;
+    padding: 5px 0;
+}
+.tooltip.right,
+.chartist-tooltip.right {
+    margin-left: 3px;
+    padding: 0 5px;
+}
+.tooltip.bottom,
+.chartist-tooltip.bottom {
+    margin-top: 3px;
+    padding: 5px 0;
+}
+.tooltip.left,
+.chartist-tooltip.left {
+    margin-left: -3px;
+    padding: 0 5px;
+}
+.tooltip.top-left .tooltip-arrow,
+.tooltip.bottom-left .tooltip-arrow,
+.chartist-tooltip.top-left .tooltip-arrow,
+.chartist-tooltip.bottom-left .tooltip-arrow {
+    left: 5px;
+}
+.tooltip.top-right .tooltip-arrow,
+.tooltip.bottom-right .tooltip-arrow,
+.chartist-tooltip.top-right .tooltip-arrow,
+.chartist-tooltip.bottom-right .tooltip-arrow {
+    right: 5px;
+}
+.tooltip-inner,
+.chartist-tooltip {
+    margin-top: 65px !important;
+    padding: 0 5px;
+    position: absolute;
+    background-color: #525252;
+    color: #fff;
+}
+#visitsspark-chart canvas{
+    width: 100% !important;
+}
+/*Top 4 sections css*/
+.p-d-15{
+    padding: 15px;
+}
+.p-t-l-r-15
+{
+    padding: 15px 15px 0 15px;
+}
+.b_r_5
+{
+    border-radius: 5px;
+}
+.user_font{
+    font-size: 24px;
+    margin-top: -5px;
+    line-height: 1.4;
+}
+#widget_countup1,#widget_countup2,#widget_countup3,#widget_countup4,#widget_countup12,#widget_countup22,#widget_countup32,#widget_countup42{
+    font-size: 35px;
+    line-height: 1;
+}
+.widget_countup .fa {
+    font-size: 45px !important;
+}
+.tag-white{
+    font-size: 16px;
+    margin-top: 2px;
+    margin-right: 10px;
+    width: 30px;
+    border-radius: 10px;
+    padding: 0 5px;
+    float: left;
+}
+.previous_font{
+    padding-top: 4px;
+    font-size: 14px;
+}
+/*End Top 4 sections css*/
+/*main chart css*/
+
+.ct-grid {
+    stroke: transparent;
+
+}
+.ct-line {
+    stroke-width: 1px;
+}
+.ct-series-a .ct-area, .ct-series-a .ct-slice-pie {
+    fill:#1ca2fe;
+}
+.ct-series-b .ct-area, .ct-series-b .ct-slice-pie {
+    fill: #00e6ac;
+}
+
+
+
+.ct-area {
+    stroke: none;
+    fill-opacity: 0.2;
+}
+.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+    stroke:#1ca2fe;
+}
+.ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
+    stroke: #00cc99 ;
+}
+
+.ct-point {
+    stroke-width: 5px;
+
+}
+#salesspark-chart, #rating{
+    margin-left:4px;
+}
+.chart_drop .dropdown-toggle::after{
+    content:none;
+}
+.chart_drop .dropdown-menu{
+    right: 0;
+    left:auto;
+}
+.chart_drop .dropdown-menu > li > a{
+    padding: 6px 20px;
+}
+.chart_drop .divider{
+    border-bottom: 1px solid #ddd;
+}
+#monthly_upload canvas
+{
+    width: 100% !important;
+}
+
+/*code design docs */
+.p-t-30{
+    padding-top: 30px;
+}
+.svg-container{
+    margin: -15px 0 -30px 0;
+}
+.circliful_section svg circle{
+    stroke-width: 25;
+}
+.circliful_section svg circle:first-child {
+    stroke: #e9f9f9;
+}
+.circliful_section svg text{
+    fill:#fff;
+}
+#myStat svg .circle{
+    stroke: #82ccfe;
+}
+#myStat svg circle:nth-child(3){
+    fill:#1CA2FE;
+}
+#myStat2 svg .circle{
+    stroke: #00e6ac;
+}
+#myStat2 svg circle:nth-child(3){
+    fill:#009973;
+}
+#myStat3 svg .circle{
+    stroke: #ffb366;
+}
+#myStat3 svg circle:nth-child(3){
+    fill:#ff8000;
+}
+.circliful_section .nav-tabs .nav-item + .nav-item{
+    margin-left: 0;
+}
+.circliful_section .nav-tabs .nav-item{
+    width: 33.3%;
+}
+.circliful_section .nav-link.active{
+    background-color: #fff !important;
+    border-color: #4fb7fe #fff #fff #fff !important;
+    color: #525252 !important;
+}
+.circliful_section .nav-link{
+    background-color: #4fb7fe !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+    border:1px solid #4fb7fe !important;
+    border-right-color: #fff !important;
+    padding: 0.5em 0;
+}
+/*================ORDERS SALES REVENUE===================*/
+.real_charts> .card-header
+{
+    padding: 0;
+}
+.real_charts .nav-tabs .nav-item
+{
+    width: 32.4%;
+}
+.real_charts .nav-tabs .nav-link{
+    padding: 0.5em 0;
+}
+
+/*==================Stuart named widget======================*/
+.lorem_background{
+    background-image: url("../../img/sea.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 259px;
+}
+.lorem_img{
+    width: 110px;
+    height: 110px;
+    border:2px solid #fff;
+    margin-top: 35px;
+}
+.lorem_bg .fa{
+    font-size: 24px;
+    padding-top: 17px;
+    cursor: pointer;
+}
+.lorem_bg{
+    background-color: rgba(0,10,10,0.5);
+    height: 60px;
+    margin-top: 22px;
+}
+.lorem_font_icon{
+    border-right: 2px solid #fff;
+    height: 60px;
+}
+.lorem_group_item{
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+}
+.lorem_group_item_bottom{
+    border-bottom: 1px solid #ddd;
+}
+/*=====================user and admin section=================*/
+.wid_img_width{
+    width:80px;
+    height: 80px;
+    margin-top: 10px;
+}
+.micheal_padding{
+    padding: 10px 0 20px 15px;
+}
+.user_wid_font{
+    font-size: 22px;
+}
+.micheal_font{
+    font-size: 16px;
+    font-weight: 700;
+}
+/*==========================weather section css=======*/
+.header_align
+{
+    padding: 10px;
+}
+
+.weather_img{
+    background-image: url('../../img/swiper_image4.jpg');
+    background-size: cover;
+    opacity: 0.7;
+    color: #fff;
+}
+.avatar_rounded{
+    width: 100%;
+}
+.weather_img:hover{
+    opacity: 1;
+}
+.background_opacity{
+    background: rgba(0, 10, 10, 0.8);
+}
+.background_opacity .header_align{
+    opacity: 1 !important;
+}
+.info .city{
+    font-size: 24px;
+}
+.city span{
+    font-size: 13px;
+    font-weight: bold;
+}
+.night {
+    font-size: 15px;
+    text-transform: uppercase;
+}
+.temp {
+    margin: -10px 0;
+    font-size: 43px;
+    display: block;
+    position: relative;
+}
+.day_font{
+    font-size: 16px;
+}
+.border_right{
+    border-right: 1px solid #dedede;
+}
+.days_margin_top{
+    margin-top: -10px;
+    margin-bottom: -12px;
+}
+.days_margin_top div{
+    margin-top: 5px;
+}
+.days_margin_top .day_font{
+    margin-bottom: 10px;
+}
+
+/*Flot chart*/
+.flotChart1{
+    width: 100%;
+    height:267px;
+}
+#sale_realtime .flot-text,#users_realtime .flot-text {
+    top:-10px !important;
+    left:-15px !important;
+}
+
+.real_charts li{
+    width:49% ;
+}
+.real_charts li a{
+    border:none !important;
+    background-color: #fff !important;
+    border-bottom:3px solid #ddd !important;
+}
+.real_charts .nav-tabs{
+    border-bottom: 0 !important;
+}
+#request_list li a:hover{
+    color:#4fb7fe !important;
+}
+.real_charts li a.active{
+    border-bottom: 3px solid #4fb7fe !important;
+    color:#4fb7fe !important;
+    transition: 1s;
+}
+/*========new section===============*/
+
+.tab-content .flot-base
+{
+    width: 100% !important;
+}
+/*====================social-counter start====================*/
+.social-counter ul {
+    list-style-type: none;
+}
+.social-counter ul {
+    padding-left: 0;
+    background-color: #fff;
+}
+.social-counter li {
+    border: 1px solid #dcdcdc;
+    padding: 16px 10px 6px 10px;
+}
+.social-counter li a {
+    color: #333;
+}
+.count {
+    font-size: 20px;
+}
+.social-icon {
+    transition: 0.2s;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 8px;
+    color: #fff;
+}
+.social_fa_top{
+    margin-top: -3px;
+}
+.facebook
+{
+    border-left:5px solid #3b5998 !important;
+}
+.twitter
+{
+    border-left:5px solid #55acee !important;
+}
+.google
+{
+    border-left:5px solid #dd4b39 !important;
+}
+.youtube
+{
+    border-left:5px solid #b00 !important;
+}
+.soundcloud
+{
+    border-left:5px solid #FE4800 !important;
+}
+.instagram
+{
+    border-left:5px solid #125688 !important;
+}
+.linkedin
+{
+    border-left:5px solid #007bb5 !important;
+}
+
+.facebook .social-icon {
+    border: 1px solid #3b5998;
+    background-color: #3b5998;
+}
+.twitter .social-icon {
+    border: 1px solid #55acee;
+    background-color: #55acee;
+}
+.google .social-icon {
+    border: 1px solid #dd4b39;
+    background-color: #dd4b39;
+}
+.instagram .social-icon {
+    border: 1px solid #125688;
+    background-color: #125688;
+}
+.linkedin .social-icon {
+    border: 1px solid #007bb5;
+    background-color: #007bb5;
+}
+.social-counter li:hover .social-icon {
+    background-color: transparent;
+}
+.social-counter li.facebook:hover .social-icon {
+    color: #3b5998;
+}
+.social-counter li.twitter:hover .social-icon {
+    color: #55acee;
+}
+.social-counter li.google:hover .social-icon {
+    color: #dd4b39;
+}
+.social-counter li.instagram:hover .social-icon {
+    color: #125688;
+}
+.social-counter li.linkedin:hover .social-icon {
+    color: #007bb5;
+}
+.social-icon i {
+    line-height: 25px;
+    width: 20px;
+}
+/*======social-counter end=========*/

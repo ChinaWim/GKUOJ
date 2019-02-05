@@ -1,0 +1,107 @@
+
+#top .navbar {
+	margin-bottom: 0;
+	background:#69d3bf;
+	box-shadow: none;
+}
+#left {
+	background-color:#69d3bf;
+}
+#left h4{
+	color: #fff;
+}
+#top .navbar-brand h4,#top .toggle-left,#top button,#top .btn-group,#top .btn-default,#top .btn-default:hover{
+	color: #fff !important;
+}
+.fixed_menu_navbar{
+	background-color: #69d3bf;
+}
+.layout_header_shadow #top .navbar{
+	box-shadow: 0 0 10px 1px #69d3bf;
+}
+
+.user-media .media-body ul.user-info li {color: #fff;}
+
+
+/* Left Menu */
+
+#top .navbar-nav>li>.dropdown-menu {
+	background:  #617734;
+}
+
+#left .user-info,#menu>li>a,#menu>li.active li>a{
+	color: #fff;
+}
+#menu>li.active>a:hover{
+	color: #fff !important;
+}
+#menu ul {
+	background: #46C9AF;
+}
+#menu li ul li:hover>a{
+	color: #fff !important;
+}
+#menu li:not(.active) a:hover {
+	background-color:#1D9980;
+	border-color: transparent;
+	box-shadow: none;
+}
+#menu li ul li:not(.active) a:hover
+{
+	background-color: #1D9980 !important;
+	border-color: transparent;;
+	box-shadow: none !important;
+}
+#menu li.active>ul {
+	background: #46C9AF !important;
+}
+#menu li > ul > li > a
+{
+	color: #fff !important;
+}
+#menu>li.active {
+	background: #1D9980 !important;
+}
+#menu li ul li ul li:hover {
+	background: #46C9AF !important;
+}
+
+#menu li.active ul  li.active>a {
+	color:#fff;
+}
+#top .nav > li:hover, #top .nav > li.active
+{
+	background-color: #055287;
+}
+#menu li.active ul li.active > a
+{
+	background-color: #1D9980 !important;
+}
+.sidebar-left-hidden .dropdown_menu li.active>a{
+	background-color:#1d9980 !important;
+}
+.sidebar-left-hidden .dropdown_menu .sub-menu li.active > a
+{
+	background-color: #1D9980 !important;
+}
+.sidebar-left-hidden .dropdown_menu .collapse li.active > a:hover
+{
+	background-color: #1D9980 !important;
+	box-shadow: none !important;
+	padding: 10px 8px 10px 30px !important;
+
+}
+@media (min-width: 768px)
+{
+	body.sidebar-left-hidden #menu > li:not(.active):hover > a
+	{
+		background-color: #1D9980 !important;
+		box-shadow: none !important;
+		border-color: transparent !important;
+		color: #fff !important;
+	}
+	body.sidebar-left-hidden #menu > li:hover ul.collapse {
+		background: #46C9AF !important;
+	}
+
+}

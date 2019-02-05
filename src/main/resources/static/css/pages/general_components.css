@@ -1,0 +1,292 @@
+/*Lite &amp; Dark Colors of Color Pallet*/
+.nav-link{
+    padding: 0.5em 0.8em;
+}
+        .border_box {
+            border: 1px solid #eee;
+            padding-bottom:7%;
+            border-radius: 0;
+            overflow: hidden;
+            background: #fff;
+            width: 99%;
+            height: 100%;
+            text-align: center;
+        }
+     .progress_bars_margin_top .progress{
+         margin-top: 20px;
+         height: 10px;
+     }
+     .margin_for_lite_text{
+         margin-top: 10px !important;
+     }
+a.btn.btn-secondary:focus{
+    color:#414141;
+}
+.cards_section_margin .nav-link.active{
+    background-color: #4fb7fe !important;
+    color: #fff !important;
+}
+.card-text.scrool_card{
+    color:#525252 !important;
+}
+        /* paginaton */
+        .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+            z-index: 2;
+            color: #fff;
+            cursor: default;
+            background-color: #4fb7fe;
+            border-color: #1ca2fe;
+        }
+        .pagination>li>a, .pagination>li>span {
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            margin-left: -1px;
+            line-height: 1.42857143;
+            color: #428bca;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        /* Pagination */
+
+        /* Pills */
+        .nav_profile_color>li.active>a, .nav_profile_color>li.active>a:hover, .nav_profile_color>li.active>a:focus {
+            color: #fff;
+        }
+        .nav_profile_color>li> a {
+            color:#4fb7fe;
+        }
+        a.list-group-item.active>.badge, .nav_profile_color>.active>a>.badge {
+            color: #748df0;
+            background-color: #fff;
+        }
+        /*general */
+
+        .white_txt {color: #fff;}
+
+        .t_align {text-align: center;}
+        .no-border{border:0 !important;}
+
+
+        .padding10 {
+            padding: 10px 0;
+            color: #fff;
+        }
+     .nav_profile_color .nav-link.active{
+         color:#fff !important;
+         background: #4fb7fe !important;
+
+     }
+     .danger_bg_dark{
+         background: #EA423E ;
+     }
+     .success_bg_dark {
+         background: #009973;
+     }
+
+     .info_bg_dark {
+         background:#015CFF;
+     }
+
+     .warning_bg_dark {
+         background: #ff8a27;
+     }
+     .bg-default
+     {
+         background-color: #4F4D4D;
+     }
+
+     .default_bg_dark {
+         background: #282828;
+     }
+
+     .mint_bg_dark {
+         background:#0B8591;
+     }
+
+     .gray_bg_dark {
+         background: #798D8F;
+     }
+     .primary_bg_dark{
+         background:#1CA2FE;
+     }
+     .btn-link:hover{
+         color:#fff;
+     }
+     /*card section*/
+.card .card>.card-block
+{
+    padding: 1.25rem;
+}
+.cards_section_margin .card{
+    margin-bottom: 0;
+     }
+.nav_pills_margin_top{
+    margin-top: 10px;
+}
+#accordion .collapsed{
+    display: block;
+}
+#accordion .card-header a{
+    display: block;
+}
+/*lists*/
+.lists_margin_bottom{
+    margin-bottom: 13px;
+}
+.nav-tabs .nav-link.active{
+    background-color: #fff;
+    color:#525252;
+}
+.nav-tabs .nav-link.active:hover{
+    background-color: #fff;
+}
+
+#top .nav>.nav_profile_color>a:hover,
+#top .nav>.nav_profile_color>a:focus{
+    background-color: white;
+}
+#top .nav>.nav_home_color>a:focus,
+#top .nav>.nav_hover_color_home>a:hover{
+    background-color: #4fb7fe;
+}
+#top .nav>.nav_home_color>a:hover{
+    background-color: #4fb7fe;
+}
+#top .nav>li.nav_active_background_color>a:hover,
+#top .nav>li.nav_active_background_color {
+    background-color:#4fb7fe;
+
+}
+
+.nav_profile_color>li>a{
+    color:#4fb7fe;
+}
+.nav_profile_color>li.active>a{
+    background-color: #4fb7fe;
+}
+.nav_bar_align_top{
+    margin-top: 10px;
+}
+.nav_profile_color>li.active>a,
+.nav_profile_color>li.active>a:focus{
+    background-color: #4fb7fe;
+}
+.nav-inline>li> a ,.nav_inline_profile>li> a
+{
+    color: #4fb7fe;}
+.list-group-flush .list-group-item{
+    border-left:0;
+    border-right: 0;
+}
+/*Cards page*/
+.card,.card-block,.card-img-top{
+    border-radius: 0 !important;
+}
+.card-columns .card{
+    box-shadow: none;
+}
+.m-r-15{
+    margin-right: 15px;
+}
+.p-t-0{
+    padding-top: 0 !important;
+}
+.p-tb-0{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.card-title.edit input{
+    width: 80%;
+}
+.card.card-fade-in:hover > .card-block {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+.card.card-fade-in > .card-block,.card.card_scale > .card-block {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: transparent;
+}
+
+@media (max-width: 374px) {
+    .clear_both1{
+        clear: both;
+    }
+}
+@media (min-width:375px) and (max-width: 440px) {
+    .clear_both2{
+        clear: both;
+    }
+}
+@media (min-width:992px) and (max-width: 1084px) {
+    .clear_both2{
+        clear: both;
+    }
+}
+.card.card-fade-in > .card-block{
+    transition: all 0.5s ease-in-out;
+}
+.card.card_scale > .card-block{
+    transition: all 0.3s ease-in-out;
+}
+.card_img_height{
+    width: 100%;
+    height: 220px;
+}
+.card.card_scale > .card-img-top {
+    width: 100%;
+}
+.zoom_out_3 img{
+    transition: 0.3s ease-in-out;
+}
+.zoom_out_3:hover img {
+    transform: scale(1);
+}
+.card.card_scale:hover > .card-block {
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transform: scale(1);
+}
+article.scrollspy-example {
+    position: relative;
+    overflow-y: scroll;
+    height: 310px;
+}
+#scrollspy-nav .nav-link.active{
+    color: #66ccff !important;
+    background-color: transparent !important;
+    border:1px solid #66ccff;
+}
+.card-columns .card-header{
+    border-bottom: 1px solid #4fb7fe;
+}
+/*accordion*/
+#accordion h5{
+    outline: none;
+    padding: 10px;
+    margin-bottom: 0;
+}
+.outline_primary{
+    border:1px solid #4fb7fe;
+}
+.outline_success{
+    border:1px solid #00cc99;
+}
+.outline_info{
+    border:1px solid #347dff;
+}
+@media (max-width: 424px){
+    #scrollspy-nav ul{
+        display: block;
+    }
+}

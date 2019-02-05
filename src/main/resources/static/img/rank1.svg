@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="24" viewBox="0 0 38 24">
+  <g fill="none" fill-rule="evenodd">
+    <polygon fill="#FAAD14" fill-rule="nonzero" points="9 3 16.608 9.219 13.702 19.281 4.298 19.281 1.392 9.219" transform="rotate(-90 9 12)"/>
+    <polygon fill="#FAAD14" fill-rule="nonzero" points="29 3 36.608 9.219 33.702 19.281 24.298 19.281 21.392 9.219" transform="matrix(0 -1 -1 0 41 41)"/>
+    <circle cx="19" cy="12" r="10.5" fill="#FAAD14" fill-rule="nonzero" stroke="#FFC53D" stroke-width="3"/>
+    <path fill="#FFF" d="M15.5,17.84 L15.5,15.936 L18.044,15.936 L18.044,8.448 L15.9,8.448 L15.9,6.992 C17.084,6.768 17.9,6.464 18.652,6 L20.396,6 L20.396,15.936 L22.62,15.936 L22.62,17.84 L15.5,17.84 Z"/>
+  </g>
+</svg>

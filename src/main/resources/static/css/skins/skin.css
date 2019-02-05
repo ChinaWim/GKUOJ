@@ -1,0 +1,20 @@
+
+.skin_btn {display:inline-table; cursor:pointer; width:50px; height:30px; margin-bottom: 7px;}
+.skinmulti_btn {display:inline-table; cursor:pointer; width:50px; height:40px; margin-bottom: 12px;}
+
+.skin_size { width:50px; height:20px;}
+
+.skin_black {background-color:#575757; }
+.skin_blue {background-color:#539CC1;}
+.skin_green {background-color:#7F9E40; }
+.skin_purple {background-color:#E07298; }
+.skin_orange {background-color:#ff9933; }
+.skin_red {background-color:#EF6F6C; }
+.skin_mint {background-color:#0fb0c0;}
+.skin_brown {background-color:#825228;}
+.brown_txt {color:#9C6426;}
+.brown_bg {background-color:#9C6426 !important;}
+.mint_bg {background-color:#0fb0c0;}
+
+.skin-icon {color:#fff; padding:5px; border-radius:15px; width:30px; height:30px;}
+

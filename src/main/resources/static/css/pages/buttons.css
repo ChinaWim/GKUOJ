@@ -1,0 +1,732 @@
+/* flatbuttons */
+.wrapper{
+	background-color:transparent ;
+}
+.button_section_align
+{
+	margin-top: 35px;
+}
+.disabled_buttons>li{
+	cursor: not-allowed;
+}
+.header_input_search button{
+	padding-top: 0;
+}
+h5{
+	margin-bottom: 0 !important;
+}
+ul{
+	padding: 0;
+}
+ul li {
+	list-style: none;
+}
+button {
+	padding-top: 10px;
+}
+a, a:hover {
+	text-decoration: none;
+}
+.button_glow_buttons {
+
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-name: glowing;
+}
+div.dropup
+{
+	margin-top: 10px;
+}
+div.dropdown
+{
+	margin-top: 10px;
+}
+.button_parent_section .btn
+{
+	margin-top: 15px;
+}
+
+li {
+	list-style: none;
+}
+.flatbuttons {
+	width: 100%;
+	margin: 0;
+}
+.flatbuttons .buttons_page_alignment .button_align_top {
+	float: left;
+}
+.flatbuttons .buttons_page_alignment .button_align_top a {
+	text-decoration: none;
+	font-family: 'Raleway', sans-serif;
+}
+/* flatbuttons for small width. */
+
+.flatbuttons_small {
+	width: 100%;
+	margin: 0;
+	padding-left: 0;
+	text-align: center;
+	/*margin: -20px;*/
+}
+.flatbuttons_small ul {
+	padding: 20px;
+}
+.flatbuttons_small ul li {
+	float: left;
+	padding-bottom: 20px;
+	list-style: none;
+}
+.flatbuttons_small ul li a {
+	text-decoration: none;
+	font-family: 'Raleway', sans-serif;
+}
+
+/* Button Group style */
+
+.buttongroup li {
+	margin: 15px 0;
+}
+/* Button Group style */
+
+.dorpdown-buttons li {
+	float: left;
+	padding: 10px;
+}
+a, a:hover {
+	text-decoration: none;
+}
+/*quick icons*/
+
+.panel-body .btn:not(.btn-block) {
+	margin-bottom: 10px;
+}
+/* Social Dashboard*/
+
+.f {
+	font-size: 50px;
+	text-align: right;
+	position: absolute;
+	top: 7px;
+	right: 27px;
+	outline: none;
+}
+#content a {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+}
+/* Visitor */
+
+a.visitor i, .visitor h4.list-group-item-heading {
+	color: #E48A07;
+}
+a.visitor:hover {
+	background-color: #E48A07;
+}
+a.visitor:hover * {
+	color: #FFF;
+}
+/* Facebook */
+
+a.facebook-like i, .facebook-like h4.list-group-item-heading {
+	color: #3b5998;
+}
+a.facebook-like:hover {
+	background-color: #3b5998;
+}
+a.facebook-like:hover * {
+	color: #FFF;
+}
+/* Google */
+
+a.google-plus i, .google-plus h4.list-group-item-heading {
+	color: #dd4b39;
+}
+a.google-plus:hover {
+	background-color: #dd4b39;
+}
+a.google-plus:hover * {
+	color: #FFF;
+}
+/* Twitter */
+
+a.twitter i, .twitter h4.list-group-item-heading {
+	color: #00acee;
+}
+a.twitter:hover {
+	background-color: #00acee;
+}
+a.twitter:hover * {
+	color: #FFF;
+}
+/* Linkedin */
+
+a.linkedin i, .linkedin h4.list-group-item-heading {
+	color: #0e76a8;
+}
+a.linkedin:hover {
+	background-color: #0e76a8;
+}
+a.linkedin:hover * {
+	color: #FFF;
+}
+/* Tumblr */
+
+a.tumblr i, .tumblr h4.list-group-item-heading {
+	color: #34526f;
+}
+a.tumblr:hover {
+	background-color: #34526f;
+}
+a.tumblr:hover * {
+	color: #FFF;
+}
+/* Youtube */
+
+a.youtube i, .youtube h4.list-group-item-heading {
+	color: #c4302b;
+}
+a.youtube:hover {
+	background-color: #c4302b;
+}
+a.youtube:hover * {
+	color: #FFF;
+}
+/* Vimeo */
+
+a.vimeo i, .vimeo h4.list-group-item-heading {
+	color: #44bbff;
+}
+a.vimeo:hover {
+	background-color: #44bbff;
+}
+a.vimeo:hover * {
+	color: #FFF;
+}
+/*Group buttons*/
+
+.ui-group-buttons .or {
+	position: relative;
+	float: left;
+	height: 1.3em;
+	z-index: 3;
+	font-size: 12px
+}
+.ui-group-buttons .or:before {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	content: 'or';
+	background-color: #5a5a5a;
+	margin-top: -.1em;
+	margin-left: -.9em;
+	width: 1.8em;
+	height: 1.8em;
+	line-height: 1.55;
+	color: #fff;
+	font-style: normal;
+	font-weight: 400;
+	text-align: center;
+	border-radius: 500px;
+	-webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+.ui-group-buttons .or:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: ' ';
+	width: .3em;
+	height: 2.84em;
+	background-color: rgba(0, 0, 0, 0);
+	
+}
+.ui-group-buttons .or.or-lg {
+	height: 1.3em;
+	font-size: 16px
+}
+.ui-group-buttons .or.or-lg:after {
+	height: 2.85em
+}
+.ui-group-buttons .or.or-sm {
+	height: 1em
+}
+.ui-group-buttons .or.or-sm:after {
+	height: 2.5em
+}
+.ui-group-buttons .or.or-xs {
+	height: .25em
+}
+.ui-group-buttons .or.or-xs:after {
+	height: 1.84em;
+	z-index: -1000
+}
+.ui-group-buttons {
+	display: inline-block;
+	vertical-align: middle
+}
+.ui-group-buttons:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden
+}
+.ui-group-buttons .btn {
+	float: left;
+	border-radius: 0
+}
+.ui-group-buttons .btn:first-child {
+	margin-left: 0;
+	border-top-left-radius: .25em;
+	border-bottom-left-radius: .25em;
+	padding-right: 15px
+}
+.ui-group-buttons .btn:last-child {
+	border-top-right-radius: .25em;
+	border-bottom-right-radius: .25em;
+	padding-left: 15px
+}
+/*socail buttons*/
+
+.btn-social {
+	position: relative;
+	padding-left: 44px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+.btn-social :first-child {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 32px;
+	line-height: 34px;
+	font-size: 1.6em;
+	text-align: center;
+	border-right: 1px solid rgba(0, 0, 0, 0.2)
+}
+.btn-social.btn-lg {
+	padding-left: 61px
+}
+.btn-social.btn-lg :first-child {
+	line-height: 45px;
+	width: 45px;
+	font-size: 1.8em
+}
+.btn-social.btn-sm {
+	padding-left: 38px
+}
+.btn-social.btn-sm :first-child {
+	line-height: 28px;
+	width: 28px;
+	font-size: 1.4em
+}
+.btn-social.btn-xs {
+	padding-left: 30px
+}
+.btn-social.btn-xs :first-child {
+	line-height: 20px;
+	width: 20px;
+	font-size: 1.2em
+}
+
+.btn-bitbucket {
+	color: #fff;
+	background-color: #205081;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-bitbucket:hover, .btn-bitbucket:focus, .btn-bitbucket:active, .btn-bitbucket.active, .open .dropdown-toggle.btn-bitbucket {
+	color: #fff;
+	background-color: #183c60;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-bitbucket:active, .btn-bitbucket.active, .open .dropdown-toggle.btn-bitbucket {
+	background-image: none
+}
+.btn-bitbucket.disabled, .btn-bitbucket[disabled], fieldset[disabled] .btn-bitbucket, .btn-bitbucket.disabled:hover, .btn-bitbucket[disabled]:hover, fieldset[disabled] .btn-bitbucket:hover, .btn-bitbucket.disabled:focus, .btn-bitbucket[disabled]:focus, fieldset[disabled] .btn-bitbucket:focus, .btn-bitbucket.disabled:active, .btn-bitbucket[disabled]:active, fieldset[disabled] .btn-bitbucket:active, .btn-bitbucket.disabled.active, .btn-bitbucket[disabled].active, fieldset[disabled] .btn-bitbucket.active {
+	background-color: #205081;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-dropbox {
+	color: #fff;
+	background-color: #007ee5;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-dropbox:hover, .btn-dropbox:focus, .btn-dropbox:active, .btn-dropbox.active, .open .dropdown-toggle.btn-dropbox {
+	color: #fff;
+	background-color: #0d70b7;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-dropbox:active, .btn-dropbox.active, .open .dropdown-toggle.btn-dropbox {
+	background-image: none
+}
+.btn-dropbox.disabled, .btn-dropbox[disabled], fieldset[disabled] .btn-dropbox, .btn-dropbox.disabled:hover, .btn-dropbox[disabled]:hover, fieldset[disabled] .btn-dropbox:hover, .btn-dropbox.disabled:focus, .btn-dropbox[disabled]:focus, fieldset[disabled] .btn-dropbox:focus, .btn-dropbox.disabled:active, .btn-dropbox[disabled]:active, fieldset[disabled] .btn-dropbox:active, .btn-dropbox.disabled.active, .btn-dropbox[disabled].active, fieldset[disabled] .btn-dropbox.active {
+	background-color: #1087dd;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-facebook {
+	color: #fff;
+	background-color: #3b5998;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-facebook:hover, .btn-facebook:focus, .btn-facebook:active, .btn-facebook.active, .open .dropdown-toggle.btn-facebook {
+	color: #fff;
+	background-color: #30487b;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-facebook:active, .btn-facebook.active, .open .dropdown-toggle.btn-facebook {
+	background-image: none
+}
+.btn-facebook.disabled, .btn-facebook[disabled], fieldset[disabled] .btn-facebook, .btn-facebook.disabled:hover, .btn-facebook[disabled]:hover, fieldset[disabled] .btn-facebook:hover, .btn-facebook.disabled:focus, .btn-facebook[disabled]:focus, fieldset[disabled] .btn-facebook:focus, .btn-facebook.disabled:active, .btn-facebook[disabled]:active, fieldset[disabled] .btn-facebook:active, .btn-facebook.disabled.active, .btn-facebook[disabled].active, fieldset[disabled] .btn-facebook.active {
+	background-color: #3b5998;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-flickr {
+	color: #fff;
+	background-color: #ff0084;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-flickr:hover, .btn-flickr:focus, .btn-flickr:active, .btn-flickr.active, .open .dropdown-toggle.btn-flickr {
+	color: #fff;
+	background-color: #d6006f;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-flickr:active, .btn-flickr.active, .open .dropdown-toggle.btn-flickr {
+	background-image: none
+}
+.btn-flickr.disabled, .btn-flickr[disabled], fieldset[disabled] .btn-flickr, .btn-flickr.disabled:hover, .btn-flickr[disabled]:hover, fieldset[disabled] .btn-flickr:hover, .btn-flickr.disabled:focus, .btn-flickr[disabled]:focus, fieldset[disabled] .btn-flickr:focus, .btn-flickr.disabled:active, .btn-flickr[disabled]:active, fieldset[disabled] .btn-flickr:active, .btn-flickr.disabled.active, .btn-flickr[disabled].active, fieldset[disabled] .btn-flickr.active {
+	background-color: #ff0084;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-github {
+	color: #fff;
+	background-color: #000;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-github:hover, .btn-github:focus, .btn-github:active, .btn-github.active, .open .dropdown-toggle.btn-github {
+	color: #fff;
+	background-color: #303030;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-github:active, .btn-github.active, .open .dropdown-toggle.btn-github {
+	background-image: none
+}
+.btn-github.disabled, .btn-github[disabled], fieldset[disabled] .btn-github, .btn-github.disabled:hover, .btn-github[disabled]:hover, fieldset[disabled] .btn-github:hover, .btn-github.disabled:focus, .btn-github[disabled]:focus, fieldset[disabled] .btn-github:focus, .btn-github.disabled:active, .btn-github[disabled]:active, fieldset[disabled] .btn-github:active, .btn-github.disabled.active, .btn-github[disabled].active, fieldset[disabled] .btn-github.active {
+	background-color: #444;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-google-plus {
+	color: #fff;
+	background-color: #dd4b39;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-google-plus:hover, .btn-google-plus:focus, .btn-google-plus:active, .btn-google-plus.active, .open .dropdown-toggle.btn-google-plus {
+	color: #fff;
+	background-color: #ca3523;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-google-plus:active, .btn-google-plus.active, .open .dropdown-toggle.btn-google-plus {
+	background-image: none
+}
+.btn-google-plus.disabled, .btn-google-plus[disabled], fieldset[disabled] .btn-google-plus, .btn-google-plus.disabled:hover, .btn-google-plus[disabled]:hover, fieldset[disabled] .btn-google-plus:hover, .btn-google-plus.disabled:focus, .btn-google-plus[disabled]:focus, fieldset[disabled] .btn-google-plus:focus, .btn-google-plus.disabled:active, .btn-google-plus[disabled]:active, fieldset[disabled] .btn-google-plus:active, .btn-google-plus.disabled.active, .btn-google-plus[disabled].active, fieldset[disabled] .btn-google-plus.active {
+	background-color: #dd4b39;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-instagram {
+	color: #fff;
+	background-color: #125688;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-instagram:hover, .btn-instagram:focus, .btn-instagram:active, .btn-instagram.active, .open .dropdown-toggle.btn-instagram {
+	color: #fff;
+	background-color: #446a89;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-instagram:active, .btn-instagram.active, .open .dropdown-toggle.btn-instagram {
+	background-image: none
+}
+.btn-instagram.disabled, .btn-instagram[disabled], fieldset[disabled] .btn-instagram, .btn-instagram.disabled:hover, .btn-instagram[disabled]:hover, fieldset[disabled] .btn-instagram:hover, .btn-instagram.disabled:focus, .btn-instagram[disabled]:focus, fieldset[disabled] .btn-instagram:focus, .btn-instagram.disabled:active, .btn-instagram[disabled]:active, fieldset[disabled] .btn-instagram:active, .btn-instagram.disabled.active, .btn-instagram[disabled].active, fieldset[disabled] .btn-instagram.active {
+	background-color: #517fa4;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-linkedin {
+	color: #fff;
+	background-color: #007bb6;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-linkedin:hover, .btn-linkedin:focus, .btn-linkedin:active, .btn-linkedin.active, .open .dropdown-toggle.btn-linkedin {
+	color: #fff;
+	background-color: #005f8d;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-linkedin:active, .btn-linkedin.active, .open .dropdown-toggle.btn-linkedin {
+	background-image: none
+}
+.btn-linkedin.disabled, .btn-linkedin[disabled], fieldset[disabled] .btn-linkedin, .btn-linkedin.disabled:hover, .btn-linkedin[disabled]:hover, fieldset[disabled] .btn-linkedin:hover, .btn-linkedin.disabled:focus, .btn-linkedin[disabled]:focus, fieldset[disabled] .btn-linkedin:focus, .btn-linkedin.disabled:active, .btn-linkedin[disabled]:active, fieldset[disabled] .btn-linkedin:active, .btn-linkedin.disabled.active, .btn-linkedin[disabled].active, fieldset[disabled] .btn-linkedin.active {
+	background-color: #007bb6;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-pinterest {
+	color: #fff;
+	background-color: #cb2027;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-pinterest:hover, .btn-pinterest:focus, .btn-pinterest:active, .btn-pinterest.active, .open .dropdown-toggle.btn-pinterest {
+	color: #fff;
+	background-color: #a81a20;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-pinterest:active, .btn-pinterest.active, .open .dropdown-toggle.btn-pinterest {
+	background-image: none
+}
+.btn-pinterest.disabled, .btn-pinterest[disabled], fieldset[disabled] .btn-pinterest, .btn-pinterest.disabled:hover, .btn-pinterest[disabled]:hover, fieldset[disabled] .btn-pinterest:hover, .btn-pinterest.disabled:focus, .btn-pinterest[disabled]:focus, fieldset[disabled] .btn-pinterest:focus, .btn-pinterest.disabled:active, .btn-pinterest[disabled]:active, fieldset[disabled] .btn-pinterest:active, .btn-pinterest.disabled.active, .btn-pinterest[disabled].active, fieldset[disabled] .btn-pinterest.active {
+	background-color: #cb2027;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-tumblr {
+	color: #fff;
+	background-color: #32506d;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-tumblr:hover, .btn-tumblr:focus, .btn-tumblr:active, .btn-tumblr.active, .open .dropdown-toggle.btn-tumblr {
+	color: #fff;
+	background-color: #1f3346;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-tumblr:active, .btn-tumblr.active, .open .dropdown-toggle.btn-tumblr {
+	background-image: none
+}
+.btn-tumblr.disabled, .btn-tumblr[disabled], fieldset[disabled] .btn-tumblr, .btn-tumblr.disabled:hover, .btn-tumblr[disabled]:hover, fieldset[disabled] .btn-tumblr:hover, .btn-tumblr.disabled:focus, .btn-tumblr[disabled]:focus, fieldset[disabled] .btn-tumblr:focus, .btn-tumblr.disabled:active, .btn-tumblr[disabled]:active, fieldset[disabled] .btn-tumblr:active, .btn-tumblr.disabled.active, .btn-tumblr[disabled].active, fieldset[disabled] .btn-tumblr.active {
+	background-color: #2c4762;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-twitter {
+	color: #fff;
+	background-color: #55acee;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-twitter:hover, .btn-twitter:focus, .btn-twitter:active, .btn-twitter.active, .open .dropdown-toggle.btn-twitter {
+	color: #fff;
+	background-color: #1c92c7;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-twitter:active, .btn-twitter.active, .open .dropdown-toggle.btn-twitter {
+	background-image: none
+}
+.btn-twitter.disabled, .btn-twitter[disabled], fieldset[disabled] .btn-twitter, .btn-twitter.disabled:hover, .btn-twitter[disabled]:hover, fieldset[disabled] .btn-twitter:hover, .btn-twitter.disabled:focus, .btn-twitter[disabled]:focus, fieldset[disabled] .btn-twitter:focus, .btn-twitter.disabled:active, .btn-twitter[disabled]:active, fieldset[disabled] .btn-twitter:active, .btn-twitter.disabled.active, .btn-twitter[disabled].active, fieldset[disabled] .btn-twitter.active {
+	background-color: #2ba9e1;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-vk {
+	color: #fff;
+	background-color: #45668e;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-vk:hover, .btn-vk:focus, .btn-vk:active, .btn-vk.active, .open .dropdown-toggle.btn-vk {
+	color: #fff;
+	background-color: #4a6a89;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+.btn-vk:active, .btn-vk.active, .open .dropdown-toggle.btn-vk {
+	background-image: none
+}
+.btn-vk.disabled, .btn-vk[disabled], fieldset[disabled] .btn-vk, .btn-vk.disabled:hover, .btn-vk[disabled]:hover, fieldset[disabled] .btn-vk:hover, .btn-vk.disabled:focus, .btn-vk[disabled]:focus, fieldset[disabled] .btn-vk:focus, .btn-vk.disabled:active, .btn-vk[disabled]:active, fieldset[disabled] .btn-vk:active, .btn-vk.disabled.active, .btn-vk[disabled].active, fieldset[disabled] .btn-vk.active {
+	background-color: #587ea3;
+	border-color: rgba(0, 0, 0, 0.2)
+}
+/* 
+ * Only for this example - not needed for the buttons
+ * ----------------------------------------------------- */
+
+.btn-social-icon {
+	margin-bottom: 4px;
+}
+.social-class .social-hex {
+	font-family: 'Raleway', sans-serif;
+	font-size: 10px;
+	opacity: .3;
+	float: right
+}
+.social-class li {
+	margin-bottom: 4px;
+	font-family: 'Raleway', sans-serif;
+}
+.social-class li:hover .social-hex {
+	opacity: 1;
+	font-family: 'Raleway', sans-serif;
+}
+.social-class li:hover code {
+	background-color: #e8e8ee
+}
+.social-class code {
+	cursor: default;
+	font-family: 'Raleway', sans-serif;
+}
+/*Buttons With Labels*/
+
+.btn-label {
+	position: relative;
+	left: -12px;
+	display: inline-block;
+	padding: 6px 15px;
+	background: rgba(0, 0, 0, 0.15);
+	border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.button-wrapper{
+	height: 100px;
+	width: 100px;
+	line-height: 100px;
+}
+.button-pill>li>a {
+	border-radius: 200px;
+}
+.button-primary {
+	background-color: #4fb7fe;
+	border-color: #4fb7fe;
+	color: #fff;
+}
+.buttons-3d>li>.btn:hover{
+	color:#fff;
+}
+.button-primary:focus,
+.button-primary:hover {
+	background-color: #4aaedc;
+	border-color: #4cb0f9;}
+.btn-label {
+	border-radius: 0 0 0 0;
+	left: -15px;}
+.or_sm_margin_top{
+	margin-top: -2px;
+}
+.disabled_buttons>li{
+	cursor: not-allowed;
+}
+.button_group_vertical_buttons>.btn{
+	margin-bottom: 0;
+}
+.right_btn_padding_right{
+	padding-right: 0;
+}
+.right_btn_padding_left{
+	padding-left: 0;
+}
+.btn_angle_right,.btn_angle_left{
+	position: inherit;
+}
+@media (min-width: 320px) and (max-width: 345px){
+	.btn_group_padding>.btn{
+		padding: 9px 9px;
+	}}
+.button_align_top_button_wrap{
+	margin-top: 30px;
+}
+.search_button_margin_top{
+	margin-top: 1px;
+}
+@media (min-width: 320px) and (max-width: 767px){
+	.social_dashboard_margin_top{
+		margin-top: 15px;
+	}
+}
+@media (min-width: 993px) and (max-width: 1199px){
+	.btn-bitbucket{
+		margin-top: 15px;
+	}
+}
+.btn_group_padding_button > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+	padding: 7px 7px;
+}
+@media (min-width: 320px) and (max-width: 543px){
+	.flatbuttons_small>ul>li>a{
+		margin-left: 20px;
+	}
+}
+
+
+.buttons_page_alignment {
+	padding-left: 0;
+}
+
+@media (min-width: 992px) and (max-width: 1090px) {
+	.button_group_buttons_padding > li > .btn-group > .btn {
+		padding: 10px 15px;
+	}
+}
+
+@media (max-width: 426px) {
+	.button_group_buttons_padding > li > .btn-group > .btn {
+		padding: 10px 5px;
+	}
+}
+
+.flatbuttons_small {
+	margin: auto;
+	padding: 0;
+}
+
+.flatbuttons_padding, .flatbuttons_button_wrapper {
+	padding: 10px 0;
+}
+
+.button_align_top {
+	margin-top: 10px;
+}
+
+.buttons_page ul > li > .btn {
+	padding: 8px 25px;
+	margin-top: 15px;
+}
+
+.button-rounded {
+	border-radius: 50px;
+}
+
+.button-rectangle {
+	border-radius: 0;
+}
+
+.button_group_rounded > .btn:first-child {
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+
+.button_group_rounded > .btn:last-child {
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+}
+
+.btn-social :first-child {
+	border-right: none;
+}
+.glow_button {
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-name: glowing;
+}
+.button_glow_buttons {
+
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-name: glowing;
+}
+.dropup .dropdown-menu,.dropdown .dropdown-menu{
+	right: 0;
+}
+@media (min-width: 768px){
+	.header_input_search input[type=text]{
+		padding: 2px 0 0 14px !important;
+	}
+}

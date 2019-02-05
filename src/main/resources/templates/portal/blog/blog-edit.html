@@ -6,7 +6,6 @@
     <title>发布帖子</title>
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" th:href="@{/plugins/markdown/editormd.min.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/tagsinput.css}"/>
     <!--heard script-->
 
@@ -52,7 +51,7 @@ z-index: 999999">
                         <div class="col-6">
                             <ol class="breadcrumb float-right nav_breadcrumb_top_align">
                                 <li class="breadcrumb-item">
-                                    <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;
+                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;
                                     <a href="javascript:history.go(-1)" class="text-danger">返回讨论区</a>
                                 </li>
                             </ol>
@@ -189,7 +188,6 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
-<script type="text/javascript" th:src="@{/plugins/markdown/editormd.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/tagsinput.js}"></script>
 <script type="text/javascript" th:src="@{/js/pages/blog_edit.js}"></script>
 <!--end of global scripts-->

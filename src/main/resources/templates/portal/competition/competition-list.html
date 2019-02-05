@@ -226,17 +226,7 @@ z-index: 999999">
                 return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes;
             },
             differDate: function (date1, date2) {
-                var result;
-                var totalTime = Math.abs(new Date(date1).getTime() - new Date(date2).getTime());
-                var minTime = (totalTime / 1000 / 60);
-                if (minTime < 60) {
-                    result = minTime + " 分钟";
-                } else {
-                    var hourNum = parseInt(minTime / 60);
-                    var minNum = minTime % 60;
-                    result = hourNum + " 小时 " + minNum + " 分钟";
-                }
-                return result;
+                return differDate2HourMinute(date1,date2);
             },
             competitionStatus: function (startTime, endTime) {
                 var result;

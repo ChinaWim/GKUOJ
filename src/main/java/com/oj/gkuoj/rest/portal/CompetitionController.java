@@ -38,17 +38,20 @@ public class CompetitionController {
         return "portal/competition/competition-list";
     }
 
-
+    /**
+     * 返回比赛list
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @RequestMapping("/listCompetition2Page")
     @ResponseBody
     public RestResponseVO listCompetition2Page(HttpServletRequest request,
                                                @RequestParam(defaultValue = "1")Integer pageNum,
                                                @RequestParam(defaultValue = "20")Integer pageSize) {
-
         return competitionService.listCompetitionVO2Page(pageSize,pageNum);
     }
-
-
 
 
 
@@ -66,7 +69,6 @@ public class CompetitionController {
         //set data
         request.setAttribute("active3", true);
         request.setAttribute("competitionDetail", competitionDetailVO);
-
         return "portal/competition/competition-detail";
     }
 

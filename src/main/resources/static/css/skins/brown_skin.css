@@ -1,0 +1,94 @@
+
+#top .navbar {
+	margin-bottom: 0;
+	background: #825228;
+}
+
+#left {
+	background-color:#825228;
+}
+.navbar-brand h4{
+	color: #fff;
+}
+.badge {
+	background-color: #9c6426;
+}
+.fixed_menu_navbar{
+	background-color: #825228;
+}
+#top .btn-default,#top .btn-default:hover {color: #9c6426;}
+
+.user-media .media-body ul.user-info li {color: #fff;}
+
+.btn-default {
+	color: #fff;
+	background-color: #825228;
+
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
+	color: #fff;
+	background-color: #5E3201;
+
+}
+#top .nav > li:hover, #top .nav > li.active
+{
+	background-color: #5E3201;
+}
+#top .nav > li > a:hover, #top .nav > li > a:focus
+{
+	background-color: #5E3201;
+}
+/* Left Menu */
+
+#top .navbar-nav>li>.dropdown-menu {
+	background: #492c0d;
+}
+
+#top .nav>li>a:hover, #top .nav>li>a:focus {
+	background: #7c460c;
+}
+
+#top .nav>li>a:hover, #top .nav>li.active {
+	background: #5E3201;
+}
+
+#menu ul {
+	background: #7c460c;
+}
+
+#menu li ul>li:hover {
+	background: #7c460c !important;
+}
+
+#menu li ul li:hover>a{
+	color: #fff !important;
+}
+
+#menu li.active>ul {
+	background: #7c460c !important;
+}
+
+#menu li:hover {
+	background: #492c0d;
+}
+
+#menu>li.active {
+	background: #492c0d !important;
+}
+
+#menu li ul li ul li:hover {
+	background: #7c460c !important;
+}
+
+#menu li.active ul  li.active>a {
+	color: #f7dfc5;
+}
+#menu li.active ul li.active > a
+{
+	background-color:#492c0d !important ;
+}
+#menu li.active ul li > a:hover
+{
+	background-color: #5f3911;
+}

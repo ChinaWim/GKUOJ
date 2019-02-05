@@ -1,0 +1,14 @@
+#top .navbar {
+	margin-bottom: 0;
+	background: #E56060;
+}
+
+#left {
+background-color: #fff;
+}
+#top .navbar-brand h4,#top .toggle-left,#top button,#top .btn-group,#top .btn-default,#top .btn-default:hover{
+	color: #fff !important;
+}
+.fixed_menu_navbar{
+	background-color: #E56060;
+}
