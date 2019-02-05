@@ -77,31 +77,41 @@ z-index: 999999">
                                 </div>
                                 <div class="card-block">
                                     <h3 class=""><strong>[[${competitionDetail.competitionName}]]</strong></h3>
-                                    <p>[[${competitionDetail.registerCount}]] 人已经报名</p>
+                                    <p><span id="registerCount">[[${competitionDetail.registerCount}]]</span> 人已经报名</p>
                                     <div class="mt-3">
                                         <div th:if="${competitionDetail.password == null}">类型：公开赛</div>
                                         <div th:if="${competitionDetail.password != null }">类型：私人赛</div>
-                                        <div>举办者：<a th:href="@{'/user/mainPage?userId='+${competitionDetail.userId}}"
+                                        <div>举办者：<a target="_blank"
+                                                    th:href="@{'/user/mainPage?userId='+${competitionDetail.userId}}"
                                                     class="text-primary">[[${competitionDetail.name}]]</a></div>
                                         <div>比赛赛制：OI</div>
                                         <div>题目数量：[[${competitionDetail.registerCount}]]</div>
                                         <div>开始时间：[[${#dates.format(competitionDetail.startTime,'yyyy 年 M 月 d 日
-                                            HH:mm')}]]
+                                            H:mm')}]]
                                         </div>
                                         <div>结束时间：[[${#dates.format(competitionDetail.endTime,'yyyy 年 M 月 d 日
-                                            HH:mm')}]]
+                                            H:mm')}]]
                                         </div>
                                         <div>比赛时长：<span id="competitionTime"></span></div>
-
 
                                     </div>
                                     <div class="mt-3">
                                         <div class="col-12">
-                                            <button th:if="${competitionDetail.password != null}"
-                                                    class="btn w-100 btn-primary button-rounded">本比赛不开放报名
+                                            <button onclick="registerCompetition()"
+                                                    th:if="${competitionDetail.competitionStatus == 1}"
+                                                    class="registerBtn btn w-100 btn-primary button-rounded">比赛报名
                                             </button>
-                                            <button th:if="${competitionDetail.password == null}"
-                                                    class="btn w-100 btn-primary button-rounded">报名
+                                            <button onclick="gotoCompetitionProblemList()"
+                                                    th:if="${competitionDetail.competitionStatus == 2}"
+                                                    class="processingBtn btn w-100 btn-primary button-rounded">比赛已开始，进入比赛
+                                            </button>
+                                            <button onclick="gotoCompetitionProblemList()"
+                                                    th:if="${competitionDetail.competitionStatus == 3}"
+                                                    class="btn w-100 btn-primary button-rounded">比赛已结束，回顾比赛
+                                            </button>
+                                            <button disabled th:if="${competitionDetail.competitionStatus == 4}"
+                                                    class="registerBtn btn disabled w-100 btn-primary button-rounded">
+                                                你已成功报名
                                             </button>
                                         </div>
                                     </div>
@@ -115,9 +125,9 @@ z-index: 999999">
                             <div class="card ">
                                 <div class="card-block">
                                     <div class="row">
-                                       <!-- <div class="col-12">
-                                            [[${competitionDetail.title}]]
-                                        </div>-->
+                                        <!-- <div class="col-12">
+                                             [[${competitionDetail.title}]]
+                                         </div>-->
                                         <div class="col-12 markdown-body" th:utext="${competitionDetail.content}">
                                         </div>
                                     </div>
@@ -211,8 +221,78 @@ z-index: 999999">
     /*<![CDATA[*/
     var startTime = [[${competitionDetail.startTime}]];
     var endTime = [[${competitionDetail.endTime}]];
+    var compId = [[${competitionDetail.id}]];
+    var competitionStatus = [[${competitionDetail.competitionStatus}]];
     var time = differDate2HourMinute(startTime, endTime);
     $("#competitionTime").html(time);
+
+    if (competitionStatus == 4 || competitionStatus == 1) {
+        var nowDate = new Date();
+        var startDate = new Date(startTime);
+        var timeLong = Math.abs(nowDate.getTime() - startDate.getTime());
+        window.setTimeout('competitionStart()', timeLong);
+    }
+    if (competitionStatus == 2){
+        var nowDate = new Date();
+        var endDate = new Date(endTime);
+        var timeLong = Math.abs(endDate.getTime() - nowDate.getTime());
+        window.setTimeout('competitionClose()', timeLong);
+    }
+
+
+    //报名
+    function registerCompetition() {
+        $.post("competition/register", {"compId": compId}, function (resp) {
+            if (resp.status == 200) {
+                $.message({
+                    message: "报名成功",
+                    type: "success"
+                });
+                var $register = $(".registerBtn");
+                $register.attr("disabled", "");
+                $register.addClass("disabled");
+                $register.html("你已成功报名");
+                var $registerCount = $("#registerCount");
+                var presentCount = parseInt($registerCount.html()) + 1;
+                $registerCount.html(presentCount);
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: "error"
+                });
+            }
+        });
+    }
+
+
+    function competitionStart() {
+        var $register = $(".registerBtn");
+        $register.removeClass("disabled");
+        $register.removeAttr("disabled");
+        $register.html("比赛已开始，进入比赛");
+        $register.attr("onclick", "gotoCompetitionProblemList()");
+    }
+
+
+    function competitionClose() {
+        var $processing = $(".processingBtn");
+        $processing.html("比赛已结束，回顾比赛");
+    }
+
+    function gotoCompetitionProblemList() {
+        $.post("competition/gotoCompetitionProblemList", function (resp) {
+            if (resp.status == 200) {
+                location.href = resp.data + "?compId=" + compId;
+                return;
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: "error"
+                })
+            }
+        })
+
+    }
 
     /*]]>*/
 </script>

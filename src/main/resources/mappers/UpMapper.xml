@@ -124,14 +124,14 @@
         and type = 1
     </select>
     <select id="countBlogCommentById" resultType="java.lang.Integer" parameterType="map">
-    select count(*) from up
+    select count(id) from up
     where type = 1
     and type_id = #{blogCommentId}
     and status = true
   </select>
 
     <select id="countBlogById" resultType="java.lang.Integer" parameterType="map">
-    select count(*) from up
+    select count(id) from up
     where type = 0
     and type_id = #{blogId}
     and status = true

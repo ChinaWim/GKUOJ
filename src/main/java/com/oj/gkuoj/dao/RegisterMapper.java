@@ -1,6 +1,7 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Register;
+import org.apache.ibatis.annotations.Param;
 
 public interface RegisterMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +15,9 @@ public interface RegisterMapper {
     int updateByPrimaryKeySelective(Register record);
 
     int updateByPrimaryKey(Register record);
+
+    Register getByUserIdAndCompId(@Param("userId") Integer userId,@Param("competitionId") Integer competitionId);
+
+    int countByUserIdAndCompId(@Param("userId") Integer userId,@Param("competitionId") Integer competitionId);
+
 }

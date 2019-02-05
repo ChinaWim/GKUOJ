@@ -2,7 +2,9 @@ package com.oj.gkuoj.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.common.CommonConst;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.dao.RegisterMapper;
 import com.oj.gkuoj.response.CompetitionDetailVO;
 import com.oj.gkuoj.response.CompetitionVO;
 import com.oj.gkuoj.response.RestResponseVO;
@@ -13,6 +15,9 @@ import com.oj.gkuoj.service.CompetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +29,9 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Autowired
     private CompetitionMapper competitionMapper;
+
+    @Autowired
+    private RegisterMapper registerMapper;
 
     @Override
     public RestResponseVO getById(Integer competitionId) {
@@ -65,17 +73,42 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer competitionId) {
+    public RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId, Integer competitionId) {
         if (competitionId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         CompetitionDetailVO detailVO = competitionMapper.getCompetitionDetailVOById(competitionId);
+        int rows = 0;
+        if (userId != null) {
+            rows = registerMapper.countByUserIdAndCompId(userId, competitionId);
+        }
+
+        //set status
+        if (detailVO != null) {
+            Date startTime = detailVO.getStartTime();
+            Date endTime = detailVO.getEndTime();
+            Date nowDate = new Date();
+            boolean isNotStarted = startTime.after(nowDate);
+            boolean isClose = nowDate.after(endTime);
+            if (isNotStarted) {
+                detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.NOT_STARTED);
+                if (rows > 0) {
+                    detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.REGISTERED);
+                }
+                return RestResponseVO.createBySuccess(detailVO);
+            }
+            if (isClose) {
+                detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.CLOSE);
+                return RestResponseVO.createBySuccess(detailVO);
+            }
+            detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.PROCESSING);
+        }
         return RestResponseVO.createBySuccess(detailVO);
     }
 
     @Override
     public RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize, Integer pageNum) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<CompetitionVO> competitionVOList = competitionMapper.listCompetitionVO();
         PageInfo<CompetitionDetailVO> pageInfo = new PageInfo(competitionVOList);
 

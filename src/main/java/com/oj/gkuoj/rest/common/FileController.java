@@ -38,11 +38,13 @@ public class FileController {
     @RequestMapping(value = "/uploadImageByMD", method = RequestMethod.POST)
     public Map uploadImageByMD(String guid, @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile,
                            @AuthenticationPrincipal UserDetails userDetails) {
-        /*if (userDetails == null) {
-            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
-        }*/
-        RestResponseVO restResponseVO = fileService.uploadImageByMD(multipartFile, guid,"ming");
         Map<String, Object> map = new HashMap<>();
+        if (userDetails == null) {
+            map.put("success", 0);
+            map.put("message", "上传失败，请先登录");
+        }
+        RestResponseVO restResponseVO = fileService.uploadImageByMD(multipartFile, guid,"ming");
+
         if (restResponseVO.isSuccess()) {
             map.put("success", 1);
             map.put("message", "上传成功");

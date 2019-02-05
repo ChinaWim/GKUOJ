@@ -39,7 +39,6 @@ public enum RestResponseEnum {
     //验证码错误ｏ
     VALIDATE_CODE_ERROR(462, "验证码错误"),
 
-
     //token校验失败
     TOKEN_ERROR(700, "token校验失败"),
 
@@ -58,8 +57,10 @@ public enum RestResponseEnum {
     FILE_TYPE_ERROR(704,"文件格式错误"),
 
     //文件权限错误
-    FILE_PERMISSION_ERROR(705,"没有该文件操作权限");
+    FILE_PERMISSION_ERROR(705,"没有该文件操作权限"),
 
+    //文件权限错误
+    COMPETITION_REPEATED_REGISTER_ERROR(706,"比赛重复报名");
 
 
 

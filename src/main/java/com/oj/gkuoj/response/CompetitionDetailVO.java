@@ -34,6 +34,8 @@ public class CompetitionDetailVO {
 
     private Integer registerCount;
 
+    private Integer competitionStatus;
+
 
     public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, String password, Date startTime, Date endTime, Date createTime, Date updateTime) {
         this.id = id;
@@ -159,6 +161,13 @@ public class CompetitionDetailVO {
         this.registerCount = registerCount;
     }
 
+    public Integer getCompetitionStatus() {
+        return competitionStatus;
+    }
+
+    public void setCompetitionStatus(Integer competitionStatus) {
+        this.competitionStatus = competitionStatus;
+    }
 
     @Override
     public String toString() {
@@ -176,8 +185,7 @@ public class CompetitionDetailVO {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", registerCount=" + registerCount +
+                ", competitionStatus=" + competitionStatus +
                 '}';
     }
-
-
 }

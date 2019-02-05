@@ -17,6 +17,11 @@ public final class ExceptionStatusConst {
     public static final Integer PROBLEM_NOT_FOUND_EXP = 90001;
 
 
+    /**
+     *比赛未报名
+     */
+    public static final Integer COMPETITION_NOT_REGISTER_EXP = 90002;
+
 
 
 }

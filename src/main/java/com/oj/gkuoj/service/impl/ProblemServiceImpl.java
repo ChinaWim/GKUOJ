@@ -2,6 +2,7 @@ package com.oj.gkuoj.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.common.CommonConst;
 import com.oj.gkuoj.common.JudgeStatusEnum;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.ProblemMapper;
@@ -74,15 +75,13 @@ public class ProblemServiceImpl implements ProblemService {
         List<ProblemVO> problemList = problemMapper.listAll2VO(sort, keyword, level, tagName);
         if (userId != null) {
             for (ProblemVO problemVO : problemList) {
-                int allCount = problemResultMapper.countUserIdProblemId(userId, problemVO.getId());
-                if (allCount > 0) {
+                int totalCount = problemResultMapper.countUserIdProblemId(userId, problemVO.getId());
+                if (totalCount > 0) {
                     int acCount = problemResultMapper.countUserIdProblemIdByStatus(userId, problemVO.getId(), JudgeStatusEnum.ACCEPTED.getStatus());
                     if (acCount > 0) {
-                        //2通过
-                        problemVO.setUserStatus(2);
+                        problemVO.setUserStatus(CommonConst.ProblemUserStatus.PASSED);
                     } else {
-                        //1尝试
-                        problemVO.setUserStatus(1);
+                        problemVO.setUserStatus(CommonConst.ProblemUserStatus.TRYING);
                     }
                 }
             }

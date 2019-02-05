@@ -47,4 +47,34 @@ public class RegisterServiceImpl implements RegisterService {
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
+
+    @Override
+    public RestResponseVO registerCompetition(Integer userId, Integer compId) {
+        if (userId == null || compId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        int rows = registerMapper.countByUserIdAndCompId(userId, compId);
+        if (rows > 0) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_REPEATED_REGISTER_ERROR);
+        }
+        Register register = new Register();
+        register.setCompId(compId);
+        register.setUserId(userId);
+        int effect = registerMapper.insertSelective(register);
+
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
+    }
+
+
+    @Override
+    public RestResponseVO isRegisterCompetition(Integer userId, Integer compId) {
+        if (userId == null || compId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        int rows = registerMapper.countByUserIdAndCompId(userId, compId);
+        return rows > 0 ? RestResponseVO.createBySuccess()
+                : RestResponseVO.createByError();
+    }
+
 }

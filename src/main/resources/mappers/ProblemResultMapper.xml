@@ -195,7 +195,7 @@
 
 
     <select id="countUserIdProblemIdByStatus" resultType="java.lang.Integer" parameterType="map">
-      select count(*) from problem_result
+      select count(id) from problem_result
       where user_id = #{userId}
       and problem_id = #{problemId}
       and status = #{status}
@@ -203,7 +203,7 @@
 
 
     <select id="countUserIdProblemId" resultType="java.lang.Integer" parameterType="map">
-      select count(*) from problem_result
+      select count(id) from problem_result
       where user_id = #{userId}
       and problem_id = #{problemId}
     </select>

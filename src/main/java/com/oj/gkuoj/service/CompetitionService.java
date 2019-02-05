@@ -19,7 +19,7 @@ public interface CompetitionService {
 
     RestResponseVO update(Competition competition);
 
-    RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer competitionId);
+    RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId,Integer competitionId);
 
     RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize,Integer pageNum);
 
