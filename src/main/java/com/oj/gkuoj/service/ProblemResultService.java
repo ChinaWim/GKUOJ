@@ -1,5 +1,7 @@
 package com.oj.gkuoj.service;
 
+import com.oj.gkuoj.response.ProblemResultSubmitVO;
+import com.oj.gkuoj.response.ProblemResultVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.ProblemResult;
 
@@ -17,5 +19,7 @@ public interface ProblemResultService {
 
 
     RestResponseVO listProblemResult2Page(Integer problemId, String name, String type, Integer status, Integer pageNum,Integer pageSize);
+
+    RestResponseVO<ProblemResultSubmitVO> getById2SubmitVO(Integer problemResultId);
 
 }

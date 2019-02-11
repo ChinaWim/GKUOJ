@@ -66,7 +66,7 @@ z-index: 999999">
                 <div class="inner bg-container">
                     <div class="row">
                         <div class="col-8">
-                            <div class="card card-block" >
+                            <div class="card card-block">
                                 <div class="text-center mt-2 mb-3">
                                     <span class=" btn-success loading btn-sm ">
                                         时间限制:[[${problem.time}]]ms
@@ -95,7 +95,12 @@ z-index: 999999">
                                 <h3 class="card-title m-t-20">
                                     <strong>样例输入</strong>
                                 </h3>
-                                <code style="white-space:pre-line"><a  href="javascript:void(0)"  data-clipboard-target="#inputDesc"  class="float-right clipboard" onclick="copyToClipboard()" id="clipboard">复制</a><div id="inputDesc">[[${problem.testcaseInput}]]</div></code>
+                                <code style="white-space:pre-line"><a href="javascript:void(0)"
+                                                                      data-clipboard-target="#inputDesc"
+                                                                      class="float-right clipboard"
+                                                                      onclick="copyToClipboard()" id="clipboard">复制</a>
+                                    <div id="inputDesc">[[${problem.testcaseInput}]]</div>
+                                </code>
                                 <h3 class="card-title m-t-20"><strong>样例输出</strong></h3>
                                 <code style="white-space:pre-line">[[${problem.testcaseOutput}]]</code>
                                 <h3 class="card-title m-t-20"><strong>标签</strong></h3>
@@ -129,8 +134,7 @@ z-index: 999999">
                                 <div class="col-12 mt-2 ">
                                     <div id="editor" class="w-100 col-12"></div>
                                     <div class="col-12 mt-2">
-                                        <!--onclick="submit()"-->
-                                        <button
+                                        <button onclick="submitByProblemName()"
                                                 class="notify ml-2 float-right btn btn-info  button-rounded">
                                             <i class="fa fa-cloud"></i>&nbsp;提交代码
                                         </button>
@@ -151,28 +155,7 @@ z-index: 999999">
                                     <canvas id="myChart" class="w-100" style="height: 400px"></canvas>
                                 </div>
                             </div>
-                            <div class="card mt-3" id="changeListApp">
-                                <div class="card-header bg-white">
-                                    <i class="fa fa-flag"></i>&nbsp;推荐题目
-                                </div>
-                                <div class="card-body">
-                                    <div v-for="problem in suggestProblemList">
-                                        <div class="task-item">
-                                            <a :href="'problem/problemDetailPage?problemId='+problem.id">{{problem.name}}</a>
-                                            <span class="float-right">
-                                                   {{problem.tags}}
-                                            </span>
-                                            <!--<span class="float-right text-muted progress-danger">难度{{problem.level}}</span>-->
-                                        </div>
-                                    </div>
-                                    <div class="task-item">
-                                        <button @click="changeList()"
-                                                class=" w-100 btn btn-outline-primary glow_button glow_button"><i
-                                                class="fa fa-random"></i>&nbsp;更换一组
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="card mt-3">
                                 <div class="card-header bg-white ">
                                     <div class="twitter_section_head  ">
@@ -250,6 +233,28 @@ z-index: 999999">
                                     </ul>
                                 </div>
                             </div>
+                            <div class="card mt-3" id="changeListApp">
+                                <div class="card-header bg-white">
+                                    <i class="fa fa-flag"></i>&nbsp;推荐题目
+                                </div>
+                                <div class="card-body">
+                                    <div v-for="problem in suggestProblemList">
+                                        <div class="task-item">
+                                            <a :href="'problem/problemDetailPage?problemId='+problem.id">{{problem.name}}</a>
+                                            <span class="float-right">
+                                                   {{problem.tags}}
+                                            </span>
+                                            <!--<span class="float-right text-muted progress-danger">难度{{problem.level}}</span>-->
+                                        </div>
+                                    </div>
+                                    <div class="task-item">
+                                        <button @click="changeList()"
+                                                class=" w-100 btn btn-outline-primary glow_button glow_button"><i
+                                                class="fa fa-random"></i>&nbsp;更换一组
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -317,61 +322,6 @@ z-index: 999999">
 
     <!--wrapper-->
     <!-- /#content -->
-    <div id="right">
-        <div class="right_content">
-            <div class="well-small dark m-t-15">
-                <div class="row m-0">
-                    <div class="col-lg-12 p-d-0">
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('blue_black_skin.css','css')">
-                            <div class="skin_blue skin_size b_t_r"></div>
-                            <div class="skin_blue_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('green_black_skin.css','css')">
-                            <div class="skin_green skin_size b_t_r"></div>
-                            <div class="skin_green_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('purple_black_skin.css','css')">
-                            <div class="skin_purple skin_size b_t_r"></div>
-                            <div class="skin_purple_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('orange_black_skin.css','css')">
-                            <div class="skin_orange skin_size b_t_r"></div>
-                            <div class="skin_orange_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('red_black_skin.css','css')">
-                            <div class="skin_red skin_size b_t_r"></div>
-                            <div class="skin_red_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <div class="skinmulti_btn" onclick="javascript:loadjscssfile('mint_black_skin.css','css')">
-                            <div class="skin_mint skin_size b_t_r"></div>
-                            <div class="skin_mint_border skin_shaddow skin_size b_b_r"></div>
-                        </div>
-                        <!--</div>-->
-                        <div class="skin_btn skinsingle_btn skin_blue b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('blue_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_green b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('green_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_purple b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('purple_skin.css','css')"></div>
-                        <div class="skin_btn  skinsingle_btn skin_orange b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('orange_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_red b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('red_skin.css','css')"></div>
-                        <div class="skin_btn skinsingle_btn skin_mint b_r height_40 skin_shaddow"
-                             onclick="javascript:loadjscssfile('mint_skin.css','css')"></div>
-                    </div>
-                    <div class="col-lg-12 text-center m-t-15">
-                        <button class="btn btn-dark button-rounded"
-                                onclick="javascript:loadjscssfile('black_skin.css','css')">Dark
-                        </button>
-                        <button class="btn btn-secondary button-rounded default_skin"
-                                onclick="javascript:loadjscssfile('default_skin.css','css')">Default
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- # right side -->
 </div>
 <!-- /#wrap -->
@@ -404,6 +354,7 @@ z-index: 999999">
     var waCount = [[${problem.waCount}]];
 
     var problemId = [[${problem.id}]];
+    var problemName = [[${problem.name}]];
 
 
     // vue
@@ -474,8 +425,9 @@ z-index: 999999">
         $("#eOutput").val("");
     }
 
-
-
+    function submitByProblemName() {
+            submit(problemName);
+    }
 
 
     /*]]>*/

@@ -3,6 +3,7 @@ package com.oj.gkuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.response.ProblemResultSubmitVO;
 import com.oj.gkuoj.response.ProblemResultVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
@@ -59,5 +60,14 @@ public class ProblemResultServiceImpl implements ProblemResultService {
         List<ProblemResultVO> problemResultList = problemResultMapper.listProblemResult(problemId, name, type, status);
         PageInfo<ProblemResultVO> pageInfo = new PageInfo<ProblemResultVO>(problemResultList);
         return RestResponseVO.createBySuccess(pageInfo);
+    }
+
+    @Override
+    public RestResponseVO<ProblemResultSubmitVO> getById2SubmitVO(Integer problemResultId) {
+        if (problemResultId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        ProblemResultSubmitVO resultSubmitVO = problemResultMapper.getById2SubmitVO(problemResultId);
+        return RestResponseVO.createBySuccess(resultSubmitVO);
     }
 }

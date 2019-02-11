@@ -35,7 +35,7 @@
         from problem_result p
         join user u on u.id = p.user_id
         <where>
-            <if test="problemId != null">
+            <if test="problemId != null and problemId != -1">
                 problem_id = #{problemId}
             </if>
             <if test="name != null and name !=''">
@@ -44,10 +44,11 @@
             <if test="type != null and type !=''">
                 and type = #{type}
             </if>
-            <if test="status != null">
+            <if test="status != null and status != -1">
                 and status = #{status}
             </if>
         </where>
+        order by p.create_time desc
     </select>
 
 
@@ -206,6 +207,13 @@
       select count(id) from problem_result
       where user_id = #{userId}
       and problem_id = #{problemId}
+    </select>
+
+    <select id="getById2SubmitVO" resultType="com.oj.gkuoj.response.ProblemResultSubmitVO" parameterType="int">
+        select pr.id,pr.problem_id,pr.comp_id,pr.status,pr.time,pr.memory
+        from problem_result pr
+        where pr.id = #{problemResultId}
+
     </select>
 
 </mapper>

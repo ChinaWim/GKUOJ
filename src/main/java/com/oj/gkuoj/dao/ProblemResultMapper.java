@@ -1,6 +1,7 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.ProblemResult;
+import com.oj.gkuoj.response.ProblemResultSubmitVO;
 import com.oj.gkuoj.response.ProblemResultVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +27,7 @@ public interface ProblemResultMapper {
     int countUserIdProblemIdByStatus(@Param("userId")Integer userId,@Param("problemId")Integer problemId,@Param("status")Integer status);
 
     int countUserIdProblemId(@Param("userId")Integer userId,@Param("problemId")Integer problemId);
+
+    ProblemResultSubmitVO getById2SubmitVO(Integer problemResultId);
+
 }

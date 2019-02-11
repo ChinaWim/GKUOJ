@@ -289,23 +289,26 @@ function loadjscssfile(filename, filetype) {
         $leftToggle = $('.toggle-left'),
         $rightToggle = $('.toggle-right');
     var leftopened = 0;
-    var demo = $("<div />").css({
-        position: "fixed",
-        top: "200px",
-        right: "-1px",
-        transition: 'all 0.3s ease-in-out',
-        background: "#00cc99",
-        "border-radius": "5px 0px 0px 5px",
-        padding: "5px",
-        "font-size": "16px",
-        cursor: "pointer",
-        color: "#ddd"
-    }).html(" <i class='fa fa-fw fa-cog skin-icon'></i>").addClass("no-print");
-    $body.append(demo);
-    $(".no-print").on("mouseenter mouseleave", function(){
-        $(".skin-icon").toggleClass("fa-spin");
-        return false;
-    });
+
+    /*右侧menu
+        var demo = $("<div />").css({
+            position: "fixed",
+            top: "200px",
+            right: "-1px",
+            transition: 'all 0.3s ease-in-out',
+            background: "#00cc99",
+            "border-radius": "5px 0px 0px 5px",
+            padding: "5px",
+            "font-size": "16px",
+            cursor: "pointer",
+            color: "#ddd"
+        }).html(" <i class='fa fa-fw fa-cog skin-icon'></i>").addClass("no-print");
+        $body.append(demo);
+        $(".no-print").on("mouseenter mouseleave", function(){
+            $(".skin-icon").toggleClass("fa-spin");
+            return false;
+    });*/
+
     Admire.admireAnimatePanel = function () {
         if ($('#left').length) {
             $leftToggle.on(Admire.buttonPressedEvent, function (e) {
@@ -323,9 +326,9 @@ function loadjscssfile(filename, filetype) {
         } else {
             $leftToggle.addClass('hidden');
         }
-        demo.on('click', function (e) {
+       /* demo.on('click', function (e) {
             $body.toggleClass("sidebar-right-opened");
-        });
+        });*/
     };
     return Admire;
 })(jQuery, Admire || {});

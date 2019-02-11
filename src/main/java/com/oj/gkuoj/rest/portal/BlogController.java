@@ -14,6 +14,7 @@ import com.oj.gkuoj.service.BlogCommentService;
 import com.oj.gkuoj.service.BlogService;
 import com.oj.gkuoj.service.UpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;

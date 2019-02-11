@@ -53,22 +53,22 @@ z-index: 999999">
             </header>
             <div class="outer">
                 <div class="inner bg-container">
-                    <div class="row">
-                        <!--table-->
-                        <div class="col-12">
-                            <form th:action="@{/problemResult/problemResultListPage}" method="post">
+                    <div id="problemResultApp">
+                        <div class="row">
+                            <!--table-->
+                            <div class="col-12">
                                 <div class="row">
                                     <div class="col-2">
-                                        <input type="number"  name="problemId" class="form-control focused_input "
-                                               th:value="${problemId}" placeholder="题目ID">
+                                        <input type="number" id="problemId" name="problemId"
+                                               class="form-control focused_input" placeholder="题目ID"/>
                                     </div>
                                     <div class="col-2">
-                                        <input type="text" maxlength="16" th:value="${name}" name="name"
+                                        <input id="name" type="text" maxlength="16" name="name"
                                                class="form-control focused_input"
                                                placeholder="用户名">
                                     </div>
                                     <div class="col-2">
-                                        <select name="type" class="form-control">
+                                        <select name="type" id="type" class="form-control select2">
                                             <option value="">--语言--</option>
                                             <option value="C">C</option>
                                             <option value="C++">C++</option>
@@ -78,9 +78,9 @@ z-index: 999999">
                                         </select>
                                     </div>
                                     <div class="col-2">
-                                        <select name="status" class="form-control ">
-                                            <option value="">--结果--</option>
-                                            <option value="0" >编译中</option>
+                                        <select name="status" id="status" class="form-control select2">
+                                            <option value="-1">--结果--</option>
+                                            <option value="0">编译中</option>
                                             <option value="8">队列中</option>
                                             <option value="9">判题中</option>
                                             <option value="1">答案正确</option>
@@ -93,95 +93,115 @@ z-index: 999999">
                                         </select>
                                     </div>
                                     <div class="col-4">
-                                        <button class="btn btn-outline-primary"><i class="fa fa-search"></i>&nbsp;开始查找
+                                        <button onclick="clickPage(1)" class="btn btn-outline-primary"><i
+                                                class="fa fa-search"></i>&nbsp;开始查找
                                         </button>
-                                        <button class="btn ml-3 btn-outline-primary"><i class="fa fa-user"></i>&nbsp;我的提交
-                                        </button>
+                                        <!--<button class="btn ml-3 btn-outline-primary"><i class="fa fa-user"></i>&nbsp;我的提交
+                                        </button>-->
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-12 mt-3">
-                            <div class="card p-3">
-                                <div class="card-body">
-                                    <table class="table  table-hover ">
-                                        <thead class="">
-                                        <tr>
-                                            <th class="text-center">运行编号</th>
-                                            <th class="text-center">用户名</th>
-                                            <th class="text-center">题目ID</th>
-                                            <th class="text-center">语言</th>
-                                            <th class="text-center">时间</th>
-                                            <th class="text-center">内存</th>
-                                            <th class="text-center">结果</th>
-                                            <th class="text-center">提交时间</th>
-                                            <th class="text-center">操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="problemResult,i : ${problemResultList}" class="text-center">
-                                            <td>[[${problemResult.id}]]</td>
-                                            <td><a th:href="@{'/user/mainPage?userId='+${problemResult.userId}}">[[${problemResult.name}]]</a>
-                                            </td>
-                                            <td>[[${problemResult.problemId}]]</td>
-                                            <td>[[${problemResult.type}]]</td>
-                                            <td>[[${problemResult.time}]]ms</td>
-                                            <td>[[${problemResult.memory}]]MB</td>
-                                            <td>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="card p-3">
+                                    <div class="card-body">
+                                        <table class="table  table-hover">
+                                            <thead class="">
+                                            <tr>
+                                                <th class="text-center">运行编号</th>
+                                                <th class="text-center">用户名</th>
+                                                <th class="text-center">题目ID</th>
+                                                <th class="text-center">语言</th>
+                                                <th class="text-center">时间</th>
+                                                <th class="text-center">内存</th>
+                                                <th class="text-center">结果</th>
+                                                <th class="text-center">提交时间</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="(problemResult,index) in problemResultList" class="text-center">
+                                                <td>{{problemResult.id}}</td>
+                                                <td>
+                                                    <a class="text-primary"
+                                                       :href="'/user/mainPage?userId='+problemResult.userId"
+                                                       target="_blank">{{problemResult.name}}</a>
+                                                </td>
+                                                <td>{{problemResult.problemId}}</td>
+                                                <td>{{problemResult.type}}</td>
+                                                <td>{{problemResult.time}}ms</td>
+                                                <td>{{problemResult.memory}}MB</td>
+                                                <td>
                                                 <span class="btn-sm "
-                                                      th:if="${problemResult.status == 0}">
-                                                    <i class="fa fa-spinner fa-pulse"></i>&nbsp;编译中
+                                                      v-if="problemResult.status == 0">
+
+                                                    <span class="mr-1">编译中</span>
+                                                    <i class="fa fa-spinner fa-pulse "></i>
                                                 </span>
-                                                <span class=" btn-sm text-white" style="background-color: #4BC0C0"
-                                                      th:if="${problemResult.status == 1}">
+                                                    <span class=" btn-sm text-white" style="background-color: #4BC0C0"
+                                                          v-if="problemResult.status == 1">
                                                     答案正确
                                                 </span>
-                                                <span class=" btn-sm text-white" style="background-color: #FFCD56"
-                                                      th:if="${problemResult.status == 2}">
+                                                    <span class=" btn-sm text-white" style="background-color: #FFCD56"
+                                                          v-if="problemResult.status == 2">
                                                     编译错误
                                                 </span>
-                                                <span class=" btn-sm text-white" style="background-color: #ed92ff"
-                                                      th:if="${problemResult.status == 3}">
+                                                    <span class=" btn-sm text-white" style="background-color: #ed92ff"
+                                                          v-if="problemResult.status == 3">
                                                     格式错误
                                                 </span>
-                                                <span class=" btn-sm text-white" style="background-color: #FF9F40"
-                                                      th:if="${problemResult.status == 4}">
+                                                    <span class=" btn-sm text-white" style="background-color: #FF9F40"
+                                                          v-if="problemResult.status == 4">
                                                     运行错误
                                                 </span>
-                                                <span class=" btn-sm text-white" style="background-color: #62b8ff"
-                                                      th:if="${problemResult.status == 5}">
+                                                    <span class=" btn-sm text-white" style="background-color: #62b8ff"
+                                                          v-if="problemResult.status == 5">
                                                     时间超限
                                                 </span>
-                                                <span class=" btn-sm text-white" style="background-color: #6574ff"
-                                                      th:if="${problemResult.status == 6}">
+                                                    <span class=" btn-sm text-white" style="background-color: #6574ff"
+                                                          v-if="problemResult.status == 6">
                                                     内存超限
                                                 </span>
-                                                <span class=" btn-sm  text-white" style="background-color:#FF6384 "
-                                                      th:if="${problemResult.status == 7}">
+                                                    <span class=" btn-sm  text-white" style="background-color:#FF6384 "
+                                                          v-if="problemResult.status == 7">
                                                     答案错误
                                                 </span>
-                                                <span class=" btn-sm bg-success" th:if="${problemResult.status == 8}">
-                                                   　<i class="fa fa-spinner fa-pulse"></i>&nbsp;队列中
+                                                    <span class=" btn-sm bg-success"
+                                                          v-if="problemResult.status == 8">
+                                                        <span>
+                                                       队列中&nbsp;<i class="fa fa-spinner fa-pulse"></i>
+                                                        </span>
                                                 </span>
-                                                <span class=" btn-sm " th:if="${problemResult.status == 9}">
-                                                       <i class="fa fa-spinner fa-spin"></i>&nbsp;判题中
+                                                    <span class=" btn-sm " v-if="problemResult.status == 9">
+                                                     <span>
+                                                      判题中&nbsp;<i class="fa fa-spinner fa-pulse"></i>
+                                                      </span>
                                                 </span>
-                                            </td>
-                                            <td>[[${#dates.format(problemResult.createTime,'yyyy-MM-dd HH:mm:ss')}]]
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-sm btn-secondary"
-                                                   th:href="@{'/problemResult/showSourceCodePage?problemResultId=1732'}">查看源码</a>
-                                            </td>
+                                                </td>
+                                                <td>{{problemResult.createTime | formatDate}}
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-secondary"
+                                                       :href="'/problemResult/problemResultPage?problemResultId='+problemResult.id">
+                                                        查看详情
+                                                    </a>
+                                                </td>
 
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <!--page-->
+                                        <div class="row mt-3">
+                                            <div class="" style="margin: 0 auto">
+                                                <ul class="page" maxshowpageitem="5" pagelistcount="20" id="page"></ul>
+                                            </div>
+                                        </div>
+                                        <!--#page-->
+                                    </div>
+
                                 </div>
-
                             </div>
+                            <!--#table-->
                         </div>
-                        <!--#table-->
                     </div>
                 </div>
             </div>
@@ -193,90 +213,83 @@ z-index: 999999">
 
 <!-- /#content -->
 <!-- Modal -->
-<div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <form th:action="@{/problem/problemListPage}" method="post">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span class="float-right" aria-hidden="true">&times;</span>
-                </button>
-                <div class="input-group search_bar_small">
-                    <input type="text" class="form-control" placeholder="题目搜索" name="keyword">
-                    <span class="input-group-btn">
-                          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-                        </span>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
+<div th:replace="~{fragments/modal}"></div>
 
 <!--wrapper-->
 <!-- /#content -->
-<div id="right">
-    <div class="right_content">
-        <div class="well-small dark m-t-15">
-            <div class="row m-0">
-                <div class="col-lg-12 p-d-0">
-                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('blue_black_skin.css','css')">
-                        <div class="skin_blue skin_size b_t_r"></div>
-                        <div class="skin_blue_border skin_shaddow skin_size b_b_r"></div>
-                    </div>
-                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('green_black_skin.css','css')">
-                        <div class="skin_green skin_size b_t_r"></div>
-                        <div class="skin_green_border skin_shaddow skin_size b_b_r"></div>
-                    </div>
-                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('purple_black_skin.css','css')">
-                        <div class="skin_purple skin_size b_t_r"></div>
-                        <div class="skin_purple_border skin_shaddow skin_size b_b_r"></div>
-                    </div>
-                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('orange_black_skin.css','css')">
-                        <div class="skin_orange skin_size b_t_r"></div>
-                        <div class="skin_orange_border skin_shaddow skin_size b_b_r"></div>
-                    </div>
-                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('red_black_skin.css','css')">
-                        <div class="skin_red skin_size b_t_r"></div>
-                        <div class="skin_red_border skin_shaddow skin_size b_b_r"></div>
-                    </div>
-                    <div class="skinmulti_btn" onclick="javascript:loadjscssfile('mint_black_skin.css','css')">
-                        <div class="skin_mint skin_size b_t_r"></div>
-                        <div class="skin_mint_border skin_shaddow skin_size b_b_r"></div>
-                    </div>
-                    <!--</div>-->
-                    <div class="skin_btn skinsingle_btn skin_blue b_r height_40 skin_shaddow"
-                         onclick="javascript:loadjscssfile('blue_skin.css','css')"></div>
-                    <div class="skin_btn skinsingle_btn skin_green b_r height_40 skin_shaddow"
-                         onclick="javascript:loadjscssfile('green_skin.css','css')"></div>
-                    <div class="skin_btn skinsingle_btn skin_purple b_r height_40 skin_shaddow"
-                         onclick="javascript:loadjscssfile('purple_skin.css','css')"></div>
-                    <div class="skin_btn  skinsingle_btn skin_orange b_r height_40 skin_shaddow"
-                         onclick="javascript:loadjscssfile('orange_skin.css','css')"></div>
-                    <div class="skin_btn skinsingle_btn skin_red b_r height_40 skin_shaddow"
-                         onclick="javascript:loadjscssfile('red_skin.css','css')"></div>
-                    <div class="skin_btn skinsingle_btn skin_mint b_r height_40 skin_shaddow"
-                         onclick="javascript:loadjscssfile('mint_skin.css','css')"></div>
-                </div>
-                <div class="col-lg-12 text-center m-t-15">
-                    <button class="btn btn-dark button-rounded"
-                            onclick="javascript:loadjscssfile('black_skin.css','css')">Dark
-                    </button>
-                    <button class="btn btn-secondary button-rounded default_skin"
-                            onclick="javascript:loadjscssfile('default_skin.css','css')">Default
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- # right side -->
-</div>
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <!--end of global scripts-->
 
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    // vue
+    var problemResultApp = new Vue({
+        el: '#problemResultApp',
+        data: {
+            total: 0,
+            problemResultList: []
+        },
+        filters: {
+            formatDate: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                var month = padDate(value.getMonth() + 1);
+                var day = padDate(value.getDate());
+                var hour = padDate(value.getHours());
+                var minutes = padDate(value.getMinutes());
+                var seconds = padDate(value.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+            },
+            formatYear: function (val) {
+                var value = new Date(val);
+                return value.getFullYear();
+            },
+            formatNum: function (val) {
+                //四舍五入
+                var realVal = parseFloat(val).toFixed(2);
+                return parseFloat(realVal);
+            }
+        },
+        methods: {
+            listProblemResult: function (pageNum) {
+                var problemId = $("#problemId").val();
+                var name = $("#name").val();
+                var type = $('#type').val();
+                var status = $('#status').val();
+                var url = 'problemResult/listProblemResult2Page?pageNum=' + pageNum + '&problemId=' + problemId
+                    + "&name=" + name + "&type=" + type + "&status=" + status;
+
+                this.$http.get(url).then(function (res) {
+                    this.total = res.data.data.total;
+                    this.problemResultList = res.data.data.list;
+                    $("#page").initPage(this.total, pageNum, clickPage);
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
+            }
+        }
+    });
+    problemResultApp.listProblemResult(1);
+
+    //分页点击方法
+    function clickPage(pageNum) {
+        problemResultApp.listProblemResult(pageNum);
+    }
+
+    // end of vue
+
+
+    $('.select2').select2({
+        theme: 'bootstrap4'
+    });
+
+    /*]]>*/
+
 </script>
 
 </body>

@@ -1,9 +1,12 @@
 package com.oj.gkuoj.rest.portal;
 
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.exception.UserUnAuthorizedException;
 import com.oj.gkuoj.producer.JudgeProducer;
+import com.oj.gkuoj.response.ProblemResultSubmitVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.service.ProblemResultService;
@@ -37,31 +40,40 @@ public class ProblemResultController {
     private JudgeProducer producer;
 
     /**
-     * 测评记录列表页面
+     * 跳转到测评记录列表页面
      *
      * @param request
      * @return
      */
     @RequestMapping("/problemResultListPage")
-    public String problemResultListPage(HttpServletRequest request, @RequestParam(required = false) Integer problemId,
-                                        @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "30") Integer pageSize,
-                                        @RequestParam(defaultValue = "") String name, String type, @RequestParam(required = false) Integer status) {
-
-        RestResponseVO<PageInfo> responseVO = problemResultService.listProblemResult2Page(problemId, name, type, status, pageNum, pageSize);
-        PageInfo pageInfo = responseVO.getData();
-
-
+    public String problemResultListPage(HttpServletRequest request) {
         //set data
         request.setAttribute("active4", true);
-        request.setAttribute("problemId", problemId);
-        request.setAttribute("pageNum", pageNum);
-        request.setAttribute("name", name);
-        request.setAttribute("type", type);
-        request.setAttribute("status", status);
-        request.setAttribute("problemResultList", pageInfo.getList());
-
-
         return "portal/problemResult/problemResult-list";
+    }
+
+
+    /**
+     * 获取题目结果List
+     *
+     * @param problemId
+     * @param pageNum
+     * @param pageSize
+     * @param name
+     * @param type
+     * @param status
+     * @return
+     */
+    @RequestMapping("/listProblemResult2Page")
+    @ResponseBody
+    public RestResponseVO listProblemResult2Page(@RequestParam(required = false) Integer problemId,
+                                                 @RequestParam(defaultValue = "1") Integer pageNum,
+                                                 @RequestParam(defaultValue = "20") Integer pageSize,
+                                                 @RequestParam(defaultValue = "", required = false) String name,
+                                                 @RequestParam(defaultValue = "", required = false) String type,
+                                                 @RequestParam(defaultValue = "-1", required = false) Integer status) {
+
+        return problemResultService.listProblemResult2Page(problemId, name, type, status, pageNum, pageSize);
     }
 
 
@@ -88,14 +100,15 @@ public class ProblemResultController {
 
     /**
      * 提交题目代码
+     *
      * @param userDetails
      * @param problemResult
      * @param bindingResult
-     * @return
+     * @return problemResultId
      */
     @RequestMapping("/submit")
     @ResponseBody
-    public RestResponseVO submit(@AuthenticationPrincipal UserDetails userDetails, @Validated ProblemResult problemResult, BindingResult bindingResult) {
+    public RestResponseVO<Integer> submit(@AuthenticationPrincipal UserDetails userDetails, @Validated ProblemResult problemResult, BindingResult bindingResult) {
         if (userDetails == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
@@ -109,30 +122,44 @@ public class ProblemResultController {
 
 
     /**
+     * todo add 金币查看表？
      * 跳转到题目结果页面
+     *
      * @param request
      * @param problemResultId
      * @return
      */
     @RequestMapping("/problemResultPage")
-    public String problemResultPage(HttpServletRequest request,Integer problemResultId){
+    public String problemResultPage(HttpServletRequest request, Integer problemResultId,
+                                    @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            throw new UserUnAuthorizedException(ExceptionStatusConst.USER_UN_AUTHORIZE_EXP, "请先登录");
+        }
+        User user = (User) userDetails;
         RestResponseVO<ProblemResult> problemResultVO = problemResultService.getById(problemResultId);
         ProblemResult problemResult = problemResultVO.getData();
+        if (!problemResult.getUserId().equals(user.getId())) {
+            if (user.getGoldCount() > 0) {
 
-        return  "portal/problem/problem-result";
+            } else {
+
+            }
+        }
+
+        return "portal/problem/problem-result";
     }
 
 
     /**
      * 获取题目状态
+     *
      * @param problemResultId
      * @return
      */
     @RequestMapping("/problemResultNow")
     @ResponseBody
-    public RestResponseVO problemResultNow(Integer problemResultId){
-        RestResponseVO<ProblemResult> problemResultVO = problemResultService.getById(problemResultId);
-        return problemResultVO;
+    public RestResponseVO<ProblemResultSubmitVO> problemResultNow(Integer problemResultId) {
+        return problemResultService.getById2SubmitVO(problemResultId);
     }
 
 

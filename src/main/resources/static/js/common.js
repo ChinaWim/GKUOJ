@@ -16,3 +16,70 @@ function differDate2HourMinute(date1, date2) {
     }
     return result;
 }
+
+
+
+/**
+ *0 编译中　1 ac 2 ce 3 pe 4 re 5 tle 6 me 7 wa　8队列中 9判题中
+ * 根据判题status返回对应的颜色
+ * @param status
+ */
+function getColorByStatus(status){
+    if(status == 1){
+        return '#4BC0C0';
+    }
+    if(status == 2){
+        return '#FFCD56';
+    }
+    if(status == 3){
+        return  '#ed92ff';
+    }
+    if(status == 4){
+        return  '#FF9F40';
+    }
+
+    if(status == 5){
+        return  '#62b8ff';
+    }
+    if(status == 6){
+        return'#6574ff';
+    }
+    if(status == 7){
+        return  '#FF6384'
+    }
+    return '';
+}
+
+function getStrByStatus(status){
+    if(status == 0){
+        return '编译中';
+    }
+    if(status == 1){
+        return 'AC';
+    }
+    if(status == 2){
+        return 'CE';
+    }
+    if(status == 3){
+        return  'PE';
+    }
+    if(status == 4){
+        return  'RE';
+    }
+    if(status == 5){
+        return  'TLE';
+    }
+    if(status == 6){
+        return'ME';
+    }
+    if(status == 7){
+        return  'WA'
+    }
+    if(status == 8){
+        return  '队列中'
+    }
+    if(status == 9){
+        return  '判题中'
+    }
+    return '';
+}

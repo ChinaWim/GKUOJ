@@ -75,24 +75,26 @@ function setCodeType(type) {
 };
 
 
-
 /**
  * 提交代码
  */
-function submit() {
+
+var problemResultNowInterval;
+
+function submit(problemName) {
     var type = $("#type").val();
     var sourceCode = editor.getValue();
     if (!type || type == -1) {
         $.message({
-            message:"请选择编程语言",
-            type:'warning'
+            message: "请选择编程语言",
+            type: 'warning'
         });
         return;
     }
     if (!sourceCode) {
         $.message({
-            message:"请编写代码",
-            type:'warning'
+            message: "请编写代码",
+            type: 'warning'
         });
         return;
     }
@@ -103,22 +105,60 @@ function submit() {
         "sourceCode": sourceCode
     }, function (resp) {
         if (resp.status == 200) {
-            $.message({
-                message:resp.msg,
-                type:'success'
+            var html = "<div class='text-center problemResultAlert'>" +
+                "<i class='fa fa-circle-o-notch fa-lg fa-spin text-primary'></i>" +
+                "<span class='ml-3'>队列中</span></div>";
+
+            naranja()["log"]({
+                icon: false,
+                title: problemName,
+                text: html,
+                timeout: 'keep'
             });
+
+            var problemResultId = resp.data;
+            problemResultNowInterval = window.setInterval('problemResultNow(' + problemResultId + ')', 1000);
         } else {
             $.message({
-                message:resp.msg,
-                type:'error'
+                message: resp.msg,
+                type: 'error'
             });
         }
     });
 }
 
-/**
- * 消息框
- */
+
+function problemResultNow(problemResultId) {
+    $.post("problemResult/problemResultNow", {"problemResultId": problemResultId}, function (resp) {
+        if (resp.status == 200) {
+            if (resp.data.status != 0 && resp.data.status != 8 && resp.data.status != 9) {
+                window.clearInterval(problemResultNowInterval);
+                var color = getColorByStatus(resp.data.status);
+                var str = getStrByStatus(resp.data.status);
+                var html = "<a class='mr-3 btn-sm text-white' style='background-color: " + color + "'>" + str + "</a>" +
+                    "<a class='btn-success mr-3 btn-sm text-white'>" + resp.data.time + "ms</a>" +
+                    "<a class='btn-success mr-3 btn-sm text-white'>" + resp.data.memory + "KB</a>" +
+                    "<a href='#' class='btn btn-info btn-sm text-white'>查看详情</a>";
+
+                $(".problemResultAlert").html(html);
+            } else {
+                var str = getStrByStatus(resp.data.status);
+                var html = "<div class='text-center problemResultAlert'>" +
+                    "<i class='fa fa-circle-o-notch fa-lg fa-spin text-primary'></i>" +
+                    "<span class='ml-3'>" + str + "</span></div>";
+
+                $(".problemResultAlert").html(html);
+            }
+        } else {
+            $.message({
+                message: resp.msg,
+                type: 'error'
+            });
+        }
+
+    });
+}
+
 
 /**
  * 测试样例运行
@@ -129,8 +169,8 @@ function testRun() {
     var eOutputHtml = $("#eOutput").val();
     if (!inputHtml || !eOutputHtml) {
         $.message({
-            message:'输入不能为空',
-            type:'warning'
+            message: '输入不能为空',
+            type: 'warning'
         });
     }
 }

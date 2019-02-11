@@ -38,7 +38,7 @@ public class JudgeProducer {
 
     private Logger logger = LoggerFactory.getLogger(JudgeProducer.class);
 
-//    @PostConstruct
+    @PostConstruct
     private void initMQProducer() {
         producer = new DefaultMQProducer(environment.getProperty("rocketmq.producer.group"));
         producer.setNamesrvAddr(environment.getProperty("rocketmq.nameserver"));
@@ -58,9 +58,10 @@ public class JudgeProducer {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public RestResponseVO send(ProblemResult problemResult) {
-        //add queueing
+    public RestResponseVO<Integer> send(ProblemResult problemResult) {
+
         try {
+            //add queueing
             problemResult.setStatus(JudgeStatusEnum.QUEUING.getStatus());
             problemResultService.insert(problemResult);
 
@@ -71,7 +72,7 @@ public class JudgeProducer {
             return RestResponseVO.createBySuccess(problemResult.getId());
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            logger.error("发送异常,{}", e.getMessage());
+            logger.error("发送异常,{}", e);
             return RestResponseVO.createByErrorMessage("发送异常,请稍后再试," + e.getMessage());
         }
     }
