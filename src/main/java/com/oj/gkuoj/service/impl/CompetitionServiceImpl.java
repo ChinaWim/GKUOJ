@@ -53,11 +53,11 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public RestResponseVO delById(Integer id) {
-        if (id == null) {
+    public RestResponseVO delById(Integer competitionId) {
+        if (competitionId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        int effect = competitionMapper.deleteByPrimaryKey(id);
+        int effect = competitionMapper.deleteByPrimaryKey(competitionId);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
@@ -73,14 +73,14 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId, Integer competitionId) {
-        if (competitionId == null) {
+    public RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId, Integer compId) {
+        if (compId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        CompetitionDetailVO detailVO = competitionMapper.getCompetitionDetailVOById(competitionId);
+        CompetitionDetailVO detailVO = competitionMapper.getCompetitionDetailVOById(compId);
         int rows = 0;
         if (userId != null) {
-            rows = registerMapper.countByUserIdAndCompId(userId, competitionId);
+            rows = registerMapper.countByUserIdAndCompId(userId, compId);
         }
 
         //set status

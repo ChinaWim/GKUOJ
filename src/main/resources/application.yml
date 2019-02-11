@@ -30,7 +30,9 @@ spring:
       charset: UTF-8
 #==================== spring session Setting =====================#
   session:
-    store-type: none
+    store-type: redis
+#    redis:
+#      namespace:
 #==================== thymeleaf Setting =====================#
   thymeleaf:
     servlet:
@@ -46,14 +48,17 @@ spring:
     username: 969130721@qq.com
     password: bdywgxmohaxcbbbi
 #==================== redis Setting =====================#
-#  redis:
-#    host: 127.0.0.1
-#    port: 5555
-#    jedis:
-#      pool:
-#        max-active: 16
-#        max-idle: 8
-#        min-idle: 0
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        #最大连接数
+        max-active: 16
+        #最大空闲连接数
+        max-idle: 8
+        min-idle: 0
+        max-wait:
 #==================== spring mvc Setting =====================#
 #  cache:
 #    type: redis

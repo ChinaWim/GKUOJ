@@ -66,16 +66,16 @@ public class CompetitionController {
      * 跳转到比赛报名详情页面
      *
      * @param request
-     * @param competitionId
+     * @param compId
      * @return
      */
     @RequestMapping("/competitionDetailPage")
-    public String competitionDetailPage(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails, Integer competitionId) {
+    public String competitionDetailPage(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails, Integer compId) {
         Integer userId = null;
         if (userDetails != null) {
             userId = ((User) userDetails).getId();
         }
-        RestResponseVO<CompetitionDetailVO> restResponseVO = competitionService.getCompetitionDetailVOById(userId, competitionId);
+        RestResponseVO<CompetitionDetailVO> restResponseVO = competitionService.getCompetitionDetailVOById(userId, compId);
         CompetitionDetailVO competitionDetailVO = restResponseVO.getData();
         //set data
         request.setAttribute("active3", true);
@@ -92,12 +92,13 @@ public class CompetitionController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public RestResponseVO register(@AuthenticationPrincipal UserDetails userDetails, Integer compId) {
+    public RestResponseVO register(@AuthenticationPrincipal UserDetails userDetails, Integer compId,String password) {
         if (userDetails == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
         Integer userId = ((User) userDetails).getId();
-        return registerService.registerCompetition(userId, compId);
+
+        return registerService.registerCompetition(userId, compId,password);
     }
 
 
@@ -124,7 +125,7 @@ public class CompetitionController {
      * @return
      */
     @RequestMapping("/competitionProblemListPage")
-    public String competitionProblemPage(@AuthenticationPrincipal UserDetails userDetails, Integer compId) {
+    public String competitionProblemPage(HttpServletRequest request,@AuthenticationPrincipal UserDetails userDetails, Integer compId) {
         if (userDetails == null) {
             return "portal/login";
         }
@@ -134,6 +135,12 @@ public class CompetitionController {
             throw new CompetitionNotRegisterException(ExceptionStatusConst.COMPETITION_NOT_REGISTER_EXP,
                     "你未报名该比赛");
         }
+
+
+        //set data
+        request.setAttribute("active3",true);
+
+
         return "portal/competition/competition-problemList";
     }
 

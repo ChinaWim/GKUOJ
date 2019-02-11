@@ -45,7 +45,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-trophy"></i>&nbsp; 比赛
+                                <i class="fa fa-trophy"></i>&nbsp; 比赛列表
                             </h4>
                         </div>
                     </div>
@@ -93,7 +93,7 @@ z-index: 999999">
                                                     competitionStatus(competition.endTime) =='已结束' ? 'gray-font':'tr-active'">
                                                 <td class="text-center">OI</td>
                                                 <td class="">
-                                                    <a :href="'/competition/competitionDetailPage/?competitionId='+competition.id"
+                                                    <a :href="'/competition/competitionDetailPage/?compId='+competition.id"
                                                        class="text-primary">{{competition.name}}
                                                     </a>
                                                 </td>

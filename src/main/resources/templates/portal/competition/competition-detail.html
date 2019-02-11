@@ -3,10 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>比赛详情</title>
+    <title>比赛详情-[[${competitionDetail.competitionName}]]</title>
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/blog_detail.css}"/>
     <!--heard script-->
 </head>
 
@@ -57,7 +56,7 @@ z-index: 999999">
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a th:href="@{/competition/competitionListPage}">
-                                        比赛
+                                        比赛列表
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active">[[${competitionDetail.competitionName}]]</li>
@@ -97,10 +96,19 @@ z-index: 999999">
                                     </div>
                                     <div class="mt-3">
                                         <div class="col-12">
-                                            <button onclick="registerCompetition()"
-                                                    th:if="${competitionDetail.competitionStatus == 1}"
+                                            <button th:if="${competitionDetail.competitionStatus == 1 && competitionDetail.password != null }"
+                                                    onclick="clearPasswordModal()"
+                                                    data-toggle="modal" data-target="#password-modal"
                                                     class="registerBtn btn w-100 btn-primary button-rounded">比赛报名
                                             </button>
+
+                                            <button th:if="${competitionDetail.competitionStatus == 1 && competitionDetail.password == null }"
+                                                    onclick="registerCompetition()"
+                                                    class="registerBtn btn w-100 btn-primary button-rounded">比赛报名
+                                            </button>
+
+
+
                                             <button onclick="gotoCompetitionProblemList()"
                                                     th:if="${competitionDetail.competitionStatus == 2}"
                                                     class="processingBtn btn w-100 btn-primary button-rounded">比赛已开始，进入比赛
@@ -110,7 +118,7 @@ z-index: 999999">
                                                     class="btn w-100 btn-primary button-rounded">比赛已结束，回顾比赛
                                             </button>
                                             <button disabled th:if="${competitionDetail.competitionStatus == 4}"
-                                                    class="registerBtn btn disabled w-100 btn-primary button-rounded">
+                                                    class="registerBtn btn  w-100 btn-primary button-rounded">
                                                 你已成功报名
                                             </button>
                                         </div>
@@ -121,7 +129,7 @@ z-index: 999999">
                         </div>
 
                         <!--right-->
-                        <div class="col-8 blog-right">
+                        <div class="col-8 ">
                             <div class="card ">
                                 <div class="card-block">
                                     <div class="row">
@@ -147,6 +155,30 @@ z-index: 999999">
         <!-- /#content -->
         <!-- Modal -->
         <div th:replace="~{fragments/modal}"></div>
+
+
+        <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall"
+             aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalLabelSmall">输入报名密钥</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input class="w-100" maxlength="15" id = "competitionPassword" name = "competitionPassword" type="password" />
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn  btn-secondary" data-dismiss="modal">取消</button>
+                        <button class="btn  btn-primary" data-dismiss="modal" onclick="registerCompetitionByPassword()" >确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!--#Modal-->
 
         <!--wrapper-->
@@ -250,7 +282,6 @@ z-index: 999999">
                 });
                 var $register = $(".registerBtn");
                 $register.attr("disabled", "");
-                $register.addClass("disabled");
                 $register.html("你已成功报名");
                 var $registerCount = $("#registerCount");
                 var presentCount = parseInt($registerCount.html()) + 1;
@@ -263,11 +294,38 @@ z-index: 999999">
             }
         });
     }
+    
+    function clearPasswordModal() {
+        $("#competitionPassword").val("");
+    }
+    
+    function registerCompetitionByPassword(){
+        var password = $("#competitionPassword").val();
+        $.post("competition/register", {"compId": compId,"password":password}, function (resp) {
+            if (resp.status == 200) {
+                $.message({
+                    message: "报名成功",
+                    type: "success"
+                });
+                var $register = $(".registerBtn");
+                $register.attr("disabled", "");
+                $register.html("你已成功报名");
+                var $registerCount = $("#registerCount");
+                var presentCount = parseInt($registerCount.html()) + 1;
+                $registerCount.html(presentCount);
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: "error"
+                });
+            }
+        });
+
+    }
 
 
     function competitionStart() {
         var $register = $(".registerBtn");
-        $register.removeClass("disabled");
         $register.removeAttr("disabled");
         $register.html("比赛已开始，进入比赛");
         $register.attr("onclick", "gotoCompetitionProblemList()");

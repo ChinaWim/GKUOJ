@@ -390,7 +390,7 @@
     where username = #{username} or email = #{username}
 
   </select>
-    <select id="countByEmail" resultType="java.lang.Integer">
+    <select id="countByEmail" resultType="java.lang.Integer" parameterType="string">
     select count(email) from user
     where email = #{email}
   </select>
@@ -407,6 +407,11 @@
             and flag = 0
         </if>
         order by rank
+    </select>
+
+    <select id="countByUsername" resultType="java.lang.Integer" parameterType="string">
+        select count(id) from user
+        where username = #{username}
     </select>
 
 

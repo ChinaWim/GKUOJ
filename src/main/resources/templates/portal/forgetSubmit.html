@@ -41,7 +41,7 @@ z-index: 999999">
                                 <!-- <div class="card-header bg-white">
                                      登录
                                  </div>-->
-                                <div >
+                                <div>
                                     <!-- logo -->
                                     <div class="m-t-30 text-center">
                                         <img src="img/loginLogo.png" style="width: 300px"/>
@@ -55,7 +55,8 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                                <i class="fa fa-lock"></i>
                                                             </span>
-                                                        <input type="password" maxlength="30" minlength="6" class="form-control "
+                                                        <input type="password" maxlength="30" minlength="6"
+                                                               class="form-control "
                                                                id="password" name="password" placeholder="密码，6-30位">
                                                     </div>
                                                 </div>
@@ -66,14 +67,16 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                                <i class="fa fa-lock"></i>
                                                             </span>
-                                                        <input type="password" maxlength="30" minlength="6" class="form-control "
+                                                        <input type="password" maxlength="30" minlength="6"
+                                                               class="form-control "
                                                                id="rePassword" name="rePassword" placeholder="请再输入一遍">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row ">
                                                 <div class="col-lg-8" style="margin: 0 auto">
-                                                    <a href="javascript:void(0)" onclick="forgetSubmit()" class="btn btn-danger text-white btn-lg glow_button w-100">重置密码</a>
+                                                    <a href="javascript:void(0)" onclick="forgetSubmitProcess()"
+                                                       class="btn btn-danger text-white btn-lg glow_button w-100">重置密码</a>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -172,6 +175,54 @@ z-index: 999999">
 <!--  plugin scripts -->
 <script th:src="@{/js/pages/forgetSubmit.js}"></script>
 <!--end of plugin scripts-->
+
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    var token = [[${token}]];
+    var email = [[${email}]];
+
+    function forgetSubmitProcess() {
+        var password = $("#password").val();
+        var rePassword = $("#rePassword").val();
+        if (!password || !rePassword) {
+            $.message({
+                message: '输入不能为空',
+                type: 'warning'
+            });
+            return;
+        }
+        if (rePassword != password) {
+            $.message({
+                message: '两次密码不相等',
+                type: 'warning'
+            });
+            return;
+        }
+        if (password.length < 6) {
+            $.message({
+                message: '密码不能少于６个字符',
+                type: 'warning'
+            });
+            return;
+        }
+        $.post("user/forgetSubmitProcess", {"password": password, "token": token, "email": email}, function (resp) {
+            if (resp.status == 200) {
+                $.message({
+                    message: '重置成功',
+                    type: 'success'
+                });
+                // location.href = "/user/loginPage";
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: 'error'
+                });
+            }
+        });
+    }
+
+    /*]]>*/
+</script>
 </body>
 
 </html>

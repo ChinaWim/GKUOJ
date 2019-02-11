@@ -29,4 +29,6 @@ public interface UserMapper {
 
     List<RankVO> listRankUser(@Param("keyword") String keyword);
 
+    int countByUsername(String username);
+
 }

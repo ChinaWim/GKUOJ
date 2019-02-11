@@ -1,6 +1,6 @@
 package com.oj.gkuoj.rest.common;
 
-import com.oj.gkuoj.common.SessionKeyConst;
+import com.oj.gkuoj.common.TokenConst;
 import com.oj.gkuoj.dto.ImageCode;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -26,15 +26,20 @@ public class ValidateController {
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
+
+
     @RequestMapping("/code")
     public void validateCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = createImageCode(request);
-        ImageCode sessionImageCode = new ImageCode(imageCode.getCode(),imageCode.getExpireTime());
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SessionKeyConst.IMAGE_CODE, sessionImageCode);
+        ImageCode imageCode = createImageCode();
+        ImageCode sessionImageCode = new ImageCode(imageCode.getCode(), imageCode.getExpireTime());
+        sessionStrategy.setAttribute(new ServletWebRequest(request), TokenConst.SessionKey.IMAGE_CODE, sessionImageCode);
         ImageIO.write(imageCode.getBufferedImage(), "JPEG", response.getOutputStream());
     }
 
-    private ImageCode createImageCode(HttpServletRequest request) {
+
+
+    private ImageCode createImageCode() {
+        int imageCodeExpireTime = 60;
         int width = 60;
         int height = 25;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -64,7 +69,7 @@ public class ValidateController {
             g.drawString(rand, 13 * i + 6, 20);
         }
         g.dispose();
-        return new ImageCode(image, sRand, 60);
+        return new ImageCode(image, sRand, imageCodeExpireTime);
     }
 
 

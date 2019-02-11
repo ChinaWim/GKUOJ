@@ -22,7 +22,7 @@ public final class StringConst {
 
         return "<div style=\"POSITION: relative; MARGIN: 0px auto; WIDTH: 600px; OVERFLOW: hidden\">" +
                 "    <div><img src=\"https://www.luogu.org/images/logo_blue_3.png\" width=\"150\">" +
-                "        <div style=\"DISPLAY: inline-block; FLOAT: right\">计算机程序在线性能测评系统-最有亲和力的信息学在线学习社区 <br><a href=\"https://www.luogu.org/\" rel=\"noopener\" target=\"_blank\">https://www.luogu.org </a>" +
+                "        <div style=\"DISPLAY: inline-block; FLOAT: right\">计算机程序在线性能测评系统-最有亲和力的信息学在线学习社区 <br><a href=\"https://www.luogu.org/\" rel=\"noopener\" target=\"_blank\">http://www.gkuoj.com </a>" +
                 "        </div>" +
                 "    </div>" +
                 "    <hr>" +
@@ -53,7 +53,7 @@ public final class StringConst {
 
         return "<div style=\"POSITION: relative; MARGIN: 0px auto; WIDTH: 600px; OVERFLOW: hidden\">" +
                 "    <div><img src=\"https://www.luogu.org/images/logo_blue_3.png\" width=\"150\">" +
-                "        <div style=\"DISPLAY: inline-block; FLOAT: right\">计算机程序在线性能测评系统-最有亲和力的信息学在线学习社区 <br><a href=\"https://www.luogu.org/\" rel=\"noopener\" target=\"_blank\">https://www.luogu.org </a>" +
+                "        <div style=\"DISPLAY: inline-block; FLOAT: right\">计算机程序在线性能测评系统-最有亲和力的信息学在线学习社区 <br><a href=\"https://www.luogu.org/\" rel=\"noopener\" target=\"_blank\">http://www.gkuoj.com </a>" +
                 "        </div>" +
                 "    </div>" +
                 "    <hr>" +

@@ -48,6 +48,8 @@ z-index: 999999">
                                         <h2 class="mt-4">欢迎加入洛谷 - 最后一步！</h2>
                                     </div>
                                     <form class=" mt-3" id="loginForm">
+                                        <input type="hidden" name="token" th:value="${token}" />
+                                        <input type="hidden" name="email" th:value="${email}" />
                                         <fieldset>
                                             <!-- Name input-->
                                             <div class="form-group row">
@@ -81,7 +83,7 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                             <i class="fa fa-lock"></i>
                                                         </span>
-                                                        <input id="rePassword" name="password" maxlength="30"
+                                                        <input id="rePassword" maxlength="30"
                                                                minlength="6" type="password" class="form-control"
                                                                placeholder="请再输入一遍">
                                                     </div>
@@ -93,8 +95,8 @@ z-index: 999999">
                                                             <span class="input-group-addon">
                                                             <i class="fa fa-envelope"></i>
                                                         </span>
-                                                        <input id="email" name="email" type="text"
-                                                               class="form-control disabled">
+                                                        <input  id="email" disabled name="email" th:value="${email}" type="text"
+                                                               class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,19 +120,23 @@ z-index: 999999">
                                                 </div>
                                             </div>
                                             <div>
-                                                <label class="custom-control custom-checkbox mr-0" >
-                                                    <input type="checkbox" class="custom-control-input" checked="checked" id = "agree" name="agree">
+                                                <label class="custom-control custom-checkbox mr-0">
+                                                    <input onclick="disableButton()" type="checkbox"
+                                                           class="custom-control-input"
+                                                           checked="checked" id="agree" name="agree">
                                                     <span class="custom-control-indicator "></span>
-                                                    <span >*我同意</span>
-
+                                                    <span>*我同意</span>
                                                 </label>
                                                 <a th:href="@{/}" target="_blank" class="text-primary">《用户协议》</a>
                                             </div>
 
                                             <div class="form-group row ">
                                                 <div class="col-lg-8" style="margin: 0 auto">
-                                                    <a href="javascript:void(0)" onclick="registerSubmitProcess()"
-                                                       class="btn text-white btn-danger w-100 btn-lg glow_button">加入洛谷</a>
+                                                    <button id="registerSubmitBtn" type="button"
+                                                            onclick="registerSubmitProcess()"
+                                                            class="btn text-white btn-danger  w-100 btn-lg glow_button">
+                                                        加入洛谷
+                                                    </button>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -229,6 +235,60 @@ z-index: 999999">
 <!--  plugin scripts -->
 <script th:src="@{/js/pages/registerSubmit.js}"></script>
 <!--end of plugin scripts-->
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    function registerSubmitProcess() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var rePassword = $("#rePassword").val();
+        if (!username || !password || !rePassword) {
+            $.message({
+                message: '输入不能为空',
+                type: 'warning'
+            });
+            return;
+        }
+        if (rePassword != password) {
+            $.message({
+                message: '两次密码不相等',
+                type: 'warning'
+            });
+            return;
+        }
+        if (password.length < 6) {
+            $.message({
+                message: '密码不能少于６个字符',
+                type: 'warning'
+            });
+            return;
+        }
+        var data = $("#loginForm").serialize();
+
+        $.post("user/registerSubmitProcess", data, function (resp) {
+            if (resp.status == 200) {
+                $.message({
+                    message: '注册成功',
+                    type: 'success'
+                });
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: 'error'
+                });
+            }
+        });
+    }
+    function disableButton() {
+        if($("#agree").prop("checked")){
+            $("#registerSubmitBtn").removeAttr("disabled");
+        }else {
+            $("#registerSubmitBtn").attr("disabled", "disabled");
+        }
+    }
+
+    /*]]>*/
+</script>
+
 </body>
 
 </html>

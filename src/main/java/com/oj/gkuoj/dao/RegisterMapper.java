@@ -16,8 +16,8 @@ public interface RegisterMapper {
 
     int updateByPrimaryKey(Register record);
 
-    Register getByUserIdAndCompId(@Param("userId") Integer userId,@Param("competitionId") Integer competitionId);
+    Register getByUserIdAndCompId(@Param("userId") Integer userId,@Param("compId") Integer compId);
 
-    int countByUserIdAndCompId(@Param("userId") Integer userId,@Param("competitionId") Integer competitionId);
+    int countByUserIdAndCompId(@Param("userId") Integer userId,@Param("compId") Integer compId);
 
 }

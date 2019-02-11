@@ -2,7 +2,7 @@ package com.oj.gkuoj.config.filter;
 
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.common.URIConst;
-import com.oj.gkuoj.common.SessionKeyConst;
+import com.oj.gkuoj.common.TokenConst;
 import com.oj.gkuoj.dto.ImageCode;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.utils.JsonUtil;
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -58,7 +57,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     private void validate(ServletWebRequest request) {
         String imageCodeParam = request.getParameter("imageCode");
-        ImageCode imageCode = (ImageCode) sessionStrategy.getAttribute(request, SessionKeyConst.IMAGE_CODE);
+        ImageCode imageCode = (ImageCode) sessionStrategy.getAttribute(request, TokenConst.SessionKey.IMAGE_CODE);
         if (imageCode == null) {
             throw new RuntimeException("验证码不存在");
         }

@@ -19,7 +19,7 @@ public interface CompetitionMapper {
 
     int updateByPrimaryKey(Competition record);
 
-    CompetitionDetailVO getCompetitionDetailVOById(Integer competitionId);
+    CompetitionDetailVO getCompetitionDetailVOById(Integer compId);
 
     List<CompetitionVO> listCompetitionVO();
 }

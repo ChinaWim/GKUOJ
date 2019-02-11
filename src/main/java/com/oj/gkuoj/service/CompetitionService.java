@@ -15,11 +15,11 @@ public interface CompetitionService {
 
     RestResponseVO insert(Competition competition);
 
-    RestResponseVO delById(Integer id);
+    RestResponseVO delById(Integer competitionId);
 
     RestResponseVO update(Competition competition);
 
-    RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId,Integer competitionId);
+    RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId,Integer compId);
 
     RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize,Integer pageNum);
 

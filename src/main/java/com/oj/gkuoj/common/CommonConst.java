@@ -7,8 +7,6 @@ package com.oj.gkuoj.common;
 public class CommonConst {
 
     public interface CompetitionStatus {
-
-
         /**
          * 未开始
          */

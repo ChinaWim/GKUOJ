@@ -28,7 +28,7 @@ public interface UserService {
 
     RestResponseVO sendForgetEmail(String email);
 
-    RestResponseVO forgetRestPassword(String token,String password);
+    RestResponseVO forgetRestPassword(String token,String email,String password);
 
     RestResponseVO register(String token, User user);
 

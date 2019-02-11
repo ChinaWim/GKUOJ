@@ -25,7 +25,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * 设置由 web容器处理静态资源 ，相当于 xml中的<mvc:default-servlet-handler/>
      * 先找静态资源，后找Servlet
-     *
      * @param configurer
      */
     @Override

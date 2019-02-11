@@ -151,7 +151,7 @@
    from competition comp
    join user u on comp.user_id = u.id
    left join register r on r.comp_id = comp.id
-   where comp.id = #{competitionId}
+   where comp.id = #{compId}
    group by comp.id
 
   </select>

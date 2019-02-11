@@ -1,11 +1,14 @@
 package com.oj.gkuoj.service.impl;
 
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.dao.CompetitionMapper;
+import com.oj.gkuoj.entity.Competition;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.RegisterMapper;
 import com.oj.gkuoj.entity.Register;
 import com.oj.gkuoj.service.RegisterService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ import org.springframework.stereotype.Service;
 public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private RegisterMapper registerMapper;
+
+    @Autowired
+    private CompetitionMapper competitionMapper;
 
     @Override
     public RestResponseVO insert(Register register) {
@@ -49,7 +55,7 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public RestResponseVO registerCompetition(Integer userId, Integer compId) {
+    public RestResponseVO registerCompetition(Integer userId, Integer compId, String password) {
         if (userId == null || compId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
@@ -57,6 +63,14 @@ public class RegisterServiceImpl implements RegisterService {
         if (rows > 0) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_REPEATED_REGISTER_ERROR);
         }
+        Competition competition = competitionMapper.selectByPrimaryKey(compId);
+        if (competition == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        if (!StringUtils.equals(competition.getPassword(), password)) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_PASSWORD_ERROR);
+        }
+
         Register register = new Register();
         register.setCompId(compId);
         register.setUserId(userId);

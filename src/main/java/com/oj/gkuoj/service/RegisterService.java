@@ -15,7 +15,7 @@ public interface RegisterService {
 
     RestResponseVO update(Register register);
 
-    RestResponseVO registerCompetition(Integer userId,Integer compId);
+    RestResponseVO registerCompetition(Integer userId,Integer compId,String password);
 
     RestResponseVO isRegisterCompetition(Integer userId, Integer compId);
 }

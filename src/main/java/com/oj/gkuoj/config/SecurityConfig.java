@@ -53,15 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     /**
-     * 用自己的userDetailService 和　密码认证
-     *
      * @param auth
      * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncode());
-    }*/
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -79,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(3600 * 24)
                 .userDetailsService(userDetailsService)
                 .and()
-              .sessionManagement()
+                .sessionManagement()
                 //记录session失效的一些行为
 //                .invalidSessionUrl()
                 //一个用户只有一个Session

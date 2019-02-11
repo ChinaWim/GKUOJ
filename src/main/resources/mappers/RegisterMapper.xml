@@ -124,13 +124,13 @@
      select <include refid="Base_Column_List"/>
     from register
     where user_id = #{userId}
-          and comp_id = #{competitionId}
+          and comp_id = #{compId}
 
     </select>
     <select id="countByUserIdAndCompId" resultType="java.lang.Integer" parameterType="map">
         select count(id)
         from register
         where user_id = #{userId}
-        and comp_id = #{competitionId}
+        and comp_id = #{compId}
     </select>
 </mapper>

@@ -1392,7 +1392,8 @@ body.error .logo h1 {
 
 .view_user_nav_padding > li > .active {
     padding-bottom: 10px;
-    border-bottom: 4px solid #f3565d;
+    border-bottom: 4px solid #EF6F6C;
+    /*color:#EF6F6C;*/
     position: relative;
 }
 
@@ -1402,7 +1403,7 @@ body.error .logo h1 {
 
 .card_nav_hover > a:hover {
     padding-bottom: 10px;
-    border-bottom: 4px solid red;
+    border-bottom: 4px solid #EF6F6C;
 }
 
 .card_nav_body_padding {
