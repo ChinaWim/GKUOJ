@@ -23,11 +23,10 @@ public interface ProblemResultMapper {
     List<ProblemResultVO> listProblemResult(@Param("problemId") Integer problemId, @Param("name")String name,
                                             @Param("type") String type, @Param("status") Integer status);
 
-
     int countUserIdProblemIdByStatus(@Param("userId")Integer userId,@Param("problemId")Integer problemId,@Param("status")Integer status);
 
     int countUserIdProblemId(@Param("userId")Integer userId,@Param("problemId")Integer problemId);
 
-    ProblemResultSubmitVO getById2SubmitVO(Integer problemResultId);
+    ProblemResultSubmitVO getByRunNum2SubmitVO(String runNum);
 
 }

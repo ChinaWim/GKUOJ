@@ -14,6 +14,8 @@ public class ProblemResultSubmitVO {
 
     private Integer id;
 
+    private String runNum;
+
     private Integer problemId;
 
     private Integer compId;
@@ -78,10 +80,20 @@ public class ProblemResultSubmitVO {
         return serialVersionUID;
     }
 
+
+    public String getRunNum() {
+        return runNum;
+    }
+
+    public void setRunNum(String runNum) {
+        this.runNum = runNum;
+    }
+
     @Override
     public String toString() {
         return "ProblemResultSubmitVO{" +
                 "id=" + id +
+                ", runNum='" + runNum + '\'' +
                 ", problemId=" + problemId +
                 ", compId=" + compId +
                 ", status=" + status +

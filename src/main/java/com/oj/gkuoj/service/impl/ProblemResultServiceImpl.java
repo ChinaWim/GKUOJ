@@ -10,6 +10,7 @@ import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.service.ProblemResultService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,11 +64,11 @@ public class ProblemResultServiceImpl implements ProblemResultService {
     }
 
     @Override
-    public RestResponseVO<ProblemResultSubmitVO> getById2SubmitVO(Integer problemResultId) {
-        if (problemResultId == null) {
+    public RestResponseVO<ProblemResultSubmitVO> getByRunNum2SubmitVO(String runNum) {
+        if (StringUtils.isBlank(runNum)) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        ProblemResultSubmitVO resultSubmitVO = problemResultMapper.getById2SubmitVO(problemResultId);
+        ProblemResultSubmitVO resultSubmitVO = problemResultMapper.getByRunNum2SubmitVO(runNum);
         return RestResponseVO.createBySuccess(resultSubmitVO);
     }
 }

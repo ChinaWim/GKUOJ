@@ -1,188 +1,173 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.oj.gkuoj.dao.ProblemResultMapper">
-    <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.ProblemResult">
-        <constructor>
-            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="problem_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="comp_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="time" jdbcType="BIGINT" javaType="java.lang.Long"/>
-            <arg column="memory" jdbcType="BIGINT" javaType="java.lang.Long"/>
-            <arg column="error_msg" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="source_code" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-        </constructor>
-    </resultMap>
-    <sql id="Base_Column_List">
-    id, user_id, problem_id, comp_id, status, type, time, memory, error_msg, source_code, 
-    create_time, update_time
+<mapper namespace="com.oj.gkuoj.dao.ProblemResultMapper" >
+  <resultMap id="BaseResultMap" type="com.oj.gkuoj.entity.ProblemResult" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="problem_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="comp_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="run_num" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="memory" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="error_msg" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="source_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, problem_id, comp_id, run_num, status, type, time, memory, error_msg,
+    source_code, create_time, update_time
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from problem_result
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-
-    <select id="listProblemResult" parameterType="map" resultType="com.oj.gkuoj.response.ProblemResultVO">
-        select
-        p.id, user_id, u.name, problem_id, comp_id, status, type, time, memory,
-        p.create_time
-        from problem_result p
-        join user u on u.id = p.user_id
-        <where>
-            <if test="problemId != null and problemId != -1">
-                problem_id = #{problemId}
-            </if>
-            <if test="name != null and name !=''">
-                and u.name like concat('%',#{name},'%')
-            </if>
-            <if test="type != null and type !=''">
-                and type = #{type}
-            </if>
-            <if test="status != null and status != -1">
-                and status = #{status}
-            </if>
-        </where>
-        order by p.create_time desc
-    </select>
-
-
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from problem_result
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from problem_result
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemResult">
-    insert into problem_result (id, user_id, problem_id, 
-      comp_id, status, type, 
-      time, memory, error_msg, 
-      source_code, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{problemId,jdbcType=INTEGER}, 
-      #{compId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
-      #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, #{errorMsg,jdbcType=VARCHAR}, 
-      #{sourceCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+  <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemResult" >
+    insert into problem_result (id, user_id, problem_id,
+      comp_id, run_num, status,
+      type, time, memory, error_msg,
+      source_code, create_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{problemId,jdbcType=INTEGER},
+      #{compId,jdbcType=INTEGER}, #{runNum,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{type,jdbcType=VARCHAR}, #{time,jdbcType=BIGINT}, #{memory,jdbcType=BIGINT}, #{errorMsg,jdbcType=VARCHAR},
+      #{sourceCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}}
       )
   </insert>
-    <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemResult">
-        insert into problem_result
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="userId != null">
-                user_id,
-            </if>
-            <if test="problemId != null">
-                problem_id,
-            </if>
-            <if test="compId != null">
-                comp_id,
-            </if>
-            <if test="status != null">
-                status,
-            </if>
-            <if test="type != null">
-                type,
-            </if>
-            <if test="time != null">
-                time,
-            </if>
-            <if test="memory != null">
-                memory,
-            </if>
-            <if test="errorMsg != null">
-                error_msg,
-            </if>
-            <if test="sourceCode != null">
-                source_code,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
-            </if>
-            <if test="problemId != null">
-                #{problemId,jdbcType=INTEGER},
-            </if>
-            <if test="compId != null">
-                #{compId,jdbcType=INTEGER},
-            </if>
-            <if test="status != null">
-                #{status,jdbcType=INTEGER},
-            </if>
-            <if test="type != null">
-                #{type,jdbcType=VARCHAR},
-            </if>
-            <if test="time != null">
-                #{time,jdbcType=BIGINT},
-            </if>
-            <if test="memory != null">
-                #{memory,jdbcType=BIGINT},
-            </if>
-            <if test="errorMsg != null">
-                #{errorMsg,jdbcType=VARCHAR},
-            </if>
-            <if test="sourceCode != null">
-                #{sourceCode,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.ProblemResult">
-        update problem_result
-        <set>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
-            </if>
-            <if test="problemId != null">
-                problem_id = #{problemId,jdbcType=INTEGER},
-            </if>
-            <if test="compId != null">
-                comp_id = #{compId,jdbcType=INTEGER},
-            </if>
-            <if test="status != null">
-                status = #{status,jdbcType=INTEGER},
-            </if>
-            <if test="type != null">
-                type = #{type,jdbcType=VARCHAR},
-            </if>
-            <if test="time != null">
-                time = #{time,jdbcType=BIGINT},
-            </if>
-            <if test="memory != null">
-                memory = #{memory,jdbcType=BIGINT},
-            </if>
-            <if test="errorMsg != null">
-                error_msg = #{errorMsg,jdbcType=VARCHAR},
-            </if>
-            <if test="sourceCode != null">
-                source_code = #{sourceCode,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.ProblemResult">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemResult" >
+    insert into problem_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="problemId != null" >
+        problem_id,
+      </if>
+      <if test="compId != null" >
+        comp_id,
+      </if>
+      <if test="runNum != null" >
+        run_num,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="memory != null" >
+        memory,
+      </if>
+      <if test="errorMsg != null" >
+        error_msg,
+      </if>
+      <if test="sourceCode != null" >
+        source_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="problemId != null" >
+        #{problemId,jdbcType=INTEGER},
+      </if>
+      <if test="compId != null" >
+        #{compId,jdbcType=INTEGER},
+      </if>
+      <if test="runNum != null" >
+        #{runNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=BIGINT},
+      </if>
+      <if test="memory != null" >
+        #{memory,jdbcType=BIGINT},
+      </if>
+      <if test="errorMsg != null" >
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCode != null" >
+        #{sourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oj.gkuoj.entity.ProblemResult" >
+    update problem_result
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="problemId != null" >
+        problem_id = #{problemId,jdbcType=INTEGER},
+      </if>
+      <if test="compId != null" >
+        comp_id = #{compId,jdbcType=INTEGER},
+      </if>
+      <if test="runNum != null" >
+        run_num = #{runNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=BIGINT},
+      </if>
+      <if test="memory != null" >
+        memory = #{memory,jdbcType=BIGINT},
+      </if>
+      <if test="errorMsg != null" >
+        error_msg = #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCode != null" >
+        source_code = #{sourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.ProblemResult" >
     update problem_result
     set user_id = #{userId,jdbcType=INTEGER},
       problem_id = #{problemId,jdbcType=INTEGER},
       comp_id = #{compId,jdbcType=INTEGER},
+      run_num = #{runNum,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},
       time = #{time,jdbcType=BIGINT},
@@ -195,7 +180,10 @@
 
 
 
-    <select id="countUserIdProblemIdByStatus" resultType="java.lang.Integer" parameterType="map">
+
+
+
+  <select id="countUserIdProblemIdByStatus" resultType="java.lang.Integer" parameterType="map">
       select count(id) from problem_result
       where user_id = #{userId}
       and problem_id = #{problemId}
@@ -203,17 +191,41 @@
     </select>
 
 
-    <select id="countUserIdProblemId" resultType="java.lang.Integer" parameterType="map">
+  <select id="countUserIdProblemId" resultType="java.lang.Integer" parameterType="map">
       select count(id) from problem_result
       where user_id = #{userId}
       and problem_id = #{problemId}
     </select>
 
-    <select id="getById2SubmitVO" resultType="com.oj.gkuoj.response.ProblemResultSubmitVO" parameterType="int">
-        select pr.id,pr.problem_id,pr.comp_id,pr.status,pr.time,pr.memory
-        from problem_result pr
-        where pr.id = #{problemResultId}
+  <select id="getByRunNum2SubmitVO" resultType="com.oj.gkuoj.response.ProblemResultSubmitVO" parameterType="string">
+        select id,run_num,problem_id,comp_id,status,time,memory
+        from problem_result
+        where run_num = #{runNum}
 
     </select>
+
+
+  <select id="listProblemResult" parameterType="map" resultType="com.oj.gkuoj.response.ProblemResultVO">
+    select
+    p.id, user_id, u.name, problem_id, comp_id, status, type, time, memory,
+    p.create_time
+    from problem_result p
+    join user u on u.id = p.user_id
+    <where>
+      <if test="problemId != null and problemId != -1">
+        problem_id = #{problemId}
+      </if>
+      <if test="name != null and name !=''">
+        and u.name like concat('%',#{name},'%')
+      </if>
+      <if test="type != null and type !=''">
+        and type = #{type}
+      </if>
+      <if test="status != null and status != -1">
+        and status = #{status}
+      </if>
+    </where>
+    order by p.create_time desc
+  </select>
 
 </mapper>

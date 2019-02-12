@@ -5,6 +5,7 @@ import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.ProblemResultService;
 import com.oj.gkuoj.utils.JsonUtil;
+import com.oj.gkuoj.utils.UUIDUtil;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -20,6 +21,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Random;
 
 /**
  * @author m969130721@163.com
@@ -57,21 +59,20 @@ public class JudgeProducer {
         }
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponseVO<Integer> send(ProblemResult problemResult) {
+    public RestResponseVO<String> send(ProblemResult problemResult) {
 
         try {
-            //add queueing
             problemResult.setStatus(JudgeStatusEnum.QUEUING.getStatus());
-            problemResultService.insert(problemResult);
+            problemResult.setRunNum(UUIDUtil.createByAPI36());
+            //add queueing
+//            problemResultService.insert(problemResult);
 
             String body = JsonUtil.obj2String(problemResult);
             Message message = new Message(environment.getProperty("rocketmq.topic"), body.getBytes(RemotingHelper.DEFAULT_CHARSET));
             SendResult sendResult = producer.send(message);
             logger.info("{},发送消息：{}", Thread.currentThread().getName(), sendResult);
-            return RestResponseVO.createBySuccess(problemResult.getId());
+            return RestResponseVO.createBySuccess(problemResult.getRunNum());
         } catch (Exception e) {
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             logger.error("发送异常,{}", e);
             return RestResponseVO.createByErrorMessage("发送异常,请稍后再试," + e.getMessage());
         }

@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         MimeMessageHelper helper = null;
         try {
             //send email
-            String token = UUIDUtil.createByAPI32();
+            String token = UUIDUtil.createByAPI36();
             redisTemplate.opsForValue().set(TokenConst.TokenKeyPrefix.REGISTER + email,
                     token, TokenConst.TokenExpireTime.REGISTER, TimeUnit.SECONDS);
             helper = new MimeMessageHelper(message, true);
@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         MimeMessageHelper helper = null;
         try {
             //send email
-            String token = UUIDUtil.createByAPI32();
+            String token = UUIDUtil.createByAPI36();
             redisTemplate.opsForValue().set(TokenConst.TokenKeyPrefix.REST_PASSWORD + email,
                     token, TokenConst.TokenExpireTime.REST_PASSWORD, TimeUnit.SECONDS);
             helper = new MimeMessageHelper(message, true);

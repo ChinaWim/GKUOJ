@@ -16,11 +16,11 @@ public class UUIDUtil {
     private static final String salt = "９_asASb)/.12$%$!*553}LDSse.";
 
     /**
-     *获取API UUID
+     *获取API UUID 用到MAC、时间戳、随机数等因素
      * @return
      */
-    public static String createByAPI32() {
-        return UUID.randomUUID().toString().replace("-", "");
+    public static String createByAPI36() {
+        return UUID.randomUUID().toString();
     }
 
     /**
@@ -41,5 +41,6 @@ public class UUIDUtil {
         string = salt + string;
         return DigestUtils.md5DigestAsHex(string.getBytes());
     }
+
 
 }

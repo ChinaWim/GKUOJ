@@ -1,14 +1,13 @@
 package com.oj.gkuoj.entity;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 public class ProblemResult implements Serializable {
 
-    private static final long serialVersionUID = 1198749854563595000L;
+    private static final long serialVersionUID = 4807723399097914322L;
 
     private Integer id;
 
@@ -18,6 +17,8 @@ public class ProblemResult implements Serializable {
     private Integer problemId;
 
     private Integer compId;
+
+    private String runNum;
 
     private Integer status;
 
@@ -37,11 +38,12 @@ public class ProblemResult implements Serializable {
 
     private Date updateTime;
 
-    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, Integer status, String type, Long time, Long memory, String errorMsg, String sourceCode, Date createTime, Date updateTime) {
+    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, String runNum, Integer status, String type, Long time, Long memory, String errorMsg, String sourceCode, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.problemId = problemId;
         this.compId = compId;
+        this.runNum = runNum;
         this.status = status;
         this.type = type;
         this.time = time;
@@ -86,6 +88,14 @@ public class ProblemResult implements Serializable {
 
     public void setCompId(Integer compId) {
         this.compId = compId;
+    }
+
+    public String getRunNum() {
+        return runNum;
+    }
+
+    public void setRunNum(String runNum) {
+        this.runNum = runNum == null ? null : runNum.trim();
     }
 
     public Integer getStatus() {
@@ -160,6 +170,7 @@ public class ProblemResult implements Serializable {
                 ", userId=" + userId +
                 ", problemId=" + problemId +
                 ", compId=" + compId +
+                ", runNum='" + runNum + '\'' +
                 ", status=" + status +
                 ", type='" + type + '\'' +
                 ", time=" + time +

@@ -141,18 +141,11 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
 
-       <!-- <table tableName="problem_result" domainObjectName="ProblemResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
 
          <!--<table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
             enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false"></table>-->
 
-        <!--<table tableName="testcase_result" domainObjectName="TestcaseResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
--->
         <!--<table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
          enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
          selectByExampleQueryId="false"></table>-->
@@ -194,6 +187,9 @@
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>-->
+        <!--<table tableName="problem_result" domainObjectName="ProblemResult" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>-->
 
     </context>
 </generatorConfiguration>

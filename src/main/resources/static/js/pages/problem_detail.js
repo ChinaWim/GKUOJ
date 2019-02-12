@@ -78,9 +78,6 @@ function setCodeType(type) {
 /**
  * 提交代码
  */
-
-var problemResultNowInterval;
-
 function submit(problemName) {
     var type = $("#type").val();
     var sourceCode = editor.getValue();
@@ -105,9 +102,10 @@ function submit(problemName) {
         "sourceCode": sourceCode
     }, function (resp) {
         if (resp.status == 200) {
-            var html = "<div class='text-center problemResultAlert'>" +
+            var runNum = resp.data;
+            var html = "<div class='text-center' id = '"+runNum+"'>" +
                 "<i class='fa fa-circle-o-notch fa-lg fa-spin text-primary'></i>" +
-                "<span class='ml-3'>队列中</span></div>";
+                "<span class='ml-3' id = '"+runNum+"-Str'>队列中</span></div>";
 
             naranja()["log"]({
                 icon: false,
@@ -115,9 +113,7 @@ function submit(problemName) {
                 text: html,
                 timeout: 'keep'
             });
-
-            var problemResultId = resp.data;
-            problemResultNowInterval = window.setInterval('problemResultNow(' + problemResultId + ')', 1000);
+            var problemResultNowInterval = window.setInterval(function () { problemResultNow(runNum,problemResultNowInterval) }, 800);
         } else {
             $.message({
                 message: resp.msg,
@@ -127,9 +123,8 @@ function submit(problemName) {
     });
 }
 
-
-function problemResultNow(problemResultId) {
-    $.post("problemResult/problemResultNow", {"problemResultId": problemResultId}, function (resp) {
+function problemResultNow(runNum,problemResultNowInterval) {
+    $.post("problemResult/problemResultNow", {"runNum": runNum}, function (resp) {
         if (resp.status == 200) {
             if (resp.data.status != 0 && resp.data.status != 8 && resp.data.status != 9) {
                 window.clearInterval(problemResultNowInterval);
@@ -140,24 +135,25 @@ function problemResultNow(problemResultId) {
                     "<a class='btn-success mr-3 btn-sm text-white'>" + resp.data.memory + "KB</a>" +
                     "<a href='#' class='btn btn-info btn-sm text-white'>查看详情</a>";
 
-                $(".problemResultAlert").html(html);
+                $("#"+runNum+"").html(html);
             } else {
                 var str = getStrByStatus(resp.data.status);
-                var html = "<div class='text-center problemResultAlert'>" +
-                    "<i class='fa fa-circle-o-notch fa-lg fa-spin text-primary'></i>" +
-                    "<span class='ml-3'>" + str + "</span></div>";
-
-                $(".problemResultAlert").html(html);
+                $("#"+runNum+"-Str").html(str);
             }
         } else {
+            window.clearInterval(problemResultNowInterval);
             $.message({
                 message: resp.msg,
                 type: 'error'
             });
         }
-
     });
 }
+
+/**
+ * end of 提交代码
+ */
+
 
 
 /**

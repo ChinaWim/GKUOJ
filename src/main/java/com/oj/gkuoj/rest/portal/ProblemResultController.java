@@ -104,11 +104,11 @@ public class ProblemResultController {
      * @param userDetails
      * @param problemResult
      * @param bindingResult
-     * @return problemResultId
+     * @return runNum
      */
     @RequestMapping("/submit")
     @ResponseBody
-    public RestResponseVO<Integer> submit(@AuthenticationPrincipal UserDetails userDetails, @Validated ProblemResult problemResult, BindingResult bindingResult) {
+    public RestResponseVO<String> submit(@AuthenticationPrincipal UserDetails userDetails, @Validated ProblemResult problemResult, BindingResult bindingResult) {
         if (userDetails == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
@@ -153,13 +153,13 @@ public class ProblemResultController {
     /**
      * 获取题目状态
      *
-     * @param problemResultId
+     * @param runNum
      * @return
      */
     @RequestMapping("/problemResultNow")
     @ResponseBody
-    public RestResponseVO<ProblemResultSubmitVO> problemResultNow(Integer problemResultId) {
-        return problemResultService.getById2SubmitVO(problemResultId);
+    public RestResponseVO<ProblemResultSubmitVO> problemResultNow(String runNum) {
+        return problemResultService.getByRunNum2SubmitVO(runNum);
     }
 
 

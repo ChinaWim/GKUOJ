@@ -42,7 +42,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6 ">
                             <h4 class="nav_top_align">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;P[[${problem.id}]]
+                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;[[${problem.id}]]
                                 [[${problem.name}]]
                             </h4>
                         </div>
@@ -56,7 +56,7 @@ z-index: 999999">
                                 <li class="breadcrumb-item">
                                     <a th:href="@{/problem/problemListPage}">题库</a>
                                 </li>
-                                <li class="breadcrumb-item active">P[[${problem.id}]]</li>
+                                <li class="breadcrumb-item active">[[${problem.id}]]</li>
                             </ol>
                         </div>
                     </div>
@@ -78,33 +78,35 @@ z-index: 999999">
                                         难度:[[${problem.level}]]
                                     </span>
                                 </div>
-                                <h3 class=" card-title m-t-20"><strong>描述</strong></h3>
-                                <p class="card-text" style="white-space:pre-line">
-                                    [[${problem.content}]]
-                                </p>
-                                <h3 class=" card-title m-t-20"><strong>输入规范</strong></h3>
-                                <p class="card-text  " style="white-space:pre-line">
-                                    [[${problem.inputDesc}]]
-                                </p>
-                                <h3 class="card-title m-t-20"><strong>输出规范</strong>
+                                <div class="mt-5">
+                                    <h3 class=" card-title "><strong>描述</strong></h3>
+                                    <div class="card-text markdown-body" style="white-space:pre-line"
+                                         th:utext="${problem.content}">
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h3 class=" card-title "><strong>输入规范</strong></h3>
+                                    <div class="card-text markdown-body" >
+                                        [[${problem.inputDesc}]]
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    <h3 class="card-title"><strong>输出规范</strong>
+                                    </h3>
+                                    <div class="card-text markdown-body" >
+                                        [[${problem.outputDesc}]]
+                                    </div>
+                                </div>
+                                    <h3 class="card-title mt-5"><strong>样例输入</strong></h3>
+                                    <code ><a href="javascript:void(0)" data-clipboard-target="#inputDesc" class="float-right clipboard" onclick="copyToClipboard()" id="clipboard">复制</a><div id="inputDesc">[[${problem.testcaseInput}]]</div></code>
+                                <!--style="white-space:pre-line"-->
+                                    <h3 class="card-title mt-5"><strong>样例输出</strong></h3>
+                                    <code  >[[${problem.testcaseOutput}]]</code>
 
-                                </h3>
-                                <p class="card-text  " style="white-space:pre-line">
-                                    [[${problem.outputDesc}]]
-                                </p>
-                                <h3 class="card-title m-t-20">
-                                    <strong>样例输入</strong>
-                                </h3>
-                                <code style="white-space:pre-line"><a href="javascript:void(0)"
-                                                                      data-clipboard-target="#inputDesc"
-                                                                      class="float-right clipboard"
-                                                                      onclick="copyToClipboard()" id="clipboard">复制</a>
-                                    <div id="inputDesc">[[${problem.testcaseInput}]]</div>
-                                </code>
-                                <h3 class="card-title m-t-20"><strong>样例输出</strong></h3>
-                                <code style="white-space:pre-line">[[${problem.testcaseOutput}]]</code>
-                                <h3 class="card-title m-t-20"><strong>标签</strong></h3>
-                                <span><i class="fa fa-tags"></i>&nbsp;[[${problem.tags}]]</span>
+                                <div class="mt-5">
+                                    <h3 class="card-title"><strong>标签</strong></h3>
+                                    <span><i class="fa fa-tags"></i>&nbsp;[[${problem.tags}]]</span>
+                                </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12">
@@ -426,7 +428,7 @@ z-index: 999999">
     }
 
     function submitByProblemName() {
-            submit(problemName);
+        submit(problemName);
     }
 
 

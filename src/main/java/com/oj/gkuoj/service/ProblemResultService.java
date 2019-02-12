@@ -20,6 +20,6 @@ public interface ProblemResultService {
 
     RestResponseVO listProblemResult2Page(Integer problemId, String name, String type, Integer status, Integer pageNum,Integer pageSize);
 
-    RestResponseVO<ProblemResultSubmitVO> getById2SubmitVO(Integer problemResultId);
+    RestResponseVO<ProblemResultSubmitVO> getByRunNum2SubmitVO(String runNum);
 
 }
