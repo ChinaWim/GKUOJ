@@ -1,9 +1,13 @@
 package com.oj.gkuoj.service;
 
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.response.BlogVO;
 import com.oj.gkuoj.response.CompetitionDetailVO;
+import com.oj.gkuoj.response.CompetitionVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.Competition;
+
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -21,6 +25,8 @@ public interface CompetitionService {
 
     RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId,Integer compId);
 
-    RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize,Integer pageNum);
+    RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize,Integer pageNum,String keyword);
+
+    RestResponseVO<List<CompetitionDetailVO>> listLastCompetitionDetailVO(Integer pageSize);
 
 }

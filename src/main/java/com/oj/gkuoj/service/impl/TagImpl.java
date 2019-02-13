@@ -5,6 +5,7 @@ import com.oj.gkuoj.dao.TagMapper;
 import com.oj.gkuoj.entity.Tag;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
+import com.oj.gkuoj.response.TagVO;
 import com.oj.gkuoj.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public class TagImpl implements TagService {
     private TagMapper tagMapper;
 
     @Override
-    public RestResponseVO<List<Tag>> listAll() {
-        List<Tag> problemCategoryList = tagMapper.listAll();
+    public RestResponseVO<List<TagVO>> listParentVOAll() {
+        List<TagVO> problemCategoryList = tagMapper.listParentVOAll();
         return RestResponseVO.createBySuccess(problemCategoryList);
     }
 

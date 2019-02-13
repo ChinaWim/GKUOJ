@@ -261,10 +261,9 @@ z-index: 999999">
                 var name = $("#name").val();
                 var type = $('#type').val();
                 var status = $('#status').val();
-                var url = 'problemResult/listProblemResult2Page?pageNum=' + pageNum + '&problemId=' + problemId
-                    + "&name=" + name + "&type=" + type + "&status=" + status;
+                var url = 'problemResult/listProblemResult2Page';
 
-                this.$http.get(url).then(function (res) {
+                this.$http.post(url,{"pageNum":pageNum,"problemId":problemId,"name":name,"type":type,"status":status},{emulateJSON:true}).then(function (res) {
                     this.total = res.data.data.total;
                     this.problemResultList = res.data.data.list;
                     $("#page").initPage(this.total, pageNum, clickPage);

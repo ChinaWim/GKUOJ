@@ -107,4 +107,16 @@ public class BlogServiceImpl implements BlogService {
         List<BlogVO> blogVOList = blogMapper.listHotBlogVO(pageSize);
         return RestResponseVO.createBySuccess(blogVOList);
     }
+
+    @Override
+    public RestResponseVO<List<BlogVO>> listLastCommentBlogVO(Integer pageSize) {
+        List<BlogVO> blogVOList = blogMapper.listLastCommentBlogVO(pageSize);
+        return RestResponseVO.createBySuccess(blogVOList);
+    }
+
+    @Override
+    public RestResponseVO<List<BlogVO>> listNoticeBlogVO(Integer pageSize) {
+        List<BlogVO> blogVOList = blogMapper.listNoticeBlogVO(pageSize);
+        return RestResponseVO.createBySuccess(blogVOList);
+    }
 }

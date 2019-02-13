@@ -196,9 +196,8 @@ z-index: 999999">
         methods: {
             listCompetition: function (pageNum) {
                 var keyword = $("#keyword").val();
-                var url = '/competition/listCompetition2Page?pageNum=' + pageNum + '&keyword=' + keyword;
-
-                this.$http.get(url).then(function (res) {
+                var url = '/competition/listCompetition2Page';
+                this.$http.post(url,{"pageNum":pageNum,"keyword":keyword},{emulateJSON:true}).then(function (res) {
                     this.total = res.data.data.total;
                     this.competitionList = res.data.data.list;
                     $("#page").initPage(this.total, pageNum, clickPage);

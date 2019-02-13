@@ -6,7 +6,7 @@ package com.oj.gkuoj.response;
  */
 public class UpVO {
 
-    private Boolean status;
+    private boolean status;
 
     private Integer count;
 
@@ -15,11 +15,14 @@ public class UpVO {
         this.count = count;
     }
 
+    public UpVO(){
+
+    }
     public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -38,4 +41,5 @@ public class UpVO {
                 ", count=" + count +
                 '}';
     }
+
 }

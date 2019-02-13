@@ -198,9 +198,9 @@ z-index: 999999">
         methods: {
             listRank: function (pageNum) {
                 var keyword = $("#keyword").val();
-                var url = '/listRank2Page?pageNum=' + pageNum + '&keyword=' + keyword;
+                var url = '/listRank2Page';
 
-                this.$http.get(url).then(function (res) {
+                this.$http.post(url,{"pageNum":pageNum,"keyword":keyword},{emulateJSON:true}).then(function (res) {
                     this.total = res.data.data.total;
                     this.rankList = res.data.data.list;
                     $("#page").initPage(this.total, pageNum, clickPage);

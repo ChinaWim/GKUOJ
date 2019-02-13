@@ -2157,6 +2157,15 @@ body {width: 100vw;overflow: hidden;}*/
 .font-size12{
 font-size: 12px;
 }
+
+.font-size13{
+    font-size: 13px;
+}
+
+.font-size14{
+    font-size: 14px;
+}
+
 .gray-font {
     color: #A6A6A6;
 }

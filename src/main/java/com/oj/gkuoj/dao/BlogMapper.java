@@ -28,4 +28,7 @@ public interface BlogMapper {
 
     List<BlogVO> listHotBlogVO(Integer pageSize);
 
+    List<BlogVO> listLastCommentBlogVO(Integer pageSize);
+
+    List<BlogVO> listNoticeBlogVO(Integer pageSize);
 }

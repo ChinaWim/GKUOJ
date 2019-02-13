@@ -196,6 +196,31 @@
         limit 0 , #{pageSize}
     </select>
 
+    <select id="listLastCommentBlogVO" resultType="com.oj.gkuoj.response.BlogVO" parameterType="int">
+       select b.id, u.avatar,b.user_id,u.name, bc_id, bc.name bc_name, title, view_count,b.tags,
+        b.create_time,count(distinct bco.id) reply_count, max(bco.create_time) reply_time
+        from blog b
+        join user u on u.id = b.user_id
+        join blog_category bc on bc.id = b.bc_id
+        join blog_comment bco on bco.blog_id = b.id
+        group by b.id
+        order by reply_time desc
+        limit 0 , #{pageSize}
+    </select>
+
+    <select id="listNoticeBlogVO" resultType="com.oj.gkuoj.response.BlogVO" parameterType="int">
+      select b.id,b.user_id, title, view_count,b.tags,
+        b.create_time,count(distinct bco.id) reply_count,
+        max(bco.create_time) reply_time,count(distinct up.id) up_count
+        from blog b
+        left join blog_comment bco on bco.blog_id = b.id
+        left join up on up.type_id = b.id and up.type = 0 and up.status = true
+        where b.bc_id = 1
+        group by b.id
+        order by b.create_time desc
+        limit 0 , #{pageSize}
+    </select>
+
     <update id="updateViewCountIncrease" parameterType="map">
         update blog set view_count = view_count + 1
         where id = #{blogId}

@@ -190,6 +190,12 @@
         <!--<table tableName="problem_result" domainObjectName="ProblemResult" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
+<!--
+
+       <table tableName="problem_tag" domainObjectName="ProblemTag" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+-->
 
     </context>
 </generatorConfiguration>

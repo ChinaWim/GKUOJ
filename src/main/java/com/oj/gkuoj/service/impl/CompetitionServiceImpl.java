@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.CommonConst;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.RegisterMapper;
+import com.oj.gkuoj.response.BlogVO;
 import com.oj.gkuoj.response.CompetitionDetailVO;
 import com.oj.gkuoj.response.CompetitionVO;
 import com.oj.gkuoj.response.RestResponseVO;
@@ -81,9 +82,37 @@ public class CompetitionServiceImpl implements CompetitionService {
         int rows = 0;
         if (userId != null) {
             rows = registerMapper.countByUserIdAndCompId(userId, compId);
+            if (rows > 0) {
+                detailVO.setUserRegistered(true);
+            }
         }
-
         //set status
+        setCompetitionStatus(detailVO);
+
+        return RestResponseVO.createBySuccess(detailVO);
+    }
+
+    @Override
+    public RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize, Integer pageNum, String keyword) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<CompetitionVO> competitionVOList = competitionMapper.listCompetitionVO(keyword);
+        PageInfo<CompetitionVO> pageInfo = new PageInfo<>(competitionVOList);
+
+        return RestResponseVO.createBySuccess(pageInfo);
+    }
+
+    @Override
+    public RestResponseVO<List<CompetitionDetailVO>> listLastCompetitionDetailVO(Integer pageSize) {
+        List<CompetitionDetailVO> competitionVOList = competitionMapper.listLastCompetitionDetailVO(pageSize);
+        //set status
+        for (CompetitionDetailVO detailVO : competitionVOList) {
+            setCompetitionStatus(detailVO);
+        }
+        return RestResponseVO.createBySuccess(competitionVOList);
+    }
+
+
+    private void setCompetitionStatus(CompetitionDetailVO detailVO) {
         if (detailVO != null) {
             Date startTime = detailVO.getStartTime();
             Date endTime = detailVO.getEndTime();
@@ -92,26 +121,14 @@ public class CompetitionServiceImpl implements CompetitionService {
             boolean isClose = nowDate.after(endTime);
             if (isNotStarted) {
                 detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.NOT_STARTED);
-                if (rows > 0) {
-                    detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.REGISTERED);
-                }
-                return RestResponseVO.createBySuccess(detailVO);
-            }
-            if (isClose) {
+
+            } else if (isClose) {
                 detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.CLOSE);
-                return RestResponseVO.createBySuccess(detailVO);
+
+            } else {
+                detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.PROCESSING);
             }
-            detailVO.setCompetitionStatus(CommonConst.CompetitionStatus.PROCESSING);
         }
-        return RestResponseVO.createBySuccess(detailVO);
     }
 
-    @Override
-    public RestResponseVO<PageInfo> listCompetitionVO2Page(Integer pageSize, Integer pageNum) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<CompetitionVO> competitionVOList = competitionMapper.listCompetitionVO();
-        PageInfo<CompetitionDetailVO> pageInfo = new PageInfo(competitionVOList);
-
-        return RestResponseVO.createBySuccess(pageInfo);
-    }
 }

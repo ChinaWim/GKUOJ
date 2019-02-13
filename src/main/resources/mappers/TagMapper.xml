@@ -10,6 +10,21 @@
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
+
+  <resultMap type="com.oj.gkuoj.response.TagVO" id="problemVOMap">
+    <id column="id" property="id"/>
+    <result column="parent_id" property="parentId"/>
+    <result column="name" property="name"/>
+
+    <collection property="tagList" ofType="com.oj.gkuoj.entity.Tag">
+      <id column="c_id" property="id"/>
+      <result column="c_parent_id" property="parentId"/>
+      <result column="c_name" property="name"/>
+    </collection>
+
+  </resultMap>
+
+
   <sql id="Base_Column_List" >
     id, parent_id, name, create_time, update_time
   </sql>
@@ -19,9 +34,7 @@
     from tag
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="listAll" resultType="com.oj.gkuoj.entity.Tag">
-    select <include refid="Base_Column_List"/> from tag
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tag
     where id = #{id,jdbcType=INTEGER}
@@ -85,4 +98,14 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="listParentVOAll" resultMap="problemVOMap">
+    select t.id,t.parent_id,t.name,
+    c.id c_id,c.name c_name,c.parent_id c_parent_id
+    from tag t
+    left join tag c on c.parent_id = t.id
+    where t.parent_id = 0
+  </select>
+
 </mapper>

@@ -177,7 +177,6 @@ z-index: 999999">
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-12">
-
                                             </div>
                                         </div>
 
@@ -274,13 +273,11 @@ z-index: 999999">
                 var keyword = $("#keyword").val();
                 var sort = $("#sort").val();
                 var bcId = $("#bcId").val();
-                var url = 'blog/listBlog2Page?pageNum=' + pageNum + '&keyword=' + keyword + "&bcId=" + bcId + "&sort=" + sort;
-                this.$http.get(url).then(function (res) {
+                var url = 'blog/listBlog2Page';
+                this.$http.post(url,{"pageNum":pageNum,"bcId":bcId,"sort":sort,"keyword":keyword}).then(function (res) {
                     this.total = res.data.data.total;
                     this.blogList = res.data.data.list;
-                    var total = this.total;
-                    var pageNum = res.data.data.pageNum;
-                    $("#page").initPage(total, pageNum, clickPage);
+                    $("#page").initPage(this.total, pageNum, clickPage);
                 }), function (res) {
                     console.log(res.data.msg);
                 }

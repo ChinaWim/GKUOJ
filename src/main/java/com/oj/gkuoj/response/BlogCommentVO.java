@@ -26,7 +26,7 @@ public class BlogCommentVO {
 
     private Integer upCount;
 
-    private Boolean userUpStatus;
+    private boolean userUpStatus;
 
     public Integer getId() {
         return id;

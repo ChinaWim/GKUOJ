@@ -29,7 +29,8 @@ public interface ProblemMapper {
 
     Integer countRandomProblemId();
 
-    List<ProblemVO> listAll2VO(@Param("sort") Integer sort, @Param("keyword") String keyword, @Param("level") Integer level, @Param("tagName") String tagName);
+    List<ProblemVO> listAll2VO(@Param("sort") Integer sort, @Param("keyword") String keyword,
+                               @Param("level") Integer level, @Param("tagIdsList") List<Integer> tagIdsList);
 
 
 

@@ -3,6 +3,7 @@ package com.oj.gkuoj.dao;
 import com.oj.gkuoj.entity.Competition;
 import com.oj.gkuoj.response.CompetitionDetailVO;
 import com.oj.gkuoj.response.CompetitionVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,5 +22,8 @@ public interface CompetitionMapper {
 
     CompetitionDetailVO getCompetitionDetailVOById(Integer compId);
 
-    List<CompetitionVO> listCompetitionVO();
+    List<CompetitionVO> listCompetitionVO(@Param("keyword") String keyword);
+
+    List<CompetitionDetailVO> listLastCompetitionDetailVO(Integer pageSize);
+
 }

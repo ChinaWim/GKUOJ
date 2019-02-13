@@ -2,6 +2,7 @@ package com.oj.gkuoj.service;
 
 import com.oj.gkuoj.entity.Tag;
 import com.oj.gkuoj.response.RestResponseVO;
+import com.oj.gkuoj.response.TagVO;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public interface TagService {
 
-     RestResponseVO<List<Tag>> listAll();
+     RestResponseVO<List<TagVO>> listParentVOAll();
 
      RestResponseVO insert(Tag tag);
 

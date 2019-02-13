@@ -37,7 +37,7 @@ public class BlogDetailVO {
 
     private Integer replyCount;
 
-    private Boolean userUpStatus;
+    private boolean userUpStatus;
 
     public Integer getId() {
         return id;

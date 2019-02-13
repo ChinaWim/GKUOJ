@@ -8,6 +8,7 @@ import com.oj.gkuoj.entity.Tag;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.exception.ProblemNotFoundException;
 import com.oj.gkuoj.response.RestResponseVO;
+import com.oj.gkuoj.response.TagVO;
 import com.oj.gkuoj.service.ProblemResultService;
 import com.oj.gkuoj.service.TagService;
 import com.oj.gkuoj.service.ProblemService;
@@ -49,11 +50,7 @@ public class ProblemController {
     public String problemListPage(HttpServletRequest request,
                                   @RequestParam(defaultValue = "") String keyword) {
         //题目标签
-        List<Tag> tagList = tagService.listAll().getData();
-        Tag t = new Tag();
-        t.setName("不限");
-        t.setId(-1);
-        tagList.add(0, t);
+        List<TagVO> tagList = tagService.listParentVOAll().getData();
 
         //set data
         request.setAttribute("tagList", tagList);
@@ -72,7 +69,7 @@ public class ProblemController {
      * @param sort
      * @param keyword
      * @param level
-     * @param tagName
+     * @param tagIds
      * @return
      */
     @RequestMapping("/listProblem2Page")
@@ -83,12 +80,12 @@ public class ProblemController {
                                                      @RequestParam(defaultValue = "-1", required = false) Integer sort,
                                                      @RequestParam(defaultValue = "", required = false) String keyword,
                                                      @RequestParam(defaultValue = "-1", required = false) Integer level,
-                                                     @RequestParam(defaultValue = "不限", required = false) String tagName) {
+                                                     @RequestParam(defaultValue = "",required = false) String tagIds) {
         Integer userId = null;
         if (userDetails != null) {
             userId = ((User) userDetails).getId();
         }
-        return problemService.listProblemToPage(userId, sort, keyword, level, tagName, pageNum, pageSize);
+        return problemService.listProblemToPage(userId, sort, keyword, level, tagIds, pageNum, pageSize);
     }
 
 

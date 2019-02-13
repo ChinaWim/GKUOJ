@@ -15,6 +15,8 @@ import java.io.Serializable;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class RestResponseVO<T> implements Serializable {
 
+    private static final long serialVersionUID = -7126786145980795737L;
+
     private Integer status;
 
     private String msg;

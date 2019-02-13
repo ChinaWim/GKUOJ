@@ -83,3 +83,8 @@ function getStrByStatus(status){
     }
     return '';
 }
+
+/**
+ * 数组去重
+ * @returns {Array}
+ */

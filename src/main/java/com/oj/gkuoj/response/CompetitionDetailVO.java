@@ -22,7 +22,7 @@ public class CompetitionDetailVO {
 
     private String content;
 
-    private String password;
+    private Boolean secret;
 
     private Date startTime;
 
@@ -36,8 +36,9 @@ public class CompetitionDetailVO {
 
     private Integer competitionStatus;
 
+    private boolean userRegistered;
 
-    public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, String password, Date startTime, Date endTime, Date createTime, Date updateTime) {
+    public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, Boolean secret, Date startTime, Date endTime, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.avatar = avatar;
@@ -45,7 +46,7 @@ public class CompetitionDetailVO {
         this.competitionName = competitionName;
         this.title = title;
         this.content = content;
-        this.password = password;
+        this.secret = secret;
         this.startTime = startTime;
         this.endTime = endTime;
         this.createTime = createTime;
@@ -94,14 +95,6 @@ public class CompetitionDetailVO {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
     }
 
     public Date getStartTime() {
@@ -169,6 +162,22 @@ public class CompetitionDetailVO {
         this.competitionStatus = competitionStatus;
     }
 
+    public Boolean getSecret() {
+        return secret;
+    }
+
+    public void setSecret(Boolean secret) {
+        this.secret = secret;
+    }
+
+    public boolean isUserRegistered() {
+        return userRegistered;
+    }
+
+    public void setUserRegistered(boolean userRegistered) {
+        this.userRegistered = userRegistered;
+    }
+
     @Override
     public String toString() {
         return "CompetitionDetailVO{" +
@@ -179,13 +188,14 @@ public class CompetitionDetailVO {
                 ", competitionName='" + competitionName + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", password='" + password + '\'' +
+                ", secret=" + secret +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", registerCount=" + registerCount +
                 ", competitionStatus=" + competitionStatus +
+                ", userRegistered=" + userRegistered +
                 '}';
     }
 }

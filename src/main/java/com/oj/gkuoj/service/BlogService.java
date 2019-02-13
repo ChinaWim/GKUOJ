@@ -30,4 +30,8 @@ public interface BlogService {
 
     RestResponseVO<List<BlogVO>> listHotBlogVO(Integer pageSize);
 
+    RestResponseVO<List<BlogVO>> listLastCommentBlogVO(Integer pageSize);
+
+    RestResponseVO<List<BlogVO>> listNoticeBlogVO(Integer pageSize);
+
 }

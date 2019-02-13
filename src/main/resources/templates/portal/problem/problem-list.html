@@ -61,7 +61,7 @@ z-index: 999999">
                                         <div class="w-75">
                                             <div class="input-group">
                                                 <input type="search" id="keyword" name="keyword" th:value="${keyword}"
-                                                       placeholder="题号、标题、标签" class="form-control">
+                                                       placeholder="题号、标题" class="form-control">
                                                 <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button" onclick="clickPage(1)">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true">
@@ -107,13 +107,13 @@ z-index: 999999">
                             <!--problemList-->
                             <div class="col-8">
                                 <div class="card p-3">
-                                   <!-- <h5 class="card-header  ">
-                                          <i class="fa fa-flag "></i>&nbsp;题目列表
-                                      </h5>-->
-                                    <div class="card-body" >
-                                        <table class="table table-hover table-striped" id="table" >
-                                            <thead class="" >
-                                            <tr >
+                                    <!-- <h5 class="card-header  ">
+                                           <i class="fa fa-flag "></i>&nbsp;题目列表
+                                       </h5>-->
+                                    <div class="card-body">
+                                        <table class="table table-hover table-striped" id="table">
+                                            <thead class="">
+                                            <tr>
                                                 <th class="text-center">状态</th>
                                                 <th class="text-center">题号</th>
                                                 <th class="">标题</th>
@@ -145,7 +145,7 @@ z-index: 999999">
 
                                                 </td>
                                                 <td>
-                                                    <div style="width: 150px">
+                                                    <div style="width: 250px">
                                                         <i class="fa fa-tags"></i>&nbsp;
                                                         <span v-if="problem.tags != null">
                                                         <span class="mr-2" v-for="tag in problem.tags.split(',')">
@@ -198,16 +198,43 @@ z-index: 999999">
                             <div class="col-4">
                                 <div class="card">
                                     <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;题目分类</div>
-                                    <div class="card-block  ">
+                                    <div class="card-block">
                                         <div class="row">
-                                            <div class="col-12">
-                                            <span th:each="tag,i : ${tagList}">
-                                                <a href="javascript:void(0)"
-                                                   th:classappend="${tag.id == -1} ? 'active focus':''"
-                                                   class="btn btn-outline-primary mt-3 mr-3 ">
+                                            <div class="col-5 nav-item dropdown" th:each="tag,status:${tagList}">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                   role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                   aria-expanded="false">
                                                     [[${tag.name}]]
                                                 </a>
-                                            </span>
+                                                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                                    <div style="padding: 15px 1.5rem 0 1.5rem"
+                                                         class="left_align custom-controls-stacked">
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox"
+                                                                   th:classappend="'tagId-'+${tag.id} +' '+'ptagId-'+${tag.id} "
+                                                                   class="custom-control-input"
+                                                                   onclick="clickAllTag(this)" th:value="${tag.id}">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">选择全部</span>
+                                                        </label>
+                                                    </div>
+                                                    <!--<a class="dropdown-item" href="#">选择全部</a>-->
+                                                    <div class="dropdown-divider"></div>
+                                                    <div th:each="ctag,cStatus:${tag.tagList}"
+                                                         style="padding: 3px 1.5rem;">
+                                                        <div class="left_align custom-controls-stacked">
+                                                            <label class="custom-control custom-checkbox">
+                                                                <input type="checkbox"
+                                                                       th:attr="pid=${tag.id}"
+                                                                       th:classappend="'tagId-'+${tag.id}"
+                                                                       class="custom-control-input"
+                                                                       onclick="clickTag(this)" th:value="${ctag.id}">
+                                                                <span class="custom-control-indicator"></span>
+                                                                <span class="custom-control-description">[[${ctag.name}]]</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +242,7 @@ z-index: 999999">
 
                                 <div class="card mt-3">
                                     <div class="card-header bg-white"><i class="fa fa-tags"></i>&nbsp;标签云</div>
-                                    <div class="card-block  ">
+                                    <div class="card-block">
                                         <div class="row">
                                             <div class="col-12">
                                                 <a th:href="@{'/problem/problemListPage?tagId='+${tagId}}"
@@ -264,12 +291,12 @@ z-index: 999999">
     /*<![CDATA[*/
 
     // vue
-
     var problemApp = new Vue({
         el: '#problemApp',
         data: {
             total: 0,
-            problemList: []
+            problemList: [],
+            tagIdList: []
         },
         filters: {
             formatDate: function (val) {
@@ -298,11 +325,18 @@ z-index: 999999">
                 var keyword = $("#keyword").val();
                 var level = $('#level').val();
                 var sort = $('#sort').val();
-                var tagName = "";
-                var url = 'problem/listProblem2Page?pageNum=' + pageNum + '&keyword=' + keyword
-                    + "&tagName=" + tagName + "&sort=" + sort + "&level=" + level;
-
-                this.$http.get(url).then(function (res) {
+                var url = 'problem/listProblem2Page';
+                var tagIds = "";
+                if (this.tagIdList.length > 0) {
+                    tagIds = this.tagIdList.join(",");
+                }
+                this.$http.post(url, {
+                    "pageNum": pageNum,
+                    "tagIds": tagIds,
+                    "keyword": keyword,
+                    "sort": sort,
+                    "level": level
+                }, {emulateJSON: true}).then(function (res) {
                     this.total = res.data.data.total;
                     this.problemList = res.data.data.list;
                     $("#page").initPage(this.total, pageNum, clickPage);
@@ -319,11 +353,53 @@ z-index: 999999">
         problemApp.listProblem(pageNum);
     }
 
+    //标签点击方法
+    function clickTag(checkbox) {
+        var index = problemApp.tagIdList.indexOf($(checkbox).val());
+        if (checkbox.checked) {
+            if (index === -1) {
+                problemApp.tagIdList.push($(checkbox).val());
+            }
+        } else {
+
+            problemApp.tagIdList.splice(index, 1);
+            //去除全部选项id
+            var tagId = $(checkbox).attr("pid");
+            var $tagId = $(".ptagId-" + tagId);
+            $tagId.prop("checked", false);
+            var pIndex = problemApp.tagIdList.indexOf(tagId);
+            problemApp.tagIdList.splice(pIndex, 1);
+        }
+        problemApp.listProblem(1);
+    }
+
+    //标签点击全部
+    function clickAllTag(checkbox) {
+        var tagId = $(checkbox).val();
+        var $tagId = $(".tagId-" + tagId);
+        if (checkbox.checked) {
+            $tagId.prop("checked", true);
+            $tagId.each(function (index, val) {
+                var valIndex = problemApp.tagIdList.indexOf($(val).val());
+                if (valIndex === -1) {
+                    problemApp.tagIdList.push($(val).val());
+                }
+            });
+        } else {
+            $tagId.prop("checked", false);
+            $tagId.each(function (index, val) {
+                var valIndex = problemApp.tagIdList.indexOf($(val).val());
+                problemApp.tagIdList.splice(valIndex, 1);
+            });
+        }
+
+        problemApp.listProblem(1);
+    }
+
     // end of vue
 
-    /**
-     * select2
-     */
+
+    //select2
     $('.select2-sort').select2({
         placeholder: '排序',
         theme: 'bootstrap4'

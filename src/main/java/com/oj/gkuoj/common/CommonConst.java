@@ -20,10 +20,6 @@ public class CommonConst {
          */
         Integer CLOSE = 3;
 
-        /**
-         * 用户已报名
-         */
-        Integer REGISTERED = 4;
     }
 
 

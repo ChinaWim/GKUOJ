@@ -1,6 +1,7 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Tag;
+import com.oj.gkuoj.response.TagVO;
 
 import java.util.List;
 
@@ -17,6 +18,6 @@ public interface TagMapper {
 
     int updateByPrimaryKey(Tag record);
 
-    List<Tag> listAll();
+    List<TagVO> listParentVOAll();
 
 }

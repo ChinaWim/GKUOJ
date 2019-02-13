@@ -12,9 +12,12 @@ import com.oj.gkuoj.response.ProblemVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.service.ProblemService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -70,9 +73,17 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public RestResponseVO<PageInfo> listProblemToPage(Integer userId, Integer sort, String keyword, Integer level, String tagName, Integer pageNum, Integer pageSize) {
+    public RestResponseVO<PageInfo> listProblemToPage(Integer userId, Integer sort, String keyword, Integer level, String tagIds, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize, true);
-        List<ProblemVO> problemList = problemMapper.listAll2VO(sort, keyword, level, tagName);
+        List<Integer> tagIdsList = null;
+        if (StringUtils.isNoneBlank(tagIds)) {
+            tagIdsList = new ArrayList<>();
+            for (String tagId : tagIds.split(",")) {
+                tagIdsList.add(Integer.parseInt(tagId));
+            }
+        }
+
+        List<ProblemVO> problemList = problemMapper.listAll2VO(sort, keyword, level, tagIdsList);
         if (userId != null) {
             for (ProblemVO problemVO : problemList) {
                 int totalCount = problemResultMapper.countUserIdProblemId(userId, problemVO.getId());

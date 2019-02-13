@@ -57,8 +57,9 @@ public class CompetitionController {
     @ResponseBody
     public RestResponseVO listCompetition2Page(HttpServletRequest request,
                                                @RequestParam(defaultValue = "1") Integer pageNum,
-                                               @RequestParam(defaultValue = "20") Integer pageSize) {
-        return competitionService.listCompetitionVO2Page(pageSize, pageNum);
+                                               @RequestParam(defaultValue = "20") Integer pageSize,
+                                               @RequestParam(defaultValue = "") String keyword) {
+        return competitionService.listCompetitionVO2Page(pageSize, pageNum,keyword);
     }
 
 

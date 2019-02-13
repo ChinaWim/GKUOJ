@@ -147,7 +147,8 @@
 
   <select id="getCompetitionDetailVOById" resultType="com.oj.gkuoj.response.CompetitionDetailVO" parameterType="int">
    select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,
-           comp.password,start_time,end_time,comp.create_time,comp.update_time,count(r.id) register_count
+   start_time,end_time,comp.create_time,comp.update_time,count(r.id) register_count,IFNULL(comp.password,0) secret
+
    from competition comp
    join user u on comp.user_id = u.id
    left join register r on r.comp_id = comp.id
@@ -155,12 +156,25 @@
    group by comp.id
 
   </select>
-  <select id="listCompetitionVO" resultType="com.oj.gkuoj.response.CompetitionVO">
+  <select id="listCompetitionVO" resultType="com.oj.gkuoj.response.CompetitionVO" parameterType="map">
     select comp.id, comp.name, comp.title, comp.start_time, comp.end_time, comp.create_time , count(r.id) register_count
     from competition comp
     left join register r on r.comp_id = comp.id
+    <if test="keyword != null and keyword != ''">
+      where comp.name like concat('%',#{keyword},'%')
+    </if>
     group by comp.id
     order by comp.create_time desc
   </select>
 
+  <select id="listLastCompetitionDetailVO" resultType="com.oj.gkuoj.response.CompetitionDetailVO" parameterType="int">
+    select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,
+           start_time,end_time,comp.create_time,comp.update_time,count(r.id) register_count,IFNULL(comp.password,0) secret
+     from competition comp
+     join user u on comp.user_id = u.id
+     left join register r on r.comp_id = comp.id
+     group by comp.id
+     order by comp.start_time desc
+     limit 0,#{pageSize}
+  </select>
 </mapper>
