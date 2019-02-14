@@ -234,7 +234,7 @@ z-index: 999999">
                                     <div class="row">
                                         <div class="col-12">
                                             <div th:each="hotBlog,status : ${hotBlogList}">
-                                                <a target="_blank" th:href="@{'/blog/blogDetailPage?blogId='+${hotBlog.id}}">
+                                                <a target="_blank" class="primary-hover" th:href="@{'/blog/blogDetailPage?blogId='+${hotBlog.id}}">
                                                     <div>[[${hotBlog.title}]]</div>
                                                 </a>
                                                 <div class="mt-1">

@@ -211,7 +211,7 @@ z-index: 999999">
                                                          class="left_align custom-controls-stacked">
                                                         <label class="custom-control custom-checkbox">
                                                             <input type="checkbox"
-                                                                   th:classappend="'tagId-'+${tag.id} +' '+'ptagId-'+${tag.id} "
+                                                                   th:classappend="'tagIds'+${tag.id} +' '+'ptagIds'+${tag.id} "
                                                                    class="custom-control-input"
                                                                    onclick="clickAllTag(this)" th:value="${tag.id}">
                                                             <span class="custom-control-indicator"></span>
@@ -226,7 +226,7 @@ z-index: 999999">
                                                             <label class="custom-control custom-checkbox">
                                                                 <input type="checkbox"
                                                                        th:attr="pid=${tag.id}"
-                                                                       th:classappend="'tagId-'+${tag.id}"
+                                                                       th:classappend="'tagIds'+${tag.id}"
                                                                        class="custom-control-input"
                                                                        onclick="clickTag(this)" th:value="${ctag.id}">
                                                                 <span class="custom-control-indicator"></span>
@@ -361,14 +361,18 @@ z-index: 999999">
                 problemApp.tagIdList.push($(checkbox).val());
             }
         } else {
-
-            problemApp.tagIdList.splice(index, 1);
+            if (index !== -1) {
+                problemApp.tagIdList.splice(index, 1);
+            }
             //去除全部选项id
             var tagId = $(checkbox).attr("pid");
-            var $tagId = $(".ptagId-" + tagId);
+            var $tagId = $(".ptagIds" + tagId);
             $tagId.prop("checked", false);
             var pIndex = problemApp.tagIdList.indexOf(tagId);
-            problemApp.tagIdList.splice(pIndex, 1);
+            if(pIndex !== -1){
+                problemApp.tagIdList.splice(pIndex, 1);
+            }
+
         }
         problemApp.listProblem(1);
     }
@@ -376,7 +380,7 @@ z-index: 999999">
     //标签点击全部
     function clickAllTag(checkbox) {
         var tagId = $(checkbox).val();
-        var $tagId = $(".tagId-" + tagId);
+        var $tagId = $(".tagIds" + tagId);
         if (checkbox.checked) {
             $tagId.prop("checked", true);
             $tagId.each(function (index, val) {
@@ -389,7 +393,9 @@ z-index: 999999">
             $tagId.prop("checked", false);
             $tagId.each(function (index, val) {
                 var valIndex = problemApp.tagIdList.indexOf($(val).val());
-                problemApp.tagIdList.splice(valIndex, 1);
+                if(valIndex !== -1){
+                    problemApp.tagIdList.splice(valIndex, 1);
+                }
             });
         }
 

@@ -113,7 +113,7 @@ function submit(problemName) {
                 text: html,
                 timeout: 'keep'
             });
-            var problemResultNowInterval = window.setInterval(function () { problemResultNow(runNum,problemResultNowInterval) }, 800);
+            var problemResultNowInterval = window.setInterval(function () { problemResultNow(runNum,problemResultNowInterval) }, 500);
         } else {
             $.message({
                 message: resp.msg,
@@ -123,6 +123,11 @@ function submit(problemName) {
     });
 }
 
+/**
+ * 拉取题目测评结果
+ * @param runNum
+ * @param problemResultNowInterval
+ */
 function problemResultNow(runNum,problemResultNowInterval) {
     $.post("problemResult/problemResultNow", {"runNum": runNum}, function (resp) {
         if (resp.status == 200) {
@@ -130,9 +135,11 @@ function problemResultNow(runNum,problemResultNowInterval) {
                 window.clearInterval(problemResultNowInterval);
                 var color = getColorByStatus(resp.data.status);
                 var str = getStrByStatus(resp.data.status);
+                var usedTime = resp.data.time;
+                var usedMemory = resp.data.memory;
                 var html = "<a class='mr-3 btn-sm text-white' style='background-color: " + color + "'>" + str + "</a>" +
-                    "<a class='btn-success mr-3 btn-sm text-white'>" + resp.data.time + "ms</a>" +
-                    "<a class='btn-success mr-3 btn-sm text-white'>" + resp.data.memory + "KB</a>" +
+                    "<a class='btn-success mr-3 btn-sm text-white'>" + usedTime + "ms</a>" +
+                    "<a class='btn-success mr-3 btn-sm text-white'>" + usedMemory + "KB</a>" +
                     "<a href='#' class='btn btn-info btn-sm text-white'>查看详情</a>";
 
                 $("#"+runNum+"").html(html);

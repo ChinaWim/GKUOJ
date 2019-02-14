@@ -151,8 +151,8 @@ z-index: 999999">
                                                     <div>
                                                         <div class=" ">
                                                             <span th:if="${competition.secret}"
-                                                                  class=" btn-primary btn-sm">公开赛&nbsp;</span>
-                                                            <span th:if="!${competition.secret}"
+                                                                  class="btn btn-primary btn-sm">公开赛&nbsp;</span>
+                                                            <span  th:if="!${competition.secret}"
                                                                   class=" btn-primary btn-sm">私人赛&nbsp;</span>
                                                             <span class="ml-3">
                                                                 <span class="text-success"
@@ -167,7 +167,7 @@ z-index: 999999">
                                                             </span>
                                                         </div>
                                                         <div class="mt-2">
-                                                            <span class=" btn-warning btn-sm">OI赛制</span>&nbsp;
+                                                            <span class=" btn-warning btn-sm" >OI赛制</span>&nbsp;
                                                             <a class="text-danger ml-3"
                                                                th:href="@{'/user/mainPage?userId='+${competition.userId}}">[[${competition.name}]]</a>
                                                             <span class="gray-font  float-right">[[${#dates.format(competition.endTime,'yyyy-M-d HH:mm')}]]</span>
@@ -189,7 +189,7 @@ z-index: 999999">
                                     <div class="row">
                                         <div class="col-12">
                                             <div th:each="noticeBlog,status : ${noticeBlogList}">
-                                                <a th:href="@{'/blog/blogDetailPage?blogId='+${noticeBlog.id}}">
+                                                <a class="primary-hover" th:href="@{'/blog/blogDetailPage?blogId='+${noticeBlog.id}}">
                                                     <div>[[${noticeBlog.title}]]</div>
                                                 </a>
                                                 <div class="mt-1">
@@ -236,7 +236,7 @@ z-index: 999999">
                                                                        th:href="@{'/user/mainPage?userId='+${lastBlog.userId}}"
                                                                        class="text-danger mr-1">[[${lastBlog.name}]]</a>
                                                                     <span class="gray-font">In</span>
-                                                                    <a th:href="@{'/blog/blogListPage?bcId='+${lastBlog.bcId}}" class="ml-1 text" target="_blank" th:text="${'['+lastBlog.bcName+']'}"></a>
+                                                                    <a th:href="@{'/blog/blogListPage?bcId='+${lastBlog.bcId}}" class="ml-1 primary-hover" target="_blank" th:text="${'['+lastBlog.bcName+']'}"></a>
                                                                 </div>
 
                                                                 <div class="mt-1 gray-font">

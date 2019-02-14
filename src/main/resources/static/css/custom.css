@@ -2175,3 +2175,7 @@ font-size: 12px;
     background: #ffd;
 }
 
+.primary-hover:hover
+{
+    color:#4FB7FE;
+}

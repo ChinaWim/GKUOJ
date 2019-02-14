@@ -89,7 +89,7 @@ z-index: 999999">
                                                                 <span class="ml-3" style="color: #A6A6A6">{{blog.createTime | formatDate}}</span>
                                                                 <span class="ml-3"><span
                                                                         style="color: #A6A6A6">发表在</span>
-                                                            <a href="#">[{{blog.bcName}}]</a></span>
+                                                            <a  href="javascript:void(0);"  @click="intoCategoryByList(blog.bcId)" class="primary-hover">[{{blog.bcName}}]</a></span>
                                                                 <span v-if="blog.replyTime != null" class="ml-3"
                                                                       style="color: #A6A6A6">最后回复：{{blog.replyTime | formatDate}}</span>
                                                                 <span class="time">回复&nbsp;{{blog.replyCount}}&nbsp;|&nbsp;赞&nbsp;{{blog.upCount}}&nbsp;|&nbsp;浏览&nbsp;{{blog.viewCount}}&nbsp;</span>
@@ -122,6 +122,7 @@ z-index: 999999">
                                                 <input id="bcId" name="bcId" type="hidden" th:value="${bcId}"/>
                                                 <span th:each="blogCategory : ${blogCategoryList}">
                                                     <a th:onclick="'intoCategory(this,'+${blogCategory.id}+')'"
+                                                       th:attr="id='bcIds'+${blogCategory.id}"
                                                        th:classappend="${blogCategory.id == bcId}?'active focus':''"
                                                        href="javascript:void(0)"
                                                        class="btn btn-outline-primary mt-3 mr-3 categoryItem">
@@ -189,7 +190,7 @@ z-index: 999999">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div th:each="hotBlog,status : ${hotBlogList}">
-                                                    <a th:href="@{'/blog/blogDetailPage?blogId='+${hotBlog.id}}">
+                                                    <a class="primary-hover" th:href="@{'/blog/blogDetailPage?blogId='+${hotBlog.id}}">
                                                         <div>[[${hotBlog.title}]]</div>
                                                     </a>
                                                     <div class="mt-1">
@@ -274,7 +275,7 @@ z-index: 999999">
                 var sort = $("#sort").val();
                 var bcId = $("#bcId").val();
                 var url = 'blog/listBlog2Page';
-                this.$http.post(url,{"pageNum":pageNum,"bcId":bcId,"sort":sort,"keyword":keyword}).then(function (res) {
+                this.$http.post(url,{"pageNum":pageNum,"bcId":bcId,"sort":sort,"keyword":keyword},{emulateJSON:true}).then(function (res) {
                     this.total = res.data.data.total;
                     this.blogList = res.data.data.list;
                     $("#page").initPage(this.total, pageNum, clickPage);
@@ -291,13 +292,22 @@ z-index: 999999">
         blogApp.listBlog(pageNum);
     }
 
-    //分类点击方法
+    //板块点击方法
     function intoCategory(item, bcId) {
         $(".categoryItem").removeClass("active focus");
         $(item).addClass("active focus");
         $("#bcId").val(bcId);
         blogApp.listBlog(1);
     }
+
+    //板块点击方法
+    function intoCategoryByList(bcId) {
+        $(".categoryItem").removeClass("active focus");
+        $("#bcIds"+bcId).addClass("active focus");
+        $("#bcId").val(bcId);
+        blogApp.listBlog(1);
+    }
+
 
     //tag click
     function searchByTag(tag){
