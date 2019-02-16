@@ -1,10 +1,17 @@
-package com.oj.gkuoj.entity;
+package com.oj.gkuoj.response;
+
+import com.oj.gkuoj.entity.Problem;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class CompetitionProblem implements Serializable {
-    private static final long serialVersionUID = -2735818548511091887L;
+/**
+ * @author m969130721@163.com
+ * @date 19-2-16 下午3:08
+ */
+public class CompetitionProblemVO implements Serializable {
+
+    private static final long serialVersionUID = 8560252327954434308L;
 
     private Integer id;
 
@@ -14,21 +21,19 @@ public class CompetitionProblem implements Serializable {
 
     private Integer problemId;
 
+    private String problemName;
+
+    private Integer submitCount;
+
+    private Integer acCount;
+
     private Date createTime;
 
     private Date updateTime;
 
-    public CompetitionProblem(Integer id, Integer compId, Integer score, Integer problemId, Date createTime, Date updateTime) {
-        this.id = id;
-        this.compId = compId;
-        this.score = score;
-        this.problemId = problemId;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
 
-    public CompetitionProblem() {
-        super();
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -63,6 +68,30 @@ public class CompetitionProblem implements Serializable {
         this.problemId = problemId;
     }
 
+    public String getProblemName() {
+        return problemName;
+    }
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
+    }
+
+    public Integer getSubmitCount() {
+        return submitCount;
+    }
+
+    public void setSubmitCount(Integer submitCount) {
+        this.submitCount = submitCount;
+    }
+
+    public Integer getAcCount() {
+        return acCount;
+    }
+
+    public void setAcCount(Integer acCount) {
+        this.acCount = acCount;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -77,17 +106,5 @@ public class CompetitionProblem implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "CompetitionProblem{" +
-                "id=" + id +
-                ", compId=" + compId +
-                ", score=" + score +
-                ", problemId=" + problemId +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
     }
 }

@@ -397,7 +397,7 @@
 
     <select id="listRankUser" resultType="com.oj.gkuoj.response.RankVO" parameterType="map">
         select
-        id, name, mood, avatar, sign_count,
+        id, name,school, mood, avatar, sign_count,
         submit_count, solution_count, ac_count,
         gold_count, rating, last_login_time, create_time,
         (select count(distinct b.rating) from user b where b.rating > a.rating) + 1 as rank

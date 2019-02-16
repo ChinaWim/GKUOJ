@@ -26,7 +26,10 @@ public class BlogCommentVO {
 
     private Integer upCount;
 
-    private boolean userUpStatus;
+    private Boolean userUpStatus = false;
+
+
+
 
     public Integer getId() {
         return id;

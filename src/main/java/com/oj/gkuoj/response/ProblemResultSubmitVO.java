@@ -26,6 +26,9 @@ public class ProblemResultSubmitVO {
 
     private Long memory;
 
+
+
+
     public Integer getId() {
         return id;
     }

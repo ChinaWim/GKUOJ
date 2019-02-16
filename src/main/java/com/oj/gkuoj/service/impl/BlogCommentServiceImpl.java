@@ -59,7 +59,7 @@ public class BlogCommentServiceImpl implements BlogCommentService {
     }
 
     @Override
-    public RestResponseVO update(BlogComment blogComment) {
+    public RestResponseVO updateById(BlogComment blogComment) {
         if (blogComment == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }

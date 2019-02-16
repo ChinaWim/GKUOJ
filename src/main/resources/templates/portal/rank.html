@@ -45,7 +45,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-bar-chart"></i>&nbsp; 排行榜
+                                <i class="fa fa-bar-chart"></i><span class="ml-1">排行榜</span>
                             </h4>
                         </div>
                     </div>
@@ -81,6 +81,7 @@ z-index: 999999">
                                             <tr >
                                                 <th class="text-center">排名</th>
                                                 <th class="text-center">用户名</th>
+                                                <th class="text-center">学校</th>
                                                 <th class="">个性签名</th>
                                                 <th class="text-center">解决题数</th>
                                                 <th class="text-center">提交次数</th>
@@ -105,11 +106,11 @@ z-index: 999999">
                                                     </div>
                                                 </td>
                                                 <td class="text-center"><a target="_blank" :href="'/user/mainPage?userId='+user.id"
-                                                                           class="text-primary">{{user.name}}</a></td>
-                                                <td>
-                                                    <div>
+                                                                           class="text-primary">{{user.name}}</a>
+                                                </td>
+                                                <td class="text-center">{{user.school}}</td>
+                                                <td class="">
                                                         {{user.mood}}
-                                                    </div>
                                                 </td>
                                                 <td class="text-center">{{user.solutionCount}}</td>
                                                 <td class="text-center">{{user.submitCount}}</td>

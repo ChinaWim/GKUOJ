@@ -18,7 +18,7 @@ public interface BlogCommentService {
 
     RestResponseVO delById(Integer id);
 
-    RestResponseVO update(BlogComment blogComment);
+    RestResponseVO updateById(BlogComment blogComment);
 
     RestResponseVO<PageInfo> listByBlogId2Page(Integer userId,Integer sort, Integer pageNum, Integer pageSize, Integer blogId);
 }

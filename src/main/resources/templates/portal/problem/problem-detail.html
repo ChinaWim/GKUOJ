@@ -42,22 +42,35 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6 ">
                             <h4 class="nav_top_align">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;[[${problem.id}]]
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                <span class="ml-1">[[${problem.id}]]
                                 [[${problem.name}]]
+                                </span>
                             </h4>
                         </div>
                         <div class="col-6 ">
-                            <ol class="breadcrumb float-right nav_breadcrumb_top_align">
-                                <li class="breadcrumb-item">
-                                    <a th:href="@{/}">
-                                        <i class="fa fa-home" aria-hidden="true"></i> 首页
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a th:href="@{/problem/problemListPage}">题库</a>
-                                </li>
-                                <li class="breadcrumb-item active">[[${problem.id}]]</li>
-                            </ol>
+                            <div th:if="${compId == null}">
+                                <ol class="breadcrumb float-right nav_breadcrumb_top_align">
+                                    <li class="breadcrumb-item">
+                                        <a th:href="@{/}">
+                                            <i class="fa fa-home" aria-hidden="true"></i> 首页
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a th:href="@{/problem/problemListPage}">题库</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">[[${problem.id}]]</li>
+                                </ol>
+                            </div>
+                            <div th:if="${compId != null}">
+                                <ol class="breadcrumb float-right nav_breadcrumb_top_align">
+                                    <li class="breadcrumb-item">
+                                        <a th:href="@{'/competition/competitionProblemListPage?compId='+${compId}}" class="btn-sm btn-primary">
+                                            <i class="fa fa-angle-double-left"></i><span class="ml-1">返回比赛</span>
+                                        </a>
+                                    </li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,7 +88,11 @@ z-index: 999999">
                                         内存限制:[[${problem.memory}]]KB
                                     </span>
                                     <span class=" btn-danger loading btn-sm ml-1">
-                                        难度:[[${problem.level}]]
+                                        难度:
+                                        <span th:if="${problem.level == 1}">简单</span>
+                                        <span th:if="${problem.level == 2}">中等</span>
+                                        <span th:if="${problem.level == 3}">困难</span>
+                                        <span th:if="${problem.level == 4}">专家</span>
                                     </span>
                                 </div>
                                 <div class="mt-5">
@@ -86,26 +103,36 @@ z-index: 999999">
                                 </div>
                                 <div class="mt-5">
                                     <h3 class=" card-title "><strong>输入规范</strong></h3>
-                                    <div class="card-text markdown-body" >
+                                    <div class="card-text markdown-body">
                                         [[${problem.inputDesc}]]
                                     </div>
                                 </div>
                                 <div class="mt-5">
                                     <h3 class="card-title"><strong>输出规范</strong>
                                     </h3>
-                                    <div class="card-text markdown-body" >
+                                    <div class="card-text markdown-body">
                                         [[${problem.outputDesc}]]
                                     </div>
                                 </div>
-                                    <h3 class="card-title mt-5"><strong>样例输入</strong></h3>
-                                    <code ><a href="javascript:void(0)" data-clipboard-target="#inputDesc" class="float-right clipboard" onclick="copyToClipboard()" id="clipboard">复制</a><div id="inputDesc">[[${problem.testcaseInput}]]</div></code>
+                                <h3 class="card-title mt-5"><strong>样例输入</strong></h3>
+                                <code style="white-space:pre-line"><a href="javascript:void(0)"
+                                                                      data-clipboard-target="#inputDesc"
+                                                                      class="float-right clipboard"
+                                                                      onclick="copyToClipboard()" id="clipboard">复制</a>
+                                    <div id="inputDesc">[[${problem.testcaseInput}]]</div>
+                                </code>
                                 <!--style="white-space:pre-line"-->
-                                    <h3 class="card-title mt-5"><strong>样例输出</strong></h3>
-                                    <code  >[[${problem.testcaseOutput}]]</code>
+                                <h3 class="card-title mt-5"><strong>样例输出</strong></h3>
+                                <code style="white-space:pre-line">[[${problem.testcaseOutput}]]</code>
 
                                 <div class="mt-5">
-                                    <h3 class="card-title"><strong>标签</strong></h3>
-                                    <span><i class="fa fa-tags"></i>&nbsp;</span>
+                                    <div class="float-left">
+                                        <i class="fa fa-tags mr-1"></i>标签：
+                                        <span class="mr-2"
+                                              th:each="tag : ${#strings.arraySplit(problem.tags,',')}">
+                                                <a target="_blank" href="#" class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
+                                            </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -116,7 +143,7 @@ z-index: 999999">
                                                 type="button"
                                                 id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-info-circle"></i>&nbsp;选择编程语言
+                                            <i class="fa fa-info-circle mr-1"></i>选择编程语言
                                         </button>
                                         <span id="type" value="-1" hidden="hidden">sadasdasdasdasdas</span>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
@@ -134,16 +161,16 @@ z-index: 999999">
                                     </div>
                                 </div>
                                 <div class="col-12 mt-2 ">
-                                    <div id="editor" class="w-100 col-12"></div>
+                                    <div id="editor" class="custom_card w-100 col-12"></div>
                                     <div class="col-12 mt-2">
-                                        <button onclick="submitByProblemName()"
+                                        <button onclick="submitCode()"
                                                 class="notify ml-2 float-right btn btn-info  button-rounded">
-                                            <i class="fa fa-cloud"></i>&nbsp;提交代码
+                                            <i class="fa fa-cloud mr-1"></i>提交代码
                                         </button>
                                         <button class="ml-2 float-right btn  btn-secondary button-rounded "
                                                 onclick="clearTestcase()"
                                                 data-toggle="modal" data-href="#stack1" href="#stack1">
-                                            <i class="fa fa-play"></i>&nbsp;运行测试
+                                            <i class="fa fa-play mr-1"></i>运行测试
                                         </button>
                                     </div>
                                 </div>
@@ -152,97 +179,21 @@ z-index: 999999">
                         </div>
                         <div class="col-4">
                             <div class="card ">
-                                <div class="card-header bg-white"><i class="fa fa-pie-chart"></i>&nbsp;题目统计</div>
+                                <div class="card-header bg-white"><i class="fa fa-pie-chart mr-1"></i>题目统计</div>
                                 <div class="card-block">
                                     <canvas id="myChart" class="w-100" style="height: 400px"></canvas>
                                 </div>
                             </div>
 
-                            <div class="card mt-3">
-                                <div class="card-header bg-white ">
-                                    <div class="twitter_section_head  ">
-                                        <i class="fa fa-commenting"></i>
-                                        <a href="#" class="text-primary">&nbsp;最新评论-讨论区</a>
-                                    </div>
-
-                                </div>
-                                <div class="card-block twitter_section">
-                                    <ul id="nt-example1" style="height: 255px; overflow: hidden;">
-                                        <li style="margin-top: 0px;">
-                                            <div class="row">
-                                                <div class="col-2 col-lg-3 col-xl-2">
-                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
-                                                         alt="image not found">
-                                                </div>
-                                                <div class="col-10 col-lg-9 col-xl-10">
-                                                    <span class="name"><a href="#" class="text-primary">Ming</a></span>
-                                                    <span
-                                                            class="time">1m ago</span>
-                                                    <br> <span class="msg">
-                                                    <a href="#">给条活路吧!</a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                        </li>
-                                        <li style="margin-top: 0px;">
-                                            <div class="row">
-                                                <div class="col-2 col-lg-3 col-xl-2">
-                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
-                                                         alt="image not found">
-                                                </div>
-                                                <div class="col-10 col-lg-9 col-xl-10">
-                                                    <span class="name">Ming</span> <span
-                                                        class="time">1m ago</span>
-                                                    <br> <span class="msg">
-                                                    给条活路吧!
-                                            </span>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                        </li>
-                                        <li style="margin-top: 0px;">
-                                            <div class="row">
-                                                <div class="col-2 col-lg-3 col-xl-2">
-                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
-                                                         alt="image not found">
-                                                </div>
-                                                <div class="col-10 col-lg-9 col-xl-10">
-                                                    <span class="name">Ming</span> <span
-                                                        class="time">1m ago</span>
-                                                    <br> <span class="msg">
-                                                    给条活路吧!
-                                            </span>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                        </li>
-                                        <li style="margin-top: 0px;">
-                                            <div class="row">
-                                                <div class="col-2 col-lg-3 col-xl-2">
-                                                    <img src="img/default_avatar.jpg" class="rounded-circle"
-                                                         alt="image not found">
-                                                </div>
-                                                <div class="col-10 col-lg-9 col-xl-10">
-                                                    <span class="name">Ming</span> <span
-                                                        class="time">1m ago</span>
-                                                    <br> <span class="msg">
-                                                    给条活路吧!
-                                            </span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="card mt-3" id="changeListApp">
                                 <div class="card-header bg-white">
-                                    <i class="fa fa-flag"></i>&nbsp;推荐题目
+                                    <i class="fa fa-flag mr-1"></i>推荐题目
                                 </div>
                                 <div class="card-body">
                                     <div v-for="problem in suggestProblemList">
                                         <div class="task-item">
-                                            <a :href="'problem/problemDetailPage?problemId='+problem.id">{{problem.name}}</a>
+                                            <a class="primary-hover"
+                                               :href="'problem/problemDetailPage?problemId='+problem.id">{{problem.name}}</a>
                                             <span class="float-right">
                                                    {{problem.tags}}
                                             </span>
@@ -252,7 +203,7 @@ z-index: 999999">
                                     <div class="task-item">
                                         <button @click="changeList()"
                                                 class=" w-100 btn btn-outline-primary glow_button glow_button"><i
-                                                class="fa fa-random"></i>&nbsp;更换一组
+                                                class="fa fa-random mr-1"></i>更换一组
                                         </button>
                                     </div>
                                 </div>
@@ -357,7 +308,7 @@ z-index: 999999">
 
     var problemId = [[${problem.id}]];
     var problemName = [[${problem.name}]];
-
+    var compId = [[${compId}]];
 
     // vue
     var changeListApp = new Vue({
@@ -427,8 +378,9 @@ z-index: 999999">
         $("#eOutput").val("");
     }
 
-    function submitByProblemName() {
-        submit(problemName);
+
+    function submitCode() {
+       submit(problemName,compId);
     }
 
 

@@ -43,7 +43,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="nav_top_align">
-                                <i class="fa fa-trophy"></i>&nbsp;
+                                <i class="fa fa-trophy mr-1"></i>
                                 比赛详情
                             </h4>
                         </div>
@@ -84,7 +84,7 @@ z-index: 999999">
                                                     th:href="@{'/user/mainPage?userId='+${competitionDetail.userId}}"
                                                     class="text-primary">[[${competitionDetail.name}]]</a></div>
                                         <div>比赛赛制：OI</div>
-                                        <div>题目数量：[[${competitionDetail.registerCount}]]</div>
+                                        <div>题目数量：[[${competitionDetail.problemCount}]]</div>
                                         <div>开始时间：[[${#dates.format(competitionDetail.startTime,'yyyy 年 M 月 d 日
                                             H:mm')}]]
                                         </div>
@@ -162,7 +162,7 @@ z-index: 999999">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="modalLabelSmall">输入报名密钥</h4>
+                        <h4 class="modal-title" id="modalLabelSmall">输入报名密码</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>

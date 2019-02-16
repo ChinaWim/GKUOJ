@@ -54,6 +54,9 @@ public class ProblemDetailVO {
     private Date updateTime;
 
 
+
+
+
     public ProblemDetailVO(Integer id, String name, String content, String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, String tags, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;

@@ -1,12 +1,15 @@
 package com.oj.gkuoj.response;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author m969130721@163.com
  * @date 19-2-3 上午12:58
  */
-public class CompetitionDetailVO {
+public class CompetitionDetailVO implements Serializable {
+
+    private static final long serialVersionUID = -2164415105630576696L;
 
     private Integer id;
 
@@ -22,7 +25,7 @@ public class CompetitionDetailVO {
 
     private String content;
 
-    private Boolean secret;
+    private Boolean secret = false;
 
     private Date startTime;
 
@@ -36,9 +39,11 @@ public class CompetitionDetailVO {
 
     private Integer competitionStatus;
 
-    private boolean userRegistered;
+    private Boolean userRegistered = false;
 
-    public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, Boolean secret, Date startTime, Date endTime, Date createTime, Date updateTime) {
+    private Integer problemCount;
+
+    public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, Boolean secret, Date startTime, Date endTime, Date createTime, Date updateTime, Integer registerCount, Integer competitionStatus, Boolean userRegistered, Integer problemCount) {
         this.id = id;
         this.userId = userId;
         this.avatar = avatar;
@@ -51,6 +56,10 @@ public class CompetitionDetailVO {
         this.endTime = endTime;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.registerCount = registerCount;
+        this.competitionStatus = competitionStatus;
+        this.userRegistered = userRegistered;
+        this.problemCount = problemCount;
     }
 
     public CompetitionDetailVO() {
@@ -170,12 +179,24 @@ public class CompetitionDetailVO {
         this.secret = secret;
     }
 
-    public boolean isUserRegistered() {
+    public Boolean isUserRegistered() {
         return userRegistered;
     }
 
-    public void setUserRegistered(boolean userRegistered) {
+    public void setUserRegistered(Boolean userRegistered) {
         this.userRegistered = userRegistered;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getProblemCount() {
+        return problemCount;
+    }
+
+    public void setProblemCount(Integer problemCount) {
+        this.problemCount = problemCount;
     }
 
     @Override
@@ -196,6 +217,7 @@ public class CompetitionDetailVO {
                 ", registerCount=" + registerCount +
                 ", competitionStatus=" + competitionStatus +
                 ", userRegistered=" + userRegistered +
+                ", problemCount=" + problemCount +
                 '}';
     }
 }

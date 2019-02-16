@@ -1,6 +1,8 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.ProblemResult;
+import com.oj.gkuoj.response.ProblemResultCompetitionVO;
+import com.oj.gkuoj.response.ProblemResultDetailVO;
 import com.oj.gkuoj.response.ProblemResultSubmitVO;
 import com.oj.gkuoj.response.ProblemResultVO;
 import org.apache.ibatis.annotations.Param;
@@ -29,4 +31,7 @@ public interface ProblemResultMapper {
 
     ProblemResultSubmitVO getByRunNum2SubmitVO(String runNum);
 
+    ProblemResultDetailVO getById2DetailVO(Integer problemResultId);
+
+    List<ProblemResultCompetitionVO> listProblemResultCompetitionVO2Page(@Param("compId") Integer compId,@Param("userId") Integer userId);
 }

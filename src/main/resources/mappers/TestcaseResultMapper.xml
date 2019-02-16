@@ -23,7 +23,7 @@
     from testcase_result
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from testcase_result
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -130,4 +130,13 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+  <select id="listByProblemResultId" resultType="com.oj.gkuoj.entity.TestcaseResult" parameterType="int">
+    select <include refid="Base_Column_List"/> from testcase_result
+    where pro_re_id = #{problemResultId}
+  </select>
+
+
 </mapper>

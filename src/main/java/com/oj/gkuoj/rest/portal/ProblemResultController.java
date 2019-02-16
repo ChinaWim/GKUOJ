@@ -3,13 +3,17 @@ package com.oj.gkuoj.rest.portal;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.entity.Competition;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.exception.UserUnAuthorizedException;
 import com.oj.gkuoj.producer.JudgeProducer;
+import com.oj.gkuoj.response.ProblemResultDetailVO;
 import com.oj.gkuoj.response.ProblemResultSubmitVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.ProblemResult;
+import com.oj.gkuoj.service.CompetitionService;
 import com.oj.gkuoj.service.ProblemResultService;
+import com.oj.gkuoj.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -24,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.time.Duration;
+import java.time.Instant;
 
 /**
  * @author m969130721@163.com
@@ -38,6 +44,12 @@ public class ProblemResultController {
 
     @Autowired
     private JudgeProducer producer;
+
+    @Autowired
+    private CompetitionService competitionService;
+
+    @Autowired
+    private RegisterService registerService;
 
     /**
      * 跳转到测评记录列表页面
@@ -112,10 +124,32 @@ public class ProblemResultController {
         if (userDetails == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
         }
+        User user = (User) userDetails;
         if (bindingResult.hasErrors()) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        User user = (User) userDetails;
+
+        if (problemResult.getCompId() != null) {
+            Competition competition = competitionService.getById(problemResult.getCompId()).getData();
+            if (competition == null) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_FOUND_ERROR);
+            }
+            RestResponseVO isRegistered = registerService.isRegisterCompetition(user.getId(), problemResult.getCompId());
+            if (!isRegistered.isSuccess()) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_REGISTER);
+            }
+            Instant nowDate = Instant.now();
+            boolean isStarted = nowDate.isAfter(competition.getStartTime().toInstant());
+            boolean isClosed = nowDate.isAfter(competition.getEndTime().toInstant());
+            if (!isStarted) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_STARTED_ERROR);
+            }
+            if (isClosed) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_CLOSED_ERROR);
+            }
+        }
+
+
         problemResult.setUserId(user.getId());
         return producer.send(problemResult);
     }
@@ -129,26 +163,28 @@ public class ProblemResultController {
      * @param problemResultId
      * @return
      */
-    @RequestMapping("/problemResultPage")
+    @RequestMapping("/problemResultDetailPage")
     public String problemResultPage(HttpServletRequest request, Integer problemResultId,
                                     @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
             throw new UserUnAuthorizedException(ExceptionStatusConst.USER_UN_AUTHORIZE_EXP, "请先登录");
         }
         User user = (User) userDetails;
-        RestResponseVO<ProblemResult> problemResultVO = problemResultService.getById(problemResultId);
-        ProblemResult problemResult = problemResultVO.getData();
-        if (!problemResult.getUserId().equals(user.getId())) {
+        RestResponseVO<ProblemResultDetailVO> restResponseVO = problemResultService.getById2DetailVO(problemResultId);
+        ProblemResultDetailVO problemResultDetailVO = restResponseVO.getData();
+        if (!problemResultDetailVO.getUserId().equals(user.getId())) {
             if (user.getGoldCount() > 0) {
 
             } else {
 
             }
         }
+        //set data
+        request.setAttribute("active4", true);
+        request.setAttribute("problemResultDetail", problemResultDetailVO);
 
-        return "portal/problem/problem-result";
+        return "portal/problemResult/problemResult-detail";
     }
-
 
     /**
      * 获取题目状态
@@ -160,6 +196,21 @@ public class ProblemResultController {
     @ResponseBody
     public RestResponseVO<ProblemResultSubmitVO> problemResultNow(String runNum) {
         return problemResultService.getByRunNum2SubmitVO(runNum);
+    }
+
+
+    @RequestMapping("/listProblemResultCompetitionVO2Page")
+    @ResponseBody
+    public RestResponseVO<PageInfo> listProblemResultCompetitionVO2Page(@AuthenticationPrincipal UserDetails userDetails,
+                                                                        @RequestParam(defaultValue = "1") Integer pageNum,
+                                                                        @RequestParam(defaultValue = "10") Integer pageSize,
+                                                                        Integer compId) {
+        if (userDetails == null) {
+            throw new UserUnAuthorizedException(ExceptionStatusConst.USER_UN_AUTHORIZE_EXP, "请先登录");
+        }
+        User user = ((User) userDetails);
+
+        return problemResultService.listProblemResultCompetitionVO2Page(pageNum, pageSize, user.getId(), compId);
     }
 
 

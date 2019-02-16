@@ -78,4 +78,17 @@ public class CompetitionVO {
     public void setRegisterCount(Integer registerCount) {
         this.registerCount = registerCount;
     }
+
+    @Override
+    public String toString() {
+        return "CompetitionVO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", registerCount=" + registerCount +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

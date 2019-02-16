@@ -35,7 +35,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     private RegisterMapper registerMapper;
 
     @Override
-    public RestResponseVO getById(Integer competitionId) {
+    public RestResponseVO<Competition> getById(Integer competitionId) {
         if (competitionId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
@@ -64,7 +64,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public RestResponseVO update(Competition competition) {
+    public RestResponseVO updateById(Competition competition) {
         if (competition == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }

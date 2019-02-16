@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>测评详情</title>
+    <div th:replace="~{fragments/head-base}"></div>
+    <!--Page level styles-->
+    <style type="text/css">
+
+    </style>
+</head>
+
+<!--Page head script-->
+
+<!--end of Page head script-->
+<body class="body sidebar-left-hidden fixedNav_position fixedMenu_left">
+<div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
+    </div>
+</div>
+<div id="wrap">
+    <div th:replace="~{fragments/top :: top}"></div>
+    <!-- /#top -->
+    <div class="wrapper fixedNav_top">
+        <div th:replace="~{fragments/left :: left}"></div>
+        <!-- /#left -->
+        <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6 ">
+                            <h4 class="nav_top_align">
+                                <i class="fa fa-pie-chart mr-1" aria-hidden="true"></i>
+                                测评详情
+                            </h4>
+                        </div>
+                        <div class="col-6 ">
+                            <ol class="breadcrumb float-right nav_breadcrumb_top_align">
+                                <li class="breadcrumb-item">
+                                    <a th:href="@{/}">
+                                        <i class="fa fa-home" aria-hidden="true"></i> 首页
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a th:href="@{/problemResult/problemResultListPage}">测评记录</a>
+                                </li>
+                                <li class="breadcrumb-item active">[[${problemResultDetail.problemName}]]</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="outer">
+                <div class="inner bg-container">
+                    <div id="">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div>
+                                            <h4><strong>评测状态</strong></h4>
+                                        </div>
+                                        <div class="mt-3">
+                                            <span th:if="${problemResultDetail.status == 0}" class="btn-sm text-white">编译中</span>
+                                            <span th:if="${problemResultDetail.status == 1}"
+                                                  class="ac-bg-color  btn-sm text-white">Accepted</span>
+                                            <span th:if="${problemResultDetail.status == 2}"
+                                                  class="ce-bg-color  btn-sm text-white">Compile Error</span>
+                                            <span th:if="${problemResultDetail.status == 3}"
+                                                  class="pe-bg-color  btn-sm text-white">Presentation Error</span>
+                                            <span th:if="${problemResultDetail.status == 4}"
+                                                  class="re-bg-color  btn-sm text-white">Runtime Error</span>
+                                            <span th:if="${problemResultDetail.status == 5}"
+                                                  class="tle-bg-color  btn-sm text-white">TIME_Limit_Exceeded</span>
+                                            <span th:if="${problemResultDetail.status == 6}"
+                                                  class="me-bg-color  btn-sm text-white">Memory Limit Exceeded</span>
+                                            <span th:if="${problemResultDetail.status == 7}"
+                                                  class="wa-bg-color  btn-sm text-white">Wrong Answer</span>
+                                            <span th:if="${problemResultDetail.status == 8}" class="btn-sm text-white">队列中</span>
+                                            <span th:if="${problemResultDetail.status == 9}" class="btn-sm text-white">判题中</span>
+                                            <span class="ml-3">
+                                                <span><i
+                                                        class="fa fa-clock-o"></i> [[${problemResultDetail.time}]]ms</span>
+                                                <span class="ml-3"><i class="fa fa-database"></i> [[${problemResultDetail.memory}]]KB</span>
+                                            </span>
+                                            <span class="ml-3">得分：[[${problemResultDetail.score}]]</span>
+                                            <span class="ml-3">通过组数：[[${problemResultDetail.acCount}]]</span>
+
+
+                                        </div>
+
+                                        <div th:if="${problemResultDetail.status == 2}">
+                                            <div class="mt-5">
+                                                <h4><strong>编译信息</strong></h4>
+                                            </div>
+                                            <div class="mt-3 custom_card pre-line">
+                                                <code>[[${problemResultDetail.errorMsg}]]</code>
+                                            </div>
+                                        </div>
+                                        <div th:if="${problemResultDetail.status == 4}">
+                                            <div class="mt-5">
+                                                <h4><strong>运行时错误信息</strong></h4>
+                                            </div>
+                                            <div class="mt-3 custom_card pre-line">
+                                                <code th:if="${problemResultDetail.errorMsg == null || problemResultDetail == ''}">程序运行中抛出异常，请仔细查看代码</code>
+                                                <code th:if="${problemResultDetail.errorMsg != null && problemResultDetail != ''}">[[${problemResultDetail.errorMsg}]]</code>
+                                            </div>
+                                        </div>
+                                        <div th:if="${problemResultDetail.status != 2}">
+                                            <div class="mt-5">
+                                                <h4><strong>测试点信息</strong></h4>
+                                            </div>
+                                            <div class="mt-3">
+                                                <table class="table table-bordered table-hover">
+                                                    <div class=""
+                                                         th:each="testcase,status : ${problemResultDetail.testcaseResultList}">
+                                                        <tr>
+                                                            <td>
+                                                                <span>#测试点[[${testcase.num}]]</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span th:if="${testcase.status == 1}"
+                                                                      class="ac-bg-color  btn-sm text-white">Accepted</span>
+                                                                <span th:if="${testcase.status == 2}"
+                                                                      class="ce-bg-color  btn-sm text-white">Compile Error</span>
+                                                                <span th:if="${testcase.status == 3}"
+                                                                      class="pe-bg-color  btn-sm text-white">Presentation Error</span>
+                                                                <span th:if="${testcase.status == 4}"
+                                                                      class="re-bg-color  btn-sm text-white">Runtime Error</span>
+                                                                <span th:if="${testcase.status == 5}"
+                                                                      class="tle-bg-color btn-sm text-white">TIME Limit Exceeded</span>
+                                                                <span th:if="${testcase.status == 6}"
+                                                                      class="me-bg-color  btn-sm text-white">Memory Limit Exceeded</span>
+                                                                <span th:if="${testcase.status == 7}"
+                                                                      class="wa-bg-color  btn-sm text-white">Wrong Answer</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span th:if="${testcase.status == 1 && status.size == 10}">10</span>
+                                                                <span th:if="${testcase.status == 1 && status.size == 5}">20</span>
+                                                                <span th:if="${testcase.status != 1}">0</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span>[[${testcase.time}]]ms</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span>[[${testcase.memory}]]KB</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <a th:href="@{'/file/getTestcaseInput?problemId='+${problemResultDetail.problemId}+'&num='+${testcase.num}}"
+                                                                   class="btn ml-1  btn-secondary btn-sm ">输入下载</a>
+                                                                <a th:href="@{'/file/getTestcaseOutput?problemId='+${problemResultDetail.problemId}+'&num='+${testcase.num}}"
+                                                                   class="btn ml-1 btn-secondary btn-sm">输出下载</a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </div>
+                                                </table>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="mt-5">
+                                            <h4><strong>源代码</strong></h4>
+                                        </div>
+                                        <div class="mt-3 ">
+                                            <div id="editor" style="height: 500px" class="custom_card pre-line">[[${problemResultDetail.sourceCode}]]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="">
+                                                    <div class="float-left">
+                                                        <img th:src="${problemResultDetail.avatar} == null ? '/img/default_avatar.jpg' :
+                                                                ${problemResultDetail.avatar}"
+                                                             class="img-50  rounded-circle "
+                                                             alt="avatar"/>
+                                                    </div>
+                                                    <div class="float-left ml-3">
+                                                        <div><a target="_blank"
+                                                                th:href="@{'/user/mainPage?userId='+${problemResultDetail.userId}}"
+                                                                class="text-primary">[[${problemResultDetail.name}]]</a>
+                                                        </div>
+                                                        <div>
+                                                            <a class="text-primary" target="_blank"
+                                                               th:href="@{'problem/problemDetailPage?problemId='+${problemResultDetail.problemId}}">
+                                                                <strong>P[[${problemResultDetail.problemId}]]</strong>&nbsp;[[${problemResultDetail.problemName}]]
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <div class=""><span class="ac-bg-color btn-sm text-white">Accepted</span>
+                                                        </div>
+                                                        <div class="text-primary">[[${problemResultDetail.score}]]</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <span class="float-left"><strong>代码</strong></span>
+                                                <span class="float-right">[[${problemResultDetail.type}]]</span>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <span class="float-left"><strong>提交时间</strong></span>
+                                                <span class="float-right">[[${#dates.format(problemResultDetail.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <span class="float-left"><strong>耗时/内存</strong></span>
+                                                <span class="float-right"><strong>[[${problemResultDetail.time}]]ms, [[${problemResultDetail.memory}]]KB</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.inner -->
+</div>
+<!-- /.outer -->
+
+<!-- /#content -->
+<!-- Modal -->
+<div th:replace="~{fragments/modal}"></div>
+
+<!--wrapper-->
+<!-- /#content -->
+<!-- # right side -->
+<!-- /#wrap -->
+<!-- global scripts-->
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script type="text/javascript" th:src="@{/plugins/ace/src-noconflict/ace.js}"></script>
+<script th:src="@{/plugins/ace/src-noconflict/ext-language_tools.js}" type="text/javascript" charset="utf-8"></script>
+<!--end of global scripts-->
+</body>
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+
+
+    /**
+     *  ace editor init
+     */
+    var editor = ace.edit("editor");
+    ace.require("ace/ext/language_tools");
+    editor.$blockScrolling = Infinity;
+    editor.setFontSize(18);
+    editor.getSession().setTabSize(4);
+    //代码折叠
+    editor.getSession().setUseWrapMode(true);
+    //设置打印边距可见度
+    editor.setShowPrintMargin(false);
+    editor.setReadOnly(true);
+    editor.session.setMode("ace/mode/java");
+    //  crimson_editor
+    editor.setTheme("ace/theme/xcode");
+    editor.setOptions({
+        enableBasicAutocompletion: false,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+
+
+
+    /*]]>*/
+</script>
+</html>

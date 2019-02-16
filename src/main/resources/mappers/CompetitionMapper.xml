@@ -147,11 +147,13 @@
 
   <select id="getCompetitionDetailVOById" resultType="com.oj.gkuoj.response.CompetitionDetailVO" parameterType="int">
    select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,
-   start_time,end_time,comp.create_time,comp.update_time,count(r.id) register_count,IFNULL(comp.password,0) secret
+   start_time,end_time,comp.create_time,comp.update_time,count(distinct r.id) register_count,IFNULL(comp.password,0) secret,
+   count(distinct cp.id) problem_count
 
    from competition comp
    join user u on comp.user_id = u.id
    left join register r on r.comp_id = comp.id
+   left join competition_problem cp on cp.comp_id = comp.id
    where comp.id = #{compId}
    group by comp.id
 

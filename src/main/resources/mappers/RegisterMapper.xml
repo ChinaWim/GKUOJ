@@ -133,4 +133,14 @@
         where user_id = #{userId}
         and comp_id = #{compId}
     </select>
+
+    <select id="listRegisterByCompId2Page" resultType="com.oj.gkuoj.response.RegisterVO" parameterType="int">
+        select r.id, r.user_id, r.comp_id, r.solution_count, r.submit_count, r.score, r.create_time, r.update_time,
+        u.name,u.school
+        from register r
+        join user u on u.id = r.user_id
+        where  r.comp_id = #{compId}
+        order by  r.score desc
+    </select>
+
 </mapper>

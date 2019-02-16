@@ -19,7 +19,7 @@ public interface TagService {
 
      RestResponseVO delById(Integer id);
 
-     RestResponseVO update(Tag tag);
+     RestResponseVO updateById(Tag tag);
 
 
 }

@@ -1,7 +1,10 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Register;
+import com.oj.gkuoj.response.RegisterVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface RegisterMapper {
     int deleteByPrimaryKey(Integer id);
@@ -19,5 +22,8 @@ public interface RegisterMapper {
     Register getByUserIdAndCompId(@Param("userId") Integer userId,@Param("compId") Integer compId);
 
     int countByUserIdAndCompId(@Param("userId") Integer userId,@Param("compId") Integer compId);
+
+    List<RegisterVO> listRegisterByCompId2Page(Integer compId);
+
 
 }

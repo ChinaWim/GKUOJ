@@ -21,7 +21,7 @@ public interface UserService {
 
     RestResponseVO delById(Integer id);
 
-    RestResponseVO update(User user);
+    RestResponseVO updateById(User user);
 
     RestResponseVO sendRegisterEmail(String email);
 

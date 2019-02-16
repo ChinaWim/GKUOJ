@@ -1,6 +1,7 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.response.ProblemDetailVO;
 import com.oj.gkuoj.response.ProblemVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,5 +34,6 @@ public interface ProblemMapper {
                                @Param("level") Integer level, @Param("tagIdsList") List<Integer> tagIdsList);
 
 
+    ProblemDetailVO getDetailVOById(Integer problemId);
 
 }

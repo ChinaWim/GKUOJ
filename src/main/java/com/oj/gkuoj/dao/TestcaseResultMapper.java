@@ -2,6 +2,8 @@ package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.TestcaseResult;
 
+import java.util.List;
+
 public interface TestcaseResultMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface TestcaseResultMapper {
     int updateByPrimaryKeySelective(TestcaseResult record);
 
     int updateByPrimaryKey(TestcaseResult record);
+
+    List<TestcaseResult> listByProblemResultId(Integer problemResultId);
 }

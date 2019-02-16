@@ -6,7 +6,7 @@ package com.oj.gkuoj.response;
  */
 public class UpVO {
 
-    private boolean status;
+    private Boolean status = false;
 
     private Integer count;
 

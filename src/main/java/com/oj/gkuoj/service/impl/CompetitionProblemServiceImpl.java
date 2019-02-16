@@ -2,11 +2,11 @@ package com.oj.gkuoj.service.impl;
 
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.common.StringConst;
-import com.oj.gkuoj.dao.BlogCategoryMapper;
-import com.oj.gkuoj.entity.BlogCategory;
-import com.oj.gkuoj.entity.BlogComment;
+import com.oj.gkuoj.dao.CompetitionProblemMapper;
+import com.oj.gkuoj.entity.CompetitionProblem;
+import com.oj.gkuoj.response.CompetitionProblemVO;
 import com.oj.gkuoj.response.RestResponseVO;
-import com.oj.gkuoj.service.BlogCategoryService;
+import com.oj.gkuoj.service.CompetitionProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,30 +14,28 @@ import java.util.List;
 
 /**
  * @author m969130721@163.com
- * @date 19-1-27 下午6:03
+ * @date 19-2-16 下午3:18
  */
 @Service
-public class BlogCategoryImpl implements BlogCategoryService {
+public class CompetitionProblemServiceImpl implements CompetitionProblemService {
+
     @Autowired
-    private BlogCategoryMapper blogCategoryMapper;
-
-
-
+    private CompetitionProblemMapper competitionProblemMapper;
     @Override
     public RestResponseVO getById(Integer id) {
         if (id == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        BlogCategory blogCategory = blogCategoryMapper.selectByPrimaryKey(id);
-        return RestResponseVO.createBySuccess(blogCategory);
+        CompetitionProblem competitionProblem = competitionProblemMapper.selectByPrimaryKey(id);
+        return RestResponseVO.createBySuccess(competitionProblem);
     }
 
     @Override
-    public RestResponseVO insert(BlogCategory blogCategory) {
-        if (blogCategory == null) {
+    public RestResponseVO insert(CompetitionProblem competitionProblem) {
+        if (competitionProblem == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        int effect = blogCategoryMapper.insertSelective(blogCategory);
+        int effect = competitionProblemMapper.insertSelective(competitionProblem);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
@@ -47,24 +45,28 @@ public class BlogCategoryImpl implements BlogCategoryService {
         if (id == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        int effect = blogCategoryMapper.deleteByPrimaryKey(id);
+        int effect = competitionProblemMapper.deleteByPrimaryKey(id);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override
-    public RestResponseVO updateById(BlogCategory blogCategory) {
-        if (blogCategory == null) {
+    public RestResponseVO updateById(CompetitionProblem competitionProblem) {
+        if (competitionProblem == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        int effect = blogCategoryMapper.updateByPrimaryKeySelective(blogCategory);
+        int effect = competitionProblemMapper.updateByPrimaryKeySelective(competitionProblem);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
 
     @Override
-    public RestResponseVO<List<BlogCategory>> listAll() {
-        List<BlogCategory> blogCategoryList = blogCategoryMapper.listAll();
-        return RestResponseVO.createBySuccess(blogCategoryList);
+    public RestResponseVO<List<CompetitionProblemVO>> listVOByCompetitionId(Integer competitionId) {
+        if (competitionId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+
+        List<CompetitionProblemVO> competitionProblemVOList = competitionProblemMapper.listVOByCompetitionId(competitionId);
+        return RestResponseVO.createBySuccess(competitionProblemVOList);
     }
 }

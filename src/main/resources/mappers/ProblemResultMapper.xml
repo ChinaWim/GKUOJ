@@ -18,6 +18,41 @@
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
+
+  <resultMap type="com.oj.gkuoj.response.ProblemResultDetailVO" id="problemResultDetailVOMap">
+    <id column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="problem_id" property="problemId"/>
+    <result column="comp_id" property="compId"/>
+    <result column="run_num" property="runNum"/>
+    <result column="status" property="status"/>
+    <result column="type" property="type"/>
+    <result column="time" property="time"/>
+    <result column="memory" property="memory"/>
+    <result column="error_msg" property="errorMsg"/>
+    <result column="source_code" property="sourceCode"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+    <result column="avatar" property="avatar"/>
+    <result column="name" property="name"/>
+    <result column="problem_name" property="problemName"/>
+
+    <collection property="testcaseResultList" ofType="com.oj.gkuoj.entity.TestcaseResult">
+      <id column="t_id" property="id"/>
+      <result column="pro_re_id" property="proReId"/>
+      <result column="t_num" property="num"/>
+      <result column="user_output" property="userOutput"/>
+      <result column="t_time" property="time"/>
+      <result column="t_memory" property="memory"/>
+      <result column="t_status" property="status"/>
+    </collection>
+  </resultMap>
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     id, user_id, problem_id, comp_id, run_num, status, type, time, memory, error_msg,
     source_code, create_time, update_time
@@ -227,5 +262,30 @@
     </where>
     order by p.create_time desc
   </select>
+
+    <select id="getById2DetailVO" resultMap="problemResultDetailVOMap" parameterType="int">
+      select   pr.id, user_id, problem_id, comp_id, run_num, pr.status, type, pr.time, pr.memory, error_msg,
+      source_code, pr.create_time, pr.update_time, u.avatar,u.name,p.name problem_name,
+      tr.id t_id,tr.pro_re_id,tr.num t_num, tr.user_output,tr.time t_time,tr.memory t_memory,tr.status t_status
+
+      from problem_result pr
+      join user u on u.id = pr.user_id
+      join problem p on p.id = pr.problem_id
+      left join testcase_result tr on tr.pro_re_id = pr.id
+
+      where pr.id = #{id}
+
+    </select>
+  <select id="listProblemResultCompetitionVO2Page"
+          resultType="com.oj.gkuoj.response.ProblemResultCompetitionVO" parameterType="map">
+    select pr.id, pr.user_id, pr.problem_id, pr.comp_id, pr.run_num, pr.status, pr.type, pr.time, pr.memory, pr.create_time, pr.update_time,
+    p.name problem_name
+    from problem_result pr
+    join problem p on p.id = pr.problem_id
+    where pr.user_id = #{userId}
+    and pr.comp_id = #{compId}
+
+  </select>
+
 
 </mapper>

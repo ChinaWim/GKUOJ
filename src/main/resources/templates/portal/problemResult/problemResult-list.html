@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>题库</title>
+    <title>测评记录</title>
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
     <style type="text/css">
@@ -45,7 +45,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-pie-chart"></i>&nbsp;测评记录
+                                <i class="fa fa-pie-chart"></i><span class="ml-1">测评记录</span>
                             </h4>
                         </div>
                     </div>
@@ -94,7 +94,7 @@ z-index: 999999">
                                     </div>
                                     <div class="col-4">
                                         <button onclick="clickPage(1)" class="btn btn-outline-primary"><i
-                                                class="fa fa-search"></i>&nbsp;开始查找
+                                                class="fa fa-search"></i><span class="ml-1">开始查找</span>
                                         </button>
                                         <!--<button class="btn ml-3 btn-outline-primary"><i class="fa fa-user"></i>&nbsp;我的提交
                                         </button>-->
@@ -114,6 +114,7 @@ z-index: 999999">
                                                 <th class="text-center">时间</th>
                                                 <th class="text-center">内存</th>
                                                 <th class="text-center">结果</th>
+                                                <th class="text-center">得分</th>
                                                 <th class="text-center">提交时间</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
@@ -126,7 +127,7 @@ z-index: 999999">
                                                        :href="'/user/mainPage?userId='+problemResult.userId"
                                                        target="_blank">{{problemResult.name}}</a>
                                                 </td>
-                                                <td>{{problemResult.problemId}}</td>
+                                                <td><a target="_blank" class="primary-hover" :href="'problem/problemDetailPage?problemId='+problemResult.problemId">{{problemResult.problemId}}</a></td>
                                                 <td>{{problemResult.type}}</td>
                                                 <td>{{problemResult.time}}ms</td>
                                                 <td>{{problemResult.memory}}MB</td>
@@ -168,20 +169,21 @@ z-index: 999999">
                                                     <span class=" btn-sm bg-success"
                                                           v-if="problemResult.status == 8">
                                                         <span>
-                                                       队列中&nbsp;<i class="fa fa-spinner fa-pulse"></i>
+                                                            <span>队列中</span><i class="ml-1 fa fa-spinner fa-pulse"></i>
                                                         </span>
                                                 </span>
                                                     <span class=" btn-sm " v-if="problemResult.status == 9">
                                                      <span>
-                                                      判题中&nbsp;<i class="fa fa-spinner fa-pulse"></i>
+                                                      <span>判题中</span><i class="ml-1 fa fa-spinner fa-pulse"></i>
                                                       </span>
                                                 </span>
                                                 </td>
+                                                <td>{{problemResult.score}}
                                                 <td>{{problemResult.createTime | formatDate}}
                                                 </td>
                                                 <td>
                                                     <a class="btn btn-sm btn-secondary"
-                                                       :href="'/problemResult/problemResultPage?problemResultId='+problemResult.id">
+                                                       :href="'/problemResult/problemResultDetailPage?problemResultId='+problemResult.id">
                                                         查看详情
                                                     </a>
                                                 </td>

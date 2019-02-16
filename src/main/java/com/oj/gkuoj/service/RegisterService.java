@@ -1,7 +1,10 @@
 package com.oj.gkuoj.service;
 
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.Register;
+
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -13,9 +16,15 @@ public interface RegisterService {
 
     RestResponseVO delById(Integer id);
 
-    RestResponseVO update(Register register);
+    RestResponseVO updateById(Register register);
 
     RestResponseVO registerCompetition(Integer userId,Integer compId,String password);
 
     RestResponseVO isRegisterCompetition(Integer userId, Integer compId);
+
+
+    RestResponseVO<PageInfo> listRegisterByCompId2Page(Integer compId, Integer pageNum, Integer pageSize);
+
+
+
 }

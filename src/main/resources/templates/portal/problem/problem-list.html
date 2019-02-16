@@ -44,7 +44,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-book"></i>&nbsp;题库
+                                <i class="fa fa-book"></i><span class="ml-1">题库</span>
                             </h4>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ z-index: 999999">
                             <div class="col-4">
                                 <button class=" w-100 btn button-rounded btn-primary glow_button glow_button"
                                         onclick="randomProblem()"><i
-                                        class="fa fa-random"></i>&nbsp;帮我随机选择一题
+                                        class="fa fa-random"></i><span class="ml-1">帮我随机选择一题</span>
                                 </button>
                             </div>
                         </div>
@@ -107,9 +107,6 @@ z-index: 999999">
                             <!--problemList-->
                             <div class="col-8">
                                 <div class="card p-3">
-                                    <!-- <h5 class="card-header  ">
-                                           <i class="fa fa-flag "></i>&nbsp;题目列表
-                                       </h5>-->
                                     <div class="card-body">
                                         <table class="table table-hover table-striped" id="table">
                                             <thead class="">
@@ -146,7 +143,7 @@ z-index: 999999">
                                                 </td>
                                                 <td>
                                                     <div style="width: 250px">
-                                                        <i class="fa fa-tags"></i>&nbsp;
+                                                        <i class="fa fa-tags mr-1"></i>
                                                         <span v-if="problem.tags != null">
                                                         <span class="mr-2" v-for="tag in problem.tags.split(',')">
                                                         <a>{{tag}}</a>
@@ -157,11 +154,9 @@ z-index: 999999">
                                                 <td class="text-center">{{problem.submitCount}}</td>
                                                 <td class="text-center">
                                                     <span v-if="problem.submitCount != 0">
-                                                        <span>{{(problem.acCount*1.0/problem.submitCount*100) | formatNum}}</span>
-                                                     </span>
-                                                    <span v-if="problem.submitCount == 0">
-                                                    0.00
-                                                </span>%
+                                                        <span>{{(problem.acCount*1.0/problem.submitCount*100) | formatNum}}%</span>
+                                                    </span>
+                                                    <span v-if="problem.submitCount == 0">0.00%</span>
                                                 </td>
                                                 <td class="text-center">{{problem.createTime | formatYear}}</td>
                                                 <td class="text-center">
@@ -197,7 +192,7 @@ z-index: 999999">
                             <!--right-->
                             <div class="col-4">
                                 <div class="card">
-                                    <div class="card-header bg-white"><i class="fa fa-bars"></i>&nbsp;题目分类</div>
+                                    <div class="card-header bg-white"><i class="fa fa-bars mr-1"></i>题目分类</div>
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-5 nav-item dropdown" th:each="tag,status:${tagList}">
@@ -215,7 +210,7 @@ z-index: 999999">
                                                                    class="custom-control-input"
                                                                    onclick="clickAllTag(this)" th:value="${tag.id}">
                                                             <span class="custom-control-indicator"></span>
-                                                            <span class="custom-control-description">选择全部</span>
+                                                            <span class="custom-control-description primary-hover">选择全部</span>
                                                         </label>
                                                     </div>
                                                     <!--<a class="dropdown-item" href="#">选择全部</a>-->
@@ -227,10 +222,10 @@ z-index: 999999">
                                                                 <input type="checkbox"
                                                                        th:attr="pid=${tag.id}"
                                                                        th:classappend="'tagIds'+${tag.id}"
-                                                                       class="custom-control-input"
+                                                                       class="custom-control-input "
                                                                        onclick="clickTag(this)" th:value="${ctag.id}">
                                                                 <span class="custom-control-indicator"></span>
-                                                                <span class="custom-control-description">[[${ctag.name}]]</span>
+                                                                <span class="custom-control-description primary-hover">[[${ctag.name}]]</span>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -241,7 +236,7 @@ z-index: 999999">
                                 </div>
 
                                 <div class="card mt-3">
-                                    <div class="card-header bg-white"><i class="fa fa-tags"></i>&nbsp;标签云</div>
+                                    <div class="card-header bg-white"><i class="fa fa-tags mr-1"></i>标签云</div>
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-12">
@@ -254,7 +249,7 @@ z-index: 999999">
                                 </div>
 
                                 <div class="card mt-3">
-                                    <div class="card-header bg-white"><i class="fa fa-clock-o"></i>&nbsp;时间</div>
+                                    <div class="card-header bg-white"><i class="fa fa-clock-o mr-1"></i>时间</div>
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-12">

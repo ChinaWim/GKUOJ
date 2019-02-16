@@ -36,33 +36,49 @@ public enum RestResponseEnum {
     //账号或密码错误
     USERNAME_OR_PASSWORD_ERROR(461, "账号或密码错误"),
 
-    //验证码错误ｏ
+    //验证码错误
     VALIDATE_CODE_ERROR(462, "验证码错误"),
+
+    //比赛报名密钥错误
+    COMPETITION_PASSWORD_ERROR(463, "比赛报名密码错误"),
+
+
 
     //token校验失败
     TOKEN_ERROR(700, "token校验失败"),
 
+    //用户名已被注册
     USERNAME_REPEATED_ERROR(701, "用户名已被注册"),
 
     //邮箱发送错误
-    EMAIL_SEND_ERROR(701, "邮箱发送错误,请稍后再试"),
+    EMAIL_SEND_ERROR(702, "邮箱发送错误,请稍后再试"),
 
     //邮箱重复错误
-    EMAIL_REPEATED_ERROR(702, "该邮箱已被注册"),
+    EMAIL_REPEATED_ERROR(703, "该邮箱已被注册"),
 
     //邮箱还未注册
-    EMAIL_NOT_FOUND_ERROR(703, "该邮箱还未注册"),
+    EMAIL_NOT_FOUND_ERROR(704, "该邮箱还未注册"),
 
     //文件格式错误
-    FILE_TYPE_ERROR(704, "文件格式错误"),
+    FILE_TYPE_ERROR(705, "文件格式错误"),
 
     //文件权限错误
-    FILE_PERMISSION_ERROR(705, "没有该文件操作权限"),
+    FILE_PERMISSION_ERROR(706, "没有该文件操作权限"),
 
-    //文件权限错误
-    COMPETITION_REPEATED_REGISTER_ERROR(706, "比赛重复报名"),
+    //比赛重复报名
+    COMPETITION_REPEATED_REGISTER_ERROR(707, "比赛重复报名"),
 
-    COMPETITION_PASSWORD_ERROR(707, "比赛报名密钥错误");
+    //找不到该比赛
+    COMPETITION_NOT_FOUND_ERROR(708, "找不到该比赛"),
+
+    //比赛未开始
+    COMPETITION_NOT_STARTED_ERROR(709, "比赛未开始"),
+
+    //比赛已结束
+    COMPETITION_CLOSED_ERROR(710, "比赛已结束"),
+
+    //用户未报名比赛
+    COMPETITION_NOT_REGISTER(711, "用户未报名比赛");
 
     private Integer status;
 

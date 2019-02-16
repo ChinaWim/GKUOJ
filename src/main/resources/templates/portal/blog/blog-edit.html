@@ -45,14 +45,15 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="nav_top_align">
-                                <i class="fa fa-comments"></i>&nbsp;发布帖子
+                                <i class="fa fa-comments mr-1"></i>发布帖子
                             </h4>
                         </div>
                         <div class="col-6">
                             <ol class="breadcrumb float-right nav_breadcrumb_top_align">
                                 <li class="breadcrumb-item">
-                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;
-                                    <a href="javascript:history.go(-1)" class="text-danger">返回讨论区</a>
+                                    <a href="javascript:history.go(-1)" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-angle-double-left mr-1" aria-hidden="true"></i>返回讨论区
+                                    </a>
                                 </li>
                             </ol>
                         </div>
@@ -65,7 +66,8 @@ z-index: 999999">
                     <div class="row">
                         <div class="col-12">
                             <div class="m-3 bg-white">
-                                <input id="title" name="title" maxlength="30" class="form-control col-12 " style="font-size:25px;height: 50px"
+                                <input id="title" name="title" maxlength="30" class="form-control col-12 "
+                                       style="font-size:25px;height: 50px"
                                        placeholder="文章标题：一句话说明你遇到的问题或想分享的经验">
                                 <div class="mt-3 ">
                                     <select id="bcId" class="select2-data col-2">
@@ -77,21 +79,25 @@ z-index: 999999">
                                     <span class="col-10 text-warning">请选择相关话题后发布，如发布至无关话题下，帖子将被删除。</span>
                                 </div>
                             </div>
-                            <div>
-                                <div id="editormd-div">
-                                    <textarea id="editormd-textarea" name="content" style="display:none;"></textarea>
-                                </div>
+                            <div class="">
+                                    <div id="editormd-div">
+                                        <textarea id="editormd-textarea" name="content"
+                                                  style="display:none;"></textarea>
+                                    </div>
                             </div>
 
                             <!--tags-->
-                            <div  class="col-12 mt-3" id="tags-div" >
-                               <input placeholder="输入标签，回车确定" id = "tags" name="tags" data-role="tagsinput" type="text"  class="form-control form-control-tag">
+                            <div class="col-12 mt-3" id="tags-div">
+                                <input placeholder="输入标签，回车确定" id="tags" name="tags" data-role="tagsinput" type="text"
+                                       class="form-control form-control-tag">
                             </div>
                             <!--#tags-->
 
                             <div class="mr-3  mt-3 float-right">
                                 <button class="mr-3 btn btn-secondary" style="width: 100px;font-size: 18px">取消</button>
-                                <button onclick="saveBlog()" class=" btn btn-danger" style="width: 100px;font-size: 18px">发布</button>
+                                <button onclick="saveBlog()" class=" btn btn-danger"
+                                        style="width: 100px;font-size: 18px">发布
+                                </button>
                             </div>
 
                         </div>

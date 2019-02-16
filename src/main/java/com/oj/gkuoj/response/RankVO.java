@@ -12,6 +12,8 @@ public class RankVO {
 
     private String name;
 
+    private String school;
+
     private String mood;
 
     private String avatar;
@@ -139,11 +141,21 @@ public class RankVO {
         this.rank = rank;
     }
 
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+
     @Override
     public String toString() {
         return "RankVO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", school='" + school + '\'' +
                 ", mood='" + mood + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", signCount=" + signCount +

@@ -1,24 +1,36 @@
 package com.oj.gkuoj.response;
 
+import com.oj.gkuoj.entity.TestcaseResult;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author m969130721@163.com
- * @date 19-1-19 下午8:46
+ * @date 19-2-15 上午2:16
  */
-public class ProblemResultVO {
+public class ProblemResultDetailVO implements Serializable {
+
+    private static final long serialVersionUID = -1187644164956054559L;
 
     private Integer id;
 
     private Integer userId;
 
+    private String avatar;
+
     private String name;
 
     private Integer problemId;
 
+    private String problemName;
+
     private Integer compId;
+
+    private String runNum;
 
     private Integer status;
 
@@ -28,9 +40,24 @@ public class ProblemResultVO {
 
     private Long memory;
 
+    private String errorMsg;
+
+    private String sourceCode;
+
     private Date createTime;
 
+    private Date updateTime;
+
+    private List<TestcaseResult> testcaseResultList;
+
+    private Integer acCount = 0;
+
     private Integer score = 0;
+
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Integer getId() {
         return id;
@@ -48,12 +75,20 @@ public class ProblemResultVO {
         this.userId = userId;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Integer getProblemId() {
@@ -64,12 +99,28 @@ public class ProblemResultVO {
         this.problemId = problemId;
     }
 
+    public String getProblemName() {
+        return problemName;
+    }
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
+    }
+
     public Integer getCompId() {
         return compId;
     }
 
     public void setCompId(Integer compId) {
         this.compId = compId;
+    }
+
+    public String getRunNum() {
+        return runNum;
+    }
+
+    public void setRunNum(String runNum) {
+        this.runNum = runNum;
     }
 
     public Integer getStatus() {
@@ -85,7 +136,7 @@ public class ProblemResultVO {
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 
     public Long getTime() {
@@ -104,12 +155,52 @@ public class ProblemResultVO {
         this.memory = memory;
     }
 
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public String getSourceCode() {
+        return sourceCode;
+    }
+
+    public void setSourceCode(String sourceCode) {
+        this.sourceCode = sourceCode;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public List<TestcaseResult> getTestcaseResultList() {
+        return testcaseResultList;
+    }
+
+    public void setTestcaseResultList(List<TestcaseResult> testcaseResultList) {
+        this.testcaseResultList = testcaseResultList;
+    }
+
+    public Integer getAcCount() {
+        return acCount;
+    }
+
+    public void setAcCount(Integer acCount) {
+        this.acCount = acCount;
     }
 
     public Integer getScore() {
@@ -120,20 +211,27 @@ public class ProblemResultVO {
         this.score = score;
     }
 
-
     @Override
     public String toString() {
-        return "ProblemResultVO{" +
+        return "ProblemResultDetailVO{" +
                 "id=" + id +
                 ", userId=" + userId +
+                ", avatar='" + avatar + '\'' +
                 ", name='" + name + '\'' +
                 ", problemId=" + problemId +
+                ", problemName='" + problemName + '\'' +
                 ", compId=" + compId +
+                ", runNum='" + runNum + '\'' +
                 ", status=" + status +
                 ", type='" + type + '\'' +
                 ", time=" + time +
                 ", memory=" + memory +
+                ", errorMsg='" + errorMsg + '\'' +
+                ", sourceCode='" + sourceCode + '\'' +
                 ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", testcaseResultList=" + testcaseResultList +
+                ", acCount=" + acCount +
                 ", score=" + score +
                 '}';
     }

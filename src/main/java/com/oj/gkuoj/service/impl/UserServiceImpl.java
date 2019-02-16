@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public RestResponseVO update(User user) {
+    public RestResponseVO updateById(User user) {
         if (user == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }

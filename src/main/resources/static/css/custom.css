@@ -2177,5 +2177,80 @@ font-size: 12px;
 
 .primary-hover:hover
 {
-    color:#4FB7FE;
+    color:#4FB7FE !important;
 }
+.primary-background-hover:hover
+{
+    background-color:#4FB7FE !important;
+}
+
+
+.ac-color{
+    color: #4BC0C0;
+}
+.ac-bg-color{
+    background-color: #4BC0C0;
+}
+
+.ce-color{
+    color: #FFCD56;
+}
+.ce-bg-color{
+    background-color: #FFCD56;
+}
+
+.pe-color{
+    color: #ed92ff;
+}
+.pe-bg-color{
+    background-color: #ed92ff;
+}
+
+.re-color{
+    color: #FF9F40;
+}
+.re-bg-color{
+    background-color: #FF9F40;
+}
+
+
+.tle-color{
+    color: #62b8ff;
+}
+.tle-bg-color{
+    background-color: #62b8ff;
+}
+
+.me-color{
+    color: #6574ff;
+}
+.me-bg-color{
+    background-color: #6574ff;
+}
+
+.wa-color{
+    color: #FF6384;
+}
+.wa-bg-color{
+    background-color: #FF6384;
+}
+
+
+
+.custom_card{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    /*background-color: #ffffff;*/
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+
+}
+.pre-line{
+    white-space: pre-line;
+}
+
+
+

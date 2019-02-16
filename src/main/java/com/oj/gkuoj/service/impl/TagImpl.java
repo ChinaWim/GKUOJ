@@ -48,7 +48,7 @@ public class TagImpl implements TagService {
     }
 
     @Override
-    public RestResponseVO update(Tag tag) {
+    public RestResponseVO updateById(Tag tag) {
         if (tag == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }

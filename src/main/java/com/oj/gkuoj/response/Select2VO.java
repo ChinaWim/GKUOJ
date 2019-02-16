@@ -12,9 +12,9 @@ public class Select2VO {
 
     private String text;
 
-    private boolean selected;
+    private Boolean selected = false;
 
-    private boolean disabled;
+    private Boolean disabled = false;
 
     public Integer getId() {
         return id;
@@ -32,19 +32,19 @@ public class Select2VO {
         this.text = text == null ? null : text.trim();
     }
 
-    public boolean getSelected() {
+    public Boolean getSelected() {
         return selected;
     }
 
-    public void setSelected(boolean selected) {
+    public void setSelected(Boolean selected) {
         this.selected = selected;
     }
 
-    public boolean getDisabled() {
+    public Boolean getDisabled() {
         return disabled;
     }
 
-    public void setDisabled(boolean disabled) {
+    public void setDisabled(Boolean disabled) {
         this.disabled = disabled;
     }
 

@@ -8,6 +8,7 @@ import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.ProblemMapper;
 import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.response.ProblemDetailVO;
 import com.oj.gkuoj.response.ProblemVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
@@ -63,7 +64,7 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public RestResponseVO update(Problem problem) {
+    public RestResponseVO updateById(Problem problem) {
         if (problem == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
@@ -73,7 +74,7 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public RestResponseVO<PageInfo> listProblemToPage(Integer userId, Integer sort, String keyword, Integer level, String tagIds, Integer pageNum, Integer pageSize) {
+    public RestResponseVO<PageInfo> listProblemVOToPage(Integer userId, Integer sort, String keyword, Integer level, String tagIds, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize, true);
         List<Integer> tagIdsList = null;
         if (StringUtils.isNoneBlank(tagIds)) {
@@ -119,5 +120,14 @@ public class ProblemServiceImpl implements ProblemService {
             return RestResponseVO.createByError();
         }
 
+    }
+
+    @Override
+    public RestResponseVO<ProblemDetailVO> getDetailVOById(Integer problemId) {
+        if (problemId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        ProblemDetailVO problemDetailVO = problemMapper.getDetailVOById(problemId);
+        return RestResponseVO.createBySuccess(problemDetailVO);
     }
 }

@@ -45,14 +45,13 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="nav_top_align">
-                                <i class="fa fa-comments"></i>&nbsp;
-                                讨论详情
+                                <i class="fa fa-comments mr-1"></i>讨论详情
                             </h4>
                         </div>
                         <div class="col-6 ">
                             <ol class="breadcrumb float-right nav_breadcrumb_top_align">
                                 <li class="breadcrumb-item">
-                                    <i class="fa fa-home" aria-hidden="true"></i>&nbsp;
+                                    <i class="fa fa-home mr-1" aria-hidden="true"></i>
                                     <a th:href="@{/}">
                                        首页
                                     </a>
@@ -107,7 +106,7 @@ z-index: 999999">
                                     <div class="markdown-body" th:utext="${blogDetail.htmlContent}"></div>
                                     <div class="mt-5">
                                         <div class="float-left">
-                                            <i class="fa fa-tags"></i>&nbsp;标签：
+                                            <i class="fa fa-tags mr-1"></i>标签：
                                             <span class="mr-2"
                                                   th:each="tag : ${#strings.arraySplit(blogDetail.tags,',')}">
                                                 <a target="_blank" th:href="@{'/blog/blogListPage?keyword='+${tag}}" class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
@@ -115,12 +114,12 @@ z-index: 999999">
                                         </div>
                                         <div class="float-right">
                                             <a href="javascript:void(0)" th:onclick="'blogUp('+${blogDetail.id}+')'">
-                                                <i class="fa fa-thumbs-up"></i>&nbsp;
+                                                <i class="fa fa-thumbs-up mr-1"></i>
                                                 <span id="blogDetailUp" th:if="${blogDetail.userUpStatus}">已赞</span>
                                                 <span id="blogDetailUp" th:if="!${blogDetail.userUpStatus}">点赞</span>
                                             </a>
                                             <a th:href="'blog/blogDetailPage?blogId='+${blogDetail.id}+'#editormd-div'">
-                                                <i class="fa fa-commenting ml-3"></i>&nbsp;回复
+                                                <i class="fa fa-commenting ml-3 mr-1"></i>回复
                                             </a>
                                         </div>
                                     </div>
@@ -174,15 +173,15 @@ z-index: 999999">
                                                         <a href="javascript:void(0)"
                                                            @click="blogCommentUp(blogComment.id)" class="text-primary">
                                                              <i v-if="blogComment.userUpStatus"
-                                                                class="fa fa-thumbs-up"></i>
+                                                                class="fa fa-thumbs-up mr-1"></i>
                                                              <i v-if="!blogComment.userUpStatus"
-                                                                class="fa fa-thumbs-o-up"></i>
-                                                            &nbsp;
+                                                                class="fa fa-thumbs-o-up mr-1"></i>
+
                                                             <span :id="'blogCommentUpCount-'+blogComment.id"
                                                                   v-text="blogComment.upCount"></span>人赞
                                                         </a>
                                                         <a href="#" class="text-primary ml-3">
-                                                            <i class="fa fa-commenting-o"></i>&nbsp;回复
+                                                            <i class="fa fa-commenting-o mr-1"></i>回复
                                                         </a>
                                                     </span>
                                                 </div>
@@ -229,7 +228,7 @@ z-index: 999999">
                         <!--right-->
                         <div class="col-4 blog-right">
                             <div class="card ">
-                                <div class="card-header bg-white"><i class="fa fa-fire"></i>&nbsp;近期热帖</div>
+                                <div class="card-header bg-white"><i class="fa fa-fire mr-1"></i>近期热帖</div>
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-12">

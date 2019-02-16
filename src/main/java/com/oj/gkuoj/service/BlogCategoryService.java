@@ -19,7 +19,7 @@ public interface BlogCategoryService {
 
     RestResponseVO delById(Integer id);
 
-    RestResponseVO update(BlogCategory blogCategory);
+    RestResponseVO updateById(BlogCategory blogCategory);
 
     RestResponseVO<List<BlogCategory>> listAll();
 }

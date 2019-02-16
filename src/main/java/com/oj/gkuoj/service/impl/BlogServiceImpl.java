@@ -60,7 +60,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public RestResponseVO update(Blog blog) {
+    public RestResponseVO updateById(Blog blog) {
         if (blog == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }

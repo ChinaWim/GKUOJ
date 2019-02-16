@@ -40,7 +40,7 @@ public class SignServiceImpl implements SignService {
     }
 
     @Override
-    public RestResponseVO update(Sign sign) {
+    public RestResponseVO updateById(Sign sign) {
         if (sign == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }

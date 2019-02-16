@@ -15,13 +15,13 @@ import java.util.List;
  */
 public interface CompetitionService {
 
-    RestResponseVO getById(Integer competitionId);
+    RestResponseVO<Competition> getById(Integer competitionId);
 
     RestResponseVO insert(Competition competition);
 
     RestResponseVO delById(Integer competitionId);
 
-    RestResponseVO update(Competition competition);
+    RestResponseVO updateById(Competition competition);
 
     RestResponseVO<CompetitionDetailVO> getCompetitionDetailVOById(Integer userId,Integer compId);
 

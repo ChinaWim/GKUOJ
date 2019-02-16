@@ -9,6 +9,8 @@ public enum JudgeStatusEnum {
 
 // 0 编译中　1 ac 2 ce 3 pe 4 re 5 tle 6 me 7 wa　8队列中 9判题中
 
+    // 0 编译中　1 Accepted 2 Compile_Error 3 Presentation_Error 4 Runtime_Error 5 TIME_Limit_Exceeded 6 Memory_Limit_Exceeded 7 Wrong_Answer　8队列中 9判题中
+
     COMPILE_SUCCESS(200, "COMPILE SUCCESS"),
 
     COMPILING(0, "COMPILING"),

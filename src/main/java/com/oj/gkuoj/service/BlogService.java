@@ -20,7 +20,7 @@ public interface BlogService {
 
     RestResponseVO delById(Integer id);
 
-    RestResponseVO update(Blog blog);
+    RestResponseVO updateById(Blog blog);
 
     RestResponseVO<PageInfo> listBlogVO2Page(Integer pageNum, Integer pageSize,Integer sort, String keyword, Integer bcId);
 

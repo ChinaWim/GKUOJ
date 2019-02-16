@@ -7,6 +7,7 @@ import java.util.Date;
  * @date 19-1-29 下午12:52
  */
 public class BlogDetailVO {
+
     private Integer id;
 
     private String avatar;
@@ -37,7 +38,11 @@ public class BlogDetailVO {
 
     private Integer replyCount;
 
-    private boolean userUpStatus;
+    private Boolean userUpStatus = false;
+
+
+
+
 
     public Integer getId() {
         return id;

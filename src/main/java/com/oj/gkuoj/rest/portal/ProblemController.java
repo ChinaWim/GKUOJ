@@ -3,10 +3,9 @@ package com.oj.gkuoj.rest.portal;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.entity.Problem;
-import com.oj.gkuoj.entity.ProblemResult;
-import com.oj.gkuoj.entity.Tag;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.exception.ProblemNotFoundException;
+import com.oj.gkuoj.response.ProblemDetailVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.response.TagVO;
 import com.oj.gkuoj.service.ProblemResultService;
@@ -85,7 +84,7 @@ public class ProblemController {
         if (userDetails != null) {
             userId = ((User) userDetails).getId();
         }
-        return problemService.listProblemToPage(userId, sort, keyword, level, tagIds, pageNum, pageSize);
+        return problemService.listProblemVOToPage(userId, sort, keyword, level, tagIds, pageNum, pageSize);
     }
 
 
@@ -97,14 +96,14 @@ public class ProblemController {
      * @return
      */
     @RequestMapping("/problemDetailPage")
-    public String problemDetailPage(HttpServletRequest request, Integer problemId) {
-        Problem problem = problemService.getById(problemId).getData();
-        //todo
-        if (problem == null) {
+    public String problemDetailPage(HttpServletRequest request, Integer problemId,Integer compId) {
+        ProblemDetailVO detailVO = problemService.getDetailVOById(problemId).getData();
+        if (detailVO == null) {
             throw new ProblemNotFoundException(ExceptionStatusConst.PROBLEM_NOT_FOUND_EXP, "未找到该题号的题目");
         }
         //set data
-        request.setAttribute("problem", problem);
+        request.setAttribute("problem", detailVO);
+        request.setAttribute("compId", compId);
         request.setAttribute("active2", true);
         return "portal/problem/problem-detail";
     }

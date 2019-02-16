@@ -1,24 +1,27 @@
 package com.oj.gkuoj.response;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import com.oj.gkuoj.entity.TestcaseResult;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author m969130721@163.com
- * @date 19-1-19 下午8:46
+ * @date 19-2-16 下午5:32
  */
-public class ProblemResultVO {
+public class ProblemResultCompetitionVO {
 
     private Integer id;
 
     private Integer userId;
 
-    private String name;
-
     private Integer problemId;
 
+    private String problemName;
+
     private Integer compId;
+
+    private String runNum;
 
     private Integer status;
 
@@ -29,6 +32,13 @@ public class ProblemResultVO {
     private Long memory;
 
     private Date createTime;
+
+    private Date updateTime;
+
+    /**
+     * 通过组数
+     */
+    private Integer acCount = 0;
 
     private Integer score = 0;
 
@@ -48,14 +58,6 @@ public class ProblemResultVO {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
     public Integer getProblemId() {
         return problemId;
     }
@@ -64,12 +66,28 @@ public class ProblemResultVO {
         this.problemId = problemId;
     }
 
+    public String getProblemName() {
+        return problemName;
+    }
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
+    }
+
     public Integer getCompId() {
         return compId;
     }
 
     public void setCompId(Integer compId) {
         this.compId = compId;
+    }
+
+    public String getRunNum() {
+        return runNum;
+    }
+
+    public void setRunNum(String runNum) {
+        this.runNum = runNum;
     }
 
     public Integer getStatus() {
@@ -85,7 +103,7 @@ public class ProblemResultVO {
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 
     public Long getTime() {
@@ -112,6 +130,14 @@ public class ProblemResultVO {
         this.createTime = createTime;
     }
 
+    public Integer getAcCount() {
+        return acCount;
+    }
+
+    public void setAcCount(Integer acCount) {
+        this.acCount = acCount;
+    }
+
     public Integer getScore() {
         return score;
     }
@@ -120,20 +146,30 @@ public class ProblemResultVO {
         this.score = score;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     @Override
     public String toString() {
-        return "ProblemResultVO{" +
+        return "ProblemResultCompetitionVO{" +
                 "id=" + id +
                 ", userId=" + userId +
-                ", name='" + name + '\'' +
                 ", problemId=" + problemId +
+                ", problemName='" + problemName + '\'' +
                 ", compId=" + compId +
+                ", runNum='" + runNum + '\'' +
                 ", status=" + status +
                 ", type='" + type + '\'' +
                 ", time=" + time +
                 ", memory=" + memory +
                 ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", acCount=" + acCount +
                 ", score=" + score +
                 '}';
     }

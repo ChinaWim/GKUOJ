@@ -1,8 +1,11 @@
 package com.oj.gkuoj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.CompetitionMapper;
 import com.oj.gkuoj.entity.Competition;
+import com.oj.gkuoj.response.RegisterVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.RegisterMapper;
@@ -11,6 +14,9 @@ import com.oj.gkuoj.service.RegisterService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.print.DocFlavor;
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -45,7 +51,7 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public RestResponseVO update(Register register) {
+    public RestResponseVO updateById(Register register) {
         if (register == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
@@ -89,6 +95,17 @@ public class RegisterServiceImpl implements RegisterService {
         int rows = registerMapper.countByUserIdAndCompId(userId, compId);
         return rows > 0 ? RestResponseVO.createBySuccess()
                 : RestResponseVO.createByError();
+    }
+
+    @Override
+    public RestResponseVO<PageInfo> listRegisterByCompId2Page(Integer compId, Integer pageNum, Integer pageSize) {
+        if (pageNum == null || pageSize == null || compId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        PageHelper.startPage(pageNum,pageSize,true);
+        List<RegisterVO> registerVOList = registerMapper.listRegisterByCompId2Page(compId);
+        PageInfo<RegisterVO> pageInfo = new PageInfo<>(registerVOList);
+        return RestResponseVO.createBySuccess(pageInfo);
     }
 
 }

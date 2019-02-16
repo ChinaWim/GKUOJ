@@ -1,6 +1,6 @@
 function timer(intDiff) {
 
-    window.setInterval(function () {
+    var timerInterval = window.setInterval(function () {
 
         var day = 0,
 
@@ -33,9 +33,12 @@ function timer(intDiff) {
         $('#minute_show').html('<s></s>' + minute);
 
         $('#second_show').html('<s></s>' + second);
-
+        if (intDiff === 0) {
+            $(".time-item").html('<span class="item-closed">已经结束!</span>');
+            window.clearInterval(timerInterval);
+            return;
+        }
         intDiff--;
-
 
     }, 1000);
 

@@ -51,7 +51,7 @@ public class UpServiceImpl implements UpService {
     }
 
     @Override
-    public RestResponseVO update(Up up) {
+    public RestResponseVO updateById(Up up) {
         if (up == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }

@@ -67,135 +67,136 @@
         </javaClientGenerator>
 
 
-      <!--
-        <table tableName="role" domainObjectName="Role" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+        <!--
+          <table tableName="role" domainObjectName="Role" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>
 
-        <table tableName="user_role" domainObjectName="UserRole" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+          <table tableName="user_role" domainObjectName="UserRole" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>
 
-        <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
-
-
-        <table tableName="competition" domainObjectName="Competition" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
-
-        <table tableName="register" domainObjectName="RegisterService" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
-
-        <table tableName="competition_result" domainObjectName="CompetitionResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+          <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>
 
 
+          <table tableName="competition" domainObjectName="Competition" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>
 
-        <table tableName="sign" domainObjectName="Sign" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-<!--
-        <table tableName="system_config" domainObjectName="SystemConfig" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-<!--
+          <table tableName="register" domainObjectName="RegisterService" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>
 
--->
-      <!--  <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
+          <table tableName="competition_result" domainObjectName="CompetitionResult" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>
 
 
-    <!--    <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
--->
-       <!--
-        <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
--->
-     <!--   <table tableName="wowomall_order" domainObjectName="Order" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
+
+          <table tableName="sign" domainObjectName="Sign" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>-->
+        <!--
+                <table tableName="system_config" domainObjectName="SystemConfig" enableCountByExample="false"
+                       enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                       selectByExampleQueryId="false"></table>-->
+        <!--
+
+        -->
+        <!--  <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false"></table>-->
+
+
+        <!--    <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false"
+                   enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                   selectByExampleQueryId="false"></table>
+    -->
+        <!--
+         <table tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false"
+                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+ -->
+        <!--   <table tableName="wowomall_order" domainObjectName="Order" enableCountByExample="false"
+                  enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                  selectByExampleQueryId="false"></table>-->
         <!-- geelynote mybatis插件的搭建 -->
 
-       <!-- <table tableName="user" domainObjectName="User" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-
-   <!-- <table tableName="competition_problem" domainObjectName="CompetitionProblem" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-    </table>-->
-       <!-- <table tableName="competition_testcase_result" domainObjectName="CompetitionTestcaseResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
--->
-<!--        <table tableName="testcase_result" domainObjectName="TestcaseResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
+        <!-- <table tableName="user" domainObjectName="User" enableCountByExample="false"
+                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false"></table>-->
 
 
-         <!--<table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
-            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-            selectByExampleQueryId="false"></table>-->
+        <!-- <table tableName="competition_testcase_result" domainObjectName="CompetitionTestcaseResult" enableCountByExample="false"
+                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false"></table>
+ -->
+        <!--        <table tableName="testcase_result" domainObjectName="TestcaseResult" enableCountByExample="false"
+                       enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                       selectByExampleQueryId="false"></table>-->
+
+
+        <!--<table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
+           enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+           selectByExampleQueryId="false"></table>-->
 
         <!--<table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
          enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
          selectByExampleQueryId="false"></table>-->
-    <!--  <table tableName="tag" domainObjectName="Tag" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-<!--        <table tableName="problem_tag" domainObjectName="ProblemTag" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-
-<!--
-        <table tableName="competition" domainObjectName="Competition" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-<!--
-        <table tableName="problem_result" domainObjectName="ProblemResult" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
-
-        <table tableName="user" domainObjectName="User" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-<!--        <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
+        <!--  <table tableName="tag" domainObjectName="Tag" enableCountByExample="false"
+                   enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                   selectByExampleQueryId="false"></table>-->
+        <!--        <table tableName="problem_tag" domainObjectName="ProblemTag" enableCountByExample="false"
                        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                        selectByExampleQueryId="false"></table>-->
 
-      <!--
-        <table tableName="blog_category" domainObjectName="BlogCategory" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>-->
-       <!-- <table tableName="blog" domainObjectName="Blog" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <columnOverride column="content" jdbcType="VARCHAR"/>
-        </table>-->
+        <!--
+                <table tableName="competition" domainObjectName="Competition" enableCountByExample="false"
+                       enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                       selectByExampleQueryId="false"></table>-->
+        <!--
+                <table tableName="problem_result" domainObjectName="ProblemResult" enableCountByExample="false"
+                       enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                       selectByExampleQueryId="false"></table>
 
-      <!--  <table tableName="up" domainObjectName="Up" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>-->
+                <table tableName="user" domainObjectName="User" enableCountByExample="false"
+                       enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                       selectByExampleQueryId="false"></table>-->
+        <!--        <table tableName="problem" domainObjectName="Problem" enableCountByExample="false"
+                               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                               selectByExampleQueryId="false"></table>-->
+
+        <!--
+          <table tableName="blog_category" domainObjectName="BlogCategory" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false">
+          </table>-->
+        <!-- <table tableName="blog" domainObjectName="Blog" enableCountByExample="false"
+                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false">
+             <columnOverride column="content" jdbcType="VARCHAR"/>
+         </table>-->
+
+        <!--  <table tableName="up" domainObjectName="Up" enableCountByExample="false"
+                 enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                 selectByExampleQueryId="false">
+          </table>-->
         <!--<table tableName="problem_result" domainObjectName="ProblemResult" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
-<!--
+        <!--
 
-       <table tableName="problem_tag" domainObjectName="ProblemTag" enableCountByExample="false"
+               <table tableName="problem_tag" domainObjectName="ProblemTag" enableCountByExample="false"
+                       enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                       selectByExampleQueryId="false"></table>
+        -->
+        <!--<table tableName="competition_problem" domainObjectName="CompetitionProblem" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+               selectByExampleQueryId="false">
+        </table>
 -->
-
     </context>
 </generatorConfiguration>

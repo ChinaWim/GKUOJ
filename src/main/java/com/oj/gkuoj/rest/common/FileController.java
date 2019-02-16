@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,5 +66,15 @@ public class FileController {
         return fileService.get(path);
     }
 
+
+    @GetMapping("/getTestcaseInput")
+    public void getTestcaseInput(HttpServletResponse response,Integer problemId, Integer num){
+        fileService.getTestcaseInput(response,problemId,num);
+    }
+
+    @GetMapping("/getTestcaseOutput")
+    public void getTestcaseOutput(HttpServletResponse response,Integer problemId, Integer num){
+        fileService.getTestcaseOutput(response,problemId,num);
+    }
 
 }

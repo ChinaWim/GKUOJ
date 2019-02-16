@@ -65,7 +65,6 @@ function setCodeType(type) {
         editor.setValue("s = raw_input().split()\n" +
             "print int(s[0]) + int(s[1])");
         $("#dropdownMenuButton").html("python2");
-        $("#type").val("python2");
     } else if ("Python3" == type) {
         editor.session.setMode("ace/mode/python");
         editor.setValue("s = input().split()\n" +
@@ -78,7 +77,7 @@ function setCodeType(type) {
 /**
  * 提交代码
  */
-function submit(problemName) {
+function submit(problemName, compId) {
     var type = $("#type").val();
     var sourceCode = editor.getValue();
     if (!type || type == -1) {
@@ -98,14 +97,15 @@ function submit(problemName) {
 
     $.post("problemResult/submit", {
         "problemId": problemId,
+        "compId": compId,
         "type": type,
         "sourceCode": sourceCode
     }, function (resp) {
         if (resp.status == 200) {
             var runNum = resp.data;
-            var html = "<div class='text-center' id = '"+runNum+"'>" +
+            var html = "<div class='text-center' id = '" + runNum + "'>" +
                 "<i class='fa fa-circle-o-notch fa-lg fa-spin text-primary'></i>" +
-                "<span class='ml-3' id = '"+runNum+"-Str'>队列中</span></div>";
+                "<span class='ml-3' id = '" + runNum + "-Str'>队列中</span></div>";
 
             naranja()["log"]({
                 icon: false,
@@ -113,7 +113,9 @@ function submit(problemName) {
                 text: html,
                 timeout: 'keep'
             });
-            var problemResultNowInterval = window.setInterval(function () { problemResultNow(runNum,problemResultNowInterval) }, 500);
+            var problemResultNowInterval = window.setInterval(function () {
+                problemResultNow(runNum, problemResultNowInterval)
+            }, 500);
         } else {
             $.message({
                 message: resp.msg,
@@ -128,7 +130,7 @@ function submit(problemName) {
  * @param runNum
  * @param problemResultNowInterval
  */
-function problemResultNow(runNum,problemResultNowInterval) {
+function problemResultNow(runNum, problemResultNowInterval) {
     $.post("problemResult/problemResultNow", {"runNum": runNum}, function (resp) {
         if (resp.status == 200) {
             if (resp.data.status != 0 && resp.data.status != 8 && resp.data.status != 9) {
@@ -137,15 +139,17 @@ function problemResultNow(runNum,problemResultNowInterval) {
                 var str = getStrByStatus(resp.data.status);
                 var usedTime = resp.data.time;
                 var usedMemory = resp.data.memory;
+                var problemResultId = resp.data.id;
+                var href = "/problemResult/problemResultDetailPage?problemResultId=" + problemResultId;
                 var html = "<a class='mr-3 btn-sm text-white' style='background-color: " + color + "'>" + str + "</a>" +
                     "<a class='btn-success mr-3 btn-sm text-white'>" + usedTime + "ms</a>" +
                     "<a class='btn-success mr-3 btn-sm text-white'>" + usedMemory + "KB</a>" +
-                    "<a href='#' class='btn btn-info btn-sm text-white'>查看详情</a>";
+                    "<a href=" + href + " class='btn btn-info btn-sm text-white'>查看详情</a>";
 
-                $("#"+runNum+"").html(html);
+                $("#" + runNum + "").html(html);
             } else {
                 var str = getStrByStatus(resp.data.status);
-                $("#"+runNum+"-Str").html(str);
+                $("#" + runNum + "-Str").html(str);
             }
         } else {
             window.clearInterval(problemResultNowInterval);
@@ -160,7 +164,6 @@ function problemResultNow(runNum,problemResultNowInterval) {
 /**
  * end of 提交代码
  */
-
 
 
 /**

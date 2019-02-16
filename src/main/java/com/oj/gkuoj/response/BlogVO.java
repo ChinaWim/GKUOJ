@@ -28,11 +28,14 @@ public class BlogVO {
 
     private Date replyTime;
 
-    private int viewCount;
+    private Integer viewCount;
 
-    private int replyCount;
+    private Integer replyCount;
 
-    private int upCount;
+    private Integer upCount;
+
+
+
 
     public Integer getId() {
         return id;
@@ -106,27 +109,27 @@ public class BlogVO {
         this.replyTime = replyTime;
     }
 
-    public int getViewCount() {
+    public Integer getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(int viewCount) {
+    public void setViewCount(Integer viewCount) {
         this.viewCount = viewCount;
     }
 
-    public int getReplyCount() {
+    public Integer getReplyCount() {
         return replyCount;
     }
 
-    public void setReplyCount(int replyCount) {
+    public void setReplyCount(Integer replyCount) {
         this.replyCount = replyCount;
     }
 
-    public int getUpCount() {
+    public Integer getUpCount() {
         return upCount;
     }
 
-    public void setUpCount(int upCount) {
+    public void setUpCount(Integer upCount) {
         this.upCount = upCount;
     }
 

@@ -13,5 +13,5 @@ public interface SignService {
 
     RestResponseVO delById(Integer id);
 
-    RestResponseVO update(Sign sign);
+    RestResponseVO updateById(Sign sign);
 }

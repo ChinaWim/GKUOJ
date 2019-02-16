@@ -1,5 +1,7 @@
 package com.oj.gkuoj.service;
 
+import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.response.ProblemResultDetailVO;
 import com.oj.gkuoj.response.ProblemResultSubmitVO;
 import com.oj.gkuoj.response.ProblemResultVO;
 import com.oj.gkuoj.response.RestResponseVO;
@@ -22,4 +24,7 @@ public interface ProblemResultService {
 
     RestResponseVO<ProblemResultSubmitVO> getByRunNum2SubmitVO(String runNum);
 
+    RestResponseVO<ProblemResultDetailVO> getById2DetailVO(Integer problemResultId);
+
+    RestResponseVO<PageInfo> listProblemResultCompetitionVO2Page(Integer pageNum, Integer pageSize, Integer userId, Integer compId);
 }

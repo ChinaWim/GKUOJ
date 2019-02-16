@@ -13,7 +13,7 @@ public interface UpService {
 
     RestResponseVO delById(Integer id);
 
-    RestResponseVO update(Up up);
+    RestResponseVO updateById(Up up);
 
     RestResponseVO<UpVO> blogUp(Integer blogId, Integer userId);
 
