@@ -10,6 +10,7 @@ import com.oj.gkuoj.response.*;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.entity.ProblemResult;
+import com.oj.gkuoj.service.CompetitionProblemService;
 import com.oj.gkuoj.service.ProblemResultService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class ProblemResultServiceImpl implements ProblemResultService {
 
     @Autowired
     private TestcaseResultMapper testcaseResultMapper;
+
+    @Autowired
+    private CompetitionProblemService competitionProblemService;
+
 
     @Override
     public RestResponseVO<ProblemResult> getById(Integer problemResultId) {
@@ -66,12 +71,17 @@ public class ProblemResultServiceImpl implements ProblemResultService {
         List<ProblemResultVO> problemResultList = problemResultMapper.listProblemResult(problemId, name, type, status);
         for (ProblemResultVO problemResultVO : problemResultList) {
             List<TestcaseResult> testcaseResultList = testcaseResultMapper.listByProblemResultId(problemResultVO.getId());
-            int baseScore = getProblemResultBaseScore(testcaseResultList);
-            for (TestcaseResult testcaseResult : testcaseResultList) {
-                if (JudgeStatusEnum.ACCEPTED.getStatus().equals(testcaseResult.getStatus())) {
-                    problemResultVO.setScore(problemResultVO.getScore() + baseScore);
+            if (testcaseResultList != null) {
+                int acCount = 0;
+                for (TestcaseResult testcaseResult : testcaseResultList) {
+                    if (JudgeStatusEnum.ACCEPTED.getStatus().equals(testcaseResult.getStatus())) {
+                        acCount++;
+                    }
                 }
+                int score = (int) ((acCount * 1.0 / testcaseResultList.size()) * 100);
+                problemResultVO.setScore(score);
             }
+
         }
         PageInfo<ProblemResultVO> pageInfo = new PageInfo<ProblemResultVO>(problemResultList);
         return RestResponseVO.createBySuccess(pageInfo);
@@ -95,14 +105,13 @@ public class ProblemResultServiceImpl implements ProblemResultService {
         if (detailVO != null) {
             List<TestcaseResult> testcaseResultList = detailVO.getTestcaseResultList();
             if (testcaseResultList != null) {
-                int baseScore = getProblemResultBaseScore(testcaseResultList);
                 for (TestcaseResult testcaseResult : testcaseResultList) {
                     if (JudgeStatusEnum.ACCEPTED.getStatus().equals(testcaseResult.getStatus())) {
                         detailVO.setAcCount(detailVO.getAcCount() + 1);
-                        detailVO.setScore(detailVO.getScore() + baseScore);
                     }
-
                 }
+                int score = (int) ((detailVO.getAcCount() * 1.0 / testcaseResultList.size()) * 100);
+                detailVO.setScore(score);
             }
         }
 
@@ -119,15 +128,18 @@ public class ProblemResultServiceImpl implements ProblemResultService {
         List<ProblemResultCompetitionVO> list = problemResultMapper.listProblemResultCompetitionVO2Page(compId, userId);
         for (ProblemResultCompetitionVO dataVO : list) {
             List<TestcaseResult> testcaseResultList = testcaseResultMapper.listByProblemResultId(dataVO.getId());
-            int baseScore = getProblemResultBaseScore(testcaseResultList);
             for (TestcaseResult testcaseResult : testcaseResultList) {
                 if (JudgeStatusEnum.ACCEPTED.getStatus().equals(testcaseResult.getStatus())) {
-                    dataVO.setScore(dataVO.getScore() + baseScore);
                     dataVO.setAcCount(dataVO.getAcCount() + 1);
                 }
             }
-        }
+            Integer score = competitionProblemService.getScoreByCompIdProblemId(compId, dataVO.getProblemId()).getData();
+            if (score != null) {
+                score = (int) ((dataVO.getAcCount() * 1.0 / testcaseResultList.size()) * score);
+                dataVO.setScore(dataVO.getScore() + score);
+            }
 
+        }
 
         PageInfo<ProblemResultCompetitionVO> pageInfo = new PageInfo<>(list);
 
@@ -135,6 +147,11 @@ public class ProblemResultServiceImpl implements ProblemResultService {
     }
 
 
+    /**
+     * todo
+     * @param testcaseResultList
+     * @return
+     */
     private int getProblemResultBaseScore(List<TestcaseResult> testcaseResultList) {
         return testcaseResultList.size() == 5 ? 20 : testcaseResultList.size() == 10 ? 10 : 0;
     }

@@ -166,16 +166,13 @@ z-index: 999999">
                                                           v-if="problemResult.status == 7">
                                                     答案错误
                                                 </span>
-                                                    <span class=" btn-sm bg-success"
-                                                          v-if="problemResult.status == 8">
-                                                        <span>
+                                                <span class="btn-sm" v-if="problemResult.status == 8">
                                                             <span>队列中</span><i class="ml-1 fa fa-spinner fa-pulse"></i>
-                                                        </span>
                                                 </span>
-                                                    <span class=" btn-sm " v-if="problemResult.status == 9">
-                                                     <span>
-                                                      <span>判题中</span><i class="ml-1 fa fa-spinner fa-pulse"></i>
-                                                      </span>
+                                                <span class=" btn-sm"
+                                                      v-if="problemResult.status == 9">
+                                                        <span>判题中</span>
+                                                        <i class="ml-1 fa fa-spinner fa-pulse"></i>
                                                 </span>
                                                 </td>
                                                 <td>{{problemResult.score}}

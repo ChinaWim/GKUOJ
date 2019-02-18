@@ -191,7 +191,8 @@ button, .btn {
 }
 
 .card:hover {
-    box-shadow: 0 0 25px -5px #9e9c9e;
+    box-shadow:0 1px 6px rgba(0,0,0,.2);border-color:#eee;
+    /*box-shadow: 0 0 25px -5px #9e9c9e;*/
 }
 
 .without_border {

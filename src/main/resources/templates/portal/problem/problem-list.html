@@ -7,7 +7,9 @@
     <div th:replace="~{fragments/head-base}"></div>
     <!--Page level styles-->
     <!--heard script-->
+    <style type="text/css">
 
+    </style>
 </head>
 
 <!--Page head script-->
@@ -142,7 +144,7 @@ z-index: 999999">
 
                                                 </td>
                                                 <td>
-                                                    <div style="width: 250px">
+                                                    <div style="width: 200px">
                                                         <i class="fa fa-tags mr-1"></i>
                                                         <span v-if="problem.tags != null">
                                                         <span class="mr-2" v-for="tag in problem.tags.split(',')">
@@ -195,7 +197,7 @@ z-index: 999999">
                                     <div class="card-header bg-white"><i class="fa fa-bars mr-1"></i>题目分类</div>
                                     <div class="card-block">
                                         <div class="row">
-                                            <div class="col-5 nav-item dropdown" th:each="tag,status:${tagList}">
+                                            <div class="col-4 nav-item dropdown " th:each="tag,status:${tagList}">
                                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                    role="button" data-toggle="dropdown" aria-haspopup="true"
                                                    aria-expanded="false">

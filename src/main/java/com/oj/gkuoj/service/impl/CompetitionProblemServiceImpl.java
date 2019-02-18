@@ -69,4 +69,13 @@ public class CompetitionProblemServiceImpl implements CompetitionProblemService 
         List<CompetitionProblemVO> competitionProblemVOList = competitionProblemMapper.listVOByCompetitionId(competitionId);
         return RestResponseVO.createBySuccess(competitionProblemVOList);
     }
+
+    @Override
+    public RestResponseVO<Integer> getScoreByCompIdProblemId(Integer compId, Integer problemId) {
+        if (compId == null || problemId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        Integer score = competitionProblemMapper.getScoreByCompIdProblemId(compId, problemId);
+        return RestResponseVO.createBySuccess(score);
+    }
 }

@@ -134,10 +134,6 @@ public class ProblemResultController {
             if (competition == null) {
                 return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_FOUND_ERROR);
             }
-            RestResponseVO isRegistered = registerService.isRegisterCompetition(user.getId(), problemResult.getCompId());
-            if (!isRegistered.isSuccess()) {
-                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_REGISTER);
-            }
             Instant nowDate = Instant.now();
             boolean isStarted = nowDate.isAfter(competition.getStartTime().toInstant());
             boolean isClosed = nowDate.isAfter(competition.getEndTime().toInstant());
@@ -147,6 +143,12 @@ public class ProblemResultController {
             if (isClosed) {
                 return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_CLOSED_ERROR);
             }
+
+            RestResponseVO isRegistered = registerService.isRegisterCompetition(user.getId(), problemResult.getCompId());
+            if (!isRegistered.isSuccess()) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_REGISTER);
+            }
+
         }
 
 

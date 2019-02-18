@@ -150,6 +150,7 @@ z-index: 999999">
                                                                       class="wa-bg-color  btn-sm text-white">Wrong Answer</span>
                                                             </td>
                                                             <td class="text-center">
+                                                                <!--todo-->
                                                                 <span th:if="${testcase.status == 1 && status.size == 10}">10</span>
                                                                 <span th:if="${testcase.status == 1 && status.size == 5}">20</span>
                                                                 <span th:if="${testcase.status != 1}">0</span>
@@ -208,7 +209,24 @@ z-index: 999999">
                                                         </div>
                                                     </div>
                                                     <div class="text-right">
-                                                        <div class=""><span class="ac-bg-color btn-sm text-white">Accepted</span>
+                                                        <div class="">
+                                                            <span th:if="${problemResultDetail.status == 0}" class="btn-sm text-white">编译中</span>
+                                                            <span th:if="${problemResultDetail.status == 1}"
+                                                                  class="ac-bg-color  btn-sm text-white">Accepted</span>
+                                                            <span th:if="${problemResultDetail.status == 2}"
+                                                                  class="ce-bg-color  btn-sm text-white">Compile Error</span>
+                                                            <span th:if="${problemResultDetail.status == 3}"
+                                                                  class="pe-bg-color  btn-sm text-white">Presentation Error</span>
+                                                            <span th:if="${problemResultDetail.status == 4}"
+                                                                  class="re-bg-color  btn-sm text-white">Runtime Error</span>
+                                                            <span th:if="${problemResultDetail.status == 5}"
+                                                                  class="tle-bg-color btn-sm text-white">TIME Limit Exceeded</span>
+                                                            <span th:if="${problemResultDetail.status == 6}"
+                                                                  class="me-bg-color  btn-sm text-white">Memory Limit Exceeded</span>
+                                                            <span th:if="${problemResultDetail.status == 7}"
+                                                                  class="wa-bg-color  btn-sm text-white">Wrong Answer</span>
+                                                            <span th:if="${problemResultDetail.status == 8}" class="btn-sm text-white">队列中</span>
+                                                            <span th:if="${problemResultDetail.status == 9}" class="btn-sm text-white">判题中</span>
                                                         </div>
                                                         <div class="text-primary">[[${problemResultDetail.score}]]</div>
                                                     </div>

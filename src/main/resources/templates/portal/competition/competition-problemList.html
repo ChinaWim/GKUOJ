@@ -118,6 +118,7 @@ z-index: 999999">
                                                 <tr>
                                                     <th class="text-center">题号</th>
                                                     <th class="text-center">状态</th>
+                                                    <th class="text-center">得分</th>
                                                     <th class="text-center">通过组数</th>
                                                     <th class="text-center">提交时间</th>
                                                     <th class="text-center">使用语言</th>
@@ -126,7 +127,51 @@ z-index: 999999">
                                                 <tbody>
                                                 <tr v-for="(problemResult,index) in problemResultList">
                                                     <td class="text-center">{{problemResult.problemId}}</td>
-                                                    <td class="text-center">{{problemResult.status}}</td>
+                                                    <td class="text-center">
+                                                        <span class="btn-sm "
+                                                              v-if="problemResult.status == 0">
+
+                                                            <span class="mr-1">编译中</span>
+                                                            <i class="fa fa-spinner fa-pulse "></i>
+                                                        </span>
+                                                                <span class=" btn-sm text-white" style="background-color: #4BC0C0"
+                                                                      v-if="problemResult.status == 1">
+                                                            答案正确
+                                                        </span>
+                                                                <span class=" btn-sm text-white" style="background-color: #FFCD56"
+                                                                      v-if="problemResult.status == 2">
+                                                            编译错误
+                                                        </span>
+                                                                <span class=" btn-sm text-white" style="background-color: #ed92ff"
+                                                                      v-if="problemResult.status == 3">
+                                                            格式错误
+                                                        </span>
+                                                                <span class=" btn-sm text-white" style="background-color: #FF9F40"
+                                                                      v-if="problemResult.status == 4">
+                                                            运行错误
+                                                        </span>
+                                                                <span class=" btn-sm text-white" style="background-color: #62b8ff"
+                                                                      v-if="problemResult.status == 5">
+                                                            时间超限
+                                                        </span>
+                                                                <span class=" btn-sm text-white" style="background-color: #6574ff"
+                                                                      v-if="problemResult.status == 6">
+                                                            内存超限
+                                                        </span>
+                                                                <span class=" btn-sm  text-white" style="background-color:#FF6384 "
+                                                                      v-if="problemResult.status == 7">
+                                                            答案错误
+                                                        </span>
+                                                                <span class="btn-sm" v-if="problemResult.status == 8">
+                                                                    <span>队列中</span><i class="ml-1 fa fa-spinner fa-pulse"></i>
+                                                        </span>
+                                                                <span class=" btn-sm"
+                                                                      v-if="problemResult.status == 9">
+                                                                <span>判题中</span>
+                                                                <i class="ml-1 fa fa-spinner fa-pulse"></i>
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">{{problemResult.score}}</td>
                                                     <td class="text-center">{{problemResult.acCount}}</td>
                                                     <td class="text-center">{{problemResult.createTime | formatDate}}</td>
                                                     <td class="text-center">{{problemResult.type}}</td>
@@ -150,7 +195,7 @@ z-index: 999999">
                                                     <th class="text-center">排名</th>
                                                     <th class="text-center">用户名</th>
                                                     <th class="text-center">学校</th>
-                                                    <th class="text-center">分数</th>
+                                                    <th class="text-center">总分</th>
                                                     <th class="text-center">完成题数</th>
                                                     <th class="text-center">提交</th>
                                                     <th class="text-center">AC率</th>
