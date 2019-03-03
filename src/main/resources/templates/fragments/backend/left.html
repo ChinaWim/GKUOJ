@@ -2,52 +2,95 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div id="left" class="fixed"  data-th-fragment="left">
     <div class="menu_scroll" style="height: 4500px !important">
-        <br/>
+        <div class="left_media">
+            <div class="media user-media">
+                <div class="user-media-toggleHover">
+                    <span class="fa fa-user"></span>
+                </div>
+                <div class="user-wrapper">
+                    <a class="user-link" href="#">
+                        <img class="media-object img-thumbnail user-img rounded-circle admin_img3" alt="User Picture" th:src="${#authentication.principal.avatar} == null ? '/img/default_avatar.jpg' :
+                                 ${#authentication.principal.avatar}"/>
+                        <p class="user-info menu_hide">
+                            <span>Welcome：[[${#authentication.principal.name}]]</span>
+                           <br/>
+                            <span class=" ">LastLogin：2019-03-01</span>
+                        </p>
+
+                    </a>
+                </div>
+            </div>
+            <hr>
+        </div>
+
         <ul id="menu">
+
+
             <li  th:classappend="${active1}? 'active':''">
                 <a th:href="@{/}"  data-toggle="tooltip" data-placement="right"  title="首页">
                     <i class="fa fa-home "></i>
-                    <span class="link-title menu_hide">&nbsp;首页</span>
+                    <span class="link-title menu_hide">&nbsp;首页管理</span>
                 </a>
             </li>
-            <li th:classappend="${active2} ? 'active':''">
-                <a th:href="@{/problem/problemListPage}" data-age="1" data-toggle="tooltip" data-placement="right" title="题库">
+
+            <li class="dropdown_menu ">
+                <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <span class="link-title menu_hide">&nbsp;系统管理</span>
+                    <span class="fa arrow menu_hide"></span>
+                </a>
+                <ul class="collapse " aria-expanded="false" style="">
+                    <li>
+                        <a href="general_components.html">
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;用户管理
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cards.html">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="link-title">&nbsp;角色管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class="dropdown_menu ">
+                <a href="javascript:;">
                     <i class="fa fa-book"></i>
-                    <span class="link-title menu_hide">&nbsp;题库
-                    </span>
+                    <span class="link-title menu_hide">&nbsp;题库管理</span>
+                    <span class="fa arrow menu_hide"></span>
                 </a>
+                <ul class="collapse " aria-expanded="false" style="">
+                    <li>
+                        <a href="general_components.html">
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;查看题目
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cards.html">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="link-title">&nbsp;测试用例</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
+
+
             <li th:classappend="${active3} ? 'active':''">
                 <a th:href="@{/competition/competitionListPage}" data-toggle="tooltip" data-placement="right"  title="比赛">
                     <i class="fa fa-trophy"></i>
-                    <span class="link-title menu_hide"> &nbsp; 比赛</span>
-                </a>
-            </li>
-
-            <li th:classappend="${active4} ? 'active':''">
-                <a th:href="@{/problemResult/problemResultListPage}" data-toggle="tooltip" data-placement="right"  title="测评记录">
-                    <i class="fa fa-pie-chart"></i>
-                    <span class="link-title menu_hide"> &nbsp; 测评记录</span>
-                </a>
-            </li>
-
-            <li th:classappend="${active5} ? 'active':''">
-                <a th:href="@{/rankPage}" data-toggle="tooltip" data-placement="right"  title="排行榜">
-                    <i class="fa fa-bar-chart"></i>
-                    <span class="link-title menu_hide">&nbsp; 排行榜</span>
+                    <span class="link-title menu_hide"> &nbsp;比赛管理</span>
                 </a>
             </li>
 
             <li th:classappend="${active6} ? 'active':''">
                 <a th:href="@{/blog/blogListPage}" data-toggle="tooltip" data-placement="right"  title="讨论区">
                     <i class="fa fa-comments"></i>
-                    <span class="link-title menu_hide">&nbsp; 讨论区</span>
-                </a>
-            </li>
-            <li th:classappend="${active7} ? 'active':''">
-                <a th:href="@{/index/about}" data-toggle="tooltip" data-placement="right"  title="关于">
-                    <i class="fa fa-info-circle"></i>
-                    <span class="link-title menu_hide">&nbsp; 关于</span>
+                    <span class="link-title menu_hide">&nbsp;讨论管理</span>
                 </a>
             </li>
 

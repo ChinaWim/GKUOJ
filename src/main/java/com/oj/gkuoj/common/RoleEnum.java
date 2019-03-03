@@ -17,17 +17,17 @@ public enum RoleEnum {
      */
     ADMIN("ROLE_ADMIN");
 
-    private String role;
+    private String name;
 
-    RoleEnum(String role) {
-        this.role = role;
+    RoleEnum(String name) {
+        this.name = name;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 }

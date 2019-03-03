@@ -3,7 +3,9 @@ package com.oj.gkuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.common.RoleEnum;
 import com.oj.gkuoj.common.TokenConst;
+import com.oj.gkuoj.entity.Role;
 import com.oj.gkuoj.response.RankVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
@@ -26,6 +28,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.mail.internet.MimeMessage;
 import java.util.List;
@@ -226,13 +229,42 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return RestResponseVO.createBySuccess(pageInfo);
     }
 
+
+    @Override
+    public RestResponseVO checkLoginByAdmin(String username, String password) {
+        if (!StringUtils.isNoneBlank(username, password)) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        User user = userMapper.getByUserName(username);
+        if (user == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.USERNAME_OR_PASSWORD_ERROR);
+        }
+        boolean matches = passwordEncoder.matches(password, user.getPassword());
+        if (!matches) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.USERNAME_OR_PASSWORD_ERROR);
+        }
+        List<Role> roleList = user.getRoleList();
+        boolean hasRole = false;
+        if (!CollectionUtils.isEmpty(roleList)) {
+            for (Role role : roleList) {
+                if (RoleEnum.ADMIN.getName().equals(role.getName())) {
+                    hasRole = true;
+                    break;
+                }
+            }
+        }
+        if (!hasRole) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.FORBIDDEN);
+        }
+        return RestResponseVO.createBySuccess();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.getByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User Not Found");
         }
-        System.out.println(user);
         return user;
     }
 }

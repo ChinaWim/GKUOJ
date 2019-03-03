@@ -32,4 +32,7 @@ public interface UserService {
     RestResponseVO register(String token, User user);
 
     RestResponseVO<PageInfo> listRankUser2Page(Integer pageNum, Integer pageSize, String keyword);
+
+    RestResponseVO checkLoginByAdmin(String username,String password);
+
 }

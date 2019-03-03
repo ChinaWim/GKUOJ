@@ -28,7 +28,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         logger.info("登录失败,exception:{}",e.getMessage());
         httpServletResponse.setContentType("application/json;charset=UTF-8");
-        RestResponseVO<Object> response = RestResponseVO.createByErrorEnum(RestResponseEnum.USERNAME_OR_PASSWORD_ERROR);
+        RestResponseVO<Object> response = RestResponseVO.createByErrorMessage(e.getLocalizedMessage());
         String responseStr = JsonUtil.obj2String(response);
         PrintWriter writer = httpServletResponse.getWriter();
         writer.write(responseStr);

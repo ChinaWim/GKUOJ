@@ -7,8 +7,8 @@
     <!-- .navbar -->
     <nav class="navbar navbar-static-top">
         <div class="container-fluid m-0">
-            <a class="navbar-brand float-left" th:href="@{/}">
-                <h4><img th:src="@{/img/logo1.png}" class="admin_img" alt="logo"/>&nbsp;计算机程序在线性能测评系统</h4>
+            <a class="navbar-brand float-left" th:href="@{/backend/}">
+                <h4><img th:src="@{/img/logo1.png}" class="admin_img" alt="logo"/>&nbsp;后台管理系统</h4>
             </a>
             <!-- center-->
             <div class="menu hidden-lg-up float-left">
@@ -22,17 +22,6 @@
                 <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
                      data-target="#search_modal">
                     <i class="fa fa-search text-primary"></i>
-                </div>
-                <div sec:authorize="isAnonymous()">
-                    <a th:href="@{/user/registerPage}"
-                       class="btn btn-info ml-2 button-rounded float-right mt-1 glow_button"
-                       style="width: 60px">
-                        注册
-                    </a>
-                    <a th:href="@{/user/loginPage}" class="btn btn-primary button-rounded  float-right mt-1 glow_button"
-                       style="width: 60px">
-                        登录
-                    </a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <div class="btn-group">
@@ -79,10 +68,6 @@
                             <div class="dropdown-menu drop_box_align">
                                 <a class="dropdown-item title" href="#">
                                     [[${#authentication.principal.name}]]</a>
-                                <a class="dropdown-item"
-                                   th:href="@{'/user/mainPage?userId='+${#authentication.principal.id}}">
-                                    <i class="fa fa-user"></i>
-                                    我的主页</a>
                                 <a class="dropdown-item" th:href="@{/user/profilePage}"><i class="fa fa-cog"></i>
                                     信息编辑</a>
                                 <a class="dropdown-item" th:href="@{/user/logout}"><i class="fa fa-sign-out"></i>
@@ -91,15 +76,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="top_search_box float-right hidden-sm-down">
-                <form class="header_input_search float-right" th:action="@{/problem/problemListPage}" method="post">
-                    <input type="text" placeholder="题目搜索" name="keyword">
-                    <button type="submit">
-                        <span class="font-icon-search"></span>
-                    </button>
-                    <div class="overlay"></div>
-                </form>
             </div>
         </div>
         <!-- /.container-fluid -->
