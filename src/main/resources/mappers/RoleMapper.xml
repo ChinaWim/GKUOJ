@@ -18,7 +18,8 @@
     from role
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from role
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -69,4 +70,10 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listRole2Page" resultType="com.oj.gkuoj.entity.Role">
+    select <include refid="Base_Column_List"></include> from role
+
+  </select>
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.oj.gkuoj.rest.backend;
 
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.UserService;
@@ -38,7 +39,7 @@ public class UserController {
      */
     @RequestMapping("/listUser2Page")
     @ResponseBody
-    public RestResponseVO listUser2Page(@RequestParam(defaultValue = "1") Integer page, @RequestParam("20") Integer size) {
+    public RestResponseVO<PageInfo> listUser2Page(@RequestParam(defaultValue = "1") Integer page, @RequestParam("20") Integer size) {
         return userService.listUser2Page(page,size);
     }
 

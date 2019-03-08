@@ -2,6 +2,8 @@ package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Role;
 
+import java.util.List;
+
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    List<Role> listRole2Page(Integer pageNum, Integer pageSize);
 }

@@ -35,6 +35,6 @@ public interface UserService {
 
     RestResponseVO checkLoginByAdmin(String username,String password);
 
-    RestResponseVO listUser2Page(Integer page,Integer size);
+    RestResponseVO<PageInfo> listUser2Page(Integer page,Integer size);
 
 }
