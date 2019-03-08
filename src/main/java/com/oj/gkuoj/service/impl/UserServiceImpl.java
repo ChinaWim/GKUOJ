@@ -15,7 +15,9 @@ import com.oj.gkuoj.dao.UserRoleMapper;
 import com.oj.gkuoj.service.UserService;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.utils.UUIDUtil;
+import org.apache.commons.io.filefilter.AgeFileFilter;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -230,6 +232,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
+    /**
+     * todo
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public RestResponseVO checkLoginByAdmin(String username, String password) {
         if (!StringUtils.isNoneBlank(username, password)) {
@@ -258,6 +266,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return RestResponseVO.createBySuccess();
     }
+
+
+
+    @Override
+    public RestResponseVO<PageInfo> listUser2Page(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize, true);
+        List<User> userList = userMapper.listUser2Page(pageNum, pageSize);
+        PageInfo<User> pageInfo = new PageInfo<>(userList);
+        return RestResponseVO.createBySuccess(pageInfo);
+    }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -415,4 +415,10 @@
     </select>
 
 
+
+    <select id="listUser2Page" resultType="com.oj.gkuoj.entity.User" >
+        select <include refid="Base_Column_List"></include> from user
+    </select>
+
+
 </mapper>

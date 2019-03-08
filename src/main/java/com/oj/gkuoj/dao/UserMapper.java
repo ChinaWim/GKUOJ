@@ -31,6 +31,7 @@ public interface UserMapper {
 
     int countByUsername(String username);
 
+    List<User> listUser2Page(Integer pageNum, Integer pageSize);
 
 
 }
