@@ -7,8 +7,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -24,8 +27,8 @@ public class JsonUtil {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
-        //对象的所有字段全部序列化
-        MAPPER.setSerializationInclusion(Include.ALWAYS);
+        //对象的所有非空字段序列化
+        MAPPER.setSerializationInclusion(Include.NON_EMPTY);
         //取消自动转timestamps
         MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
         //忽略空Bean转json的错误

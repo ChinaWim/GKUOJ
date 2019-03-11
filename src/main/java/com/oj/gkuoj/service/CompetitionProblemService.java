@@ -1,5 +1,6 @@
 package com.oj.gkuoj.service;
 
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.entity.CompetitionProblem;
 import com.oj.gkuoj.response.CompetitionProblemVO;
 import com.oj.gkuoj.response.RestResponseVO;

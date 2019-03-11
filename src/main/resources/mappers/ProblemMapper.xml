@@ -286,7 +286,7 @@
     <where>
       <if test="keyword != null and keyword !='' ">
         and (
-        id = #{keyword}
+        p.id = #{keyword}
         or p.name like concat('%',#{keyword},'%')
         )
       </if>
@@ -301,9 +301,7 @@
       </if>
       and p.flag = 0
     </where>
-
     group by p.id
-
     <if test="sort != null and sort == 1">
       order by p.create_time desc
     </if>

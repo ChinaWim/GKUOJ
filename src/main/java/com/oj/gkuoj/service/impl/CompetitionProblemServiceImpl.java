@@ -1,5 +1,6 @@
 package com.oj.gkuoj.service.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.CompetitionProblemMapper;

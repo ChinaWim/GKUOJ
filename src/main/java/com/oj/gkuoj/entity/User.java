@@ -456,4 +456,5 @@ public class User implements Serializable, UserDetails {
                 ", roleList=" + roleList +
                 '}';
     }
+
 }
