@@ -30,17 +30,30 @@ public class UserController {
         return "backend/login";
     }
 
+    /**
+     * 跳转到用户列表页面
+     * @return
+     */
+    @RequestMapping("/userListPage")
+    public String userListPage() {
+        return "backend/user/user-list";
+    }
+
+
+
 
     /**
-     * 显示用户列表
-     * @param page
-     * @param size
+     * 获取用户列表
+     * @param pageNum
+     * @param pageSize
      * @return
      */
     @RequestMapping("/listUser2Page")
     @ResponseBody
-    public RestResponseVO<PageInfo> listUser2Page(@RequestParam(defaultValue = "1") Integer page, @RequestParam("20") Integer size) {
-        return userService.listUser2Page(page,size);
+    public RestResponseVO<PageInfo> listUser2Page(@RequestParam(defaultValue = "1") Integer pageNum,
+                                                  @RequestParam(defaultValue = "10") Integer pageSize,
+                                                  @RequestParam(defaultValue = "") String keyword) {
+        return userService.listUser2Page(pageNum,pageSize,keyword);
     }
 
 
@@ -64,6 +77,31 @@ public class UserController {
     @ResponseBody
     public RestResponseVO delete(Integer userId){
         return userService.delById(userId);
+    }
+
+
+    /**
+     * 冻结用户
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/lock")
+    @ResponseBody
+    public RestResponseVO lock(Integer userId){
+        return userService.lockById(userId);
+    }
+
+
+
+    /**
+     * 激活用户
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/active")
+    @ResponseBody
+    public RestResponseVO active(Integer userId){
+        return userService.activeById(userId);
     }
 
 

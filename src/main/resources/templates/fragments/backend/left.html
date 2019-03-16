@@ -13,8 +13,6 @@
                                  ${#authentication.principal.avatar}"/>
                         <p class="user-info menu_hide">
                             <span>Welcome：[[${#authentication.principal.name}]]</span>
-                           <br/>
-                            <span class=" ">LastLogin：2019-03-01</span>
                         </p>
 
                     </a>
@@ -27,34 +25,33 @@
 
 
             <li  th:classappend="${active1}? 'active':''">
-                <a th:href="@{/}"  data-toggle="tooltip" data-placement="right"  title="首页">
+                <a th:href="@{/backend/}"  data-toggle="tooltip" data-placement="right"  title="首页">
                     <i class="fa fa-home "></i>
                     <span class="link-title menu_hide">&nbsp;首页管理</span>
                 </a>
             </li>
 
-            <li class="dropdown_menu ">
-                <a href="javascript:;">
+            <li class="dropdown_menu active">
+                <a href="javascript:void(0);">
                     <i class="fa fa-user"></i>
                     <span class="link-title menu_hide">&nbsp;系统管理</span>
                     <span class="fa arrow menu_hide"></span>
                 </a>
                 <ul class="collapse " aria-expanded="false" style="">
-                    <li>
-                        <a href="general_components.html">
+                    <li class="active">
+                        <a th:href="@{/backend/user/userListPage}">
                             <i class="fa fa-angle-right"></i>
                             &nbsp;用户管理
                         </a>
                     </li>
                     <li>
-                        <a href="cards.html">
+                        <a th:href="@{/backend/user/roleListPage}">
                             <i class="fa fa-angle-right"></i>
                             <span class="link-title">&nbsp;角色管理</span>
                         </a>
                     </li>
                 </ul>
             </li>
-
 
 
             <li class="dropdown_menu ">

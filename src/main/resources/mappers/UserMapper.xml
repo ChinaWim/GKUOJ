@@ -378,6 +378,10 @@
       update user set password = #{password}
       where email = #{email}
     </update>
+    <update id="updateUserFlagById" parameterType="int">
+        update user set flag = #{flag}
+        where id = #{id}
+    </update>
 
 
     <select id="getByUserName" resultMap="BaseResultMapWithRole" parameterType="string">
@@ -416,8 +420,19 @@
 
 
 
-    <select id="listUser2Page" resultType="com.oj.gkuoj.entity.User" >
-        select <include refid="Base_Column_List"></include> from user
+    <select id="listUser2Page" resultMap="BaseResultMapWithRole" parameterType="map" >
+       select user.id, username, password, user.name, mood, avatar, flag, sex, email, phone, school, sign_count,
+    submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count,
+    re_count, wa_count, gold_count,rating, last_login_time, user.create_time, user.update_time,
+    r.id as role_id,r.name as role_name from user
+    left join user_role ur on ur.user_id = user.id
+    left join role r on r.id = ur.role_id
+    <where>
+        <if test="keyword != null and keyword != ''">
+            user.name = #{keyword}
+        </if>
+    </where>
+
     </select>
 
 

@@ -66,7 +66,7 @@ public class User implements Serializable, UserDetails {
 
     private Date updateTime;
 
-    private List<Role> roleList;
+    private List<Role> roleList = new ArrayList<>();
 
 
     public User(Integer id, String username, String password, String name, String mood, String avatar, Integer flag, String sex, String email, String phone, String school, Integer signCount, Integer submitCount, Integer solutionCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer ceCount, Integer reCount, Integer waCount, Integer goldCount, Integer rating, Date lastLoginTime, Date createTime, Date updateTime) {

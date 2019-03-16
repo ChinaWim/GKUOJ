@@ -3,6 +3,7 @@ package com.oj.gkuoj.dao;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.RankVO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -31,7 +32,9 @@ public interface UserMapper {
 
     int countByUsername(String username);
 
-    List<User> listUser2Page(Integer pageNum, Integer pageSize);
+    List<User> listUser2Page(@Param("keyword")String keyword);
+
+    int updateUserFlagById(@Param("id")Integer id,@Param("flag") Integer flag);
 
 
 }

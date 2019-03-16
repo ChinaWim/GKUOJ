@@ -2,13 +2,10 @@ package com.oj.gkuoj.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.oj.gkuoj.common.RestResponseEnum;
-import com.oj.gkuoj.common.RoleEnum;
-import com.oj.gkuoj.common.TokenConst;
+import com.oj.gkuoj.common.*;
 import com.oj.gkuoj.entity.Role;
 import com.oj.gkuoj.response.RankVO;
 import com.oj.gkuoj.response.RestResponseVO;
-import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.RoleMapper;
 import com.oj.gkuoj.dao.UserMapper;
 import com.oj.gkuoj.dao.UserRoleMapper;
@@ -83,6 +80,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return RestResponseVO.createBySuccess(user);
     }
 
+    //todo checkField
     @Override
     public RestResponseVO insert(User user) {
         if (user == null) {
@@ -98,10 +96,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (id == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        int effect = userMapper.deleteByPrimaryKey(id);
+        int effect = userMapper.updateUserFlagById(id, UserFlagEnum.DELETED.getId());
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
+
+
+    @Override
+    public RestResponseVO lockById(Integer id) {
+        if (id == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        int effect = userMapper.updateUserFlagById(id, UserFlagEnum.LOCK.getId());
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+    }
+
+
+    @Override
+    public RestResponseVO activeById(Integer id) {
+        if (id == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        int effect = userMapper.updateUserFlagById(id, UserFlagEnum.ACTIVE.getId());
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+    }
+
 
     @Override
     public RestResponseVO updateById(User user) {
@@ -270,9 +291,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public RestResponseVO<PageInfo> listUser2Page(Integer pageNum, Integer pageSize) {
+    public RestResponseVO<PageInfo> listUser2Page(Integer pageNum, Integer pageSize,String keyword) {
         PageHelper.startPage(pageNum, pageSize, true);
-        List<User> userList = userMapper.listUser2Page(pageNum, pageSize);
+        List<User> userList = userMapper.listUser2Page(keyword);
         PageInfo<User> pageInfo = new PageInfo<>(userList);
         return RestResponseVO.createBySuccess(pageInfo);
     }

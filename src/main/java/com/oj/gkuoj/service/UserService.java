@@ -21,6 +21,10 @@ public interface UserService {
 
     RestResponseVO delById(Integer id);
 
+    RestResponseVO lockById(Integer id);
+
+    RestResponseVO activeById(Integer id);
+
     RestResponseVO updateById(User user);
 
     RestResponseVO sendRegisterEmail(String email);
@@ -35,6 +39,6 @@ public interface UserService {
 
     RestResponseVO checkLoginByAdmin(String username,String password);
 
-    RestResponseVO<PageInfo> listUser2Page(Integer page,Integer size);
+    RestResponseVO<PageInfo> listUser2Page(Integer pageNum,Integer pageSize,String keyword);
 
 }
