@@ -25,6 +25,8 @@ public class RegisterVO implements Serializable {
 
     private Integer submitCount;
 
+    private Integer acCount;
+
     private Integer score;
 
     private Date createTime;
@@ -116,6 +118,15 @@ public class RegisterVO implements Serializable {
         this.school = school;
     }
 
+    public Integer getAcCount() {
+        return acCount;
+    }
+
+    public void setAcCount(Integer acCount) {
+        this.acCount = acCount;
+    }
+
+
     @Override
     public String toString() {
         return "RegisterVO{" +
@@ -126,6 +137,7 @@ public class RegisterVO implements Serializable {
                 ", compId=" + compId +
                 ", solutionCount=" + solutionCount +
                 ", submitCount=" + submitCount +
+                ", acCount=" + acCount +
                 ", score=" + score +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

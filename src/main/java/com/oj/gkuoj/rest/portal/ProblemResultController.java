@@ -2,6 +2,7 @@ package com.oj.gkuoj.rest.portal;
 
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.ExceptionStatusConst;
+import com.oj.gkuoj.common.JudgeStatusEnum;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.entity.Competition;
 import com.oj.gkuoj.entity.User;
@@ -14,9 +15,8 @@ import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.service.CompetitionService;
 import com.oj.gkuoj.service.ProblemResultService;
 import com.oj.gkuoj.service.RegisterService;
+import com.oj.gkuoj.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.time.Duration;
 import java.time.Instant;
 
 /**
@@ -148,11 +146,12 @@ public class ProblemResultController {
             if (!isRegistered.isSuccess()) {
                 return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_REGISTER);
             }
-
         }
 
-
+        //init
         problemResult.setUserId(user.getId());
+        problemResult.setStatus(JudgeStatusEnum.QUEUING.getStatus());
+        problemResult.setRunNum(UUIDUtil.createByAPI36());
         return producer.send(problemResult);
     }
 
@@ -201,6 +200,14 @@ public class ProblemResultController {
     }
 
 
+    /**
+     * 获取用户比赛提交记录
+     * @param userDetails
+     * @param pageNum
+     * @param pageSize
+     * @param compId
+     * @return
+     */
     @RequestMapping("/listProblemResultCompetitionVO2Page")
     @ResponseBody
     public RestResponseVO<PageInfo> listProblemResultCompetitionVO2Page(@AuthenticationPrincipal UserDetails userDetails,

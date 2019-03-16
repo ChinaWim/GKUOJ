@@ -34,4 +34,6 @@ public interface ProblemResultMapper {
     ProblemResultDetailVO getById2DetailVO(Integer problemResultId);
 
     List<ProblemResultCompetitionVO> listProblemResultCompetitionVO2Page(@Param("compId") Integer compId,@Param("userId") Integer userId);
+
+    Integer getTotalScoreById(@Param("userId") Integer userId,@Param("compId") Integer compId);
 }

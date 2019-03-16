@@ -60,10 +60,8 @@ public class JudgeProducer {
     }
 
     public RestResponseVO<String> send(ProblemResult problemResult) {
-
         try {
-            problemResult.setStatus(JudgeStatusEnum.QUEUING.getStatus());
-            problemResult.setRunNum(UUIDUtil.createByAPI36());
+
             //add queueing
 //            problemResultService.insert(problemResult);
 

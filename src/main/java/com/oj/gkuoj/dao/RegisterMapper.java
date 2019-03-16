@@ -25,5 +25,6 @@ public interface RegisterMapper {
 
     List<RegisterVO> listRegisterByCompId2Page(Integer compId);
 
+    List<Register> listNoScoreRegisterByCompId(@Param("compId")Integer compId);
 
 }

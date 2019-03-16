@@ -30,6 +30,8 @@ public class ProblemResultDetailVO implements Serializable {
 
     private Integer compId;
 
+    private Integer compScore;
+
     private String runNum;
 
     private Integer status;
@@ -211,28 +213,11 @@ public class ProblemResultDetailVO implements Serializable {
         this.score = score;
     }
 
-    @Override
-    public String toString() {
-        return "ProblemResultDetailVO{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", avatar='" + avatar + '\'' +
-                ", name='" + name + '\'' +
-                ", problemId=" + problemId +
-                ", problemName='" + problemName + '\'' +
-                ", compId=" + compId +
-                ", runNum='" + runNum + '\'' +
-                ", status=" + status +
-                ", type='" + type + '\'' +
-                ", time=" + time +
-                ", memory=" + memory +
-                ", errorMsg='" + errorMsg + '\'' +
-                ", sourceCode='" + sourceCode + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", testcaseResultList=" + testcaseResultList +
-                ", acCount=" + acCount +
-                ", score=" + score +
-                '}';
+    public Integer getCompScore() {
+        return compScore;
+    }
+
+    public void setCompScore(Integer compScore) {
+        this.compScore = compScore;
     }
 }

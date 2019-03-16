@@ -17,13 +17,15 @@ public class Register implements Serializable {
 
     private Integer submitCount;
 
+    private Integer acCount;
+
     private Integer score;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public Register(Integer id, Integer userId, Integer compId, Integer solutionCount, Integer submitCount, Integer score, Date createTime, Date updateTime) {
+    public Register(Integer id, Integer userId, Integer compId, Integer solutionCount, Integer submitCount, Integer score, Date createTime, Date updateTime,Integer acCount) {
         this.id = id;
         this.userId = userId;
         this.compId = compId;
@@ -32,6 +34,7 @@ public class Register implements Serializable {
         this.score = score;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.acCount = acCount;
     }
 
     public Register() {
@@ -102,14 +105,28 @@ public class Register implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getAcCount() {
+        return acCount;
+    }
+
+    public void setAcCount(Integer acCount) {
+        this.acCount = acCount;
+    }
+
+
     @Override
     public String toString() {
-        return "RegisterService{" +
+        return "Register{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", compId=" + compId +
                 ", solutionCount=" + solutionCount +
                 ", submitCount=" + submitCount +
+                ", acCount=" + acCount +
                 ", score=" + score +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

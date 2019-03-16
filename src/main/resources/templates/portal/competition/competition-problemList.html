@@ -56,7 +56,7 @@ z-index: 999999">
                     <div id="competitionApp">
                     <div class="row mt-3">
                         <div class="col-8">
-                            <div class="card" style="height: 600px">
+                            <div class="card">
                                 <div>
                                     <ul class="nav nav-inline view_user_nav_padding">
                                         <li class="nav-item card_nav_hover">
@@ -79,6 +79,7 @@ z-index: 999999">
                                         </li>
                                     </ul>
                                     <div id="clothing-nav-content" class="tab-content m-t-10">
+                                        <!--tab1-->
                                         <div role="tabpanel" class="tab-pane fade active show" id="tab1"
                                              aria-expanded="false">
                                             <table class="table table-hover tables ">
@@ -111,6 +112,8 @@ z-index: 999999">
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <!--#tab1--->
+                                        <!--tab2-->
                                         <div role="tabpanel" class="tab-pane fade " id="tab2"
                                              aria-expanded="true">
                                             <table class="table table-hover">
@@ -188,6 +191,8 @@ z-index: 999999">
                                             <!--#page-->
 
                                         </div>
+                                        <!--#tab2-->
+                                        <!--tab3-->
                                         <div role="tabpanel" class="tab-pane fade" id="tab3" aria-expanded="false">
                                             <table class="table table-hover ">
                                                 <thead class="">
@@ -209,7 +214,16 @@ z-index: 999999">
                                                     <td class="text-center">{{register.score}}</td>
                                                     <td class="text-center">{{register.solutionCount}}</td>
                                                     <td class="text-center">{{register.submitCount}}</td>
-                                                    <td class="text-center">未完善</td>
+                                                    <td class="text-center">
+
+                                                         <span v-if="register.acCount != 0">
+                                                            {{register.acCount*1.0 / register.submitCount*100 | formatNum}}%
+                                                        </span>
+                                                        <span v-if="register.acCount == 0">
+                                                           0.00%
+                                                        </span>
+
+                                                    </td>
                                                 </tr>
 
                                                 </tbody>
@@ -224,6 +238,7 @@ z-index: 999999">
                                             </div>
                                             <!--#page-->
                                         </div>
+                                        <!--#tab3-->
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +323,6 @@ z-index: 999999">
 
     timer(closeSecond);
 
-
     // vue
     var competitionApp = new Vue({
         el: '#competitionApp',
@@ -381,14 +395,6 @@ z-index: 999999">
 
 
     // end of vue
-
-
-
-
-
-
-
-
 
 
 

@@ -22,7 +22,13 @@ public class RegisterController {
     @Autowired
     private RegisterService registerService;
 
-
+    /**
+     * 用户比赛排名
+     * @param pageNum
+     * @param pageSize
+     * @param compId
+     * @return
+     */
     @RequestMapping("/listRegisterByCompId2Page")
     @ResponseBody
     public RestResponseVO<PageInfo> listRegisterByCompId2Page(@RequestParam(defaultValue = "1") Integer pageNum,

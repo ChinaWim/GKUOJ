@@ -18,6 +18,8 @@ public class ProblemResult implements Serializable {
 
     private Integer compId;
 
+    private Integer compScore;
+
     private String runNum;
 
     private Integer status;
@@ -38,7 +40,7 @@ public class ProblemResult implements Serializable {
 
     private Date updateTime;
 
-    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, String runNum, Integer status, String type, Long time, Long memory, String errorMsg, String sourceCode, Date createTime, Date updateTime) {
+    public ProblemResult(Integer id, Integer userId, Integer problemId, Integer compId, String runNum, Integer status, String type, Long time, Long memory, String errorMsg, String sourceCode, Date createTime, Date updateTime,Integer compScore) {
         this.id = id;
         this.userId = userId;
         this.problemId = problemId;
@@ -50,6 +52,7 @@ public class ProblemResult implements Serializable {
         this.memory = memory;
         this.errorMsg = errorMsg;
         this.sourceCode = sourceCode;
+        this.compScore = compScore;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -162,6 +165,17 @@ public class ProblemResult implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getCompScore() {
+        return compScore;
+    }
+
+    public void setCompScore(Integer compScore) {
+        this.compScore = compScore;
+    }
 
     @Override
     public String toString() {
@@ -170,6 +184,7 @@ public class ProblemResult implements Serializable {
                 ", userId=" + userId +
                 ", problemId=" + problemId +
                 ", compId=" + compId +
+                ", compScore=" + compScore +
                 ", runNum='" + runNum + '\'' +
                 ", status=" + status +
                 ", type='" + type + '\'' +

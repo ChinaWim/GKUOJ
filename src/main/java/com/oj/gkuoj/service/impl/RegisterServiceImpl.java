@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.CompetitionMapper;
+import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.entity.Competition;
 import com.oj.gkuoj.response.RegisterVO;
 import com.oj.gkuoj.response.RestResponseVO;
@@ -14,6 +15,7 @@ import com.oj.gkuoj.service.RegisterService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.print.DocFlavor;
 import java.util.List;
@@ -29,6 +31,9 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private CompetitionMapper competitionMapper;
+
+    @Autowired
+    private ProblemResultMapper problemResultMapper;
 
     @Override
     public RestResponseVO insert(Register register) {

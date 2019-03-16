@@ -8,13 +8,14 @@
             <arg column="comp_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="solution_count" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="submit_count" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="ac_count" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="score" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
             <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, comp_id, solution_count, submit_count, score, create_time, update_time
+    id, user_id, comp_id, solution_count, submit_count, ac_count, score, create_time, update_time
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -29,10 +30,10 @@
   </delete>
     <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Register">
     insert into register (id, user_id, comp_id, 
-      solution_count, submit_count, score, 
+      solution_count, submit_count, ac_count, score,
       create_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{compId,jdbcType=INTEGER}, 
-      #{solutionCount,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{solutionCount,jdbcType=INTEGER}, #{submitCount,jdbcType=INTEGER}, #{acCount,jdbcType=INTEGER}, #{score,jdbcType=INTEGER},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Register">
@@ -52,6 +53,9 @@
             </if>
             <if test="submitCount != null">
                 submit_count,
+            </if>
+            <if test="acCount != null">
+                ac_count,
             </if>
             <if test="score != null">
                 score,
@@ -76,6 +80,9 @@
             <if test="submitCount != null">
                 #{submitCount,jdbcType=INTEGER},
             </if>
+            <if test="acCount != null">
+                #{acCount,jdbcType=INTEGER},
+            </if>
             <if test="score != null">
                 #{score,jdbcType=INTEGER},
             </if>
@@ -99,6 +106,9 @@
             <if test="submitCount != null">
                 submit_count = #{submitCount,jdbcType=INTEGER},
             </if>
+            <if test="acCount != null">
+                ac_count = #{acCount,jdbcType=INTEGER},
+            </if>
             <if test="score != null">
                 score = #{score,jdbcType=INTEGER},
             </if>
@@ -114,6 +124,7 @@
       comp_id = #{compId,jdbcType=INTEGER},
       solution_count = #{solutionCount,jdbcType=INTEGER},
       submit_count = #{submitCount,jdbcType=INTEGER},
+      ac_count = #{acCount,jdbcType=INTEGER},
       score = #{score,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
@@ -135,12 +146,19 @@
     </select>
 
     <select id="listRegisterByCompId2Page" resultType="com.oj.gkuoj.response.RegisterVO" parameterType="int">
-        select r.id, r.user_id, r.comp_id, r.solution_count, r.submit_count, r.score, r.create_time, r.update_time,
+        select r.id, r.user_id, r.comp_id, r.solution_count, r.submit_count, r.ac_count, r.score, r.create_time, r.update_time,
         u.name,u.school
         from register r
         join user u on u.id = r.user_id
         where  r.comp_id = #{compId}
-        order by  r.score desc
+        order by  r.score desc, r.submit_count desc
     </select>
+
+    <select id="listNoScoreRegisterByCompId" resultType="com.oj.gkuoj.entity.Register" parameterType="map">
+        select <include refid="Base_Column_List"></include>
+        from register
+        where  comp_id = #{compId} and score is null
+    </select>
+
 
 </mapper>
