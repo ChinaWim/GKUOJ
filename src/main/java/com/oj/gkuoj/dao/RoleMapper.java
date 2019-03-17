@@ -17,5 +17,5 @@ public interface RoleMapper {
 
     int updateByPrimaryKey(Role record);
 
-    List<Role> listRole2Page(Integer pageNum, Integer pageSize);
+    List<Role> listRole();
 }

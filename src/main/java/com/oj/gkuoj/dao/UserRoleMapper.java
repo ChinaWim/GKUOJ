@@ -1,6 +1,7 @@
 package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.UserRole;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserRoleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +15,6 @@ public interface UserRoleMapper {
     int updateByPrimaryKeySelective(UserRole record);
 
     int updateByPrimaryKey(UserRole record);
+
+    int deleteByUserId(Integer userId);
 }

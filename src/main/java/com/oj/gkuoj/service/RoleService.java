@@ -15,4 +15,6 @@ public interface RoleService {
 
     RestResponseVO<PageInfo> listRole2Page(Integer pageNum, Integer pageSize);
 
+    RestResponseVO listRole();
+
 }

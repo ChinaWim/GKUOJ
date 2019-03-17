@@ -13,6 +13,7 @@ public interface FileService {
 
     RestResponseVO uploadImageByMD(MultipartFile multipartFile,String guid,String username);
 
+    RestResponseVO<String> uploadImage(MultipartFile multipartFile,String username);
 
     RestResponseVO<byte[]> get(String path);
 

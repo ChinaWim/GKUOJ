@@ -5,6 +5,8 @@
 <head>
     <title>用户列表</title>
     <div th:replace="~{fragments/backend/head-base}"></div>
+    <link type="text/css" rel="stylesheet" th:href="@{/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/gallery.css}"/>
 </head>
 <body class="body fixedNav_position fixedMenu_left">
 <div class="preloader" style=" position: fixed;
@@ -47,7 +49,7 @@ z-index: 999999">
             <div class="outer">
                 <div class="inner bg-container">
                     <!--app-->
-                    <div id="userApp">
+                    <div id="">
                         <div class="row">
                             <div class="col-12">
                                 <div class="w-25 float-left">
@@ -63,8 +65,9 @@ z-index: 999999">
                                         </span>
                                         <span class="ml-3">
                                             <button class="btn  btn-secondary button-rounded "
+                                                    @click="initUser()"
                                                     data-toggle="modal" data-href="#stack1" href="#stack1">
-                                            <i class="fa fa-user mr-1"></i>添加用户
+                                            <i class="fa fa-plus mr-1"></i>添加用户
                                             </button>
 
                                         </span>
@@ -74,43 +77,45 @@ z-index: 999999">
                             </div>
                             <!--userList-->
                             <div class="col-12 mt-3">
-                                        <table  class="table  table-bordered table-hover">
-                                            <thead >
-                                            <tr >
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">账号</th>
-                                                <th class="text-center">头像</th>
-                                                <th class="text-center">用户名</th>
-                                                <th class="text-center">性别</th>
-                                                <th class="text-center">学校</th>
-                                                <th class="text-center">邮箱</th>
-                                                <th class="text-center">电话</th>
-                                                <th class="text-center">角色</th>
-                                                <th class="text-center">状态</th>
-                                                <th class="text-center">操作</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody >
-                                            <tr v-for="(user,index) in userList">
-                                                <td class="text-center">
-                                                    {{index + 1}}
-                                                </td>
-                                                <td class="text-center">{{user.username}}</td>
-                                                <td class="text-center">
-                                                    <a :href="'/user/mainPage?userId='+user.id" target="_blank">
-                                                        <img :src="user.avatar == null ? 'img/default_avatar.jpg' : user.avatar"
-                                                             class="rounded-circle hidden-sm-down img-50"
-                                                             alt="image not found">
-                                                    </a>
-                                                </td>
+                                <table class="table  table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">账号</th>
+                                        <th class="text-center">头像</th>
+                                        <th class="text-center">用户名</th>
+                                        <th class="text-center">性别</th>
+                                        <th class="text-center">学校</th>
+                                        <th class="text-center">邮箱</th>
+                                        <th class="text-center">电话</th>
+                                        <th class="text-center">角色</th>
+                                        <th class="text-center">状态</th>
+                                        <th class="text-center">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(user,index) in userList">
+                                        <td class="text-center">
+                                            {{index + 1}}
+                                        </td>
+                                        <td class="text-center">{{user.username}}</td>
+                                        <td class="text-center">
+                                            <a :href="'/user/mainPage?userId='+user.id" target="_blank">
+                                                <img :src="user.avatar == null ? 'img/default_avatar.jpg' : user.avatar"
+                                                     class="rounded-circle hidden-sm-down img-50"
+                                                     alt="image not found">
+                                            </a>
+                                        </td>
 
 
-                                                <td class="text-center"><a class="primary-hover" target="_blank" :href="'/user/mainPage?userId='+user.id">{{user.name}}</a></td>
-                                                <td class="text-center">{{user.sex}}</td>
-                                                <td class="text-center">{{user.school}}</td>
-                                                <td class="text-center">{{user.email}}</td>
-                                                <td class="text-center">{{user.phone}}</td>
-                                                <td class="text-center">
+                                        <td class="text-center"><a class="primary-hover" target="_blank"
+                                                                   :href="'/user/mainPage?userId='+user.id">{{user.name}}</a>
+                                        </td>
+                                        <td class="text-center">{{user.sex}}</td>
+                                        <td class="text-center">{{user.school}}</td>
+                                        <td class="text-center">{{user.email}}</td>
+                                        <td class="text-center">{{user.phone}}</td>
+                                        <td class="text-center">
                                                     <span v-for="(role,index) in user.roleList">
                                                         <span v-if="role.id == 1">
                                                             管理员
@@ -119,27 +124,32 @@ z-index: 999999">
                                                             普通用户
                                                         </span>
                                                     </span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <span v-if="user.flag == 0"><button class="btn btn-sm btn-outline-success">正常</button></span>
-                                                    <span v-if="user.flag == 1"><button class="btn btn-sm btn-outline-warning">已冻结</button></span>
-                                                    <span v-if="user.flag == 2"><button class="btn btn-sm btn-outline-danger">已删除</button></span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-sm btn-primary">详情</button>
-                                                    <a @click="activeUser(user.id)">
-                                                        <button class="btn btn-sm btn-success">激活</button>
-                                                    </a>
-                                                    <a @click="lockUser(user.id)">
-                                                        <button class="btn btn-sm btn-warning">冻结</button>
-                                                    </a>
-                                                    <a @click="deleteUser(user.id)">
-                                                        <button class="btn btn-sm btn-danger">删除</button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        </td>
+                                        <td class="text-center">
+                                                <span v-if="user.flag == 0"><button
+                                                        class="btn btn-sm btn-outline-success">正常</button></span>
+                                            <span v-if="user.flag == 1"><button
+                                                    class="btn btn-sm btn-outline-warning">已冻结</button></span>
+                                            <span v-if="user.flag == 2"><button
+                                                    class="btn btn-sm btn-outline-danger">已删除</button></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button data-toggle="modal" data-href="#stack1" href="#stack1"
+                                                    class="btn btn-sm btn-primary" @click="userDetail(user.id)">详情
+                                            </button>
+                                            <a @click="activeUser(user.id)">
+                                                <button class="btn btn-sm btn-success">激活</button>
+                                            </a>
+                                            <a @click="lockUser(user.id)">
+                                                <button class="btn btn-sm btn-warning">冻结</button>
+                                            </a>
+                                            <a @click="deleteUser(user.id)">
+                                                <button class="btn btn-sm btn-danger">删除</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                                 <!--page-->
                                 <div class="row mt-3">
                                     <div style="margin: 0 auto">
@@ -170,42 +180,89 @@ z-index: 999999">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form  id="userForm" >
+                    <form id="userForm">
+                        <input type="hidden" v-model="user.id" name="id"/>
                         <table class="table ">
                             <tr>
-                                <td><span class="text-danger">*</span>账号</td>
-                                <td><input name="username" type="text" class="form-control"/></td>
-                                <td><span class="text-danger">*</span>密码</td>
-                                <td><input name="password" type="password" class="form-control"/></td>
-                            </tr>
-                            <tr>
                                 <td>头像</td>
-                                <td><input name="avatar" type="text" class="form-control"/></td>
-                                <td>用户名</td>
-                                <td><input name="username" type="text" class="form-control"/></td>
+                                <td>
+                                    <!--<input name="avatar" type="text" class="form-control"/>-->
+                                    <div class="form-group">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumb_zoom zoom admin_img_width">
+                                                <img :src="user.avatar" alt="admin" class="admin_img_width">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumb_zoom zoom admin_img_width"></div>
+                                            <div class="btn_file_position">
+                                                        <span class="btn btn-primary btn-file">
+                                                            <span class="fileinput-new">选择图片</span>
+                                                            <span class="fileinput-exists">更换</span>
+                                                            <input type="file" id="file" name="file"/>
+                                                        </span>
+                                                <a href="#" id="clearFile" class="btn btn-warning fileinput-exists"
+                                                   data-dismiss="fileinput">移除</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
                             </tr>
                             <tr>
+                                <td><span class="text-danger">*</span>用户名</td>
+                                <td><input name="username" type="text" v-model="user.username" class="form-control"/>
+                                </td>
+                                <td>密码</td>
+                                <td><input name="password" id="password" placeholder="不修改无需填写" type="password"
+                                           class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td><span class="text-danger">*</span>昵称</td>
+                                <td><input name="name" v-model="user.name" type="text" class="form-control"/></td>
                                 <td><span class="text-danger">*</span>性别</td>
-                                <td><input name="sex" type="sex" class="form-control"/></td>
+                                <td>
+                                    <label class=" custom-control custom-radio">
+                                        <input name="sex" type="radio" value="男" v-model="user.sex"
+                                               class="custom-control-input" checked="checked">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">男</span>
+                                    </label>
+                                    <label class=" custom-control custom-radio">
+                                        <input name="sex" type="radio" value="女" v-model="user.sex"
+                                               class="custom-control-input">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">女</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td><span class="text-danger">*</span>角色</td>
                                 <td>
-                                    <!--select2-->
+                                    <select id="roleSelect" name="roleId" v-model="user.roleIds" class="form-control"
+                                            style="width: 100px;">
+                                        <option v-for="(role,index) in roleList" :value="role.id" v-if="role.id == 2">
+                                            普通用户
+                                        </option>
+                                        <option v-for="(role,index) in roleList" :value="role.id" v-if="role.id == 1">
+                                            管理员
+                                        </option>
+                                    </select>
                                 </td>
+                                <td><span class="text-danger">*</span>email</td>
+                                <td><input name="email" v-model="user.email" type="text" class="form-control"/></td>
                             </tr>
                             <tr>
-                                <td><span class="text-danger">*</span>email</td>
-                                <td><input name="email" type="text" class="form-control"/></td>
                                 <td>手机</td>
                                 <td>
-                                    <input name="phone" type="text" class="form-control"/>
+                                    <input name="phone" v-model="user.phone" type="text" class="form-control"/>
                                 </td>
+                                <td>学校</td>
+                                <td><input name="school" v-model="user.school" type="text" class="form-control"/></td>
                             </tr>
                             <tr>
-                                <td>学校</td>
-                                <td><input name="school" type="text" class="form-control"/></td>
                                 <td>心情</td>
-                                <td>
-                                    <textarea name="mood" class="form-control"></textarea>
+                                <td colspan="3">
+                                    <textarea style="height: 100px" v-model="user.mood" name="mood"
+                                              class="form-control"></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -215,7 +272,10 @@ z-index: 999999">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="addUser" data-dismiss="modal" class="btn btn-info" onclick="addUser()">提交</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">取消</button>
+                    <button type="button" id="saveUser" class="btn btn-info"
+                            onclick="saveUser()">提交
+                    </button>
                 </div>
             </div>
         </div>
@@ -229,17 +289,20 @@ z-index: 999999">
 <!--end of global scripts-->
 <!--  plugin scripts -->
 <script type="text/javascript" th:src="@{/js/pages/backend/index.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js}"></script>
 <!--end of plugin scripts-->
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
 
 
     // vue
-    var userApp = new Vue({
-        el: '#userApp',
+    var wrap = new Vue({
+        el: '#wrap',
         data: {
             total: 0,
-            userList: []
+            user: {"sex": "男", "avatar": "http://file.gkuoj.com/image/default_avatar.jpg", "roleIds": "2"},
+            userList: [],
+            roleList: []
         },
         filters: {
             formatDate: function (val) {
@@ -268,101 +331,197 @@ z-index: 999999">
                 var keyword = $("#keyword").val();
                 var url = '/backend/user/listUser2Page';
 
-                this.$http.post(url,{"pageNum":pageNum,"keyword":keyword},{emulateJSON:true}).then(function (res) {
+                this.$http.post(url, {
+                    "pageNum": pageNum,
+                    "keyword": keyword
+                }, {emulateJSON: true}).then(function (res) {
                     this.total = res.data.data.total;
                     this.userList = res.data.data.list;
                     $("#page").initPage(this.total, pageNum, clickPage);
                 }), function (res) {
                     console.log(res.data.msg);
                 }
+            },
+            listRole: function () {
+                var url = '/backend/role/listRole';
+                this.$http.post(url, {}, {emulateJSON: true}).then(function (res) {
+                    this.roleList = res.data.data;
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
             }
         }
     });
-    userApp.listUser(1);
+    //初始化
+    wrap.listUser(1);
+    wrap.listRole();
 
     //分页点击方法
     function clickPage(pageNum) {
-        userApp.listUser(pageNum);
+        wrap.listUser(pageNum);
     }
 
+    //添加用户点击初始化
+    function initUser() {
+        $("#clearFile").click();
+        $("#password").attr("placeholder","默认（gkuoj）");
+        $("#password").val("");
+        wrap.user = {"sex": "男", "avatar": "http://file.gkuoj.com/image/default_avatar.jpg", "roleIds": "2"};
+    }
 
     function activeUser(userId) {
-        $.post("/backend/user/active",{"userId":userId},function (resp) {
-            if(resp.status == 200){
+        $.post("/backend/user/active", {"userId": userId}, function (resp) {
+            if (resp.status == 200) {
                 $.message({
-                    message:resp.msg,
-                    type:'success'
+                    message: resp.msg,
+                    type: 'success'
                 });
                 clickPage(1);
-            }else {
+            } else {
                 $.message({
-                    message:resp.msg,
-                    type:'error'
+                    message: resp.msg,
+                    type: 'error'
                 });
             }
         })
     }
 
     function deleteUser(userId) {
-        $.post("/backend/user/delete",{"userId":userId},function (resp) {
-            if(resp.status == 200){
+        $.post("/backend/user/delete", {"userId": userId}, function (resp) {
+            if (resp.status == 200) {
                 $.message({
-                    message:resp.msg,
-                    type:'success'
+                    message: resp.msg,
+                    type: 'success'
                 });
                 clickPage(1);
-            }else {
+            } else {
                 $.message({
-                    message:resp.msg,
-                    type:'error'
+                    message: resp.msg,
+                    type: 'error'
                 });
             }
         })
     }
 
     function lockUser(userId) {
-        $.post("/backend/user/lock",{"userId":userId},function (resp) {
-            if(resp.status == 200){
+        $.post("/backend/user/lock", {"userId": userId}, function (resp) {
+            if (resp.status == 200) {
                 $.message({
-                    message:resp.msg,
-                    type:'success'
+                    message: resp.msg,
+                    type: 'success'
                 });
                 clickPage(1);
-            }else {
+            } else {
                 $.message({
-                    message:resp.msg,
-                    type:'error'
+                    message: resp.msg,
+                    type: 'error'
                 });
             }
         })
     }
 
-    function addUser() {
-        var user = $("#userForm").serialize();
-        $.post("/backend/user/add",user,function (resp) {
-            if(resp.status == 200){
+
+    function checkField() {
+        var user = wrap.user;
+        if (user.username == null || user.username.trim().length == 0) {
+            $.message({
+                message: "用户名不能为空",
+                type: 'warning'
+            });
+            return false;
+        }
+        if (user.name == null || user.name.trim().length == 0) {
+            $.message({
+                message: "昵称不能为空",
+                type: 'warning'
+            });
+            return false;
+        }
+        if (user.sex == null || user.sex.trim().length == 0) {
+            $.message({
+                message: "性别不能为空",
+                type: 'warning'
+            });
+            return false;
+        }
+        if (user.roleIds == null) {
+            $.message({
+                message: "角色不能为空",
+                type: 'warning'
+            });
+            return false;
+        }
+        if (user.email == null || user.email.trim().length == 0) {
+            $.message({
+                message: "email不能为空",
+                type: 'warning'
+            });
+            return false;
+        }
+        return true;
+    }
+
+    //添加-更新
+    function saveUser() {
+        // var user = $("#userForm").serialize();
+
+        var formData = new FormData($("#userForm")[0]);
+
+        if (!checkField()) {
+            return;
+        }
+        $.ajax({
+            url: '/backend/user/save',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (resp) {
+                if (resp.status == 200) {
+                    $.message({
+                        message: resp.msg,
+                        type: 'success'
+                    });
+                    $('#stack1').modal('hide');
+                    $("#clearFile").click();
+                    clickPage(1);
+                } else {
+                    $.message({
+                        message: resp.msg,
+                        type: 'error'
+                    });
+                }
+            }
+        });
+    }
+
+    //详情
+    function userDetail(userId) {
+        $("#clearFile").click();
+        $("#password").attr("placeholder","不更新无需填写");
+        $.post("/backend/user/get", {"userId": userId}, function (resp) {
+            if (resp.status == 200) {
+                wrap.user = resp.data;
+            } else {
                 $.message({
-                    message:resp.msg,
-                    type:'success'
-                });
-                clickPage(1);
-            }else {
-                $.message({
-                    message:resp.msg,
-                    type:'error'
+                    message: resp.msg,
+                    type: 'error'
                 });
             }
         })
     }
-    
-    
-    
-    
-    
+
     // end of vue
 
-    /*]]>*/
 
+    //select2
+    $('.select2-role').select2({
+        placeholder: '选择角色',
+        theme: 'bootstrap4'
+    });
+    /*]]>*/
 
 
 </script>

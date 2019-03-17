@@ -2,8 +2,10 @@ package com.oj.gkuoj.service;
 
 
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.request.UserRequest;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.response.UserDetailVO;
 
 import java.util.List;
 
@@ -15,9 +17,9 @@ public interface UserService {
 
     RestResponseVO addSignCount(Integer userId);
 
-    RestResponseVO<User> getById(Integer userId);
+    RestResponseVO<UserDetailVO> getById(Integer userId);
 
-    RestResponseVO insert(User user);
+    RestResponseVO insert(UserRequest request);
 
     RestResponseVO delById(Integer id);
 
@@ -25,7 +27,7 @@ public interface UserService {
 
     RestResponseVO activeById(Integer id);
 
-    RestResponseVO updateById(User user);
+    RestResponseVO updateById(UserRequest request);
 
     RestResponseVO sendRegisterEmail(String email);
 
@@ -33,7 +35,7 @@ public interface UserService {
 
     RestResponseVO forgetRestPassword(String token,String email,String password);
 
-    RestResponseVO register(String token, User user);
+    RestResponseVO register(String token, UserRequest request);
 
     RestResponseVO<PageInfo> listRankUser2Page(Integer pageNum, Integer pageSize, String keyword);
 

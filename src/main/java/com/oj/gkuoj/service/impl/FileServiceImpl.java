@@ -84,6 +84,41 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public RestResponseVO<String> uploadImage(MultipartFile multipartFile, String username) {
+        if (!StringUtils.isNoneBlank(username) || multipartFile == null || multipartFile.isEmpty()) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        String originalFilename = multipartFile.getOriginalFilename();
+        try {
+            String type = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+            List<String> typeArray = Arrays.asList(fileServerTypeImage.split(","));
+            if (!typeArray.contains(type)) {
+                logger.info("不支持此图片文件格式,{}", type);
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.FILE_TYPE_ERROR);
+            }
+            String newImageName = UUIDUtil.createByAPI36();
+            String newUri = username + "/" + newImageName + "." + type;
+            String savePath = fileServerImageDir + "/" + newUri;
+            String url = fileServerHttpPrefix + "image/" + newUri;
+
+            File saveFile = new File(savePath);
+            File parentFile = saveFile.getParentFile();
+            if (!parentFile.exists()) {
+                parentFile.mkdirs();
+                if (!parentFile.canWrite()) {
+                    logger.info("文件{},没有操作权限", savePath);
+                    return RestResponseVO.createByErrorEnum(RestResponseEnum.FILE_PERMISSION_ERROR);
+                }
+            }
+            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), saveFile);
+            return RestResponseVO.createBySuccess(url);
+        } catch (Exception e) {
+            logger.info("文件IO异常", e.getMessage());
+            return RestResponseVO.createByErrorMessage(e.getMessage());
+        }
+    }
+
+    @Override
     public RestResponseVO<byte[]> get(String path) {
         if (StringUtils.isBlank(path)) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);

@@ -1,6 +1,7 @@
 package com.oj.gkuoj.rest.common;
 
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.FileService;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +29,7 @@ public class FileController {
 
 
     /**
-     * 　MD上传图片 todo
+     * 　MD上传图片
      *
      * @param guid
      * @param multipartFile
@@ -57,6 +58,28 @@ public class FileController {
         return map;
     }
 
+
+    /**
+     * 　普通图片上传
+     *
+     * @param multipartFile
+     * @param userDetails
+     * @return success  message url
+     */
+    @ResponseBody
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
+    public RestResponseVO uploadImage(@RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile,
+                               @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
+        }
+        User user = (User) userDetails;
+       return fileService.uploadImage(multipartFile,user.getUsername());
+    }
+
+
+
+
     @RequestMapping("/get")
     public RestResponseVO<byte[]> get(String token, String path) {
         //todo token
@@ -68,13 +91,23 @@ public class FileController {
 
 
     @GetMapping("/getTestcaseInput")
-    public void getTestcaseInput(HttpServletResponse response,Integer problemId, Integer num){
+    @ResponseBody
+    public RestResponseVO getTestcaseInput(HttpServletResponse response,Integer problemId, Integer num,
+                                 @AuthenticationPrincipal UserDetails userDetails){
+        if (userDetails == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
+        }
         fileService.getTestcaseInput(response,problemId,num);
+        return RestResponseVO.createBySuccess();
     }
 
     @GetMapping("/getTestcaseOutput")
-    public void getTestcaseOutput(HttpServletResponse response,Integer problemId, Integer num){
+    public RestResponseVO getTestcaseOutput(HttpServletResponse response,Integer problemId, Integer num,@AuthenticationPrincipal UserDetails userDetails){
+        if (userDetails == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
+        }
         fileService.getTestcaseOutput(response,problemId,num);
+        return RestResponseVO.createBySuccess();
     }
 
 }

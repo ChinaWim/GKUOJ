@@ -1,0 +1,79 @@
+.zoom img {
+    transition: all 1s ease;
+}
+.zoom img:hover {
+    transform:scale(1.45,1.45);
+}
+.thumb_zoom {
+    display:inline-block;
+    overflow:hidden;
+    padding: 0 !important;
+    margin:1% 1.5%;
+}
+.admin_img_width{
+    width: 250px;
+    height: 150px;
+}
+.view_friends_imgs img{
+    height:50px;
+    width:50px;
+}
+.view_friends_imgs span{
+    font-size:15px;
+    margin:20px 0
+}
+.view_friends_imgs div{
+    float:left;
+    margin:6px
+}
+.tab-content .thumb_zoom {
+    margin:10px 10px 0 0;
+}
+.gallery-border{
+    padding: 0;
+}
+#tab_1 figure{
+    margin: 10px 10px 0 0;
+}
+.gallery-border figure{
+    margin-top:10px;
+}
+.friends_img_left {
+    margin-left: -6px !important;
+}
+.view_user_nav_padding{
+    border-bottom:4px solid rgba(0,0,0,0.125)
+}
+.view_user_nav_padding .nav-item{
+    margin-bottom: -7px;
+}
+.follower_images img{
+    width: 45px;
+}
+.admin_img_width,.btn_file_position {
+    margin-left: -5px;
+}
+@media (max-width: 470px){
+    #tab_1 figure img{
+        margin-bottom: -1px;
+    }
+}
+@media (max-width: 800px){
+    .popover{
+        width:110px;
+    }
+}
+@media (min-width: 1365px) {
+    #tab_1 figure img{
+        margin-bottom: 0;
+        margin-top: -1px;
+    }
+    #tab_1 figure{
+        margin: 10px 14px 5px 0;
+    }
+}
+@media (max-width: 424px){
+    .nav-tabs-custom ul{
+        display: block;
+    }
+}

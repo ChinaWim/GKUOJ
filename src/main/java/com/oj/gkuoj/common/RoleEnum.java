@@ -9,17 +9,19 @@ public enum RoleEnum {
     /**
      * 普通用户
      */
-    USER("ROLE_USER"),
-
+    USER(2,"ROLE_USER"),
 
     /**
      * 　管理员
      */
-    ADMIN("ROLE_ADMIN");
+    ADMIN(1,"ROLE_ADMIN");
+
+    private Integer id;
 
     private String name;
 
-    RoleEnum(String name) {
+    RoleEnum(Integer id,String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -29,5 +31,13 @@ public enum RoleEnum {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

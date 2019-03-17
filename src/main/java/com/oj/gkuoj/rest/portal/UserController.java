@@ -3,6 +3,7 @@ package com.oj.gkuoj.rest.portal;
 import com.oj.gkuoj.common.ExceptionStatusConst;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.request.UserRequest;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.exception.UserNotFoundException;
 import com.oj.gkuoj.service.UserService;
@@ -130,13 +131,13 @@ public class UserController {
      * 提交注册
      *
      * @param token
-     * @param user
+     * @param request
      * @return
      */
     @RequestMapping("/registerSubmitProcess")
     @ResponseBody
-    public RestResponseVO registerSubmitProcess(String token, User user) {
-        return userService.register(token, user);
+    public RestResponseVO registerSubmitProcess(String token, UserRequest request) {
+        return userService.register(token, request);
     }
 
 

@@ -78,7 +78,13 @@ public enum RestResponseEnum {
     COMPETITION_CLOSED_ERROR(710, "比赛已结束"),
 
     //用户未报名比赛
-    COMPETITION_NOT_REGISTER(711, "用户未报名比赛");
+    COMPETITION_NOT_REGISTER(711, "用户未报名比赛"),
+
+    //昵称重复错误
+    NAME_REPEATED_ERROR(712, "昵称重复错误"),
+
+    //手机重复错误
+    PHONE_REPEATED_ERROR(713, "手机重复错误");
 
     private Integer status;
 

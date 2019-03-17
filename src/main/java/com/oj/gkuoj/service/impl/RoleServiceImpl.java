@@ -58,10 +58,15 @@ public class RoleServiceImpl implements RoleService {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         PageHelper.startPage(pageNum,pageSize,true);
-        List<Role> roleList = roleMapper.listRole2Page(pageNum, pageSize);
+        List<Role> roleList = roleMapper.listRole();
         PageInfo<Role> pageInfo = new PageInfo<Role>(roleList);
 
         return RestResponseVO.createBySuccess(pageInfo);
+    }
+
+    @Override
+    public RestResponseVO listRole() {
+     return RestResponseVO.createBySuccess(roleMapper.listRole());
     }
 
 }

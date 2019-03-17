@@ -71,9 +71,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="listRole2Page" resultType="com.oj.gkuoj.entity.Role">
+  <select id="listRole" resultType="com.oj.gkuoj.entity.Role">
     select <include refid="Base_Column_List"></include> from role
-
   </select>
 
 </mapper>

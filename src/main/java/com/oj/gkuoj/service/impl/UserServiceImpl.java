@@ -4,19 +4,24 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.*;
 import com.oj.gkuoj.entity.Role;
+import com.oj.gkuoj.entity.UserRole;
+import com.oj.gkuoj.request.UserRequest;
 import com.oj.gkuoj.response.RankVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.dao.RoleMapper;
 import com.oj.gkuoj.dao.UserMapper;
 import com.oj.gkuoj.dao.UserRoleMapper;
+import com.oj.gkuoj.response.UserDetailVO;
 import com.oj.gkuoj.service.UserService;
 import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.utils.BeanUtil;
 import com.oj.gkuoj.utils.UUIDUtil;
 import org.apache.commons.io.filefilter.AgeFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -25,8 +30,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.mail.internet.MimeMessage;
@@ -54,6 +61,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Value("${spring.mail.username}")
     private String mailUsername;
 
+    private final String DEFAULT_PASSWORD = "gkuoj";
+
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -72,24 +81,53 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public RestResponseVO<User> getById(Integer userId) {
+    public RestResponseVO<UserDetailVO> getById(Integer userId) {
         if (userId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        User user = userMapper.selectByPrimaryKey(userId);
-        return RestResponseVO.createBySuccess(user);
+        User user = userMapper.getById(userId);
+        UserDetailVO userDetailVO = new UserDetailVO();
+        BeanUtil.copyProperties(user, userDetailVO);
+        List<Role> roleList = userDetailVO.getRoleList();
+        if (roleList != null && roleList.size() > 0) {
+            for (int i = 0; i < roleList.size(); i++) {
+                if (i != roleList.size() - 1) {
+                    userDetailVO.setRoleIds(roleList.get(i).getId() + ",");
+                } else {
+                    userDetailVO.setRoleIds(roleList.get(i).getId() + "");
+                }
+            }
+        }
+        return RestResponseVO.createBySuccess(userDetailVO);
     }
 
-    //todo checkField
     @Override
-    public RestResponseVO insert(User user) {
-        if (user == null) {
+    @Transactional
+    public RestResponseVO insert(UserRequest request) {
+        if (request == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
+        RestResponseVO checkResponse = this.checkFieldByAdd(request);
+        if (!checkResponse.isSuccess()) {
+            return checkResponse;
+        }
+        User user = new User();
+        BeanUtil.copyProperties(request, user);
+        if (StringUtils.isBlank(user.getPassword())) {
+            user.setPassword(DEFAULT_PASSWORD);
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         int effect = userMapper.insertSelective(user);
+        if (effect > 0) {
+            UserRole userRole = new UserRole();
+            userRole.setUserId(user.getId());
+            userRole.setRoleId(request.getRoleId());
+            effect = userRoleMapper.insertSelective(userRole);
+        }
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
+
 
     @Override
     public RestResponseVO delById(Integer id) {
@@ -125,11 +163,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public RestResponseVO updateById(User user) {
-        if (user == null) {
+    @Transactional
+    public RestResponseVO updateById(UserRequest request) {
+        if (request == null || request.getId() == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
+        RestResponseVO checkResponse = this.checkFieldByUpdate(request);
+        if (!checkResponse.isSuccess()) {
+            return checkResponse;
+        }
+        User user = new User();
+        BeanUtil.copyPropertiesIgnoreNull(request, user);
+        if (StringUtils.isNoneBlank(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(null);
+        }
         int effect = userMapper.updateByPrimaryKeySelective(user);
+        if (effect > 0) {
+            userRoleMapper.deleteByUserId(user.getId());
+            UserRole userRole = new UserRole();
+            userRole.setRoleId(request.getRoleId());
+            userRole.setUserId(user.getId());
+            effect = userRoleMapper.insertSelective(userRole);
+        }
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
@@ -219,29 +276,34 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public RestResponseVO register(String token, User user) {
-        if (user == null || StringUtils.isBlank(token)) {
+    @Transactional
+    public RestResponseVO register(String token, UserRequest request) {
+        if (request == null || StringUtils.isBlank(token)) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         //判断token，更新成功后remove token
-        String tokenFormRedis = (String) redisTemplate.opsForValue().get(TokenConst.TokenKeyPrefix.REGISTER + user.getEmail());
+        String tokenFormRedis = (String) redisTemplate.opsForValue().get(TokenConst.TokenKeyPrefix.REGISTER + request.getEmail());
         if (!token.equals(tokenFormRedis)) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.TOKEN_ERROR);
         }
-        int rows = userMapper.countByUsername(user.getUsername());
+        int rows = userMapper.countByUsername(request.getUsername());
         if (rows > 0) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.USERNAME_REPEATED_ERROR);
         }
-        user.setName(UUIDUtil.createByTime() + "");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        request.setName(UUIDUtil.createByTime() + "");
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
+        User user = new User();
+        BeanUtil.copyProperties(request, user);
         int effect = userMapper.insertSelective(user);
-
         if (effect > 0) {
             redisTemplate.delete(TokenConst.TokenKeyPrefix.REGISTER + user.getEmail());
-            return RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS);
-        } else {
-            return RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
+            UserRole userRole = new UserRole();
+            userRole.setRoleId(RoleEnum.USER.getId());
+            userRole.setUserId(user.getId());
+            effect = userRoleMapper.insertSelective(userRole);
         }
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
 
     @Override
@@ -255,6 +317,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     /**
      * todo
+     *
      * @param username
      * @param password
      * @return
@@ -289,9 +352,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-
     @Override
-    public RestResponseVO<PageInfo> listUser2Page(Integer pageNum, Integer pageSize,String keyword) {
+    public RestResponseVO<PageInfo> listUser2Page(Integer pageNum, Integer pageSize, String keyword) {
         PageHelper.startPage(pageNum, pageSize, true);
         List<User> userList = userMapper.listUser2Page(keyword);
         PageInfo<User> pageInfo = new PageInfo<>(userList);
@@ -299,13 +361,75 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.getByUserName(username);
+        User user = userMapper.getByUserNameOrEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User Not Found");
         }
         return user;
     }
+
+
+    private RestResponseVO checkFieldByAdd(UserRequest request) {
+        int effect = 0;
+        if (StringUtils.isNoneBlank(request.getUsername())) {
+            effect = userMapper.countByUsername(request.getUsername());
+            if (effect > 0) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.USERNAME_REPEATED_ERROR);
+            }
+        }
+        if (StringUtils.isNoneBlank(request.getName())) {
+            effect = userMapper.countByName(request.getName());
+            if (effect > 0) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.NAME_REPEATED_ERROR);
+            }
+        }
+        if (StringUtils.isNoneBlank(request.getEmail())) {
+            effect = userMapper.countByEmail(request.getEmail());
+            if (effect > 0) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.EMAIL_REPEATED_ERROR);
+            }
+        }
+        if (StringUtils.isNoneBlank(request.getPhone())) {
+            effect = userMapper.countByPhone(request.getPhone());
+            if (effect > 0) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.PHONE_REPEATED_ERROR);
+            }
+        }
+        return RestResponseVO.createBySuccess();
+    }
+
+
+    private RestResponseVO checkFieldByUpdate(UserRequest request) {
+
+        User userFromDB = null;
+        if (StringUtils.isNoneBlank(request.getUsername())) {
+            userFromDB = userMapper.getByUserName(request.getUsername());
+            if (userFromDB != null && !userFromDB.getId().equals(request.getId())) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.USERNAME_REPEATED_ERROR);
+            }
+        }
+        if (StringUtils.isNoneBlank(request.getName())) {
+            userFromDB = userMapper.getByName(request.getName());
+            if (userFromDB != null && !userFromDB.getId().equals(request.getId())) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.NAME_REPEATED_ERROR);
+            }
+        }
+        if (StringUtils.isNoneBlank(request.getEmail())) {
+            userFromDB = userMapper.getEmail(request.getEmail());
+            if (userFromDB != null && !userFromDB.getId().equals(request.getId())) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.EMAIL_REPEATED_ERROR);
+            }
+        }
+        if (StringUtils.isNoneBlank(request.getPhone())) {
+            userFromDB = userMapper.getByPhone(request.getPhone());
+            if (userFromDB != null && !userFromDB.getId().equals(request.getId())) {
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.PHONE_REPEATED_ERROR);
+            }
+        }
+        return RestResponseVO.createBySuccess();
+    }
+
+
 }

@@ -32,6 +32,18 @@ public class RoleController {
 
 
     /**
+     * 获取角色到页面
+     * @return
+     */
+    @RequestMapping("/listRole")
+    @ResponseBody
+    public RestResponseVO listRole(){
+        return roleService.listRole();
+    }
+
+
+
+    /**
      * 添加role
      * @param role
      * @return

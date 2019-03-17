@@ -12,7 +12,7 @@
                         <img class="media-object img-thumbnail user-img rounded-circle admin_img3" alt="User Picture" th:src="${#authentication.principal.avatar} == null ? '/img/default_avatar.jpg' :
                                  ${#authentication.principal.avatar}"/>
                         <p class="user-info menu_hide">
-                            <span>Welcome：[[${#authentication.principal.name}]]</span>
+                            <span>[[${#authentication.principal.name}]]</span>
                         </p>
 
                     </a>
