@@ -95,16 +95,22 @@
                     <span class="fa arrow menu_hide"></span>
                 </a>
                 <ul class="collapse " aria-expanded="false" style="">
+                    <li th:classappend="${blogCategoryActive} ? 'active':''">
+                        <a th:href="@{/backend/blogCategory/blogCategoryListPage}">
+                            <i class="fa fa-angle-right" ></i>
+                            <span class="link-title">&nbsp;板块管理</span>
+                        </a>
+                    </li>
                     <li  th:classappend="${blogActive} ? 'active':''">
                         <a th:href="@{/backend/blog/blogListPage}" >
                             <i class="fa fa-angle-right"></i>
                             &nbsp;帖子管理
                         </a>
                     </li>
-                    <li th:classappend="${blogCategoryActive} ? 'active':''">
-                        <a th:href="@{/backend/blogCategory/blogCategoryListPage}">
-                            <i class="fa fa-angle-right" ></i>
-                            <span class="link-title">&nbsp;板块管理</span>
+                    <li  th:classappend="${blogEditActive} ? 'active':''">
+                        <a th:href="@{/backend/blog/blogEditPage}" >
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;发布帖子
                         </a>
                     </li>
                 </ul>

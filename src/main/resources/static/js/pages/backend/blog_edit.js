@@ -37,6 +37,13 @@ var testEditor = editormd("editormd-div", {
     }
 });
 
+/**
+ * select2
+ */
+$('.select2-data').val("").select2({
+    theme: 'bootstrap4',
+    placeholder: '选择一个板块'
+});
 
 
 /**
@@ -95,5 +102,5 @@ function saveBlog() {
 }
 
 function goToBlogListPage(url){
-    location.href = "blog/blogListPage";
+    location.href = "backend/blog/blogListPage";
 }

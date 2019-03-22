@@ -42,7 +42,7 @@ public class BlogCategoryController {
 
 
     /**
-     * 获取角色到页面
+     * 获取分类到页面
      * @param pageNum
      * @param pageSize
      * @return
@@ -57,7 +57,7 @@ public class BlogCategoryController {
 
 
     /**
-     * 添加role
+     * 添加
      * @param blogCategory
      * @return
      */
@@ -86,8 +86,8 @@ public class BlogCategoryController {
 
 
     /**
-     * 删除role
-     * @param bgCategoryId
+     * 删除
+     * @param blogCategoryId
      * @return
      */
     @RequestMapping("/delete")
@@ -97,6 +97,16 @@ public class BlogCategoryController {
     }
 
 
+    /**
+     * 获取全部
+     * @param
+     * @return
+     */
+    @RequestMapping("/listAll")
+    @ResponseBody
+    public RestResponseVO listAll(){
+        return blogCategoryService.listAll();
+    }
 
 
 

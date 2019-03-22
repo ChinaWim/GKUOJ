@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -116,6 +117,9 @@ public class BlogController {
     public String blogEditPage(HttpServletRequest request) {
         RestResponseVO<List<BlogCategory>> blogCategoryResponse = blogCategoryService.listAll();
         List<BlogCategory> blogCategoryList = blogCategoryResponse.getData();
+
+        //去掉公告
+        blogCategoryList.remove(0);
 
         //set data
         request.setAttribute("blogCategoryList", blogCategoryList);

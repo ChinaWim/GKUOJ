@@ -5,8 +5,6 @@
 <head>
     <title>帖子列表</title>
     <div th:replace="~{fragments/backend/head-base}"></div>
-    <link type="text/css" rel="stylesheet" th:href="@{/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/gallery.css}"/>
 </head>
 <body class="body fixedNav_position fixedMenu_left">
 <div class="preloader" style=" position: fixed;
@@ -40,7 +38,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-user"></i><span class="ml-1">帖子列表</span>
+                                <i class="fa fa-comments"></i><span class="ml-1">帖子列表</span>
                             </h4>
                         </div>
                     </div>
@@ -55,7 +53,7 @@ z-index: 999999">
                                 <div class="float-left w-50" >
                                     <div class="input-group">
                                         <input type="search" id="keyword" name="keyword" value=""
-                                               placeholder="输入 账号/用户名/手机号/邮箱 进行搜索" class="form-control"/>
+                                               placeholder="输入 用户名/标题/标签 进行搜索" class="form-control"/>
                                         <span class="input-group-btn">
                                                     <button class="btn btn-primary" type="button"
                                                             onclick="clickPage(1)">
@@ -63,78 +61,90 @@ z-index: 999999">
                                                     </span><i class="fa fa-search"></i>
                                                     </button>
                                         </span>
-                                        <span class="ml-3">
-                                            <button class="btn  btn-secondary  "
-                                                    @click="initUser()"
-                                                    data-toggle="modal" data-href="#stack1" href="#stack1">
-                                            <i class="fa fa-plus mr-1"></i><span >添加帖子</span>
-                                            </button>
+                                        <span  class="ml-3">
+                                            <select  id="sort" name="sort" onchange="clickPage(1)"
+                                                     class="select2-sort"
+                                                     style="width: 100px;">
+                                                <option value="-1">
+                                                    综合排序
+                                                </option>
+                                                <option value="1">
+                                                    最新回复
+                                                </option>
+                                                <option value="2">
+                                                    最热在前
+                                                </option>
+                                            </select>
+                                        </span>
+                                        <span  class="ml-3">
+                                            <select  id="bcId" name="bcId" onchange="clickPage(1)"
+                                                    class="select2-category"
+                                                    style="width: 120px;">
+                                                <option value="-1">
+                                                    全部
+                                                </option>
+                                                <option v-for="(blogCategory,index) in blogCategoryList" :value="blogCategory.id" >
+                                                    {{blogCategory.name}}
+                                                </option>
+                                            </select>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <!--userList-->
+                            <!--blogList-->
                             <div class="col-12 mt-3">
                                 <table class="table  table-bordered table-hover">
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">账号</th>
-                                        <th class="text-center">头像</th>
-                                        <th class="text-center">用户名</th>
-                                        <th class="text-center">性别</th>
-                                        <th class="text-center">学校</th>
-                                        <th class="text-center">邮箱</th>
-                                        <th class="text-center">电话</th>
-                                        <th class="text-center">角色</th>
-                                        <th class="text-center">状态</th>
+                                        <th class="text-center">用户</th>
+                                        <th class="text-center">帖子标题</th>
+                                        <th class="text-center">板块</th>
+                                        <th class="text-center">标签</th>
+                                        <th class="text-center">查看数</th>
+                                        <th class="text-center">评论数</th>
+                                        <th class="text-center">点赞数</th>
+                                        <th class="text-center">发布时间</th>
+                                        <th class="text-center">最后回复</th>
                                         <th class="text-center">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(user,index) in userList">
+                                    <tr v-for="(blog,index) in blogList">
                                         <td class="text-center">
                                             {{index + 1 + (pageNum-1) * 10}}
                                         </td>
-                                        <td class="text-center">{{user.username}}</td>
-                                        <td class="text-center">
-                                                <img :src="user.avatar == null ? 'img/default_avatar.jpg' : user.avatar"
-                                                     class="rounded-circle hidden-sm-down img-50"
-                                                     alt="image not found">
-                                        </td>
-
-
                                         <td class="text-center"><a class="primary-hover" target="_blank"
-                                                                   :href="'/user/mainPage?userId='+user.id">{{user.name}}</a>
-                                        </td>
-                                        <td class="text-center">{{user.sex}}</td>
-                                        <td class="text-center">{{user.school}}</td>
-                                        <td class="text-center">{{user.email}}</td>
-                                        <td class="text-center">{{user.phone}}</td>
-                                        <td class="text-center">
-                                                    <span v-for="(role,index) in user.roleList">
-                                                       {{role.remark}}
-                                                    </span>
+                                                                   :href="'/user/mainPage?userId='+blog.userId">{{blog.name}}</a>
                                         </td>
                                         <td class="text-center">
-                                                <span v-if="user.flag == 0"><button
-                                                        class="btn btn-sm btn-outline-success">正常</button></span>
-                                            <span v-if="user.flag == 1"><button
-                                                    class="btn btn-sm btn-outline-warning">已冻结</button></span>
-                                            <span v-if="user.flag == 2"><button
-                                                    class="btn btn-sm btn-outline-danger">已删除</button></span>
+                                            <a class="primary-hover" target="_blank" :href="'/blog/blogDetailPage?blogId='+blog.id">{{blog.title}}</a>
+                                        </td>
+                                        <td class="text-center">{{blog.bcName}}</td>
+                                        <td class="">
+                                            <span v-if="blog.tags != null && blog.tags.length > 0">
+                                                      <span class="ml-2" v-for="tag in blog.tags.split(',')">
+                                                          <a @click="searchByTag(tag)"
+                                                             class="btn btn-secondary badge-pill btn-sm">{{tag}}</a>
+                                                   </span>
+                                            </span>
+                                        </td>
+                                        <td class="text-center">{{blog.viewCount}}</td>
+                                        <td class="text-center">{{blog.replyCount}}</td>
+                                        <td class="text-center">{{blog.upCount}}</td>
+                                        <td class="text-center">{{blog.createTime | formatDate}}</td>
+                                        <td class="text-center">
+                                            <span v-if="blog.replyTime != null">
+                                                {{blog.replyTime | formatDate}}
+                                            </span>
+                                            <span v-if="blog.replyTime == null">
+                                                －
+                                            </span>
                                         </td>
                                         <td class="text-center">
-                                            <button data-toggle="modal" data-href="#stack1" href="#stack1"
-                                                    class="btn btn-sm btn-primary" @click="userDetail(user.id)">详情
-                                            </button>
-                                            <a @click="activeUser(user.id)">
-                                                <button class="btn btn-sm btn-success">激活</button>
+                                            <a class="btn btn-sm btn-primary" :href="'/backend/blog/blogEditPage?blogId='+blog.id" >编辑
                                             </a>
-                                            <a @click="lockUser(user.id)">
-                                                <button class="btn btn-sm btn-warning">冻结</button>
-                                            </a>
-                                            <a @click="deleteUser(user.id)">
+                                            <a @click="deleteBlog(blog.id)">
                                                 <button class="btn btn-sm btn-danger">删除</button>
                                             </a>
                                         </td>
@@ -149,7 +159,7 @@ z-index: 999999">
                                 </div>
                                 <!--#page-->
                             </div>
-                            <!--#userList-->
+                            <!--#blogList-->
                         </div>
                     </div>
                     <!--#app-->
@@ -162,113 +172,6 @@ z-index: 999999">
     <!-- /#content -->
     <!-- Modal -->
 
-    <div class="modal fade bs-example-modal-sm in display_none" id="stack1" tabindex="-1" role="dialog"
-         aria-hidden="false">
-        <div class="modal-dialog modal-lg" style="width: 1000px">
-            <div class="modal-content">
-                <div class="modal-header ">
-                    <h4 class="modal-title "id="saveTitle" >添加用户</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <form id="userForm">
-                        <input type="hidden" v-model="user.id" name="id"/>
-                        <table class="table ">
-                            <tr>
-                                <td>头像</td>
-                                <td>
-                                    <!--<input name="avatar" type="text" class="form-control"/>-->
-                                    <div class="form-group">
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <div class="fileinput-new thumb_zoom zoom admin_img_width">
-                                                <img :src="user.avatar" alt="admin" class="admin_img_width">
-                                            </div>
-                                            <div class="fileinput-preview fileinput-exists thumb_zoom zoom admin_img_width"></div>
-                                            <div class="btn_file_position">
-                                                        <span class="btn btn-primary btn-file">
-                                                            <span class="fileinput-new">选择图片</span>
-                                                            <span class="fileinput-exists">更换</span>
-                                                            <input type="file" id="file" name="file"/>
-                                                        </span>
-                                                <a href="#" id="clearFile" class="btn btn-warning fileinput-exists"
-                                                   data-dismiss="fileinput">移除</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="text-danger">*</span>用户名</td>
-                                <td><input name="username" type="text" v-model="user.username"  maxlength="20" class="form-control"/>
-                                </td>
-                                <td>密码</td>
-                                <td><input name="password"  maxlength="20" minlength="6" id="password" placeholder="不修改无需填写" type="password"
-                                           class="form-control"/></td>
-                            </tr>
-                            <tr>
-                                <td><span class="text-danger">*</span>昵称</td>
-                                <td><input name="name" v-model="user.name" type="text" maxlength="20" class="form-control"/></td>
-                                <td><span class="text-danger">*</span>性别</td>
-                                <td>
-                                    <label class=" custom-control custom-radio">
-                                        <input name="sex" type="radio" value="男" v-model="user.sex"
-                                               class="custom-control-input" checked="checked">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">男</span>
-                                    </label>
-                                    <label class=" custom-control custom-radio">
-                                        <input name="sex" type="radio" value="女" v-model="user.sex"
-                                               class="custom-control-input">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">女</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="text-danger">*</span>角色</td>
-                                <td>
-                                    <select id="roleSelect" name="roleId" v-model="user.roleIds" class="form-control"
-                                            style="width: 100px;">
-                                        <option v-for="(role,index) in roleList" :value="role.id" >
-                                            {{role.remark}}
-                                        </option>
-                                    </select>
-                                </td>
-                                <td><span class="text-danger">*</span>email</td>
-                                <td><input name="email" v-model="user.email" type="text" class="form-control"/></td>
-                            </tr>
-                            <tr>
-                                <td>手机</td>
-                                <td>
-                                    <input name="phone" v-model="user.phone" maxlength="20" type="number" class="form-control"/>
-                                </td>
-                                <td>学校</td>
-                                <td><input name="school" v-model="user.school" maxlength="20" type="text" class="form-control"/></td>
-                            </tr>
-                            <tr>
-                                <td>心情</td>
-                                <td colspan="3">
-                                    <textarea style="height: 100px" v-model="user.mood" maxlength="255" name="mood"
-                                              class="form-control"></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-
-                            </tr>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">取消</button>
-                    <button type="button" id="saveUser" class="btn btn-info"
-                            onclick="saveUser()">提交
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- # right side -->
 </div>
 <!-- /#wrap -->
@@ -276,8 +179,6 @@ z-index: 999999">
 <div th:replace="~{fragments/backend/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script type="text/javascript" th:src="@{/js/pages/backend/index.js}"></script>
-<script type="text/javascript" th:src="@{/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js}"></script>
 <!--end of plugin scripts-->
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
@@ -289,9 +190,9 @@ z-index: 999999">
         data: {
             total: 0,
             pageNum: 1,
-            user: {"sex": "男", "avatar": "http://file.gkuoj.com/image/default_avatar.jpg", "roleIds": "2"},
-            userList: [],
-            roleList: []
+            blog: {},
+            blogList: [],
+            blogCategoryList: []
         },
         filters: {
             formatDate: function (val) {
@@ -316,26 +217,23 @@ z-index: 999999">
             }
         },
         methods: {
-            listUser: function (pageNum) {
+            listBlog: function (pageNum) {
                 var keyword = $("#keyword").val();
-                var url = '/backend/user/listUser2Page';
-
-                this.$http.post(url, {
-                    "pageNum": pageNum,
-                    "keyword": keyword
-                }, {emulateJSON: true}).then(function (res) {
+                var sort = $("#sort").val();
+                var bcId = $("#bcId").val();
+                var url = 'blog/listBlog2Page';
+                this.$http.post(url,{"pageNum":pageNum,"bcId":bcId,"sort":sort,"keyword":keyword},{emulateJSON:true}).then(function (res) {
                     this.total = res.data.data.total;
-                    this.userList = res.data.data.list;
-                    this.pageNum = pageNum;
+                    this.blogList = res.data.data.list;
                     $("#page").initPage(this.total, pageNum, clickPage);
                 }), function (res) {
                     console.log(res.data.msg);
                 }
             },
-            listRole: function () {
-                var url = '/backend/role/listRole';
+            listBlogCategory: function () {
+                var url = '/backend/blogCategory/listAll';
                 this.$http.post(url, {}, {emulateJSON: true}).then(function (res) {
-                    this.roleList = res.data.data;
+                    this.blogCategoryList = res.data.data;
                 }), function (res) {
                     console.log(res.data.msg);
                 }
@@ -343,59 +241,15 @@ z-index: 999999">
         }
     });
     //初始化
-    wrap.listUser(1);
-    wrap.listRole();
-
+    wrap.listBlog(1);
+    wrap.listBlogCategory();
     //分页点击方法
     function clickPage(pageNum) {
-        wrap.listUser(pageNum);
+        wrap.listBlog(pageNum);
     }
 
-    //添加用户点击初始化
-    function initUser() {
-        $("#saveTitle").html("添加用户");
-        $("#clearFile").click();
-        $("#password").attr("placeholder","默认（gkuoj）");
-        $("#password").val("");
-        wrap.user = {"sex": "男", "avatar": "http://file.gkuoj.com/image/default_avatar.jpg", "roleIds": "2"};
-    }
-
-    function activeUser(userId) {
-        $.post("/backend/user/active", {"userId": userId}, function (resp) {
-            if (resp.status == 200) {
-                $.message({
-                    message: resp.msg,
-                    type: 'success'
-                });
-                clickPage(1);
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
-    }
-
-    function deleteUser(userId) {
-        $.post("/backend/user/delete", {"userId": userId}, function (resp) {
-            if (resp.status == 200) {
-                $.message({
-                    message: resp.msg,
-                    type: 'success'
-                });
-                clickPage(1);
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
-    }
-
-    function lockUser(userId) {
-        $.post("/backend/user/lock", {"userId": userId}, function (resp) {
+    function deleteBlog(blogId) {
+        $.post("/backend/blog/delete", {"blogId": blogId}, function (resp) {
             if (resp.status == 200) {
                 $.message({
                     message: resp.msg,
@@ -412,59 +266,18 @@ z-index: 999999">
     }
 
 
-    function checkField() {
-        var user = wrap.user;
-        if (user.username == null || user.username.trim().length == 0) {
-            $.message({
-                message: "用户名不能为空",
-                type: 'warning'
-            });
-            return false;
-        }
-        if (user.name == null || user.name.trim().length == 0) {
-            $.message({
-                message: "昵称不能为空",
-                type: 'warning'
-            });
-            return false;
-        }
-        if (user.sex == null || user.sex.trim().length == 0) {
-            $.message({
-                message: "性别不能为空",
-                type: 'warning'
-            });
-            return false;
-        }
-        if (user.roleIds == null) {
-            $.message({
-                message: "角色不能为空",
-                type: 'warning'
-            });
-            return false;
-        }
-        if (user.email == null || user.email.trim().length == 0) {
-            $.message({
-                message: "email不能为空",
-                type: 'warning'
-            });
-            return false;
-        }
-        return true;
-    }
 
     //添加-更新
-    function saveUser() {
-        // var user = $("#userForm").serialize();
-
-        var formData = new FormData($("#userForm")[0]);
+    function saveBlog() {
+        var blog = $("#blogForm").serialize();
 
         if (!checkField()) {
             return;
         }
         $.ajax({
-            url: '/backend/user/save',
+            url: '/backend/blog/save',
             type: 'POST',
-            data: formData,
+            data: blog,
             async: false,
             cache: false,
             contentType: false,
@@ -488,29 +301,16 @@ z-index: 999999">
         });
     }
 
-    //详情
-    function userDetail(userId) {
-        $("#clearFile").click();
-        $("#saveTitle").html("更新用户");
-        $("#password").attr("placeholder","不更新无需填写");
-        $.post("/backend/user/get", {"userId": userId}, function (resp) {
-            if (resp.status == 200) {
-                wrap.user = resp.data;
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
-    }
-
     // end of vue
 
 
     //select2
-    $('.select2-role').select2({
-        placeholder: '选择角色',
+    $('.select2-category').select2({
+        placeholder: '选择板块',
+        theme: 'bootstrap4'
+    });
+    $('.select2-sort').select2({
+        placeholder: '排序',
         theme: 'bootstrap4'
     });
     /*]]>*/

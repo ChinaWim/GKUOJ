@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>发布帖子</title>
+    <div th:replace="~{fragments/backend/head-base}"></div>
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" th:href="@{/css/tagsinput.css}"/>
+    <!--heard script-->
+
+</head>
+
+<!--Page head script-->
+
+<!--end of Page head script-->
+<body class="body  fixedNav_position fixedMenu_left">
+<div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
+    </div>
+</div>
+<div id="wrap">
+    <div th:replace="~{fragments/backend/top :: top}"></div>
+    <!-- /#top -->
+    <div class="wrapper fixedNav_top">
+        <div th:replace="~{fragments/backend/left :: left}"></div>
+        <!-- /#left -->
+        <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <h4 class="nav_top_align">
+                                <i class="fa fa-comments mr-1"></i>发布帖子
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="outer">
+                <div class="inner bg-container">
+                    <!--md-->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="m-3 bg-white">
+                                <input id="title" th:value="${blog.title}" name="title" maxlength="30" class="form-control col-12 "
+                                       style="font-size:25px;height: 50px"
+                                       placeholder="文章标题：一句话说明你遇到的问题或想分享的经验">
+                                <div class="mt-3 ">
+                                    <select id="bcId" class="select2-data col-2" >
+                                        <option selected th:value="${blogCategory.id}"
+                                                th:each="blogCategory : ${blogCategoryList}">
+                                            [[${blogCategory.name}]]
+                                        </option>
+                                    </select>
+                                    <span class="col-10 text-warning">选择相关话题发布</span>
+                                </div>
+                            </div>
+                            <div class="">
+                                    <div id="editormd-div">
+                                        <textarea id="editormd-textarea" name="content"
+                                                  style="display:none;">[[${blog.content}]]</textarea>
+                                    </div>
+                            </div>
+
+                            <!--tags-->
+                            <div class="col-12 mt-3" id="tags-div">
+                                <input placeholder="输入标签，回车确定" id="tags" th:value="${blog.tags}" name="tags" data-role="tagsinput" type="text"
+                                       class="form-control form-control-tag">
+                            </div>
+                            <!--#tags-->
+
+                            <div class="mr-3  mt-3 float-right">
+                                <button class="mr-3 btn btn-secondary" style="width: 100px;font-size: 18px">取消</button>
+                                <button onclick="saveBlog()" class=" btn btn-danger"
+                                        style="width: 100px;font-size: 18px">发布
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--＃md-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.inner -->
+</div>
+<!-- /.outer -->
+
+<!-- /#content -->
+<!-- Modal -->
+<div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form th:action="@{/problem/problemListPage}" method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="float-right" aria-hidden="true">&times;</span>
+                </button>
+                <div class="input-group search_bar_small">
+                    <input type="text" class="form-control" placeholder="题目搜索" name="keyword">
+                    <span class="input-group-btn">
+                          <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--wrapper-->
+<!-- /#content -->
+<!-- # right side -->
+</div>
+<!-- /#wrap -->
+<!-- global scripts-->
+<div th:replace="~{fragments/backend/footer :: footer}"></div>
+<script type="text/javascript" th:src="@{/js/tagsinput.js}"></script>
+<script type="text/javascript" th:src="@{/js/pages/backend/blog_edit.js}"></script>
+<!--end of global scripts-->
+
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    var bcId = [[${blog.bcId}]];
+    var content = [[${blog.content}]];
+    var htmlContent = [[${blog.htmlContent}]];
+    /**
+     * select2
+     */
+    $('.select2-data').val(bcId).select2({
+        theme: 'bootstrap4',
+        placeholder: '选择一个板块'
+    });
+
+    /**
+     * md
+     */
+    /*]]>*/
+
+
+
+</script>
+
+</body>
+
+</html>
