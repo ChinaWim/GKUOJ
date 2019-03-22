@@ -81,7 +81,7 @@ public class BlogController {
     @RequestMapping("/list2Page")
     @ResponseBody
     public RestResponseVO<PageInfo> listBlog(@RequestParam(defaultValue = "1")Integer pageNum,
-                                             @RequestParam(defaultValue = "20")Integer pageSize,
+                                             @RequestParam(defaultValue = "10")Integer pageSize,
                                              @RequestParam(defaultValue = "-1") Integer sort,
                                              @RequestParam(defaultValue = "") String keyword,
                                              @RequestParam(defaultValue = "-1") Integer bcId){

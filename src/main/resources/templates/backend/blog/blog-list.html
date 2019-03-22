@@ -221,7 +221,7 @@ z-index: 999999">
                 var keyword = $("#keyword").val();
                 var sort = $("#sort").val();
                 var bcId = $("#bcId").val();
-                var url = 'blog/listBlog2Page';
+                var url = '/backend/blog/list2Page';
                 this.$http.post(url,{"pageNum":pageNum,"bcId":bcId,"sort":sort,"keyword":keyword},{emulateJSON:true}).then(function (res) {
                     this.total = res.data.data.total;
                     this.blogList = res.data.data.list;

@@ -80,13 +80,22 @@
                 </ul>
             </li>
 
-
-            <li th:classappend="${competitionActive} ? 'active':''">
-                <a th:href="@{/backend/competition/competitionListPage}" data-toggle="tooltip" data-placement="right"  title="比赛">
+            <li class="dropdown_menu"  th:classappend="${competitionActive} ? 'active':''">
+                <a href="javascript:void(0);">
                     <i class="fa fa-trophy"></i>
-                    <span class="link-title menu_hide"> &nbsp;比赛管理</span>
+                    <span class="link-title menu_hide">&nbsp;比赛管理</span>
+                    <span class="fa arrow menu_hide"></span>
                 </a>
+                <ul class="collapse " aria-expanded="false" style="">
+                    <li  th:classappend="${userActive} ? 'active':''">
+                        <a th:href="@{/backend/competition/competitionListPage}" >
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;比赛列表
+                        </a>
+                    </li>
+                </ul>
             </li>
+
 
             <li class="dropdown_menu"  th:classappend="${blogManageActive} ? 'active':''">
                 <a href="javascript:void(0);">
