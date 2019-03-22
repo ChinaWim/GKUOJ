@@ -12,7 +12,7 @@ public enum RestResponseEnum {
 
     SUCCESS(200, "成功"),
 
-    INVALID_REQUEST(400, "无效的请求"),
+    INVALID_REQUEST(400, "无效的请求,请求参数错误"),
 
     UNAUTHORIZED(401, "未认证,请先登录"),
 

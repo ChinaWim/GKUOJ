@@ -22,4 +22,6 @@ public interface BlogCategoryService {
     RestResponseVO updateById(BlogCategory blogCategory);
 
     RestResponseVO<List<BlogCategory>> listAll();
+
+    RestResponseVO<PageInfo> listBlogCategory2Page(Integer pageNum, Integer pageSize, String keyword);
 }

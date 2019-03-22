@@ -1,10 +1,13 @@
 package com.oj.gkuoj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.BlogCategoryMapper;
 import com.oj.gkuoj.entity.BlogCategory;
 import com.oj.gkuoj.entity.BlogComment;
+import com.oj.gkuoj.entity.Role;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.BlogCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +69,17 @@ public class BlogCategoryImpl implements BlogCategoryService {
     public RestResponseVO<List<BlogCategory>> listAll() {
         List<BlogCategory> blogCategoryList = blogCategoryMapper.listAll();
         return RestResponseVO.createBySuccess(blogCategoryList);
+    }
+
+    @Override
+    public RestResponseVO<PageInfo> listBlogCategory2Page(Integer pageNum, Integer pageSize, String keyword) {
+        if(pageNum == null || pageSize == null){
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        PageHelper.startPage(pageNum,pageSize,true);
+        List<BlogCategory> blogCategoryList = blogCategoryMapper.listByKeyWord(keyword);
+        PageInfo<BlogCategory> pageInfo = new PageInfo<>(blogCategoryList);
+        return RestResponseVO.createBySuccess(pageInfo);
+
     }
 }

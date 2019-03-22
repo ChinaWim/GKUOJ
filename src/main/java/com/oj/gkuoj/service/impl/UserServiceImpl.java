@@ -16,12 +16,9 @@ import com.oj.gkuoj.service.UserService;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.utils.BeanUtil;
 import com.oj.gkuoj.utils.UUIDUtil;
-import org.apache.commons.io.filefilter.AgeFileFilter;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -431,5 +428,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return RestResponseVO.createBySuccess();
     }
 
+    public static void main(String[] args) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("123321"));
 
+
+
+    }
 }

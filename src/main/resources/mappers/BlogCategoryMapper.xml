@@ -76,5 +76,15 @@
     from blog_category
   </select>
 
+  <select id="listByKeyWord" resultType="com.oj.gkuoj.entity.BlogCategory" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    from blog_category
+    <where>
+      <if test="keyword != null and keyword != ''">
+        name like concat('%',#{keyword},'%')
+      </if>
+    </where>
+  </select>
 
 </mapper>

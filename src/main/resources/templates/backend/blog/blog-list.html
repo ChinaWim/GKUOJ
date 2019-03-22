@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>用户列表</title>
+    <title>帖子列表</title>
     <div th:replace="~{fragments/backend/head-base}"></div>
     <link type="text/css" rel="stylesheet" th:href="@{/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/pages/gallery.css}"/>
@@ -40,7 +40,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-user"></i><span class="ml-1">用户列表</span>
+                                <i class="fa fa-user"></i><span class="ml-1">帖子列表</span>
                             </h4>
                         </div>
                     </div>
@@ -67,17 +67,7 @@ z-index: 999999">
                                             <button class="btn  btn-secondary  "
                                                     @click="initUser()"
                                                     data-toggle="modal" data-href="#stack1" href="#stack1">
-                                            <i class="fa fa-plus mr-1"></i><span >添加用户</span>
-                                            </button>
-                                        </span>
-                                        <span class="ml-3">
-                                            <button class="btn  btn-secondary  ">
-                                            <i class="fa fa-plus mr-1"></i><span >导入用户</span>
-                                            </button>
-                                        </span>
-                                        <span class="ml-3">
-                                            <button class="btn  btn-secondary  ">
-                                            <i class="fa fa-plus mr-1"></i><span >导出用户</span>
+                                            <i class="fa fa-plus mr-1"></i><span >添加帖子</span>
                                             </button>
                                         </span>
                                     </div>

@@ -5,12 +5,13 @@
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, create_time, update_time
+    id, name,remark, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,7 +26,7 @@
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Role" >
     insert into role (id, name, create_time)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Role" >
     insert into role
@@ -35,6 +36,9 @@
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -47,6 +51,9 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -58,6 +65,9 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -66,13 +76,25 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oj.gkuoj.entity.Role" >
     update role
-    set name = #{name,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR}, remark = #{remark,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="listRole" resultType="com.oj.gkuoj.entity.Role">
+  <select id="listRole" resultType="com.oj.gkuoj.entity.Role" >
     select <include refid="Base_Column_List"></include> from role
+  </select>
+
+  <select id="listRoleByKeyWord" resultType="com.oj.gkuoj.entity.Role" parameterType="map">
+    select <include refid="Base_Column_List"></include> from role
+    <where>
+      <if test="keyword != null and keyword != ''">
+        name like concat('%',#{keyword},'%')
+      </if>
+      <if test="keyword != null and keyword != ''">
+        or remark like concat('%',#{keyword},'%')
+      </if>
+    </where>
   </select>
 
 </mapper>

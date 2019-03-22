@@ -1,5 +1,7 @@
 package com.oj.gkuoj.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,13 +13,16 @@ public class Role implements Serializable {
 
     private String name;
 
+    private String remark;
+
     private Date createTime;
 
     private Date updateTime;
 
-    public Role(Integer id, String name, Date createTime, Date updateTime) {
+    public Role(Integer id, String name, String remark,Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
+        this.remark = remark;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -58,11 +63,24 @@ public class Role implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", remark='" + remark + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

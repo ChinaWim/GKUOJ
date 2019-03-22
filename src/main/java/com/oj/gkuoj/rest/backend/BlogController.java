@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author m969130721@163.com
  * @date 19-3-10 下午3:29
@@ -22,6 +24,24 @@ public class BlogController {
 
     @Autowired
     private BlogService blogService;
+
+
+    /**
+     * 跳转到博客列表页面
+     *
+     * @return
+     */
+    @RequestMapping("/blogListPage")
+    public String userListPage(HttpServletRequest request) {
+        request.setAttribute("blogManageActive",true);
+        request.setAttribute("blogActive",true);
+        return "backend/blog/blog-list";
+    }
+
+
+
+
+
 
     /**
      * 获取博客到页面

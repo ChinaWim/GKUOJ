@@ -23,6 +23,12 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
+    public RestResponseVO getById(Integer roleId) {
+        Role role = roleMapper.selectByPrimaryKey(roleId);
+        return RestResponseVO.createBySuccess(role);
+    }
+
+    @Override
     public RestResponseVO insert(Role role) {
         if(role == null){
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
@@ -53,14 +59,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RestResponseVO<PageInfo> listRole2Page(Integer pageNum, Integer pageSize) {
+    public RestResponseVO<PageInfo> listRole2Page(Integer pageNum, Integer pageSize,String keyword) {
         if(pageNum == null || pageSize == null){
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         PageHelper.startPage(pageNum,pageSize,true);
-        List<Role> roleList = roleMapper.listRole();
+        List<Role> roleList = roleMapper.listRoleByKeyWord(keyword);
         PageInfo<Role> pageInfo = new PageInfo<Role>(roleList);
-
         return RestResponseVO.createBySuccess(pageInfo);
     }
 

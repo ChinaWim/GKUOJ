@@ -22,8 +22,6 @@
         </div>
 
         <ul id="menu">
-
-
             <li  th:classappend="${active1}? 'active':''">
                 <a th:href="@{/backend/}"  data-toggle="tooltip" data-placement="right"  title="首页">
                     <i class="fa fa-home "></i>
@@ -31,22 +29,22 @@
                 </a>
             </li>
 
-            <li class="dropdown_menu active">
+            <li class="dropdown_menu"  th:classappend="${systemActive} ? 'active':''">
                 <a href="javascript:void(0);">
                     <i class="fa fa-user"></i>
                     <span class="link-title menu_hide">&nbsp;系统管理</span>
                     <span class="fa arrow menu_hide"></span>
                 </a>
                 <ul class="collapse " aria-expanded="false" style="">
-                    <li class="active">
-                        <a th:href="@{/backend/user/userListPage}">
+                    <li  th:classappend="${userActive} ? 'active':''">
+                        <a th:href="@{/backend/user/userListPage}" >
                             <i class="fa fa-angle-right"></i>
                             &nbsp;用户管理
                         </a>
                     </li>
-                    <li>
-                        <a th:href="@{/backend/user/roleListPage}">
-                            <i class="fa fa-angle-right"></i>
+                    <li th:classappend="${roleActive} ? 'active':''">
+                        <a th:href="@{/backend/role/roleListPage}">
+                            <i class="fa fa-angle-right" ></i>
                             <span class="link-title">&nbsp;角色管理</span>
                         </a>
                     </li>
@@ -54,22 +52,28 @@
             </li>
 
 
-            <li class="dropdown_menu ">
-                <a href="javascript:;">
+            <li class="dropdown_menu " th:classappend="${questionActive} ? 'active':''">
+                <a href="javascript:void(0);">
                     <i class="fa fa-book"></i>
                     <span class="link-title menu_hide">&nbsp;题库管理</span>
                     <span class="fa arrow menu_hide"></span>
                 </a>
                 <ul class="collapse " aria-expanded="false" style="">
                     <li>
-                        <a href="general_components.html">
+                        <a th:href="@{/backend/problem/problemList2Page}" th:classappend="${problemActive} ? 'active':''">
                             <i class="fa fa-angle-right"></i>
-                            &nbsp;查看题目
+                            &nbsp;题目列表
                         </a>
                     </li>
                     <li>
-                        <a href="cards.html">
+                        <a th:href="@{/backend/problem/problemList2Page}" th:classappend="${problemActive} ? 'active':''">
                             <i class="fa fa-angle-right"></i>
+                            &nbsp;题目分类
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/backend/testcase/testcase2Page}">
+                            <i class="fa fa-angle-right" th:classappend="${testcaseActive} ? 'active':''"></i>
                             <span class="link-title">&nbsp;测试用例</span>
                         </a>
                     </li>
@@ -77,19 +81,35 @@
             </li>
 
 
-            <li th:classappend="${active3} ? 'active':''">
-                <a th:href="@{/competition/competitionListPage}" data-toggle="tooltip" data-placement="right"  title="比赛">
+            <li th:classappend="${competitionActive} ? 'active':''">
+                <a th:href="@{/backend/competition/competitionListPage}" data-toggle="tooltip" data-placement="right"  title="比赛">
                     <i class="fa fa-trophy"></i>
                     <span class="link-title menu_hide"> &nbsp;比赛管理</span>
                 </a>
             </li>
 
-            <li th:classappend="${active6} ? 'active':''">
-                <a th:href="@{/blog/blogListPage}" data-toggle="tooltip" data-placement="right"  title="讨论区">
+            <li class="dropdown_menu"  th:classappend="${blogManageActive} ? 'active':''">
+                <a href="javascript:void(0);">
                     <i class="fa fa-comments"></i>
                     <span class="link-title menu_hide">&nbsp;讨论管理</span>
+                    <span class="fa arrow menu_hide"></span>
                 </a>
+                <ul class="collapse " aria-expanded="false" style="">
+                    <li  th:classappend="${blogActive} ? 'active':''">
+                        <a th:href="@{/backend/blog/blogListPage}" >
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;帖子管理
+                        </a>
+                    </li>
+                    <li th:classappend="${blogCategoryActive} ? 'active':''">
+                        <a th:href="@{/backend/blogCategory/blogCategoryListPage}">
+                            <i class="fa fa-angle-right" ></i>
+                            <span class="link-title">&nbsp;板块管理</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
+
 
         </ul>
         <!-- /#menu -->

@@ -10,8 +10,8 @@
             <a class="navbar-brand float-left" th:href="@{/backend/}">
                 <h4><img th:src="@{/img/logo1.png}" class="admin_img" alt="logo"/>&nbsp;后台管理系统</h4>
             </a>
-            <!-- center-->
-            <div class="menu hidden-lg-up float-left">
+            <!-- center--> <!--hidden-lg-up-->
+            <div class="menu  float-left">
                     <span class="toggle-left" id="menu-toggle">
                         <i class="fa fa-bars"></i>
                     </span>
@@ -19,10 +19,6 @@
             <!-- #center-->
 
             <div class="topnav dropdown-menu-right float-right">
-                <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
-                     data-target="#search_modal">
-                    <i class="fa fa-search text-primary"></i>
-                </div>
                 <div sec:authorize="isAuthenticated()">
                     <div class="btn-group">
                         <div class="notifications messages no-bg">

@@ -7,13 +7,15 @@ import com.oj.gkuoj.response.RestResponseVO;
 
 public interface RoleService {
 
+    RestResponseVO getById(Integer roleId);
+
     RestResponseVO insert(Role role);
 
     RestResponseVO delById(Integer id);
 
     RestResponseVO updateById(Role role);
 
-    RestResponseVO<PageInfo> listRole2Page(Integer pageNum, Integer pageSize);
+    RestResponseVO<PageInfo> listRole2Page(Integer pageNum, Integer pageSize,String keyword);
 
     RestResponseVO listRole();
 

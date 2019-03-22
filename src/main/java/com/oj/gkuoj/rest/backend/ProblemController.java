@@ -11,17 +11,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author m969130721@163.com
  * @date 19-3-10 下午3:56
  */
 
 @Controller("backendController")
-@RequestMapping("/backendProblem")
+@RequestMapping("/backend/problem")
 public class ProblemController {
 
     @Autowired
     private ProblemService problemService;
+
+
+    /**
+     * 跳转到题目列表页面
+     *
+     * @return
+     */
+    @RequestMapping("/problemListPage")
+    public String userListPage(HttpServletRequest request) {
+        request.setAttribute("questionActive",true);
+        request.setAttribute("problemActive",true);
+        return "backend/problem/problem-list";
+    }
+
 
 
     @RequestMapping("/listProblem2Page")

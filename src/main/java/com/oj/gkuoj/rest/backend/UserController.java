@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author m969130721@163.com
  * @date 19-2-18 下午9:17
@@ -43,7 +45,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/userListPage")
-    public String userListPage() {
+    public String userListPage(HttpServletRequest request) {
+        request.setAttribute("systemActive",true);
+        request.setAttribute("userActive",true);
         return "backend/user/user-list";
     }
 

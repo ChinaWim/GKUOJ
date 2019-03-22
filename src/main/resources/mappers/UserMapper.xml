@@ -65,6 +65,7 @@
         <collection property="roleList" ofType="com.oj.gkuoj.entity.Role">
             <id column="role_id" property="id"/>
             <result column="role_name" property="name"/>
+            <result column="role_remark" property="remark"/>
         </collection>
     </resultMap>
 
@@ -437,12 +438,21 @@
        select user.id, username, password, user.name, mood, avatar, flag, sex, email, phone, school, sign_count,
     submit_count, solution_count, ac_count, tle_count, pe_count, me_count, ce_count,
     re_count, wa_count, gold_count,rating, last_login_time, user.create_time, user.update_time,
-    r.id as role_id,r.name as role_name from user
+    r.id as role_id,r.name as role_name,r.remark as role_remark from user
     left join user_role ur on ur.user_id = user.id
     left join role r on r.id = ur.role_id
     <where>
         <if test="keyword != null and keyword != ''">
-            user.name like concat('%',#{keyword},'%')
+            user.username like concat('%',#{keyword},'%')
+        </if>
+        <if test="keyword != null and keyword != ''">
+           or user.name like concat('%',#{keyword},'%')
+        </if>
+        <if test="keyword != null and keyword != ''">
+           or user.phone like concat('%',#{keyword},'%')
+        </if>
+        <if test="keyword != null and keyword != ''">
+           or user.email like concat('%',#{keyword},'%')
         </if>
     </where>
     order by user.id asc
