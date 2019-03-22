@@ -1,8 +1,11 @@
 package com.oj.gkuoj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.TagMapper;
 import com.oj.gkuoj.entity.Tag;
+import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.response.TagVO;
@@ -55,5 +58,21 @@ public class TagImpl implements TagService {
         int effect = tagMapper.updateByPrimaryKeySelective(tag);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
+    }
+
+    @Override
+    public RestResponseVO getById(Integer tagId) {
+        if (tagId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        return RestResponseVO.createBySuccess(tagMapper.selectByPrimaryKey(tagId));
+    }
+
+    @Override
+    public RestResponseVO list2Page(Integer pageNum, Integer pageSize, String keyword) {
+        PageHelper.startPage(pageNum, pageSize, true);
+        List<Tag> tagList = tagMapper.list2Page(keyword);
+        PageInfo<Tag> pageInfo = new PageInfo<>(tagList);
+        return RestResponseVO.createBySuccess(pageInfo);
     }
 }

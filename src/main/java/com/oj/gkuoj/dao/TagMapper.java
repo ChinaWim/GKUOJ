@@ -2,6 +2,7 @@ package com.oj.gkuoj.dao;
 
 import com.oj.gkuoj.entity.Tag;
 import com.oj.gkuoj.response.TagVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,5 @@ public interface TagMapper {
 
     List<TagVO> listParentVOAll();
 
+    List<Tag> list2Page(@Param("keyword") String keyword);
 }

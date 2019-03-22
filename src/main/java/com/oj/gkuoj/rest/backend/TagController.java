@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author m969130721@163.com
  * @date 19-3-10 下午4:22
@@ -23,59 +25,75 @@ public class TagController {
     private TagService tagService;
 
 
+    @RequestMapping("/tagList2Page")
+    public String tagList2Page(HttpServletRequest request) {
+
+        //set data
+        request.setAttribute("questionActive", true);
+        request.setAttribute("tagActive", true);
+        return "backend/problem/problem-tag-list";
+    }
+
+
     /**
      * 获取标签页面
-     * @param sort
+     *
      * @param keyword
      * @param pageNum
      * @param pageSize
      * @return
      */
-    @RequestMapping("/listTag2Page")
+    @RequestMapping("/list2Page")
     @ResponseBody
-    public RestResponseVO listProblem(@RequestParam(defaultValue = "-1") Integer sort,
-                                                @RequestParam(defaultValue = "") String keyword,
-                                                @RequestParam(defaultValue = "1") Integer pageNum,
-                                                @RequestParam(defaultValue = "20")Integer pageSize){
-        return tagService.listParentVOAll();
+    public RestResponseVO list2Page(@RequestParam(defaultValue = "") String keyword,
+                                    @RequestParam(defaultValue = "1") Integer pageNum,
+                                    @RequestParam(defaultValue = "10") Integer pageSize) {
+        return tagService.list2Page(pageNum, pageSize, keyword);
     }
 
 
-
     /**
-     * 添加tag
+     * 添加-更新tag
+     *
      * @param tag
      * @return
      */
-    @RequestMapping("/add")
+    @RequestMapping("/save")
     @ResponseBody
-    public RestResponseVO add(Tag tag){
-        return tagService.insert(tag);
-    }
+    public RestResponseVO add(Tag tag) {
+        if (tag.getId() != null) {
+            return tagService.updateById(tag);
+        } else {
+            return tagService.insert(tag);
+        }
 
-
-    /**
-     * 更新tag
-     * @param tag
-     * @return
-     */
-    @RequestMapping("/update")
-    @ResponseBody
-    public RestResponseVO update(Tag tag){
-        return tagService.updateById(tag);
     }
 
     /**
-     * 删除problem
+     * 删除tag
+     *
      * @param tagId
      * @return
      */
     @RequestMapping("/delete")
     @ResponseBody
-    public RestResponseVO delete(Integer tagId){
+    public RestResponseVO delete(Integer tagId) {
         return tagService.delById(tagId);
     }
 
+
+
+    /**
+     * getproblem
+     *
+     * @param tagId
+     * @return
+     */
+    @RequestMapping("/get")
+    @ResponseBody
+    public RestResponseVO get(Integer tagId) {
+        return tagService.getById(tagId);
+    }
 
 
 }

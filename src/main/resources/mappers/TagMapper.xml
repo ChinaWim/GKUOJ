@@ -108,4 +108,13 @@
     where t.parent_id = 0
   </select>
 
+  <select id="list2Page" resultType="com.oj.gkuoj.entity.Tag" parameterType="map">
+    select <include refid="Base_Column_List"></include> from tag
+    <where>
+      <if test="keyword != null and keyword != ''">
+         name like concat('%',#{keyword},'%')
+      </if>
+    </where>
+  </select>
+
 </mapper>

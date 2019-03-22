@@ -3,10 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>角色列表</title>
+    <title>标签列表</title>
     <div th:replace="~{fragments/backend/head-base}"></div>
-    <link type="text/css" rel="stylesheet" th:href="@{/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/gallery.css}"/>
+
 </head>
 <body class="body fixedNav_position fixedMenu_left">
 <div class="preloader" style=" position: fixed;
@@ -40,7 +39,7 @@ z-index: 999999">
                     <div class="row no-gutters">
                         <div class="col-6">
                             <h4 class="m-t-5">
-                                <i class="fa fa-user"></i><span class="ml-1">角色列表</span>
+                                <i class="fa fa-tags"></i><span class="ml-1">标签列表</span>
                             </h4>
                         </div>
                     </div>
@@ -52,10 +51,10 @@ z-index: 999999">
                     <div id="">
                         <div class="row">
                             <div class="col-12">
-                                <div class="w-25 float-left">
+                                <div class="float-left w-50" >
                                     <div class="input-group">
                                         <input type="search" id="keyword" name="keyword" value=""
-                                               placeholder="输入 角色名/备注 进行搜索" class="form-control"/>
+                                               placeholder="输入 标签名 进行搜索" class="form-control"/>
                                         <span class="input-group-btn">
                                                     <button class="btn btn-primary" type="button"
                                                             onclick="clickPage(1)">
@@ -65,43 +64,40 @@ z-index: 999999">
                                         </span>
                                         <span class="ml-3">
                                             <button class="btn  btn-secondary  "
-                                                    @click="initRole()"
+                                                    @click="initTag()"
                                                     data-toggle="modal" data-href="#stack1" href="#stack1">
-                                            <i class="fa fa-plus mr-1"></i>添加角色
+                                            <i class="fa fa-plus mr-1"></i><span >添加标签</span>
                                             </button>
-
                                         </span>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                            <!--roleList-->
+                            <!--tagList-->
                             <div class="col-12 mt-3">
                                 <table class="table  table-bordered table-hover">
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">角色名</th>
-                                        <th class="text-center">备注</th>
-                                        <th class="text-center">创建时间</th>
-                                        <th class="text-center">更新时间</th>
+                                        <th class="text-center">标签名</th>
+                                        <th class="text-center">父节点</th>
+                                        <th class="text-center">孩子节点</th>
                                         <th class="text-center">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(role,index) in roleList">
+                                    <tr v-for="(tag,index) in tagList">
                                         <td class="text-center">
                                             {{index + 1 + (pageNum-1) * 10}}
                                         </td>
-                                        <td class="text-center">{{role.name}}</td>
-                                        <td class="text-center">{{role.remark}}</td>
-                                        <td class="text-center">{{role.createTime | formatDate}}</td>
-                                        <td class="text-center">{{role.updateTime | formatDate}}</td>
+                                        <td class="text-center">{{tag.name}}</td>
+                                        <td class="text-center">{{tag.parentId}}</td>
+                                        <td class="text-center">213</td>
                                         <td class="text-center">
                                             <button data-toggle="modal" data-href="#stack1" href="#stack1"
-                                                    class="btn btn-sm btn-primary" @click="roleDetail(role.id)">详情
+                                                    class="btn btn-sm btn-primary" @click="tagDetail(tag.id)">详情
                                             </button>
-                                            <a @click="deleteRole(role.id)">
+                                            <a @click="deleteTag(tag.id)">
                                                 <button class="btn btn-sm btn-danger">删除</button>
                                             </a>
                                         </td>
@@ -116,7 +112,7 @@ z-index: 999999">
                                 </div>
                                 <!--#page-->
                             </div>
-                            <!--#roleList-->
+                            <!--#tagList-->
                         </div>
                     </div>
                     <!--#app-->
@@ -134,32 +130,24 @@ z-index: 999999">
         <div class="modal-dialog " style="width: 1000px">
             <div class="modal-content">
                 <div class="modal-header ">
-                    <h4 class="modal-title " id="saveTile">添加角色</h4>
+                    <h4 class="modal-title "id="saveTitle" >添加标签</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form id="roleForm">
-                        <input type="hidden" v-model="role.id" name="id"/>
+                    <form id="tagForm">
+                        <input type="hidden" v-model="tag.id" name="id"/>
                         <table class="table ">
                             <tr>
-                                <td>角色名</td>
-                                <td>
-                                    <input name="name" v-model="role.name" maxlength="20" type="text" class="form-control"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>备注</td>
-                                <td>
-                                    <input name="remark" v-model="role.remark" maxlength="100" type="text" class="form-control"/>
-                                </td>
+                                <td><span class="text-danger">*</span>标签名</td>
+                                <td><input name="name" v-model="tag.name" type="text" class="form-control"/></td>
                             </tr>
                         </table>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-secondary">取消</button>
-                    <button type="button" id="saveUser" class="btn btn-info"
-                            onclick="saveRole()">提交
+                    <button type="button" id="saveTag" class="btn btn-info"
+                            onclick="saveTag()">提交
                     </button>
                 </div>
             </div>
@@ -173,8 +161,6 @@ z-index: 999999">
 <div th:replace="~{fragments/backend/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script type="text/javascript" th:src="@{/js/pages/backend/index.js}"></script>
-<script type="text/javascript" th:src="@{/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js}"></script>
 <!--end of plugin scripts-->
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
@@ -186,8 +172,8 @@ z-index: 999999">
         data: {
             total: 0,
             pageNum: 1,
-            role:{},
-            roleList: []
+            tag: {},
+            tagList: []
         },
         filters: {
             formatDate: function (val) {
@@ -212,16 +198,16 @@ z-index: 999999">
             }
         },
         methods: {
-            listRole: function (pageNum) {
+            listTag: function (pageNum) {
                 var keyword = $("#keyword").val();
-                var url = '/backend/role/listRole2Page';
+                var url = '/backend/tag/list2Page';
 
                 this.$http.post(url, {
                     "pageNum": pageNum,
                     "keyword": keyword
                 }, {emulateJSON: true}).then(function (res) {
                     this.total = res.data.data.total;
-                    this.roleList = res.data.data.list;
+                    this.tagList = res.data.data.list;
                     this.pageNum = pageNum;
                     $("#page").initPage(this.total, pageNum, clickPage);
                 }), function (res) {
@@ -231,63 +217,72 @@ z-index: 999999">
         }
     });
     //初始化
-    wrap.listRole(1);
+    wrap.listTag(1);
 
     //分页点击方法
     function clickPage(pageNum) {
-        wrap.listRole(pageNum);
+        wrap.listTag(pageNum);
     }
 
-    //添加角色点击初始化
-    function initRole() {
-        $("#saveTile").html("添加角色");
-        wrap.role = {};
+    //添加标签点击初始化
+    function initTag() {
+        wrap.tag = {};
     }
 
 
-    function deleteRole(roleId) {
-        $.post("/backend/role/delete", {"roleId": roleId}, function (resp) {
-            if (resp.status == 200) {
-                $.message({
-                    message: resp.msg,
-                    type: 'success'
-                });
-                clickPage(1);
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
+    function deleteTag(tagId) {
+
+        swal({
+            title: '确认删除该标签?',
+            // text: '提醒',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#EF6F6C',
+            cancelButtonColor: '#4fb7fe',
+            confirmButtonText: '确定',
+            cancelButtonText:'取消',
+        }).then(function () {
+            $.post("/backend/tag/delete", {"tagId": tagId}, function (resp) {
+                if (resp.status == 200) {
+                    $.message({
+                        message: resp.msg,
+                        type: 'success'
+                    });
+                    clickPage(1);
+                } else {
+                    $.message({
+                        message: resp.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        });
+        return false;
     }
 
 
     function checkField() {
-        var role = wrap.role;
-        if (role.name == null || role.name.trim().length == 0) {
+        var tag = wrap.tag;
+        if (tag.name == null || tag.name.trim().length == 0) {
             $.message({
-                message: "角色名不能为空",
+                message: "标签名不能为空",
                 type: 'warning'
             });
             return false;
         }
-
         return true;
     }
 
     //添加-更新
-    function saveRole() {
-        var role = $("#roleForm").serialize();
-
-
+    function saveTag() {
+        var tag = $("#tagForm").serialize();
         if (!checkField()) {
             return;
         }
         $.ajax({
-            url: '/backend/role/save',
+            url: '/backend/tag/save',
             type: 'POST',
-            data: role,
+            data: tag,
             async: true,
             success: function (resp) {
                 if (resp.status == 200) {
@@ -308,11 +303,10 @@ z-index: 999999">
     }
 
     //详情
-    function roleDetail(roleId) {
-        $("#saveTile").html("更新角色");
-        $.post("/backend/role/get", {"roleId": roleId}, function (resp) {
+    function tagDetail(tagId) {
+        $.post("/backend/tag/get", {"tagId": tagId}, function (resp) {
             if (resp.status == 200) {
-                wrap.role = resp.data;
+                wrap.tag = resp.data;
             } else {
                 $.message({
                     message: resp.msg,

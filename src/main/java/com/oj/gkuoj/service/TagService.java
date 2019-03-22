@@ -21,5 +21,7 @@ public interface TagService {
 
      RestResponseVO updateById(Tag tag);
 
+    RestResponseVO getById(Integer tagId);
 
+    RestResponseVO list2Page(Integer pageNum, Integer pageSize, String keyword);
 }
