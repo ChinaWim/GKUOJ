@@ -162,7 +162,7 @@
     select comp.id, comp.name competition_name,u.id user_id,u.name, comp.title, comp.start_time, comp.end_time, comp.create_time , count(r.id) register_count
     from competition comp
     left join register r on r.comp_id = comp.id
-    join user u on u.id = comp.user_id
+    left join user u on u.id = comp.user_id
     <if test="keyword != null and keyword != ''">
       where comp.name like concat('%',#{keyword},'%')
     </if>

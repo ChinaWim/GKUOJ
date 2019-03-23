@@ -275,10 +275,11 @@
 
 
 
+
   <select id="listAll2VO" resultType="com.oj.gkuoj.response.ProblemVO" parameterType="map">
     select
     p.id, p.name, p.content, group_concat(t.name) tags,
-    level, submit_count, ac_count,p.flag, p.create_time, p.update_time
+    level, submit_count, ac_count,wa_count,p.flag, p.create_time, p.update_time
 
     from problem p
     left join problem_tag pt on pt.p_id = p.id

@@ -78,7 +78,7 @@ z-index: 999999">
                                     <h3 class=""><strong>[[${competitionDetail.competitionName}]]</strong></h3>
                                     <p><span id="registerCount">[[${competitionDetail.registerCount}]]</span> 人已经报名</p>
                                     <div class="mt-3">
-                                        <div th:if="${competitionDetail.secret}">类型：私人赛</div>
+                                        <div th:if="${competitionDetail.secret}">类型：私密赛</div>
                                         <div th:if="!${competitionDetail.secret}">类型：公开赛</div>
                                         <div>举办者：<a target="_blank"
                                                     th:href="@{'/user/mainPage?userId='+${competitionDetail.userId}}"

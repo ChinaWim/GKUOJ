@@ -47,7 +47,7 @@ public class CompetitionController {
      * @param request
      * @return
      */
-    @RequestMapping("competitionListPage")
+    @RequestMapping("/competitionListPage")
     public String competitionListPage(HttpServletRequest request) {
         //set data
         request.setAttribute("active3", true);

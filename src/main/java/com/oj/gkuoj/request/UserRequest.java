@@ -32,6 +32,7 @@ public class UserRequest {
 
     private String school;
 
+    //todo
     private Integer roleId;
 
     public Integer getId() {

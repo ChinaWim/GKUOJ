@@ -47,34 +47,30 @@ public class ProblemController {
                                                 @RequestParam(defaultValue = "-1") Integer level,
                                                 @RequestParam(defaultValue = "") String tagIds,
                                                 @RequestParam(defaultValue = "1") Integer pageNum,
-                                                @RequestParam(defaultValue = "20")Integer pageSize){
+                                                @RequestParam(defaultValue = "15")Integer pageSize){
         return problemService.listProblemVOToPage(null,sort,keyword,level,tagIds,pageNum,pageSize);
     }
 
 
 
     /**
-     * 添加problem
+     * 添加-更新problem
      * @param problem
      * @return
      */
-    @RequestMapping("/add")
+    @RequestMapping("/save")
     @ResponseBody
     public RestResponseVO add(Problem problem){
-        return problemService.insert(problem);
+        if(problem.getId() != null){
+            return problemService.updateById(problem);
+        }else {
+            return problemService.insert(problem);
+        }
+
     }
 
 
-    /**
-     * 更新problem
-     * @param problem
-     * @return
-     */
-    @RequestMapping("/update")
-    @ResponseBody
-    public RestResponseVO update(Problem problem){
-        return problemService.updateById(problem);
-    }
+
 
     /**
      * 删除problem
