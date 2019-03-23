@@ -249,20 +249,32 @@ z-index: 999999">
     }
 
     function deleteBlog(blogId) {
-        $.post("/backend/blog/delete", {"blogId": blogId}, function (resp) {
-            if (resp.status == 200) {
-                $.message({
-                    message: resp.msg,
-                    type: 'success'
-                });
-                clickPage(1);
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
+        swal({
+            title: '确认删除该帖子?',
+            // text: '提醒',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#EF6F6C',
+            cancelButtonColor: '#4fb7fe',
+            confirmButtonText: '确定',
+            cancelButtonText:'取消'
+        }).then(function () {
+            $.post("/backend/blog/delete", {"blogId": blogId}, function (resp) {
+                if (resp.status == 200) {
+                    $.message({
+                        message: resp.msg,
+                        type: 'success'
+                    });
+                    clickPage(1);
+                } else {
+                    $.message({
+                        message: resp.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        });
+        return false;
     }
 
 

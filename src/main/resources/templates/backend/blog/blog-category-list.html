@@ -95,7 +95,7 @@ z-index: 999999">
                                         <td class="text-center">{{blogCategory.updateTime | formatDate}}</td>
                                         <td class="text-center">
                                             <button data-toggle="modal" data-href="#stack1" href="#stack1"
-                                                    class="btn btn-sm btn-primary" @click="blogCategoryDetail(blogCategory.id)">详情
+                                                    class="btn btn-sm btn-primary" @click="blogCategoryDetail(blogCategory.id)">编辑
                                             </button>
                                             <a @click="deleteBlogCategory(blogCategory.id)">
                                                 <button class="btn btn-sm btn-danger">删除</button>
@@ -125,7 +125,7 @@ z-index: 999999">
     <!-- /#content -->
     <!-- Modal -->
 
-    <div class="modal fade bs-example-modal-sm in display_none" id="stack1" tabindex="-1" role="dialog"
+    <div class="modal fade bs-example-modal-sm in display_none" id="stack1" role="dialog"
          aria-hidden="false">
         <div class="modal-dialog " style="width: 1000px">
             <div class="modal-content">
@@ -138,7 +138,7 @@ z-index: 999999">
                         <input type="hidden" v-model="blogCategory.id" name="id"/>
                         <table class="table ">
                             <tr>
-                                <td>板块名</td>
+                                <td><span class="text-danger">*</span>板块名</td>
                                 <td>
                                     <input name="name" v-model="blogCategory.name" maxlength="20" type="text" class="form-control"/>
                                 </td>
@@ -234,20 +234,33 @@ z-index: 999999">
 
 
     function deleteBlogCategory(blogCategoryId) {
-        $.post("/backend/blogCategory/delete", {"blogCategoryId": blogCategoryId}, function (resp) {
-            if (resp.status == 200) {
-                $.message({
-                    message: resp.msg,
-                    type: 'success'
-                });
-                clickPage(1);
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
+        swal({
+            title: '确认删除该分类?',
+            // text: '提醒',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#EF6F6C',
+            cancelButtonColor: '#4fb7fe',
+            confirmButtonText: '确定',
+            cancelButtonText:'取消'
+        }).then(function () {
+            $.post("/backend/blogCategory/delete", {"blogCategoryId": blogCategoryId}, function (resp) {
+                if (resp.status == 200) {
+                    $.message({
+                        message: resp.msg,
+                        type: 'success'
+                    });
+                    clickPage(1);
+                } else {
+                    $.message({
+                        message: resp.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        });
+        return false;
+
     }
 
 

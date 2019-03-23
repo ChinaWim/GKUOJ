@@ -80,7 +80,7 @@ function saveBlog() {
         return;
     }
 
-    $.post("blog/saveBlog",
+    $.post("backend/blog/save",
         {
             "content": content, "htmlContent": htmlContent,
             "title": title, "bcId": bcId, "tags": tags

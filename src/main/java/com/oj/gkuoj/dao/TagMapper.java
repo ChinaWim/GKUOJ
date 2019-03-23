@@ -21,5 +21,10 @@ public interface TagMapper {
 
     List<TagVO> listParentVOAll();
 
-    List<Tag> list2Page(@Param("keyword") String keyword);
+    List<TagVO> list2Page(@Param("keyword") String keyword);
+
+    List<Tag> listAll();
+
+    List<Tag> listChildByParentId(Integer parentId);
+
 }

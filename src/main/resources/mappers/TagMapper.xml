@@ -108,13 +108,24 @@
     where t.parent_id = 0
   </select>
 
-  <select id="list2Page" resultType="com.oj.gkuoj.entity.Tag" parameterType="map">
+  <select id="list2Page" resultType="com.oj.gkuoj.response.TagVO" parameterType="map">
     select <include refid="Base_Column_List"></include> from tag
     <where>
       <if test="keyword != null and keyword != ''">
          name like concat('%',#{keyword},'%')
+         or parent_id in (select id from tag where name like concat('%',#{keyword},'%') )
       </if>
+
     </where>
+  </select>
+
+  <select id="listChildByParentId" resultType="com.oj.gkuoj.entity.Tag" parameterType="int">
+    select <include refid="Base_Column_List"></include> from tag
+    where parent_id = #{parentId}
+  </select>
+
+  <select id="listAll" resultType="com.oj.gkuoj.entity.Tag">
+    select <include refid="Base_Column_List"></include> from tag
   </select>
 
 </mapper>

@@ -14,7 +14,7 @@ public class TagVO implements Serializable {
 
     private Integer id;
 
-    private Integer parentTag;
+    private Tag parentTag;
 
     private Integer parentId;
 
@@ -54,11 +54,11 @@ public class TagVO implements Serializable {
         this.tagList = tagList;
     }
 
-    public Integer getParentTag() {
+    public Tag getParentTag() {
         return parentTag;
     }
 
-    public void setParentTag(Integer parentTag) {
+    public void setParentTag(Tag parentTag) {
         this.parentTag = parentTag;
     }
 

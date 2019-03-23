@@ -1,5 +1,6 @@
 package com.oj.gkuoj.config;
 
+import com.oj.gkuoj.common.RoleEnum;
 import com.oj.gkuoj.common.URIConst;
 import com.oj.gkuoj.config.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(URIConst.ALLOWED_URI).permitAll()
                 .antMatchers(URIConst.NOT_ALLOWED_URI)
-                .hasRole("ADMIN")
+                .hasRole(RoleEnum.ADMIN.getConfigName())
                 .anyRequest()
                 .permitAll()
                 .and()

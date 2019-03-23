@@ -51,10 +51,10 @@ z-index: 999999">
                     <div id="">
                         <div class="row">
                             <div class="col-12">
-                                <div class="float-left w-50" >
+                                <div class="float-left w-25" >
                                     <div class="input-group">
                                         <input type="search" id="keyword" name="keyword" value=""
-                                               placeholder="输入 标签名 进行搜索" class="form-control"/>
+                                               placeholder="输入 标签名/父标签 进行搜索" class="form-control"/>
                                         <span class="input-group-btn">
                                                     <button class="btn btn-primary" type="button"
                                                             onclick="clickPage(1)">
@@ -80,8 +80,7 @@ z-index: 999999">
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">标签名</th>
-                                        <th class="text-center">父节点</th>
-                                        <th class="text-center">孩子节点</th>
+                                        <th class="text-center">父标签</th>
                                         <th class="text-center">操作</th>
                                     </tr>
                                     </thead>
@@ -91,11 +90,17 @@ z-index: 999999">
                                             {{index + 1 + (pageNum-1) * 10}}
                                         </td>
                                         <td class="text-center">{{tag.name}}</td>
-                                        <td class="text-center">{{tag.parentId}}</td>
-                                        <td class="text-center">213</td>
+                                        <td class="text-center">
+                                            <span v-if="tag.parentTag != null">
+                                                {{tag.parentTag.name}}
+                                            </span>
+                                            <span v-if="tag.parentTag == null">
+                                                    －
+                                            </span>
+                                        </td>
                                         <td class="text-center">
                                             <button data-toggle="modal" data-href="#stack1" href="#stack1"
-                                                    class="btn btn-sm btn-primary" @click="tagDetail(tag.id)">详情
+                                                    class="btn btn-sm btn-primary" @click="tagDetail(tag.id,tag.parentId)">编辑
                                             </button>
                                             <a @click="deleteTag(tag.id)">
                                                 <button class="btn btn-sm btn-danger">删除</button>
@@ -125,7 +130,7 @@ z-index: 999999">
     <!-- /#content -->
     <!-- Modal -->
 
-    <div class="modal fade bs-example-modal-sm in display_none" id="stack1" tabindex="-1" role="dialog"
+    <div class="modal fade bs-example-modal-sm in display_none" id="stack1"  role="dialog"
          aria-hidden="false">
         <div class="modal-dialog " style="width: 1000px">
             <div class="modal-content">
@@ -140,6 +145,19 @@ z-index: 999999">
                             <tr>
                                 <td><span class="text-danger">*</span>标签名</td>
                                 <td><input name="name" v-model="tag.name" type="text" class="form-control"/></td>
+                            </tr>
+                            <tr>
+                                <td><span class="text-danger">*</span>父标签</td>
+                                <td>
+                                    <select class="select2-tag" v-model="tag.parentId" name = "parentId" style="width: 150px">
+                                        <option value="0" >
+                                            无
+                                        </option>
+                                        <option v-for="(tag,index) in tagAllList" :value="tag.id" >
+                                            {{tag.name}}
+                                        </option>
+                                    </select>
+                                </td>
                             </tr>
                         </table>
                     </form>
@@ -173,7 +191,8 @@ z-index: 999999">
             total: 0,
             pageNum: 1,
             tag: {},
-            tagList: []
+            tagList: [],
+            tagAllList: []
         },
         filters: {
             formatDate: function (val) {
@@ -213,12 +232,19 @@ z-index: 999999">
                 }), function (res) {
                     console.log(res.data.msg);
                 }
+            },  listTagAll: function () {
+                var url = '/backend/tag/listAll';
+                this.$http.post(url, {}, {emulateJSON: true}).then(function (res) {
+                    this.tagAllList = res.data.data;
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
             }
         }
     });
     //初始化
     wrap.listTag(1);
-
+    wrap.listTagAll();
     //分页点击方法
     function clickPage(pageNum) {
         wrap.listTag(pageNum);
@@ -226,12 +252,16 @@ z-index: 999999">
 
     //添加标签点击初始化
     function initTag() {
+        $("#saveTitle").html("添加标签");
         wrap.tag = {};
+        $('.select2-tag').val(0).select2({
+            placeholder: '选择父标签',
+            theme: 'bootstrap4'
+        });
     }
 
 
     function deleteTag(tagId) {
-
         swal({
             title: '确认删除该标签?',
             // text: '提醒',
@@ -303,7 +333,12 @@ z-index: 999999">
     }
 
     //详情
-    function tagDetail(tagId) {
+    function tagDetail(tagId,parentId) {
+        $("#saveTitle").html("更新标签");
+        $('.select2-tag').val(parentId).select2({
+            placeholder: '选择父标签',
+            theme: 'bootstrap4'
+        });
         $.post("/backend/tag/get", {"tagId": tagId}, function (resp) {
             if (resp.status == 200) {
                 wrap.tag = resp.data;

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>比赛列表</title>
+    <div th:replace="~{fragments/backend/head-base}"></div>
+
+    <link type="text/css" rel="stylesheet" th:href="@{/plugins/switchery/css/switchery.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/highlight.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/tempusdominus-bootstrap-4.css}"/>
+
+</head>
+<body class="body fixedNav_position fixedMenu_left">
+<div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
+    </div>
+</div>
+<!--wrap-->
+<div id="wrap">
+    <div th:replace="~{fragments/backend/top :: top}"></div>
+    <!-- /#top -->
+    <div class="wrapper fixedNav_top">
+        <div th:replace="~{fragments/backend/left :: left}"></div>
+        <!-- /#left -->
+        <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <h4 class="m-t-5">
+                                <i class="fa fa-trophy"></i><span class="ml-1">比赛列表</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="outer">
+                <div class="inner bg-container">
+                    <!--app-->
+                    <div id="">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="float-left w-25">
+                                    <div class="input-group">
+                                        <input type="search" id="keyword" name="keyword" value=""
+                                               placeholder="输入 比赛 进行搜索" class="form-control"/>
+                                        <span class="input-group-btn">
+                                                    <button class="btn btn-primary" type="button"
+                                                            onclick="clickPage(1)">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true">
+                                                    </span><i class="fa fa-search"></i>
+                                                    </button>
+                                        </span>
+                                        <span class="ml-3">
+                                              <!--@click="initCompetition()"-->
+                                            <button class="btn  btn-secondary  "
+                                                    data-toggle="modal" data-href="#stack1" href="#stack1">
+                                            <i class="fa fa-plus mr-1"></i><span>创建比赛</span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                                <!--competitionList-->
+                                <div class="col-12 mt-3">
+                                    <table class="table  table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">创建人</th>
+                                            <th class="text-center">比赛</th>
+                                            <th class="text-center">开始时间</th>
+                                            <th class="text-center">结束时间</th>
+                                            <th class="text-center">时长</th>
+                                            <th class="text-center">报名人数</th>
+                                            <th class="text-center">状态</th>
+                                            <th class="text-center">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(competition,index) in competitionList">
+                                            <td class="text-center">
+                                                {{index + 1 + (pageNum-1) * 10}}
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="primary-hover" target="_blank"
+                                                   :href="'/user/mainPage/?userId='+competition.userId">
+                                                    {{competition.name}}
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="text-primary" target="_blank"
+                                                   :href="'/competition/competitionDetailPage/?compId='+competition.id">
+                                                    {{competition.competitionName}}
+                                                </a>
+                                            </td>
+                                            <td class="text-center">{{competition.startTime | formatDate}}</td>
+                                            <td class="text-center">{{competition.endTime | formatDate}}</td>
+                                            <td class="text-center">{{competition.startTime |
+                                                differDate(competition.endTime)}}
+                                            </td>
+                                            <td class="text-center">{{competition.registerCount}}</td>
+                                            <td class="text-center">{{competition.startTime |
+                                                competitionStatus(competition.endTime)}}
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-sm btn-primary"
+                                                   :href="'/backend/competition/competitionEditPage?competitionId='+competition.id">编辑
+                                                </a>
+                                                <a @click="deleteCompetition(competition.id)">
+                                                    <button class="btn btn-sm btn-danger">删除</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--page-->
+                                    <div class="row mt-3">
+                                        <div style="margin: 0 auto">
+                                            <ul class="page" maxshowpageitem="5" pagelistcount="10" id="page"></ul>
+                                        </div>
+                                    </div>
+                                    <!--#page-->
+                                </div>
+                                <!--#competitionList-->
+                            </div>
+                        </div>
+                        <!--#app-->
+                    </div>
+                </div>
+            </div>
+            <!-- /.inner -->
+        </div>
+        <!-- /.outer -->
+        <!-- /#content -->
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-sm in display_none" id="stack1" role="dialog"
+             aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header ">
+                        <h4 class="modal-title " id="saveTitle">创建比赛</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="competitionForm">
+                            <input type="hidden" v-model="competition.id" name="id"/>
+                            <table class="table ">
+                                <tr>
+                                    <td><span class="text-danger">*</span>比赛名称</td>
+                                    <td><input name="name" type="text" maxlength="20" class="form-control"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-danger">*</span>比赛说明</td>
+                                    <td><input v-model="competition.title" name="title" maxlength="20" minlength="6"
+                                               id="title" placeholder="" type="password"
+                                               class="form-control"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-danger">*</span>详细描述</td>
+                                    <td>
+                                    <textarea v-model="competition.content" name="content" maxlength="1000"
+                                              placeholder="" class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>是否公开</td>
+                                    <td>
+                                        <input type="checkbox" class="js-switch" checked/>
+                                    </td>
+                                </tr>
+                                <tr id="password" style="display: none;">
+                                    <td>密码</td>
+                                    <td>
+                                        <input type="text" v-model="competition.password" placeholder="密码不能超出6位"
+                                               class="form-control" minlength="6" maxlength="6"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        开始时间
+                                        <div class="form-group">
+                                            <div class="input-group date" id="datetimepicker2"
+                                                 data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input"
+                                                       data-target="#datetimepicker2"/>
+                                                <div class="input-group-addon" data-target="#datetimepicker2"
+                                                     data-toggle="datetimepicker">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        结束时间
+                                        <div class="form-group">
+                                            <div class="input-group date" id="datetimepicker3"
+                                                 data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input"
+                                                       data-target="#datetimepicker2"/>
+                                                <div class="input-group-addon" data-target="#datetimepicker2"
+                                                     data-toggle="datetimepicker">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-secondary">取消</button>
+                        <button type="button" id="saveCompetition" class="btn btn-info"
+                                onclick="saveCompetition()">提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- # right side -->
+    </div>
+    <!-- /#wrap -->
+    <!-- global scripts-->
+    <div th:replace="~{fragments/backend/footer :: footer}"></div>
+    <!--end of global scripts-->
+    <!--  plugin scripts -->
+    <script type="text/javascript" th:src="@{/plugins/switchery/js/switchery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/moment-with-locales.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/highlight.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/tempusdominus-bootstrap-4.js}"></script>
+
+    <!--end of plugin scripts-->
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+
+        // vue
+        var wrap = new Vue({
+            el: '#wrap',
+            data: {
+                total: 0,
+                pageNum: 1,
+                competition: {},
+                competitionList: []
+            },
+            filters: {
+                formatDate: function (val) {
+                    var value = new Date(val);
+                    var year = value.getFullYear();
+                    var month = padDate(value.getMonth() + 1);
+                    var day = padDate(value.getDate());
+                    var hour = padDate(value.getHours());
+                    var minutes = padDate(value.getMinutes());
+                    var seconds = padDate(value.getSeconds());
+                    return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+                },
+                formatYear: function (val) {
+                    var value = new Date(val);
+                    var year = value.getFullYear();
+                    return year;
+                }, differDate: function (date1, date2) {
+                    return differDate2HourMinute(date1, date2);
+                },
+                formatNum: function (val) {
+                    //四舍五入
+                    var realVal = parseFloat(val).toFixed(2);
+                    return parseFloat(realVal);
+                }, competitionStatus: function (startTime, endTime) {
+                    var result;
+                    var start = new Date(startTime);
+                    var end = new Date(endTime);
+                    var now = new Date();
+                    if (now.getTime() - start.getTime() < 0) {
+                        result = "未开始";
+                    } else if (now.getTime() - start.getTime() >= 0 && now.getTime() - end.getTime() <= 0) {
+                        result = "进行中";
+                    } else if (now.getTime() - end.getTime() > 0) {
+                        result = "已结束";
+                    }
+                    return result;
+                }
+            },
+            methods: {
+                listCompetition: function (pageNum) {
+                    var keyword = $("#keyword").val();
+                    var url = '/backend/competition/list2Page';
+                    this.$http.post(url, {
+                        "pageNum": pageNum,
+                        "keyword": keyword
+                    }, {emulateJSON: true}).then(function (res) {
+                        this.total = res.data.data.total;
+                        this.competitionList = res.data.data.list;
+                        $("#page").initPage(this.total, pageNum, clickPage);
+                    }), function (res) {
+                        console.log(res.data.msg);
+                    }
+                }
+            }
+        });
+        //初始化
+        wrap.listCompetition(1);
+
+        //分页点击方法
+        function clickPage(pageNum) {
+            wrap.listCompetition(pageNum);
+        }
+
+        function deleteCompetition(competitionId) {
+            swal({
+                title: '确认删除该帖子?',
+                // text: '提醒',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#EF6F6C',
+                cancelButtonColor: '#4fb7fe',
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then(function () {
+                $.post("/backend/competition/delete", {"competitionId": competitionId}, function (resp) {
+                    if (resp.status == 200) {
+                        $.message({
+                            message: resp.msg,
+                            type: 'success'
+                        });
+                        clickPage(1);
+                    } else {
+                        $.message({
+                            message: resp.msg,
+                            type: 'error'
+                        });
+                    }
+                })
+            });
+            return false;
+        }
+
+
+        //添加-更新
+        function saveCompetition() {
+            var competition = $("#competitionForm").serialize();
+
+            if (!checkField()) {
+                return;
+            }
+            $.ajax({
+                url: '/backend/competition/save',
+                type: 'POST',
+                data: competition,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (resp) {
+                    if (resp.status == 200) {
+                        $.message({
+                            message: resp.msg,
+                            type: 'success'
+                        });
+                        $('#stack1').modal('hide');
+                        clickPage(1);
+                    } else {
+                        $.message({
+                            message: resp.msg,
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        }
+
+        // end of vue
+
+
+        //select2
+        $('.select2-category').select2({
+            placeholder: '选择板块',
+            theme: 'bootstrap4'
+        });
+
+
+        //checkbox
+        var elem = document.querySelector('.js-switch');
+        var init = new Switchery(elem, {
+            color: '#4FB7FE',            //开关元件的颜色(十六进制或RGB值)
+            secondaryColor: '#dfdfdf',            //次要的背景颜色和边框的颜色,当开关是关闭的
+            jackColor: '#fff',               //抬起/按下元素的默认颜色
+            jackSecondaryColor: null,                 //第二抬起/按下元素的默认颜色
+            className: 'switchery',          //开关元件的类名(默认样式switchery.css)
+            disabled: false,                //启用或禁用单击事件和改变开关的状态(布尔值)
+            disabledOpacity: 0.5,                  //不透明度，当不可见时为true(范围0-1)
+            speed: '0.1s',               //转型需要的时间长度,动画效果长度。
+            size: 'default'             //样式的大小（small or large）
+        });
+        elem.onchange = function () {
+            isChecked = elem.checked;
+            if (!isChecked) {
+                $("#password").css("display", "");
+            } else {
+                $("#password").css("display", "none");
+            }
+        };
+
+
+
+        /**todo
+         * 时间选择器
+         **/
+            $('#datetimepicker2').datetimepicker({
+                locale: 'zh-cn'
+            });
+
+
+        /*]]>*/
+    </script>
+
+</body>
+
+</html>

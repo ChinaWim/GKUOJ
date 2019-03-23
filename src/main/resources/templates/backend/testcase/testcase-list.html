@@ -370,22 +370,6 @@ z-index: 999999">
         wrap.user = {"sex": "男", "avatar": "http://file.gkuoj.com/image/default_avatar.jpg", "roleIds": "2"};
     }
 
-    function activeUser(userId) {
-        $.post("/backend/user/active", {"userId": userId}, function (resp) {
-            if (resp.status == 200) {
-                $.message({
-                    message: resp.msg,
-                    type: 'success'
-                });
-                clickPage(1);
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
-    }
 
     function deleteUser(userId) {
         $.post("/backend/user/delete", {"userId": userId}, function (resp) {
@@ -404,22 +388,7 @@ z-index: 999999">
         })
     }
 
-    function lockUser(userId) {
-        $.post("/backend/user/lock", {"userId": userId}, function (resp) {
-            if (resp.status == 200) {
-                $.message({
-                    message: resp.msg,
-                    type: 'success'
-                });
-                clickPage(1);
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
-    }
+
 
 
     function checkField() {

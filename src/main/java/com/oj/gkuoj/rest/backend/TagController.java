@@ -25,7 +25,7 @@ public class TagController {
     private TagService tagService;
 
 
-    @RequestMapping("/tagList2Page")
+    @RequestMapping("/tagListPage")
     public String tagList2Page(HttpServletRequest request) {
 
         //set data
@@ -36,7 +36,7 @@ public class TagController {
 
 
     /**
-     * 获取标签页面
+     * 获取标签到页面
      *
      * @param keyword
      * @param pageNum
@@ -50,6 +50,20 @@ public class TagController {
                                     @RequestParam(defaultValue = "10") Integer pageSize) {
         return tagService.list2Page(pageNum, pageSize, keyword);
     }
+
+
+
+    /**
+     * 获取所有标签到页面
+     *
+     * @return
+     */
+    @RequestMapping("/listAll")
+    @ResponseBody
+    public RestResponseVO listAll() {
+        return tagService.listAll();
+    }
+
 
 
     /**

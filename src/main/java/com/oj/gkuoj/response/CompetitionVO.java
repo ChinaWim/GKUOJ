@@ -10,7 +10,11 @@ public class CompetitionVO {
 
     private Integer id;
 
+    private Integer userId;
+
     private String name;
+
+    private String competitionName;
 
     private String title;
 
@@ -29,14 +33,6 @@ public class CompetitionVO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
     }
 
     public String getTitle() {
@@ -79,11 +75,37 @@ public class CompetitionVO {
         this.registerCount = registerCount;
     }
 
+    public String getCompetitionName() {
+        return competitionName;
+    }
+
+    public void setCompetitionName(String competitionName) {
+        this.competitionName = competitionName;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "CompetitionVO{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
+                ", competitionName='" + competitionName + '\'' +
                 ", title='" + title + '\'' +
                 ", registerCount=" + registerCount +
                 ", startTime=" + startTime +

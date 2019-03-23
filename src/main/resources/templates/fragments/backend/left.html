@@ -59,20 +59,20 @@
                     <span class="fa arrow menu_hide"></span>
                 </a>
                 <ul class="collapse " aria-expanded="false" style="">
-                    <li>
-                        <a th:href="@{/backend/problem/problemList2Page}" th:classappend="${problemActive} ? 'active':''">
+                    <li th:classappend="${problemActive} ? 'active':''">
+                        <a th:href="@{/backend/problem/problemListPage}" >
                             <i class="fa fa-angle-right"></i>
                             &nbsp;题目列表
                         </a>
                     </li>
-                    <li>
-                        <a th:href="@{/backend/tag/tagList2Page}" th:classappend="${tagActive} ? 'active':''">
+                    <li th:classappend="${tagActive} ? 'active':''" >
+                        <a th:href="@{/backend/tag/tagListPage}" >
                             <i class="fa fa-angle-right"></i>
-                            &nbsp;题目分类
+                            &nbsp;题目标签
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/backend/testcase/testcase2Page}">
+                        <a th:href="@{/backend/testcase/testcasePage}">
                             <i class="fa fa-angle-right" th:classappend="${testcaseActive} ? 'active':''"></i>
                             <span class="link-title">&nbsp;测试用例</span>
                         </a>
@@ -80,17 +80,23 @@
                 </ul>
             </li>
 
-            <li class="dropdown_menu"  th:classappend="${competitionActive} ? 'active':''">
+            <li class="dropdown_menu"  th:classappend="${competitionManagerActive} ? 'active':''">
                 <a href="javascript:void(0);">
                     <i class="fa fa-trophy"></i>
                     <span class="link-title menu_hide">&nbsp;比赛管理</span>
                     <span class="fa arrow menu_hide"></span>
                 </a>
                 <ul class="collapse " aria-expanded="false" style="">
-                    <li  th:classappend="${userActive} ? 'active':''">
+                    <li  th:classappend="${competitionActive} ? 'active':''">
                         <a th:href="@{/backend/competition/competitionListPage}" >
                             <i class="fa fa-angle-right"></i>
                             &nbsp;比赛列表
+                        </a>
+                    </li>
+                    <li  th:classappend="${competitionEditActive} ? 'active':''">
+                        <a th:href="@{/backend/competition/competitionEditPage}" >
+                            <i class="fa fa-angle-right"></i>
+                            &nbsp;比赛设置
                         </a>
                     </li>
                 </ul>

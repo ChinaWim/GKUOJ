@@ -24,4 +24,6 @@ public interface TagService {
     RestResponseVO getById(Integer tagId);
 
     RestResponseVO list2Page(Integer pageNum, Integer pageSize, String keyword);
+
+    RestResponseVO listAll();
 }

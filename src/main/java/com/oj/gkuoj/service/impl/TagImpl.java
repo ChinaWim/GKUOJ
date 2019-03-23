@@ -71,8 +71,19 @@ public class TagImpl implements TagService {
     @Override
     public RestResponseVO list2Page(Integer pageNum, Integer pageSize, String keyword) {
         PageHelper.startPage(pageNum, pageSize, true);
-        List<Tag> tagList = tagMapper.list2Page(keyword);
-        PageInfo<Tag> pageInfo = new PageInfo<>(tagList);
+        List<TagVO> tagList = tagMapper.list2Page(keyword);
+        PageInfo<TagVO> pageInfo = new PageInfo<>(tagList);
+        pageInfo.getList().stream().forEach( tagVO -> {
+            if (tagVO.getId() != null) {
+                Tag parentTag = tagMapper.selectByPrimaryKey(tagVO.getParentId());
+                tagVO.setParentTag(parentTag);
+            }
+        });
         return RestResponseVO.createBySuccess(pageInfo);
+    }
+
+    @Override
+    public RestResponseVO listAll() {
+        return RestResponseVO.createBySuccess(tagMapper.listAll());
     }
 }

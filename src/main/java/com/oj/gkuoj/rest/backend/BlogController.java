@@ -1,13 +1,17 @@
 package com.oj.gkuoj.rest.backend;
 
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.entity.Blog;
 import com.oj.gkuoj.entity.BlogCategory;
+import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.BlogCategoryService;
 import com.oj.gkuoj.service.BlogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,14 +94,25 @@ public class BlogController {
     }
 
     /**
-     * 增加
+     * save
      * @param blog
      * @return
      */
-    @RequestMapping("/add")
+    @RequestMapping("/save")
     @ResponseBody
-    public RestResponseVO add(Blog blog){
-        return blogService.insert(blog);
+    public RestResponseVO save(Blog blog,
+                               @AuthenticationPrincipal UserDetails userDetails){
+        User user = (User) userDetails;
+        if (user == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
+        }
+        blog.setUserId(user.getId());
+
+        if(blog.getId() != null){
+            return blogService.updateById(blog);
+        }else {
+            return blogService.insert(blog);
+        }
     }
 
     /**
@@ -112,16 +127,6 @@ public class BlogController {
     }
 
 
-    /**
-     * 更新
-     * @param blog
-     * @return
-     */
-    @RequestMapping("/update")
-    @ResponseBody
-    public RestResponseVO update(Blog blog){
-        return blogService.updateById(blog);
-    }
 
 
 
