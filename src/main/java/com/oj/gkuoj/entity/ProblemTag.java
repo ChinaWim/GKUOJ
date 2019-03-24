@@ -1,29 +1,30 @@
 package com.oj.gkuoj.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ProblemTag {
+public class ProblemTag implements Serializable {
+
+    private static final long serialVersionUID = 3822649254983520795L;
+
     private Integer id;
 
-    private Integer pId;
+    private Integer problemId;
 
-    private Integer tId;
+    private Integer tagId;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public ProblemTag(Integer id, Integer pId, Integer tId, Date createTime, Date updateTime) {
+    public ProblemTag(Integer id, Integer problemId, Integer tagId, Date createTime, Date updateTime) {
         this.id = id;
-        this.pId = pId;
-        this.tId = tId;
+        this.problemId = problemId;
+        this.tagId = tagId;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
 
-    public ProblemTag() {
-        super();
-    }
 
     public Integer getId() {
         return id;
@@ -33,20 +34,20 @@ public class ProblemTag {
         this.id = id;
     }
 
-    public Integer getpId() {
-        return pId;
+    public Integer getProblemId() {
+        return problemId;
     }
 
-    public void setpId(Integer pId) {
-        this.pId = pId;
+    public void setProblemId(Integer problemId) {
+        this.problemId = problemId;
     }
 
-    public Integer gettId() {
-        return tId;
+    public Integer getTagId() {
+        return tagId;
     }
 
-    public void settId(Integer tId) {
-        this.tId = tId;
+    public void setTagId(Integer tagId) {
+        this.tagId = tagId;
     }
 
     public Date getCreateTime() {
@@ -63,5 +64,16 @@ public class ProblemTag {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ProblemTag{" +
+                "id=" + id +
+                ", problemId=" + problemId +
+                ", tagId=" + tagId +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

@@ -17,12 +17,8 @@
                     </span>
             </div>
             <!-- #center-->
-
             <div class="topnav dropdown-menu-right float-right">
-                <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
-                     data-target="#search_modal">
-                    <i class="fa fa-search text-primary"></i>
-                </div>
+
                 <div sec:authorize="isAnonymous()">
                     <a th:href="@{/user/registerPage}"
                        class="btn btn-info ml-2 button-rounded float-right mt-1 glow_button"
@@ -35,7 +31,13 @@
                     </a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <div class="btn-group">
+                    <div class="btn-group " >
+                        <!--todo-->
+                        <div class="btn-group hidden-md-up small_device_search" data-toggle="modal"
+                             data-target="#search_modal">
+                            <i class="fa fa-search text-primary"></i>
+                        </div>
+
                         <div class="notifications messages no-bg">
                             <a class="btn btn-default btn-sm" data-toggle="dropdown" id="notifications_section"> <i
                                     class="fa fa-bell-o"></i>

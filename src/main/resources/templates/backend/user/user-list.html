@@ -364,7 +364,7 @@ z-index: 999999">
             placeholder: '选择角色',
             theme: 'bootstrap4'
         });
-        $("#username").removeAttr("disabled");
+        $("#username").removeAttr("readonly");
         $("#saveTitle").html("添加用户");
         $("#clearFile").click();
         $("#password").attr("placeholder","默认（gkuoj）");
@@ -381,7 +381,7 @@ z-index: 999999">
             confirmButtonColor: '#EF6F6C',
             cancelButtonColor: '#4fb7fe',
             confirmButtonText: '确定',
-            cancelButtonText:'取消',
+            cancelButtonText:'取消'
         }).then(function () {
             $.post("/backend/user/active", {"userId": userId}, function (resp) {
                 if (resp.status == 200) {
@@ -410,7 +410,7 @@ z-index: 999999">
             confirmButtonColor: '#EF6F6C',
             cancelButtonColor: '#4fb7fe',
             confirmButtonText: '确定',
-            cancelButtonText:'取消',
+            cancelButtonText:'取消'
         }).then(function () {
             $.post("/backend/user/delete", {"userId": userId}, function (resp) {
                 if (resp.status == 200) {
@@ -440,7 +440,7 @@ z-index: 999999">
             confirmButtonColor: '#EF6F6C',
             cancelButtonColor: '#4fb7fe',
             confirmButtonText: '确定',
-            cancelButtonText:'取消',
+            cancelButtonText:'取消'
         }).then(function () {
             $.post("/backend/user/lock", {"userId": userId}, function (resp) {
                 if (resp.status == 200) {
@@ -539,7 +539,7 @@ z-index: 999999">
 
     //详情
     function userDetail(userId) {
-        $("#username").attr("disabled","disabled");
+        $("#username").attr("readonly","readonly");
         $("#clearFile").click();
         $("#saveTitle").html("更新用户");
         $("#password").attr("placeholder","不更新无需填写");

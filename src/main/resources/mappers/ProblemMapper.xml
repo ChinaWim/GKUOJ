@@ -282,8 +282,8 @@
     level, submit_count, ac_count,wa_count,p.flag, p.create_time, p.update_time
 
     from problem p
-    left join problem_tag pt on pt.p_id = p.id
-    left join tag t on t.id = pt.t_id
+    left join problem_tag pt on pt.problem_id = p.id
+    left join tag t on t.id = pt.tag_id
     <where>
       <if test="keyword != null and keyword !='' ">
         and (
@@ -295,7 +295,7 @@
         and (level = #{level})
       </if>
       <if test="tagIdsList != null">
-            and pt.t_id in
+            and pt.tag_id in
             <foreach collection="tagIdsList" separator="," item="tagId" open="(" close=")">
                   #{tagId}
             </foreach>
@@ -335,8 +335,8 @@
       level, submit_count, ac_count, tle_count, pe_count, me_count, re_count, ce_count,
       wa_count, time, memory,p.flag, p.create_time, p.update_time
       from problem p
-      left join problem_tag pt on pt.p_id = p.id
-      left join tag t on t.id = pt.t_id
+      left join problem_tag pt on pt.problem_id = p.id
+      left join tag t on t.id = pt.tag_id
       where p.id = #{problemId}
       group by p.id
     </select>
