@@ -72,19 +72,22 @@ public enum RestResponseEnum {
     COMPETITION_NOT_FOUND_ERROR(708, "找不到该比赛"),
 
     //比赛未开始
-    COMPETITION_NOT_STARTED_ERROR(709, "比赛未开始"),
+    COMPETITION_NOT_START_ERROR(709, "比赛未开始"),
+
+    //比赛已开始
+    COMPETITION_STARTED_ERROR(710, "比赛已开始"),
 
     //比赛已结束
-    COMPETITION_CLOSED_ERROR(710, "比赛已结束"),
+    COMPETITION_CLOSED_ERROR(711, "比赛已结束"),
 
     //用户未报名比赛
-    COMPETITION_NOT_REGISTER(711, "用户未报名比赛"),
+    COMPETITION_NOT_REGISTER(712, "用户未报名比赛"),
 
     //昵称重复错误
-    NAME_REPEATED_ERROR(712, "昵称重复错误"),
+    NAME_REPEATED_ERROR(713, "昵称重复错误"),
 
     //手机重复错误
-    PHONE_REPEATED_ERROR(713, "手机重复错误");
+    PHONE_REPEATED_ERROR(714, "手机重复错误");
 
     private Integer status;
 

@@ -50,6 +50,7 @@ $('.select2-data').val("").select2({
  * save blog
  */
 function saveBlog() {
+    var id = $("#blogId").val();
     var content = testEditor.getMarkdown();       // 获取 Markdown 源码
     var htmlContent = testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
     var tags = $("#tags").val();
@@ -83,7 +84,7 @@ function saveBlog() {
     $.post("backend/blog/save",
         {
             "content": content, "htmlContent": htmlContent,
-            "title": title, "bcId": bcId, "tags": tags
+            "title": title, "bcId": bcId, "tags": tags,"id":id
         }, function (resp) {
             if (resp.status == 200) {
                 $.message({

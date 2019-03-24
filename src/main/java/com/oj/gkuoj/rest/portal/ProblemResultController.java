@@ -136,7 +136,7 @@ public class ProblemResultController {
             boolean isStarted = nowDate.isAfter(competition.getStartTime().toInstant());
             boolean isClosed = nowDate.isAfter(competition.getEndTime().toInstant());
             if (!isStarted) {
-                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_STARTED_ERROR);
+                return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_NOT_START_ERROR);
             }
             if (isClosed) {
                 return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_CLOSED_ERROR);

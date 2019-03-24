@@ -96,7 +96,7 @@ z-index: 999999">
                                 <h3 class="text-danger">[[${#dates.format(nowDate,'yyyy')}]]&nbsp;Years</h3>
                                 <h3 class="text-success">[[${#dates.format(nowDate,'MM')}]]&nbsp;Month</h3>
                                 <h3 class="text-primary">[[${#dates.format(nowDate,'dd')}]]&nbsp;Day</h3>
-                                <h5 class="text-warning">距 第九届蓝桥杯 还剩 天</h5>
+                                <h5 class="text-warning">距 NOIp2019 还剩 229 天</h5>
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@ z-index: 999999">
                                                         <div class="">
                                                             <span th:if="${competition.secret}"
                                                                   class="btn btn-primary btn-sm">公开赛&nbsp;</span>
-                                                            <span  th:if="!${competition.secret}"
+                                                            <span th:if="!${competition.secret}"
                                                                   class=" btn-primary btn-sm">私密赛&nbsp;</span>
                                                             <span class="ml-3">
                                                                 <span class="text-success"
@@ -167,7 +167,7 @@ z-index: 999999">
                                                             </span>
                                                         </div>
                                                         <div class="mt-2">
-                                                            <span class=" btn-warning btn-sm" >OI赛制</span>&nbsp;
+                                                            <span class=" btn-warning btn-sm">OI赛制</span>&nbsp;
                                                             <a class="text-danger ml-3"
                                                                th:href="@{'/user/mainPage?userId='+${competition.userId}}">[[${competition.name}]]</a>
                                                             <span class="gray-font  float-right">[[${#dates.format(competition.endTime,'yyyy-M-d HH:mm')}]]</span>
@@ -189,7 +189,8 @@ z-index: 999999">
                                     <div class="row">
                                         <div class="col-12">
                                             <div th:each="noticeBlog,status : ${noticeBlogList}">
-                                                <a class="primary-hover" th:href="@{'/blog/blogDetailPage?blogId='+${noticeBlog.id}}">
+                                                <a class="primary-hover"
+                                                   th:href="@{'/blog/blogDetailPage?blogId='+${noticeBlog.id}}">
                                                     <div>[[${noticeBlog.title}]]</div>
                                                 </a>
                                                 <div class="mt-1">
@@ -236,7 +237,9 @@ z-index: 999999">
                                                                        th:href="@{'/user/mainPage?userId='+${lastBlog.userId}}"
                                                                        class="text-danger mr-1">[[${lastBlog.name}]]</a>
                                                                     <span class="gray-font">In</span>
-                                                                    <a th:href="@{'/blog/blogListPage?bcId='+${lastBlog.bcId}}" class="ml-1 primary-hover" target="_blank" th:text="${'['+lastBlog.bcName+']'}"></a>
+                                                                    <a th:href="@{'/blog/blogListPage?bcId='+${lastBlog.bcId}}"
+                                                                       class="ml-1 primary-hover" target="_blank"
+                                                                       th:text="${'['+lastBlog.bcName+']'}"></a>
                                                                 </div>
 
                                                                 <div class="mt-1 gray-font">
@@ -260,14 +263,15 @@ z-index: 999999">
                                     <i class="fa fa-user"></i><span class="ml-1">友情链接</span>
                                 </div>
                                 <div class="card-block ">
-                                    <ul>
-                                        <li>
-                                            <a href="#" class="text-primary">王菊 av视频网站</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="text-primary">啊泵 场地收租管理网站</a>
-                                        </li>
-                                    </ul>
+                                    <p>
+                                    <a target="_blank" href="https://www.luogu.org/" class="text-primary">洛谷 - 计算机科学教育新生态</a>
+                                    </p>
+                                    <p>
+                                    <a target="_blank" href="https://www.jisuanke.com/" class="text-primary">计蒜客 - 学习面向未来的计算机科学</a>
+                                    </p>
+                                    <p>
+                                    <a target="_blank" href="https://leetcode.com" class="text-primary">LeetCode - 全球极客挚爱的技术成长平台</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

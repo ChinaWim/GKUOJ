@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.print.DocFlavor;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,7 +84,11 @@ public class RegisterServiceImpl implements RegisterService {
         if (!StringUtils.equals(competition.getPassword(), password)) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_PASSWORD_ERROR);
         }
-
+        long startTime = competition.getStartTime().getTime();
+        long nowTime = Instant.now().toEpochMilli();
+        if (nowTime > startTime) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_STARTED_ERROR);
+        }
         Register register = new Register();
         register.setCompId(compId);
         register.setUserId(userId);
@@ -107,7 +114,7 @@ public class RegisterServiceImpl implements RegisterService {
         if (pageNum == null || pageSize == null || compId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        PageHelper.startPage(pageNum,pageSize,true);
+        PageHelper.startPage(pageNum, pageSize, true);
         List<RegisterVO> registerVOList = registerMapper.listRegisterByCompId2Page(compId);
         PageInfo<RegisterVO> pageInfo = new PageInfo<>(registerVOList);
         return RestResponseVO.createBySuccess(pageInfo);
