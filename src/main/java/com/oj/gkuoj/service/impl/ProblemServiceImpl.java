@@ -107,7 +107,7 @@ public class ProblemServiceImpl implements ProblemService {
         if (problemId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        List<Problem> problemList = problemMapper.listSuggestProblem(problemId, row);
+        List<ProblemDetailVO> problemList = problemMapper.listSuggestProblem(problemId, row);
         return RestResponseVO.createBySuccess(problemList);
     }
 

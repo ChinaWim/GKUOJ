@@ -172,7 +172,13 @@ z-index: 999999">
                                                     <tr th:each="problemResult,status:${problemResultList}">
                                                         <td><a href="#" class="text-primary">[[${problemResult.problemName}]]</a></td>
                                                         <td>
-                                                            <span th:if="${problemResuslt == 0}" class=" btn-sm btn-warning">CompileError</span>
+                                                            <span th:if="${problemResult.status == 1}" class=" btn-sm btn-warning">ACCEPTED</span>
+                                                            <span th:if="${problemResult.status == 2}" class=" btn-sm btn-warning">COMPILE_ERROR</span>
+                                                            <span th:if="${problemResult.status == 3}" class=" btn-sm btn-warning">PRESENTATION_ERROR</span>
+                                                            <span th:if="${problemResult.status == 4}" class=" btn-sm btn-warning">RUNTIME_ERROR</span>
+                                                            <span th:if="${problemResult.status == 5}" class=" btn-sm btn-warning">TIME_LIMIT_EXCEEDED</span>
+                                                            <span th:if="${problemResult.status == 6}" class=" btn-sm btn-warning">MEMORY_LIMIT_EXCEEDED</span>
+                                                            <span th:if="${problemResult.status == 7}" class=" btn-sm btn-warning">WRONG_ANSWER</span>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -182,9 +188,9 @@ z-index: 999999">
                                                 <!--<div class="card_nav_body_padding follower_images">
                                                 </div>-->
                                                 <table class="table ">
-                                                    <tr th:each="problem,status:${solveProblemList}">
-                                                        <td><a href="#" class="text-primary">[[${problem.id}]]</a></td>
-                                                    </tr>
+                                                        <span th:each="problem,status:${solveProblemList}" >
+                                                            <a href="#" class="text-primary">[[${problem.id}]]</a>
+                                                        </span>
                                                 </table>
                                             </div>
 

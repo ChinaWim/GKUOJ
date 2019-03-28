@@ -33,14 +33,11 @@ public class JudgeProducer {
     @Autowired
     private Environment environment;
 
-    @Autowired
-    private ProblemResultService problemResultService;
-
     private static DefaultMQProducer producer;
 
     private Logger logger = LoggerFactory.getLogger(JudgeProducer.class);
 
-//    @PostConstruct
+    @PostConstruct
     private void initMQProducer() {
         producer = new DefaultMQProducer(environment.getProperty("rocketmq.producer.group"));
         producer.setNamesrvAddr(environment.getProperty("rocketmq.nameserver"));

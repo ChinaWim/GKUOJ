@@ -312,12 +312,15 @@
 
   </select>
 
-  <select id="listSuggestProblem" resultType="com.oj.gkuoj.entity.Problem" parameterType="map">
+  <select id="listSuggestProblem" resultType="com.oj.gkuoj.response.ProblemDetailVO" parameterType="map">
     select
-    <include refid="Base_Column_List" />
-    from problem
+    p.id, p.name, group_concat(t.name) tags, level
+    from problem p
+    left join problem_tag pt on pt.problem_id = p.id
+    left join tag t on t.id = pt.tag_id
     where flag = 0
     and level = (select level from problem where id = #{problemId})
+    group by p.id
     order by rand()
     limit 0,#{row}
   </select>
@@ -331,7 +334,7 @@
 
     <select id="getDetailVOById" resultType="com.oj.gkuoj.response.ProblemDetailVO" parameterType="int">
       select
-      p.id, p.name, p.content, group_concat(t.name) tags,
+      p.id, p.name, p.content,p.testcase_input,p.testcase_output,p.input_desc,p.output_desc, group_concat(t.name) tags,
       level, submit_count, ac_count, tle_count, pe_count, me_count, re_count, ce_count,
       wa_count, time, memory,p.flag, p.create_time, p.update_time
       from problem p
@@ -345,7 +348,7 @@
     <select id="listAllSolveProblemByUserId" resultType="com.oj.gkuoj.entity.Problem" parameterType="int">
       select  p.id, p.name
       from problem p
-      left join problem_reuslt pr on pr.problem_id = p.id
+      left join problem_result pr on pr.problem_id = p.id
       where
       pr.user_id = #{userId}
       and pr.status = 1

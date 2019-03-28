@@ -33,6 +33,6 @@ public interface BlogMapper {
 
     List<BlogVO> listNoticeBlogVO(Integer pageSize);
 
-    RestResponseVO<List<Blog>> listRecentBlog(@Param("userId")Integer userId,@Param("recentSize") Integer recentSize);
+    List<Blog> listRecentBlog(@Param("userId")Integer userId,@Param("recentSize") Integer recentSize);
 
 }

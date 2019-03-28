@@ -116,7 +116,7 @@ public class ProblemController {
      */
     @RequestMapping("/suggestProblemList")
     @ResponseBody
-    public RestResponseVO<List<Problem>> suggestProblemList(Integer problemId) {
+    public RestResponseVO<List<ProblemDetailVO>> suggestProblemList(Integer problemId) {
         return problemService.listSuggestProblem(problemId, SUGGEST_PROBLEM_ROW);
     }
 

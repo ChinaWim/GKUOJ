@@ -24,7 +24,7 @@ public interface ProblemService {
 
     RestResponseVO<PageInfo> listProblemVOToPage(Integer userId,Integer sort,String keyword, Integer level, String tagIds, Integer pageNum, Integer pageSize);
 
-    RestResponseVO<List<Problem>> listSuggestProblem(Integer problemId, Integer row);
+    RestResponseVO<List<ProblemDetailVO>> listSuggestProblem(Integer problemId, Integer row);
 
     RestResponseVO<Integer> randomProblemId();
 

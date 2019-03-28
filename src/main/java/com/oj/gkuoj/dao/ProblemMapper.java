@@ -26,7 +26,7 @@ public interface ProblemMapper {
      * @param row
      * @return
      */
-    List<Problem> listSuggestProblem(@Param("problemId") Integer problemId, @Param("row") int row);
+    List<ProblemDetailVO> listSuggestProblem(@Param("problemId") Integer problemId, @Param("row") int row);
 
     Integer countRandomProblemId();
 

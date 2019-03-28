@@ -376,7 +376,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(userId == null || recentSize == null){
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
-        return blogMapper.listRecentBlog(userId,recentSize);
+        return RestResponseVO.createBySuccess(blogMapper.listRecentBlog(userId,recentSize));
     }
 
     @Override

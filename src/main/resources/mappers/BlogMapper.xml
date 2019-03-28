@@ -221,7 +221,7 @@
         limit 0 , #{pageSize}
     </select>
 
-    <select id="listRecentBlog" resultType="java.util.List" parameterType="map">
+    <select id="listRecentBlog" resultType="com.oj.gkuoj.entity.Blog" parameterType="map">
           select <include refid="Base_Column_List"/> from
           blog
           where user_id = #{userId}
