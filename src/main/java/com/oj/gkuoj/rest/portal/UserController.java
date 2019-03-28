@@ -161,7 +161,7 @@ public class UserController {
 
             request.setAttribute("user", response.getData());
             request.setAttribute("solveProblemList", problemList);
-            request.setAttribute("blog", blogList);
+            request.setAttribute("blogList", blogList);
             request.setAttribute("problemResultList", problemResultList);
         } else {
             throw new UserNotFoundException(ExceptionStatusConst.USER_NOT_FOUND_EXP, "用户未找到");

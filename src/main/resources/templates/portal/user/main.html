@@ -169,20 +169,11 @@ z-index: 999999">
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="tab2" aria-expanded="false">
                                                 <table class="table table-hover">
-                                                    <tr>
-                                                        <td><a href="#" class="text-primary">回文数字</a></td>
-                                                        <td><span class=" btn-sm btn-warning">CompileError</span></td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a href="#" class="text-primary">回文数字</a></td>
-                                                        <td><span class=" btn-sm btn-warning">CompileError</span></td>
-                                                        <td>2019 1-1</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a href="#" class="text-primary">回文数字</a></td>
-                                                        <td><span class=" btn-sm btn-warning">CompileError</span></td>
-                                                        <td>2019 1-1</td>
+                                                    <tr th:each="problemResult,status:${problemResultList}">
+                                                        <td><a href="#" class="text-primary">[[${problemResult.problemName}]]</a></td>
+                                                        <td>
+                                                            <span th:if="${problemResuslt == 0}" class=" btn-sm btn-warning">CompileError</span>
+                                                        </td>
                                                     </tr>
                                                 </table>
 
@@ -190,37 +181,10 @@ z-index: 999999">
                                             <div role="tabpanel" class="tab-pane fade" id="tab3" aria-expanded="false">
                                                 <!--<div class="card_nav_body_padding follower_images">
                                                 </div>-->
-
                                                 <table class="table ">
-                                                    <tr>
-                                                        <td><a href="#" class="text-primary">P1000</a></td>
-                                                        <td><a href="#" class="text-primary">P1001</a></td>
-                                                        <td><a href="#" class="text-primary">P1002</a></td>
-                                                        <td><a href="#" class="text-primary">P1003</a></td>
-                                                        <td><a href="#" class="text-primary">P1004</a></td>
-                                                        <td><a href="#" class="text-primary">P1005</a></td>
-                                                        <td><a href="#" class="text-primary">P1006</a></td>
-                                                        <td><a href="#" class="text-primary">P1007</a></td>
-                                                        <td><a href="#" class="text-primary">P1008</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                    <tr th:each="problem,status:${solveProblemList}">
+                                                        <td><a href="#" class="text-primary">[[${problem.id}]]</a></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td><a href="#" class="text-primary">P1000</a></td>
-                                                        <td><a href="#" class="text-primary">P1001</a></td>
-                                                        <td><a href="#" class="text-primary">P1002</a></td>
-                                                        <td><a href="#" class="text-primary">P1003</a></td>
-                                                        <td><a href="#" class="text-primary">P1004</a></td>
-                                                        <td><a href="#" class="text-primary">P1005</a></td>
-                                                        <td><a href="#" class="text-primary">P1006</a></td>
-                                                        <td><a href="#" class="text-primary">P1007</a></td>
-                                                        <td><a href="#" class="text-primary">P1008</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
-                                                    </tr>
-
                                                 </table>
                                             </div>
 
@@ -230,19 +194,11 @@ z-index: 999999">
                                                 </div>-->
 
                                                 <table class="table ">
-                                                    <tr>
-                                                        <td><a href="#" class="text-primary">P1000</a></td>
-                                                        <td><a href="#" class="text-primary">P1001</a></td>
-                                                        <td><a href="#" class="text-primary">P1002</a></td>
-                                                        <td><a href="#" class="text-primary">P1003</a></td>
-                                                        <td><a href="#" class="text-primary">P1004</a></td>
-                                                        <td><a href="#" class="text-primary">P1005</a></td>
-                                                        <td><a href="#" class="text-primary">P1006</a></td>
-                                                        <td><a href="#" class="text-primary">P1007</a></td>
-                                                        <td><a href="#" class="text-primary">P1008</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
-                                                        <td><a href="#" class="text-primary">P1009</a></td>
+                                                    <tr th:each="blog,status:${blogList}">
+                                                        <td><a href="#" class="text-primary">[[${blog.title}]]</a></td>
+                                                        <td>
+                                                            [[${blog.createTime}]]
+                                                        </td>
                                                     </tr>
 
                                                 </table>
@@ -309,7 +265,7 @@ z-index: 999999">
 </body>
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
-    //fixme exception when user not found
+
     var submitCount = [[${user.submitCount}]];
     var acCount = [[${user.acCount}]];
     var tleCount = [[${user.tleCount}]];
@@ -357,7 +313,7 @@ z-index: 999999">
     });
 
 
-    //提交统计
+    //最近提交统计
 
     var MONTHS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     var config = {
@@ -542,7 +498,10 @@ z-index: 999999">
         var ctx = document.getElementById('submitChart').getContext('2d');
         window.myLine = new Chart(ctx, config);
     };
+
     //end 提交统计
+
+
     // en of chars
 
 

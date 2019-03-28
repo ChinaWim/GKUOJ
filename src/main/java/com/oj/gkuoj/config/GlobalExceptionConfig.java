@@ -19,30 +19,31 @@ import javax.servlet.http.HttpServletResponse;
 @ControllerAdvice
 public class GlobalExceptionConfig {
 
-    private  Logger logger = LoggerFactory.getLogger(GlobalExceptionConfig.class);
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionConfig.class);
 
     private final String ERROR_VIEW = "500";
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Object solveException(HttpServletRequest request, HttpServletResponse response,Exception exception){
-        logger.error("requestURI:{} Exception:",request.getRequestURI(),exception);
-        if(isAjaxRequest(request)){
+    public Object solveException(HttpServletRequest request, HttpServletResponse response, Exception exception) {
+        logger.error("requestURI:{} Exception:", request.getRequestURI(), exception);
+        if (isAjaxRequest(request)) {
             String message = exception.getMessage();
-            if(message == null) message = "exception";
+            if (message == null) {
+                message = "exception";
+            }
             return RestResponseVO.createByErrorMessage(message);
         }
         ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
-        modelAndView.addObject("uri",request.getRequestURI());
-        modelAndView.addObject("errorMsg",exception.getMessage());
+        modelAndView.addObject("uri", request.getRequestURI());
+        modelAndView.addObject("errorMsg", exception.getMessage());
         modelAndView.setViewName(ERROR_VIEW);
         return modelAndView;
     }
 
 
-
-    public boolean isAjaxRequest(HttpServletRequest request){
+    private boolean isAjaxRequest(HttpServletRequest request) {
         String header = request.getHeader("X-Requested-With");
-        return (header!= null && "XMLHttpRequest".equals(header));
+        return (header != null && "XMLHttpRequest".equals(header));
     }
 }
