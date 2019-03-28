@@ -35,4 +35,6 @@ public interface ProblemResultMapper {
     Integer getTotalScoreById(@Param("userId") Integer userId,@Param("compId") Integer compId);
 
     List<ProblemResultRecentVO> listRecentByUserId(@Param("userId") Integer userId, @Param("recentSize")Integer recentSize);
+
+    List<UserProblemRecordVO> listProblemRecord(@Param("userId") Integer userId, @Param("flag") Integer flag);
 }

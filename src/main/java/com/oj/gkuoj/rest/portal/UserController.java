@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -179,5 +180,24 @@ public class UserController {
     public String profilePage() {
         return "portal/user/profile";
     }
+
+
+    /**
+     * 获取用户的做题记录
+     * @param userId
+     * @param request
+     * @param flag 0一年 1这个月
+     * @return
+     */
+    @RequestMapping("/listProblemRecord")
+    @ResponseBody
+    public RestResponseVO listProblemRecord(Integer userId, HttpServletRequest request,@RequestParam(defaultValue = "0") Integer flag) {
+        //todo
+        userService.listProblemRecord (userId,flag);
+        return null;
+    }
+
+
+
 
 }

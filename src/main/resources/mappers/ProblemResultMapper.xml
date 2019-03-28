@@ -314,4 +314,18 @@
       limit #{recentSize}
   </select>
 
+  <select id="listProblemRecord" resultType="com.oj.gkuoj.response.UserProblemRecordVO" parameterType="map">
+    select
+    sum(case pr.status when 1 then 1 else 0 end) ac_count,
+     sum(case pr.status when 2 then 1 else 0 end) ce_count,
+      sum(case pr.status when 3 then 1 else 0 end) pe_count,
+       sum(case pr.status when 4 then 1 else 0 end) re_count,
+        sum(case pr.status when 5 then 1 else 0 end) tle_count,
+         sum(case pr.status when 6 then 1 else 0 end) mle_count,
+          sum(case pr.status when 7 then 1 else 0 end) wa_count
+    problem_result pr
+    where pr.user_id = #{userId}
+
+  </select>
+
 </mapper>

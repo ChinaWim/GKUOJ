@@ -52,4 +52,5 @@ public interface UserService {
 
     RestResponseVO<List<ProblemResultRecentVO>> listRecentProblem(Integer userId, Integer recentSize);
 
+    RestResponseVO listProblemRecord(Integer userId, Integer flag);
 }

@@ -24,7 +24,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -388,6 +387,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
        return  RestResponseVO.createBySuccess(problemResultMapper.listRecentByUserId(userId, recentSize));
     }
 
+
+
+    @Override
+    public RestResponseVO listProblemRecord(Integer userId, Integer flag) {
+        if(userId == null || flag == null){
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        return RestResponseVO.createBySuccess(problemResultMapper.listProblemRecord(userId,flag));
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.getByUserNameOrEmail(username);
@@ -458,11 +467,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return RestResponseVO.createBySuccess();
     }
 
-    public static void main(String[] args) {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("123321"));
-
-
-
-    }
 }
