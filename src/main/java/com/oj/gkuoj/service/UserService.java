@@ -2,7 +2,10 @@ package com.oj.gkuoj.service;
 
 
 import com.github.pagehelper.PageInfo;
+import com.oj.gkuoj.entity.Blog;
+import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.request.UserRequest;
+import com.oj.gkuoj.response.ProblemResultRecentVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.response.UserDetailVO;
@@ -42,5 +45,11 @@ public interface UserService {
     RestResponseVO checkLoginByAdmin(String username,String password);
 
     RestResponseVO<PageInfo> listUser2Page(Integer pageNum,Integer pageSize,String keyword);
+
+    RestResponseVO<List<Problem>> listAllSolveProblemByUserId(Integer userId);
+
+    RestResponseVO<List<Blog>> listRecentBlog(Integer userId, Integer recentSize);
+
+    RestResponseVO<List<ProblemResultRecentVO>> listRecentProblem(Integer userId, Integer recentSize);
 
 }

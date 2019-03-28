@@ -3,17 +3,14 @@ package com.oj.gkuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.*;
-import com.oj.gkuoj.entity.Role;
-import com.oj.gkuoj.entity.UserRole;
+import com.oj.gkuoj.dao.*;
+import com.oj.gkuoj.entity.*;
 import com.oj.gkuoj.request.UserRequest;
+import com.oj.gkuoj.response.ProblemResultRecentVO;
 import com.oj.gkuoj.response.RankVO;
 import com.oj.gkuoj.response.RestResponseVO;
-import com.oj.gkuoj.dao.RoleMapper;
-import com.oj.gkuoj.dao.UserMapper;
-import com.oj.gkuoj.dao.UserRoleMapper;
 import com.oj.gkuoj.response.UserDetailVO;
 import com.oj.gkuoj.service.UserService;
-import com.oj.gkuoj.entity.User;
 import com.oj.gkuoj.utils.BeanUtil;
 import com.oj.gkuoj.utils.UUIDUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -54,6 +51,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private ProblemMapper problemMapper;
+
+    @Autowired
+    private BlogMapper blogMapper;
+
+    @Autowired
+    private ProblemResultMapper problemResultMapper;
+
 
     @Value("${spring.mail.username}")
     private String mailUsername;
@@ -357,6 +364,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return RestResponseVO.createBySuccess(pageInfo);
     }
 
+    @Override
+    public RestResponseVO<List<Problem>> listAllSolveProblemByUserId(Integer userId) {
+        if (userId == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        return RestResponseVO.createBySuccess(problemMapper.listAllSolveProblemByUserId(userId));
+    }
+
+    @Override
+    public RestResponseVO<List<Blog>> listRecentBlog(Integer userId, Integer recentSize) {
+        if(userId == null || recentSize == null){
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        return blogMapper.listRecentBlog(userId,recentSize);
+    }
+
+    @Override
+    public RestResponseVO<List<ProblemResultRecentVO>> listRecentProblem(Integer userId, Integer recentSize) {
+        if(userId == null || recentSize == null){
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+       return  RestResponseVO.createBySuccess(problemResultMapper.listRecentByUserId(userId, recentSize));
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -68,7 +68,7 @@ public class FileController {
      */
     @ResponseBody
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-    public RestResponseVO uploadImage(@RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile,
+    public RestResponseVO uploadImage(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
                                @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);

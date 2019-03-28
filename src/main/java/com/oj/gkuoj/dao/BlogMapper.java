@@ -3,6 +3,7 @@ package com.oj.gkuoj.dao;
 import com.oj.gkuoj.entity.Blog;
 import com.oj.gkuoj.response.BlogDetailVO;
 import com.oj.gkuoj.response.BlogVO;
+import com.oj.gkuoj.response.RestResponseVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,4 +32,7 @@ public interface BlogMapper {
     List<BlogVO> listLastCommentBlogVO(Integer pageSize);
 
     List<BlogVO> listNoticeBlogVO(Integer pageSize);
+
+    RestResponseVO<List<Blog>> listRecentBlog(@Param("userId")Integer userId,@Param("recentSize") Integer recentSize);
+
 }

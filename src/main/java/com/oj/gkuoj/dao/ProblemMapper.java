@@ -36,4 +36,7 @@ public interface ProblemMapper {
 
     ProblemDetailVO getDetailVOById(Integer problemId);
 
+    List<Problem> listAllSolveProblemByUserId(Integer userId);
+
+
 }

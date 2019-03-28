@@ -3,6 +3,7 @@ package com.oj.gkuoj.service;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.response.ProblemDetailVO;
+import com.oj.gkuoj.response.ProblemResultRecentVO;
 import com.oj.gkuoj.response.RestResponseVO;
 
 import java.util.List;
@@ -26,7 +27,6 @@ public interface ProblemService {
     RestResponseVO<List<Problem>> listSuggestProblem(Integer problemId, Integer row);
 
     RestResponseVO<Integer> randomProblemId();
-
 
     RestResponseVO<ProblemDetailVO> getDetailVOById(Integer problemId);
 

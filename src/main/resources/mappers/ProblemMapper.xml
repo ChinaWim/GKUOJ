@@ -342,4 +342,14 @@
     </select>
 
 
+    <select id="listAllSolveProblemByUserId" resultType="com.oj.gkuoj.entity.Problem" parameterType="int">
+      select  p.id, p.name
+      from problem p
+      left join problem_reuslt pr on pr.problem_id = p.id
+      where
+      pr.user_id = #{userId}
+      and pr.status = 1
+      group by p.id
+    </select>
+
 </mapper>

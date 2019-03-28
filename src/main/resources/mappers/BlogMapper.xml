@@ -221,6 +221,14 @@
         limit 0 , #{pageSize}
     </select>
 
+    <select id="listRecentBlog" resultType="java.util.List" parameterType="map">
+          select <include refid="Base_Column_List"/> from
+          blog
+          where user_id = #{userId}
+          order by update_time desc
+          limit #{recentSize}
+    </select>
+
     <update id="updateViewCountIncrease" parameterType="map">
         update blog set view_count = view_count + 1
         where id = #{blogId}

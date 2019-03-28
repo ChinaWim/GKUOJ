@@ -304,5 +304,14 @@
 
   </select>
 
+  <select id="listRecentByUserId" resultType="com.oj.gkuoj.response.ProblemResultRecentVO" parameterType="map">
+      select pr.id,pr.create_time,pr.update_time,pr.status,p.id problem_id,p.name problem_name
+      from problem_result pr
+      left join problem p on p.id = pr.problem_id
+      where
+      pr.user_id = #{userId}
+      order by pr.update_time desc
+      limit #{recentSize}
+  </select>
 
 </mapper>

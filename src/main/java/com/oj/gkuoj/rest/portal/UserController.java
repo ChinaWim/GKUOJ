@@ -1,13 +1,13 @@
 package com.oj.gkuoj.rest.portal;
 
 import com.oj.gkuoj.common.ExceptionStatusConst;
-import com.oj.gkuoj.common.RestResponseEnum;
-import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.entity.Blog;
+import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.request.UserRequest;
+import com.oj.gkuoj.response.ProblemResultRecentVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.exception.UserNotFoundException;
 import com.oj.gkuoj.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author m969130721@163.com
@@ -30,6 +31,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    private static final Integer RECENT_BLOG_SIZE = 5;
+
+    private static final Integer RECENT_PROBLEM_RESULT_SIZE = 5;
 
     /**
      * 登录页面
@@ -150,7 +155,14 @@ public class UserController {
     public String mainPage(Integer userId, HttpServletRequest request) {
         RestResponseVO response = userService.getById(userId);
         if (response.isSuccess() && response.getData() != null) {
+            List<Problem> problemList = userService.listAllSolveProblemByUserId(userId).getData();
+            List<Blog> blogList = userService.listRecentBlog(userId,RECENT_BLOG_SIZE).getData();
+            List<ProblemResultRecentVO> problemResultList = userService.listRecentProblem(userId, RECENT_PROBLEM_RESULT_SIZE).getData();
+
             request.setAttribute("user", response.getData());
+            request.setAttribute("solveProblemList", problemList);
+            request.setAttribute("blog", blogList);
+            request.setAttribute("problemResultList", problemResultList);
         } else {
             throw new UserNotFoundException(ExceptionStatusConst.USER_NOT_FOUND_EXP, "用户未找到");
         }
