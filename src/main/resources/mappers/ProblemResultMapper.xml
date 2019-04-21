@@ -310,7 +310,7 @@
       left join problem p on p.id = pr.problem_id
       where
       pr.user_id = #{userId}
-      order by pr.update_time desc
+      order by pr.create_time desc
       limit #{recentSize}
   </select>
 

@@ -170,16 +170,17 @@ z-index: 999999">
                                             <div role="tabpanel" class="tab-pane fade" id="tab2" aria-expanded="false">
                                                 <table class="table table-hover">
                                                     <tr th:each="problemResult,status:${problemResultList}">
-                                                        <td><a href="#" class="text-primary">[[${problemResult.problemName}]]</a></td>
+                                                        <td><a th:href="@{'/problem/problemDetailPage?problemId='+${problemResult.problemId}}" target="_blank" class="text-primary">[[${problemResult.problemName}]]</a></td>
                                                         <td>
-                                                            <span th:if="${problemResult.status == 1}" class=" btn-sm btn-warning">ACCEPTED</span>
-                                                            <span th:if="${problemResult.status == 2}" class=" btn-sm btn-warning">COMPILE_ERROR</span>
-                                                            <span th:if="${problemResult.status == 3}" class=" btn-sm btn-warning">PRESENTATION_ERROR</span>
-                                                            <span th:if="${problemResult.status == 4}" class=" btn-sm btn-warning">RUNTIME_ERROR</span>
-                                                            <span th:if="${problemResult.status == 5}" class=" btn-sm btn-warning">TIME_LIMIT_EXCEEDED</span>
-                                                            <span th:if="${problemResult.status == 6}" class=" btn-sm btn-warning">MEMORY_LIMIT_EXCEEDED</span>
-                                                            <span th:if="${problemResult.status == 7}" class=" btn-sm btn-warning">WRONG_ANSWER</span>
+                                                            <span th:if="${problemResult.status == 1}" class=" btn-sm " style="color: white;background-color: #4BC0C0">Accepted</span>
+                                                            <span th:if="${problemResult.status == 2}" class=" btn-sm " style="color: white;background-color: #FFCD56">CompileError</span>
+                                                            <span th:if="${problemResult.status == 3}" class=" btn-sm " style="color: white;background-color: #ed92ff">PresentationError</span>
+                                                            <span th:if="${problemResult.status == 4}" class=" btn-sm " style="color: white;background-color: #FF9F40">RuntimeError</span>
+                                                            <span th:if="${problemResult.status == 5}" class=" btn-sm " style="color: white;background-color: #62b8ff">TimeLimitExceeded</span>
+                                                            <span th:if="${problemResult.status == 6}" class=" btn-sm " style="color: white;background-color: #6574ff">MemoryLimitExceeded</span>
+                                                            <span th:if="${problemResult.status == 7}" class=" btn-sm " style="color: white;background-color: #FF6384">WrongAnswer</span>
                                                         </td>
+                                                        <td> [[${#dates.format(problemResult.createTime,'yyyy-MM-dd HH:mm:ss')}]]</td>
                                                     </tr>
                                                 </table>
 
@@ -187,10 +188,15 @@ z-index: 999999">
                                             <div role="tabpanel" class="tab-pane fade" id="tab3" aria-expanded="false">
                                                 <!--<div class="card_nav_body_padding follower_images">
                                                 </div>-->
-                                                <table class="table ">
-                                                        <span th:each="problem,status:${solveProblemList}" >
-                                                            <a href="#" class="text-primary">[[${problem.id}]]</a>
+                                                <table class="table">
+                                                    <tr>
+                                                        <td th:each="problem,status:${solveProblemList}">
+                                                            <a th:href="@{'/problem/problemDetailPage?problemId='+${problem.id}}"
+                                                               target="_blank"
+                                                               class="text-primary">[[${problem.id}]]</a>
+                                                        </td>
                                                         </span>
+                                                    </tr>
                                                 </table>
                                             </div>
 
@@ -201,12 +207,11 @@ z-index: 999999">
 
                                                 <table class="table ">
                                                     <tr th:each="blog,status:${blogList}">
-                                                        <td><a href="#" class="text-primary">[[${blog.title}]]</a></td>
+                                                        <td><a th:href="@{'/blog/blogDetailPage?blogId='+${blog.id}}" class="text-primary"  target="_blank">[[${blog.title}]]</a></td>
                                                         <td>
-                                                            [[${blog.createTime}]]
+                                                            [[${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm')}]]
                                                         </td>
                                                     </tr>
-
                                                 </table>
                                             </div>
 
