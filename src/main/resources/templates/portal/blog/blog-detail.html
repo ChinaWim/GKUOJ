@@ -114,7 +114,8 @@ z-index: 999999">
                                         </div>
                                         <div class="float-right">
                                             <a href="javascript:void(0)" th:onclick="'blogUp('+${blogDetail.id}+')'">
-                                                <i class="fa fa-thumbs-up mr-1"></i>
+                                                <i class="fa fa-heart mr-1" id = "blogDetailUpLove" style="color: red" th:if="${blogDetail.userUpStatus}"></i>
+                                                <i class="fa fa-heart-o mr-1" id = "blogDetailUpLove"  th:if="!${blogDetail.userUpStatus}"></i>
                                                 <span id="blogDetailUp" th:if="${blogDetail.userUpStatus}">已赞</span>
                                                 <span id="blogDetailUp" th:if="!${blogDetail.userUpStatus}">点赞</span>
                                             </a>

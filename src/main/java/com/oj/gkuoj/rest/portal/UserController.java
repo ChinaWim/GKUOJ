@@ -13,12 +13,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author m969130721@163.com
@@ -195,6 +199,17 @@ public class UserController {
         //todo
         userService.listProblemRecord (userId,flag);
         return null;
+    }
+
+
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public RestResponseVO test(@RequestBody Map<String,Object> map, String name,HttpServletRequest request) throws IOException {
+
+        logger.info("map:{}" , map);
+        logger.info("name:{}", name);
+        return RestResponseVO.createBySuccess(name);
     }
 
 

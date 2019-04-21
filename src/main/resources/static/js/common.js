@@ -55,25 +55,25 @@ function getStrByStatus(status){
         return '编译中';
     }
     if(status == 1){
-        return 'AC';
+        return 'Accepted';
     }
     if(status == 2){
-        return 'CE';
+        return 'CompileError';
     }
     if(status == 3){
-        return  'PE';
+        return  'PresentationError';
     }
     if(status == 4){
-        return  'RE';
+        return  'RuntimeError';
     }
     if(status == 5){
-        return  'TLE';
+        return  'TimeLimitExceeded';
     }
     if(status == 6){
-        return'ME';
+        return'MemoryLimitExceeded';
     }
     if(status == 7){
-        return  'WA'
+        return  'WrongAnswer'
     }
     if(status == 8){
         return  '队列中'

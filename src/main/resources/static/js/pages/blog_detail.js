@@ -50,8 +50,14 @@ function blogUp(blogId) {
             $("#blogDetailTitleUpCount").html(resp.data.count);
             if (resp.data.status) {
                 $("#blogDetailUp").html("已赞");
+                $("#blogDetailUpLove").removeClass("fa-heart-o");
+                $("#blogDetailUpLove").addClass("fa-heart");
+                $("#blogDetailUpLove").css("color","red");
             } else {
                 $("#blogDetailUp").html("点赞");
+                $("#blogDetailUpLove").removeClass("fa-heart");
+                $("#blogDetailUpLove").addClass("fa-heart-o");
+                $("#blogDetailUpLove").css("color","");
             }
         } else {
             $.message({

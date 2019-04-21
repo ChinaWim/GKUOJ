@@ -165,8 +165,8 @@
     display:flex;
     flex-direction:column-reverse;
     position:fixed;
-    /*top:30px;*/
-    bottom:22px;
+    top:24px;
+    /*bottom:22px;*/
     right:0;
     width:443px;
     height:auto;
