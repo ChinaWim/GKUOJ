@@ -7,6 +7,9 @@
     <div th:replace="~{fragments/backend/head-base}"></div>
     <!--Page level styles-->
     <link type="text/css" rel="stylesheet" th:href="@{/css/tagsinput.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/plugins/switchery/css/switchery.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/highlight.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/tempusdominus-bootstrap-4.css}"/>
     <!--heard script-->
 
 </head>
@@ -53,54 +56,517 @@ z-index: 999999">
             </header>
             <div class="outer">
                 <div class="inner bg-container">
-                    <!--md-->
-                    <div class="row">
-                        <div class="col-12">
+
+                    <div class="card">
+                        <ul id="clothing-nav" class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#competition" id="competition-tab" role="tab"
+                                   data-toggle="tab" aria-controls="competition" aria-expanded="false">比赛管理</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="#competitionProblem" role="tab" id="competitionProblem-tab"
+                                   data-toggle="tab" aria-controls="competitionProblem" aria-expanded="true">题目管理</a>
+                            </li>
+                        </ul>
+                        <div class="card-block">
+                            <div id="clothing-nav-content" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active show " id="competition"
+                                     aria-labelledby="competition-tab" aria-expanded="false">
+                                    <!--比赛管理-->
+                                    <div>
+                                        <input type="hidden" id="compId" th:value="${competition.id}"/>
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <span class="col-2"><span class="text-danger">*</span>比赛名称</span>
+                                                    <input name="name" th:value="${competition.name}" id="name" type="text" maxlength="20"
+                                                           class="col-8 form-control "/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <span class="col-2"><span class="text-danger">*</span>比赛说明</span>
+                                                    <textarea name="title" id="title" maxlength="20" minlength="6"
+                                                              class="form-control col-8"
+                                                              style="height: 100px">[[${competition.title}]]</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--时间-->
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <span class="col-2"><span class="text-danger">*</span>开始时间</span>
+                                                    <div class="form-group ">
+                                                        <div class="input-group date" id="datetimepicker1"
+                                                             data-target-input="nearest">
+                                                            <input type="text" id="startTime" name="startTime"
+                                                                   class="form-control  col-12  datetimepicker-input"
+                                                                   data-target="#datetimepicker1"/>
+                                                            <div class="input-group-addon "
+                                                                 data-target="#datetimepicker1"
+                                                                 data-toggle="datetimepicker">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row mt-3 ">
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <span class="col-2"><span
+                                                                class="text-danger">*</span>结束时间</span>
+                                                        <div class="form-group ">
+                                                            <div class="input-group date" id="datetimepicker2"
+                                                                 data-target-input="nearest">
+                                                                <input  name="endTime" id="endTime" type="text"
+                                                                       class="form-control  datetimepicker-input"
+                                                                       data-target="#datetimepicker2"/>
+                                                                <div class="input-group-addon"
+                                                                     data-target="#datetimepicker2"
+                                                                     data-toggle="datetimepicker">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
 
 
+                                        <!--是否公开-->
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                <span class="col-2"><span class="text-danger">*</span><span
+                                                        class="">是否公开</span>
+                                                </span>
+                                                    <input type="checkbox" class="js-switch" th:if="${competition.password == null }" checked />
+                                                    <input type="checkbox" class="js-switch" th:if="${competition.password != null }"  />
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div th:if="${competition.password != null}" class="row mt-3"  id="showPassword">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <span class="col-2"><span class="text-danger">*</span>密码</span>
+                                                    <input name="password" id="password" th:value="${competition.password}" type="text" maxlength="6"
+                                                           placeholder="密码不能超出6位"
+                                                           class="col-5 form-control "/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div th:if="${competition.password == null}" class="row mt-3" style="display: none;" id="showPassword">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <span class="col-2"><span class="text-danger">*</span>密码</span>
+                                                    <input name="password" id="password" th:value="${competition.password}" type="text" maxlength="6"
+                                                           placeholder="密码不能超出6位"
+                                                           class="col-5 form-control "/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>详细描述</span>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <div id="editormd-div">
+                                            <textarea id="editormd-textarea" name="content"
+                                                      style="display:none;">[[${competition.content}]]</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 ">
+                                            <div class="col-12 text-right">
+                                                <button th:if="${competition.id == null}" class="btn btn-primary" onclick="saveCompetition()">创建比赛</button>
+                                                <button th:if="${competition.id != null}" class="btn btn-primary" onclick="saveCompetition()">更新比赛</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane fade " id="competitionProblem"
+                                     aria-labelledby="competitionProblem-tab" aria-expanded="true">
+                                    <!--题目管理-->
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-12 text-right">
+                                                <button class="btn  btn-primary  "
+                                                        data-toggle="modal" data-href="#stack1" href="#stack1">
+                                                    <i class="fa fa-plus"></i><span class="ml-1">添加题目</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header bg-white">
+                                                        <i class="fa fa-book"></i>已添加的题目
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <table class="table table-hover " id="table">
+                                                                    <thead class="">
+                                                                    <tr>
+                                                                        <th class="text-center">显示题号</th>
+                                                                        <th class="">标题</th>
+                                                                        <th class="text-center">分值</th>
+                                                                        <th class="text-center">难度</th>
+                                                                        <th class="text-center">操作</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr v-for="(competitionProblem,index) in competitionProblemList">
+
+                                                                        <td class="text-center">{{competitionProblem.problemId}}</td>
+                                                                        <td>
+                                                                            <div style="width: 250px;text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                                                                                <a :href="'/problem/problemDetailPage?problemId='+competitionProblem.problemId"
+                                                                                   class="text-primary">
+                                                                                    {{competitionProblem.problemName}}
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center">1</td>
+
+                                                                        <td class="text-center">
+                                                                            <span v-if="competitionProblem.level == 1">
+                                                                                <span class=" btn-success btn-sm purple">简单</span>
+                                                                            </span>
+                                                                                                        <span v-if="competitionProblem.level == 2">
+                                                                                <span class=" btn-primary btn-sm purple">中等</span>
+                                                                            </span>
+                                                                                                        <span v-if="competitionProblem.level == 3">
+                                                                                <span class=" btn-warning btn-sm purple">困难</span>
+                                                                            </span>
+                                                                                                        <span v-if="competitionProblem.level == 4">
+                                                                                <span class=" btn-danger btn-sm purple">专家</span>
+                                                                            </span>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <button class="btn btn-secondary mr-1 btn-sm" @click="updateProblem2Comp(competitionProblem.id,competitionProblem.problemId,competitionProblem.score)"  data-toggle="modal" data-href="#stack2" href="#stack2">编辑
+                                                                            </button>
+                                                                            <button class="btn btn-danger btn-sm" @click="deleteProblem2Competition(competitionProblem.id)">删除</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!--＃md-->
                 </div>
+            </div>
+        </div>
+        <!-- /.inner -->
+    </div>
+    <!-- /.outer -->
 
+    <!-- /#content -->
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-sm in display_none" id="stack1" role="dialog"
+         aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h4 class="modal-title ">添加题目</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="w-75">
+                                <div class="input-group">
+                                    <input type="search" id="keyword" name="keyword"
+                                           placeholder="搜索关键词" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" onclick="clickPage(1)">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true">
+                                        </span><i class="fa fa-search"></i>
+                                        </button>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <table class="table  table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">标题</th>
+                                    <th class="text-center">提交</th>
+                                    <th class="text-center">通过率</th>
+                                    <th class="text-center">难度</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(problem,index) in problemList">
+                                    <td class="text-center">
+                                        <a class="primary-hover" target="_blank"
+                                           :href="'/problem/problemDetailPage?problemId='+problem.id">{{problem.name}}</a>
+                                    </td>
+                                    <td class="text-center">{{problem.submitCount}}</td>
+                                    <td class="text-center">
+                                         <span v-if="problem.submitCount != 0">
+                                                        <span>{{(problem.acCount*1.0/problem.submitCount*100) | formatNum}}%</span>
+                                                    </span>
+                                        <span v-if="problem.submitCount == 0">0.00%</span>
+                                    </td>
+                                    <td class="text-center">
+                                                <span v-if="problem.level == 1">
+                                                    <span class=" btn-success btn-sm purple">简单</span>
+                                                </span>
+                                        <span v-if="problem.level == 2">
+                                                    <span class=" btn-primary btn-sm purple">中等</span>
+                                                </span>
+                                        <span v-if="problem.level == 3">
+                                                    <span class=" btn-warning btn-sm purple">困难</span>
+                                                </span>
+                                        <span v-if="problem.level == 4">
+                                                    <span class=" btn-danger btn-sm purple">专家</span>
+                                                </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-secondary btn-sm"  @click="addProblem2Comp(problem.id)"  data-toggle="modal" data-href="#stack2" href="#stack2">添加</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--page-->
+                            <div class="row mt-3">
+                                <div style="margin: 0 auto">
+                                    <ul class="page" maxshowpageitem="3" pagelistcount="5" id="page"></ul>
+                                </div>
+                            </div>
+                            <!--#page-->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- /.inner -->
-</div>
-<!-- /.outer -->
+    <!--题目list-->
+    <div class="modal fade bs-example-modal-sm in display_none" id="stack2" role="dialog"
+         aria-hidden="false">
+        <div class="modal-dialog " >
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h4 class="modal-title ">编辑</h4>
+                    <button type="button" id="closeEditScore" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row ">
+                        <div class="col-12">
+                            <input type="hidden" id="compProblemId" />
+                            <div class="row ">
+                                <span class="col-2">题号</span>
+                                <input type="text" class="form-control col-3" id="problemNum" readonly="readonly"/>
+                                <span class="col-2">分值</span>
+                                <input type="number" class="form-control col-3" maxlength="2"  id="score" name="score"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success w-100"
+                            onclick="saveProblem2Competition()">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #Modal -->
 
-<!-- /#content -->
-<!-- Modal -->
-
-<!--wrapper-->
-<!-- /#content -->
-<!-- # right side -->
+    <!--wrapper-->
+    <!-- /#content -->
+    <!-- # right side -->
 </div>
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/backend/footer :: footer}"></div>
 <script type="text/javascript" th:src="@{/js/tagsinput.js}"></script>
+
+<script type="text/javascript" th:src="@{/plugins/switchery/js/switchery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/moment-with-locales.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/highlight.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/tempusdominus-bootstrap-4.js}"></script>
 <script type="text/javascript" th:src="@{/js/pages/backend/competition_edit.js}"></script>
 <!--end of global scripts-->
 
 <script th:inline="javascript" type="text/javascript">
     /*<![CDATA[*/
 
-    /**
-     * select2
-     */
-    $('.select2-data').val(bcId).select2({
-        theme: 'bootstrap4',
-        placeholder: '选择一个板块'
+    // vue
+    var wrap = new Vue({
+        el: '#wrap',
+        data: {
+            total: 0,
+            pageNum: 1,
+            problemList: [],
+            competitionProblemList: []
+        },
+        filters: {
+            formatDate: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                var month = padDate(value.getMonth() + 1);
+                var day = padDate(value.getDate());
+                var hour = padDate(value.getHours());
+                var minutes = padDate(value.getMinutes());
+                var seconds = padDate(value.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+            },
+            formatYear: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                return year;
+            },
+            formatNum: function (val) {
+                //四舍五入
+                var realVal = parseFloat(val).toFixed(2);
+                return parseFloat(realVal);
+            }
+        },
+        methods: {
+            listProblem: function (pageNum) {
+                var keyword = $("#keyword").val();
+                var url = '/backend/problem/listProblem2Page?pageNum='+pageNum+"&pageSize=5&keyword="+keyword;
+                this.$http.get(url, {emulateJSON: true}).then(function (res) {
+                    this.total = res.data.data.total;
+                    this.problemList = res.data.data.list;
+                    $("#page").initPage(this.total, pageNum, clickPage);
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
+            }, listCompetitionProblem: function (pageNum) {
+                var url = '/backend/competitionProblem/listByCompId?compId='+$("#compId").val();
+                this.$http.get(url,{emulateJSON: true}).then(function (res) {
+                    this.competitionProblemList = res.data.data;
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
+            }
+        }
     });
+    //初始化
+    wrap.listCompetitionProblem(1);
+    wrap.listProblem(1);
+
+    //分页点击方法
+    function clickPage(pageNum) {
+        wrap.listProblem(pageNum);
+    }
+    // #vue
 
     /**
      * md
-     */
-    /*]]>*/
+     **/
 
+    var testEditor = editormd("editormd-div", {
+        placeholder: "说点什么吧...",
+        width: "98%",
+        height: 450,
+        path: '/plugins/markdown/lib/',
+        markdown: '',
+        codeFold: true,
+        /* theme: "dark",//工具栏主题
+        previewTheme: "dark",//预览主题
+        // editorTheme: "pastel-on-dark",//编辑主题  */
+        saveHTMLToTextarea: true,
+        searchReplace: true,
+        htmlDecode: "style,script,iframe|on*",
+        emoji: true,
+        taskList: true,
+        onfullscreen: function () {
+            $("#tags-div").attr("style", "display:none");
+            $("#left").attr("style", "display:none");
+            $("#top").attr("style", "display:none");
+        },
+        onfullscreenExit: function () {
+            $("#tags-div").attr("style", "display:''");
+            $("#left").attr("style", "display:''");
+            $("#top").attr("style", "display:''");
+        },
+        tocm: true,         // Using [TOCM]
+        tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+        flowChart: true,             // 开启流程图支持，默认关闭
+        sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+        imageUpload: true,
+        watch: true,//预览
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL: "file/uploadImageByMD",
+        toolbarIcons: function () {
+            // Or return editormd.toolbarModes[name]; // full, simple, mini
+            // Using "||" set icons align right.
+            return ["undo", "redo", "|", "emoji", "code", "code-block", "link", "image","|", "bold", "italic", "quote", "uppercase", "lowercase", "|", "list-ul", "list-ol", "hr", "|", "watch", "preview", "clear", "|", "help"]
+        },
+        onload: function () {
+        }
+    });
+
+
+
+
+
+
+
+    var elem = document.querySelector('.js-switch');
+    var init = new Switchery(elem, {
+        color: '#4FB7FE',            //开关元件的颜色(十六进制或RGB值)
+        secondaryColor: '#dfdfdf',            //次要的背景颜色和边框的颜色,当开关是关闭的
+        jackColor: '#fff',               //抬起/按下元素的默认颜色
+        jackSecondaryColor: null,                 //第二抬起/按下元素的默认颜色
+        className: 'switchery',          //开关元件的类名(默认样式switchery.css)
+        disabled: false,                //启用或禁用单击事件和改变开关的状态(布尔值)
+        disabledOpacity: 0.5,                  //不透明度，当不可见时为true(范围0-1)
+        speed: '0.1s',               //转型需要的时间长度,动画效果长度。
+        size: 'default'             //样式的大小（small or large）
+    });
+    elem.onchange = function () {
+        isChecked = elem.checked;
+        if (!isChecked) {
+            $("#showPassword").css("display", "");
+        } else {
+            $("#showPassword").css("display", "none");
+        }
+    };
+
+    /**
+     * 时间选择器
+     **/
+    $('#datetimepicker2').datetimepicker({
+        locale: 'zh-cn'
+    });
+    $('#datetimepicker1').datetimepicker({
+        locale: 'zh-cn'
+    });
+
+    var startTime = [[${#dates.format(competition.startTime,'yyyy年MM月dd日 HH:mm')}]];
+    var endTime = [[${#dates.format(competition.endTime,'yyyy年MM月dd日 HH:mm')}]];
+    $("#startTime").val(startTime);
+    $("#endTime").val(endTime);
+
+    /*]]>*/
 
 
 </script>

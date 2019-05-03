@@ -25,6 +25,8 @@ public class CompetitionDetailVO implements Serializable {
 
     private String content;
 
+    private String htmlContent;
+
     private Boolean secret = false;
 
     private Date startTime;
@@ -43,7 +45,7 @@ public class CompetitionDetailVO implements Serializable {
 
     private Integer problemCount;
 
-    public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, Boolean secret, Date startTime, Date endTime, Date createTime, Date updateTime, Integer registerCount, Integer competitionStatus, Boolean userRegistered, Integer problemCount) {
+    public CompetitionDetailVO(Integer id, Integer userId, String avatar, String name, String competitionName, String title, String content, String htmlContent,Boolean secret, Date startTime, Date endTime, Date createTime, Date updateTime, Integer registerCount, Integer competitionStatus, Boolean userRegistered, Integer problemCount) {
         this.id = id;
         this.userId = userId;
         this.avatar = avatar;
@@ -51,6 +53,7 @@ public class CompetitionDetailVO implements Serializable {
         this.competitionName = competitionName;
         this.title = title;
         this.content = content;
+        this.htmlContent = htmlContent;
         this.secret = secret;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -199,6 +202,13 @@ public class CompetitionDetailVO implements Serializable {
         this.problemCount = problemCount;
     }
 
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
+    }
     @Override
     public String toString() {
         return "CompetitionDetailVO{" +
@@ -209,6 +219,7 @@ public class CompetitionDetailVO implements Serializable {
                 ", competitionName='" + competitionName + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", htmlContent='" + htmlContent + '\'' +
                 ", secret=" + secret +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +

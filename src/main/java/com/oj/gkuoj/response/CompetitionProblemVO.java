@@ -27,6 +27,8 @@ public class CompetitionProblemVO implements Serializable {
 
     private Integer acCount;
 
+    private Integer level;
+
     private Date createTime;
 
     private Date updateTime;
@@ -106,5 +108,14 @@ public class CompetitionProblemVO implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

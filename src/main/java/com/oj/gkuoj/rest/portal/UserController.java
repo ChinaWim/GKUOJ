@@ -1,26 +1,36 @@
 package com.oj.gkuoj.rest.portal;
 
 import com.oj.gkuoj.common.ExceptionStatusConst;
+import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.entity.Blog;
 import com.oj.gkuoj.entity.Problem;
+import com.oj.gkuoj.entity.User;
+import com.oj.gkuoj.exception.UserUnAuthorizedException;
 import com.oj.gkuoj.request.UserRequest;
 import com.oj.gkuoj.response.ProblemResultRecentVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.exception.UserNotFoundException;
+import com.oj.gkuoj.response.UserDetailVO;
+import com.oj.gkuoj.service.FileService;
 import com.oj.gkuoj.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +40,12 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    private FileService fileService;
 
     @Autowired
     private UserService userService;
@@ -181,7 +194,16 @@ public class UserController {
      */
     @RequestMapping("/profilePage")
     @PreAuthorize("authentication.name.equals(#username)")//只能操作自己
-    public String profilePage() {
+    public String profilePage(HttpServletRequest request,@AuthenticationPrincipal UserDetails userDetails) {
+
+        if (userDetails == null) {
+            throw new UserUnAuthorizedException(ExceptionStatusConst.USER_UN_AUTHORIZE_EXP, "请先登录");
+        }
+        Integer userId = ((User) userDetails).getId();
+        RestResponseVO<UserDetailVO> responseVO = userService.getById(userId);
+
+        //setData
+        request.setAttribute("user",responseVO.getData());
         return "portal/user/profile";
     }
 
@@ -203,15 +225,23 @@ public class UserController {
 
 
 
-    @RequestMapping("/test")
+    @RequestMapping("/updateBase")
     @ResponseBody
-    public RestResponseVO test(@RequestBody Map<String,Object> map, String name,HttpServletRequest request) throws IOException {
-
-        logger.info("map:{}" , map);
-        logger.info("name:{}", name);
-        return RestResponseVO.createBySuccess(name);
+    public RestResponseVO saveBase(@RequestParam(required = false,name = "file") MultipartFile file,UserRequest userRequest) {
+        if(file != null && !file.isEmpty()){
+            RestResponseVO<String> uploadImage = fileService.uploadImage(file,userRequest.getUsername());
+            if(uploadImage.isSuccess()){
+                userRequest.setAvatar(uploadImage.getData());
+            }
+        }
+        return userService.updateById(userRequest);
     }
 
+    @RequestMapping("/updateSecurity")
+    @ResponseBody
+    public RestResponseVO updateSecurity(Integer id,String email,String oldPassword,String password) {
+        return userService.updateSecurity(id,email,oldPassword,password);
+    }
 
 
 

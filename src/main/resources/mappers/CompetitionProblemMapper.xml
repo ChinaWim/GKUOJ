@@ -121,7 +121,7 @@
 
   <select id="listVOByCompetitionId" resultType="com.oj.gkuoj.response.CompetitionProblemVO" parameterType="int">
      select cp.id, cp.comp_id, cp.score,cp.submit_count,cp.ac_count, cp.problem_id, cp.create_time, cp.update_time,
-     p.name problem_name
+     p.name problem_name,p.level
      from competition_problem cp
      join problem p on p.id = cp.problem_id
      where cp.comp_id = #{competitionId}
@@ -135,5 +135,11 @@
     and problem_id = #{problemId}
 
   </select>
+
+    <select id="getByCompIdProblemId" resultType="com.oj.gkuoj.entity.CompetitionProblem" parameterType="map">
+      select <include refid="Base_Column_List"/> from competition_problem
+      where comp_id = #{compId}
+      and problem_id = #{problemId}
+    </select>
 
 </mapper>

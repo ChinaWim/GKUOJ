@@ -8,6 +8,7 @@ import java.util.Date;
  * @author m969130721@163.com
  * @date 19-3-17 下午12:43
  */
+@Data
 public class UserRequest {
 
     private Integer id;

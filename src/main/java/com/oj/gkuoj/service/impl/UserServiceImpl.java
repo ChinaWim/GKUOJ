@@ -184,11 +184,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         int effect = userMapper.updateByPrimaryKeySelective(user);
         if (effect > 0) {
-            userRoleMapper.deleteByUserId(user.getId());
-            UserRole userRole = new UserRole();
-            userRole.setRoleId(request.getRoleId());
-            userRole.setUserId(user.getId());
-            effect = userRoleMapper.insertSelective(userRole);
+            if (request.getRoleId() != null) {
+                userRoleMapper.deleteByUserId(user.getId());
+                UserRole userRole = new UserRole();
+                userRole.setRoleId(request.getRoleId());
+                userRole.setUserId(user.getId());
+                effect = userRoleMapper.insertSelective(userRole);
+            }
         }
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
@@ -395,6 +397,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         return RestResponseVO.createBySuccess(problemResultMapper.listProblemRecord(userId,flag));
+    }
+
+    @Override
+    public RestResponseVO updateSecurity(Integer id, String email, String oldPassword, String password) {
+        if(id == null || StringUtils.isBlank(email) || StringUtils.isBlank(oldPassword) || StringUtils.isBlank(password) ){
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
+        }
+        User userFromDB = userMapper.getById(id);
+        if (userFromDB == null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.UNAUTHORIZED);
+        }
+        if (!passwordEncoder.matches(oldPassword,userFromDB.getPassword())) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.ORIGINAL_PASSWORD_ERROR);
+        }
+        password = passwordEncoder.encode(password);
+        User updateUser = new User();
+        updateUser.setId(id);
+        updateUser.setEmail(email);
+        updateUser.setPassword(password);
+        int effect = userMapper.updateByPrimaryKeySelective(updateUser);
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.UPDATE_SUCCESS)
+                : RestResponseVO.createByErrorMessage(StringConst.UPDATE_FAIL);
     }
 
     @Override

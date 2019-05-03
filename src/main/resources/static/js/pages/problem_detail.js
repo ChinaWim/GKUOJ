@@ -94,35 +94,46 @@ function submit(problemName, compId) {
         });
         return;
     }
+    swal({
+        title: '确认提交代码?',
+        // text: '提醒',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#EF6F6C',
+        cancelButtonColor: '#4fb7fe',
+        confirmButtonText: '确定',
+        cancelButtonText:'取消'
+    }).then(function () {
+        $.post("problemResult/submit", {
+            "problemId": problemId,
+            "compId": compId,
+            "type": type,
+            "sourceCode": sourceCode
+        }, function (resp) {
+            if (resp.status == 200) {
+                var runNum = resp.data;
+                var html = "<div class='text-center' id = '" + runNum + "'>" +
+                    "<i class='fa fa-circle-o-notch fa-lg fa-spin text-primary'></i>" +
+                    "<span class='ml-3' id = '" + runNum + "-Str'>队列中</span></div>";
 
-    $.post("problemResult/submit", {
-        "problemId": problemId,
-        "compId": compId,
-        "type": type,
-        "sourceCode": sourceCode
-    }, function (resp) {
-        if (resp.status == 200) {
-            var runNum = resp.data;
-            var html = "<div class='text-center' id = '" + runNum + "'>" +
-                "<i class='fa fa-circle-o-notch fa-lg fa-spin text-primary'></i>" +
-                "<span class='ml-3' id = '" + runNum + "-Str'>队列中</span></div>";
-
-            naranja()["log"]({
-                icon: false,
-                title: problemName,
-                text: html,
-                timeout: 'keep'
-            });
-            var problemResultNowInterval = window.setInterval(function () {
-                problemResultNow(runNum, problemResultNowInterval)
-            }, 500);
-        } else {
-            $.message({
-                message: resp.msg,
-                type: 'error'
-            });
-        }
+                naranja()["log"]({
+                    icon: false,
+                    title: problemName,
+                    text: html,
+                    timeout: 'keep'
+                });
+                var problemResultNowInterval = window.setInterval(function () {
+                    problemResultNow(runNum, problemResultNowInterval)
+                }, 500);
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: 'error'
+                });
+            }
+        });
     });
+
 }
 
 /**
@@ -186,6 +197,10 @@ function testRun() {
  * 复制测试样例
  */
 function copyToClipboard() {
+    $.message({
+        message: '复制成功',
+        type: 'success'
+    });
 }
 
 

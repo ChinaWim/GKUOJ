@@ -1,5 +1,8 @@
 package com.oj.gkuoj.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,6 +19,8 @@ public class Competition implements Serializable {
 
     private String content;
 
+    private String htmlContent;
+
     private String password;
 
     private Date startTime;
@@ -26,12 +31,13 @@ public class Competition implements Serializable {
 
     private Date updateTime;
 
-    public Competition(Integer id, Integer userId, String name, String title, String content, String password,  Date startTime, Date endTime, Date createTime, Date updateTime) {
+    public Competition(Integer id, Integer userId, String name, String title, String content,String htmlContent, String password,  Date startTime, Date endTime, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.title = title;
         this.content = content;
+        this.htmlContent = htmlContent;
         this.password = password;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -41,6 +47,11 @@ public class Competition implements Serializable {
 
     public Competition() {
         super();
+    }
+
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -64,7 +75,7 @@ public class Competition implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getTitle() {
@@ -72,7 +83,7 @@ public class Competition implements Serializable {
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getContent() {
@@ -80,7 +91,15 @@ public class Competition implements Serializable {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
+    }
+
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
     }
 
     public String getPassword() {
@@ -88,7 +107,7 @@ public class Competition implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public Date getStartTime() {
@@ -123,6 +142,7 @@ public class Competition implements Serializable {
         this.updateTime = updateTime;
     }
 
+
     @Override
     public String toString() {
         return "Competition{" +
@@ -131,6 +151,7 @@ public class Competition implements Serializable {
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", htmlContent='" + htmlContent + '\'' +
                 ", password='" + password + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +

@@ -187,11 +187,10 @@ z-index: 999999">
                             <tr>
                                 <td>头像</td>
                                 <td>
-                                    <!--<input name="avatar" type="text" class="form-control"/>-->
                                     <div class="form-group">
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                             <div class="fileinput-new thumb_zoom zoom admin_img_width">
-                                                <img :src="user.avatar" alt="admin" class="admin_img_width">
+                                                <img :src="user.avatar" alt="avatar" class="admin_img_width">
                                             </div>
                                             <div class="fileinput-preview fileinput-exists thumb_zoom zoom admin_img_width"></div>
                                             <div class="btn_file_position">
@@ -205,7 +204,6 @@ z-index: 999999">
                                             </div>
                                         </div>
                                     </div>
-
                                 </td>
                             </tr>
                             <tr>
@@ -283,7 +281,6 @@ z-index: 999999">
 <div th:replace="~{fragments/backend/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script type="text/javascript" th:src="@{/js/pages/backend/index.js}"></script>
 <script type="text/javascript" th:src="@{/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js}"></script>
 <!--end of plugin scripts-->
 <script type="text/javascript" th:inline="javascript">

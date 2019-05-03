@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 /**
  * @author m969130721@163.com
  * @date 19-3-10 下午4:03
  */
+
 /**
  * @author m969130721@163.com
  * @date 19-3-10 下午3:39
@@ -31,25 +34,33 @@ public class CompetitionProblemController {
 
     /**
      * 获取比赛题目
+     *
      * @param compId
      * @return
      */
     @RequestMapping("/listByCompId")
     @ResponseBody
-    public RestResponseVO listByCompId(@RequestParam(defaultValue = "-1") Integer compId){
-
+    public RestResponseVO listByCompId(@RequestParam(defaultValue = "-1") Integer compId) {
         return competitionProblemService.listVOByCompetitionId(compId);
     }
 
     /**
-     * 增加
+     * 增加-更新
+     *
      * @param competitionProblem
      * @return
      */
-    @RequestMapping("/add")
+    @RequestMapping("/save")
     @ResponseBody
-    public RestResponseVO add(CompetitionProblem competitionProblem){
-        return competitionProblemService.insert(competitionProblem);
+    public RestResponseVO save(CompetitionProblem competitionProblem) {
+
+        if (competitionProblem.getId() != null) {
+            return competitionProblemService.updateById(competitionProblem);
+        } else {
+            return competitionProblemService.insert(competitionProblem);
+        }
+
+
     }
 
     /**
@@ -59,24 +70,9 @@ public class CompetitionProblemController {
      */
     @RequestMapping("/delete")
     @ResponseBody
-    public RestResponseVO delete(Integer competitionProblemId){
+    public RestResponseVO delete(Integer competitionProblemId) {
         return competitionProblemService.delById(competitionProblemId);
     }
-
-
-    /**
-     * 更新
-     * @param competitionProblem
-     * @return
-     */
-    @RequestMapping("/update")
-    @ResponseBody
-    public RestResponseVO update(CompetitionProblem competitionProblem){
-        return competitionProblemService.updateById(competitionProblem);
-    }
-
-
-
 
 
 }

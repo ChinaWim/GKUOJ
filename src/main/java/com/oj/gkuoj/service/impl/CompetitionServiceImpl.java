@@ -13,6 +13,7 @@ import com.oj.gkuoj.common.StringConst;
 import com.oj.gkuoj.dao.CompetitionMapper;
 import com.oj.gkuoj.entity.Competition;
 import com.oj.gkuoj.service.CompetitionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +49,11 @@ public class CompetitionServiceImpl implements CompetitionService {
         if (competition == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
+        if (StringUtils.isEmpty(competition.getPassword())) {
+            competition.setPassword(null);
+        }
         int effect = competitionMapper.insertSelective(competition);
-        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
+        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS,competition)
                 : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);
     }
 

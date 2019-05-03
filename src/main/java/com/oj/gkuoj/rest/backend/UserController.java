@@ -77,7 +77,7 @@ public class UserController {
     @RequestMapping("/save")
     @ResponseBody
     public RestResponseVO save(UserRequest request, @RequestParam(required = false) MultipartFile file) {
-        if (file != null) {
+        if (file != null && !file.isEmpty()) {
             RestResponseVO<String> uploadImage = fileService.uploadImage(file,request.getUsername());
             if(uploadImage.isSuccess()){
                 request.setAvatar(uploadImage.getData());

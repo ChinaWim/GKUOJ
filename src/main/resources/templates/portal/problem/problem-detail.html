@@ -115,11 +115,7 @@ z-index: 999999">
                                     </div>
                                 </div>
                                 <h3 class="card-title mt-5"><strong>样例输入</strong></h3>
-                                <code style="white-space:pre-line"><a href="javascript:void(0)"
-                                                                      data-clipboard-target="#inputDesc"
-                                                                      class="float-right clipboard"
-                                                                      onclick="copyToClipboard()" id="clipboard">复制</a>
-                                    <div id="inputDesc">[[${problem.testcaseInput}]]</div>
+                                <code style="white-space:pre-line"><a href="javascript:void(0)" data-clipboard-target="#inputDesc" class="float-right clipboard" onclick="copyToClipboard()" id="clipboard">复制</a><div id="inputDesc">[[${problem.testcaseInput}]]</div>
                                 </code>
                                 <!--style="white-space:pre-line"-->
                                 <h3 class="card-title mt-5"><strong>样例输出</strong></h3>
@@ -130,7 +126,7 @@ z-index: 999999">
                                         <i class="fa fa-tags mr-1"></i>标签：
                                         <span class="mr-2"
                                               th:each="tag : ${#strings.arraySplit(problem.tags,',')}">
-                                                <a target="_blank" href="#" class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
+                                                <a target="_blank" th:href="@{'/problem/problemListPage?keyword='+${tag}}" class="btn btn-secondary badge-pill btn-sm">[[${tag}]]</a>
                                             </span>
                                     </div>
                                 </div>
@@ -380,7 +376,8 @@ z-index: 999999">
 
 
     function submitCode() {
-       submit(problemName,compId);
+        submit(problemName,compId);
+
     }
 
 

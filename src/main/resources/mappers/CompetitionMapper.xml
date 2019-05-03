@@ -8,6 +8,7 @@
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="html_content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="start_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="end_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -16,7 +17,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, name, title, content, password, start_time, end_time, create_time,
+    id, user_id, name, title, content,html_content, password, start_time, end_time, create_time,
     update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,15 +33,15 @@
   </delete>
   <insert id="insert"  keyProperty="id" parameterType="com.oj.gkuoj.entity.Competition" >
     insert into competition (id, user_id, name, 
-      title, content, password, 
+      title, content,html_content, password,
       start_time, end_time,
       create_time )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{htmlContent,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
       #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.oj.gkuoj.entity.Competition" >
+  <insert id="insertSelective" keyProperty="id"  parameterType="com.oj.gkuoj.entity.Competition" >
     insert into competition
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -57,6 +58,9 @@
       </if>
       <if test="content != null" >
         content,
+      </if>
+      <if test="htmlContent != null" >
+        html_content,
       </if>
       <if test="password != null" >
         password,
@@ -87,6 +91,9 @@
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
+      <if test="htmlContent != null" >
+        #{htmlContent,jdbcType=VARCHAR},
+      </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
@@ -116,6 +123,9 @@
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
+      <if test="htmlContent != null" >
+        html_content = #{htmlContent,jdbcType=VARCHAR},
+      </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -137,6 +147,7 @@
       name = #{name,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
+      html_content = #{htmlContent,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
@@ -146,7 +157,7 @@
 
 
   <select id="getCompetitionDetailVOById" resultType="com.oj.gkuoj.response.CompetitionDetailVO" parameterType="int">
-   select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,
+   select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,html_content,
    start_time,end_time,comp.create_time,comp.update_time,count(distinct r.id) register_count,IFNULL(comp.password,0) secret,
    count(distinct cp.id) problem_count
 
@@ -171,7 +182,7 @@
   </select>
 
   <select id="listLastCompetitionDetailVO" resultType="com.oj.gkuoj.response.CompetitionDetailVO" parameterType="int">
-    select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,
+    select  comp.id, u.id user_id, u.avatar,u.name,comp.name competition_name,title,content,html_content,
            start_time,end_time,comp.create_time,comp.update_time,count(r.id) register_count,IFNULL(comp.password,0) secret
      from competition comp
      join user u on comp.user_id = u.id

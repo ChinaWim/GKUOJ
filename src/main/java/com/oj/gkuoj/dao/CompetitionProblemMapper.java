@@ -22,4 +22,8 @@ public interface CompetitionProblemMapper {
     List<CompetitionProblemVO> listVOByCompetitionId(Integer competitionId);
 
     Integer getScoreByCompIdProblemId(@Param("compId") Integer compId, @Param("problemId")  Integer problemId);
+
+    CompetitionProblem getByCompIdProblemId(@Param("compId")Integer compId, @Param("problemId")Integer problemId);
+
+
 }

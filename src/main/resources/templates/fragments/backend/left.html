@@ -8,14 +8,18 @@
                     <span class="fa fa-user"></span>
                 </div>
                 <div class="user-wrapper">
-                    <a class="user-link" href="#">
+                    <span class="user-link" >
                         <img class="media-object img-thumbnail user-img rounded-circle admin_img3" alt="User Picture" th:src="${#authentication.principal.avatar} == null ? '/img/default_avatar.jpg' :
                                  ${#authentication.principal.avatar}"/>
                         <p class="user-info menu_hide">
                             <span>[[${#authentication.principal.name}]]</span>
+                            <br/>
+                            <span>
+                            <i class="fa fa-circle" style="color: #00A65A"></i>
+                            <span class="ml-1">Online</span>
+                            </span>
                         </p>
-
-                    </a>
+                    </span>
                 </div>
             </div>
             <hr>

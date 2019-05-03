@@ -36,6 +36,11 @@ public class CompetitionProblemServiceImpl implements CompetitionProblemService 
         if (competitionProblem == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
+
+        CompetitionProblem competitionProblemFromDB = competitionProblemMapper.getByCompIdProblemId(competitionProblem.getCompId(), competitionProblem.getProblemId());
+        if (competitionProblemFromDB != null) {
+            return RestResponseVO.createByErrorEnum(RestResponseEnum.COMPETITION_PROBLEM_REPEATED_ERROR);
+        }
         int effect = competitionProblemMapper.insertSelective(competitionProblem);
         return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.ADD_SUCCESS)
                 : RestResponseVO.createByErrorMessage(StringConst.ADD_FAIL);

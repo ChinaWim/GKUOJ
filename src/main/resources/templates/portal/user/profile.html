@@ -6,6 +6,7 @@
     <title>信息编辑</title>
     <div th:replace="~{fragments/head-base}"></div>
     <link type="text/css" rel="stylesheet" th:href="@{/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/pages/gallery.css}"/>
 </head>
 <body class="body sidebar-left-hidden fixedNav_position fixedMenu_left ">
 <div class="preloader" style=" position: fixed;
@@ -48,7 +49,6 @@ z-index: 999999">
             <div class="outer">
                 <div class="inner bg-container">
 
-
                     <div class="card">
                         <ul id="clothing-nav" class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -61,31 +61,30 @@ z-index: 999999">
                         <div class="card-block">
                             <div id="clothing-nav-content" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade active show " id="base" aria-labelledby="base-tab" aria-expanded="false">
+                                    <form class="form-horizontal login_validator" id="baseForm">
 
-                                    <form class="form-horizontal login_validator" id="baseForm" action="users.html"
-                                          method="post">
+                                        <input type="hidden" name="id"  th:value="${user.id}"/>
                                         <div class="row">
                                             <div class="col-xl-12">
                                                 <div class="form-group row m-t-15">
                                                     <div class="col-12 col-lg-3 text-center text-lg-right">
-                                                        <label class="col-form-label">个人头像</label>
+                                                        <label class="col-form-label">个人头像&nbsp;&nbsp;</label>
                                                     </div>
                                                     <div class="col-12 col-lg-6 text-center text-lg-left">
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                                             <div class="fileinput-new img-thumbnail text-center">
-                                                                <img th:src="@{/img/default_avatar.jpg}"
-                                                                     data-src="img/default_avatar.jpg" alt="not found">
-                                                            </div>
+                                                                <img width="100%" height="100%" th:src="${user.avatar}"  alt="not found" /></div>
                                                             <div class="fileinput-preview fileinput-exists img-thumbnail"></div>
                                                             <div class="m-t-20 text-center">
                                                             <span class="btn btn-primary btn-file">
-                                                            <span class="fileinput-new"><i
-                                                                    class="fa fa-upload mr-1"></i>上传头像</span>
-                                                            <span class="fileinput-exists"><i
-                                                                    class="fa fa-refresh mr-1"></i>更换</span>
-                                                            <input type="file" name="...">
+                                                                <span class="fileinput-new"><i
+                                                                        class="fa fa-upload mr-1"></i>上传头像</span>
+                                                                <span class="fileinput-exists"><i
+                                                                        class="fa fa-refresh mr-1"></i>更换</span>
+                                                                <input type="file" id="file" name="file"/>
                                                             </span>
-                                                                <a href="#" class="btn btn-warning fileinput-exists"
+                                                                <a href="#" id="clearFile"
+                                                                   class="btn btn-warning fileinput-exists"
                                                                    data-dismiss="fileinput"><i
                                                                         class="fa fa-remove mr-1"></i>移除</a>
                                                             </div>
@@ -94,43 +93,33 @@ z-index: 999999">
                                                 </div>
                                                 <div class="form-group row m-t-25">
                                                     <div class="col-12 col-lg-3 text-lg-right">
-                                                        <label for="u-username" class="col-form-label">账号&nbsp;&nbsp;</label>
+                                                        <label for="username"
+                                                               class="col-form-label">账号<span
+                                                                style="color: red">*</span></label>
                                                     </div>
                                                     <div class="col-12 col-xl-6 col-lg-8">
                                                         <div class="input-group">
                                                         <span class="input-group-addon"> <i
                                                                 class="fa fa-user text-primary"></i>
                                                          </span>
-                                                            <input type="text" value="1231231" id="u-username" disabled
+                                                            <input type="text" th:value="${user.username}"
+                                                                   id="username" readonly="readonly" name="username"
                                                                    class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row m-t-25">
                                                     <div class="col-12 col-lg-3 text-lg-right">
-                                                        <label for="name" class="col-form-label">昵称 <span style="color: red">*</span></label>
+                                                        <label for="name" class="col-form-label">昵称<span
+                                                                style="color: red">*</span></label>
                                                     </div>
                                                     <div class="col-12 col-xl-6 col-lg-8">
                                                         <div class="input-group">
                                                         <span class="input-group-addon"> <i
                                                                 class="fa fa-user text-primary"></i>
                                                          </span>
-                                                            <input type="text"
+                                                            <input type="text" th:value="${user.name}" name="name"
                                                                    class="form-control" id="name">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-12 col-lg-3 text-lg-right">
-                                                        <label for="email" class="col-form-label">邮箱 <span style="color: red">*</span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-12 col-xl-6 col-lg-8">
-                                                        <div class="input-group">
-                                                    <span class="input-group-addon"><i
-                                                            class="fa fa-envelope text-primary"></i></span>
-                                                            <input type="text" value="gankunding@hotmail.com" id="email"
-                                                                   name="email" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,8 +132,9 @@ z-index: 999999">
                                                         <div class="input-group">
                                                     <span class="input-group-addon"><i
                                                             class="fa fa-mortar-board text-primary"></i></span>
-                                                            <input type="text"  id="school"
-                                                                   name="school" class="form-control">
+                                                            <input type="text" id="school"
+                                                                   name="school" th:value="${user.school}"
+                                                                   class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,27 +146,39 @@ z-index: 999999">
                                                         <div class="input-group">
                                                     <span class="input-group-addon"><i
                                                             class="fa fa-phone text-primary"></i></span>
-                                                            <input type="text" id="phone" name="cell" class="form-control"
-                                                                   value="9999999999">
+                                                            <input type="text" id="phone" name="phone"
+                                                                   class="form-control"
+                                                                   th:value="${user.phone}">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group gender_message row">
                                                     <div class="col-12 col-lg-3 text-lg-right">
-                                                        <label class="col-form-label">性别 <span style="color: red">*</span></label>
+                                                        <label class="col-form-label">性别<span
+                                                                style="color: red">*</span></label>
                                                     </div>
                                                     <div class="col-12 col-xl-6 col-lg-8">
-                                                        <!--custom-controls-stacked-->
                                                         <div class="custom-controls-stacked">
-                                                            <label class="custom-control custom-radio">
-                                                                <input id="radio1" type="radio" name="gender"
-                                                                       class="custom-control-input" checked>
+                                                            <label class="custom-control  custom-radio">
+                                                                <input id="radio1" type="radio" name="sex" value="男"
+                                                                       th:if="${user.sex == '男'}"
+                                                                       checked
+                                                                       class="custom-control-input">
+                                                                <input id="radio1" type="radio" name="sex" value="男"
+                                                                       th:if="${user.sex != '男'}"
+                                                                       class="custom-control-input">
                                                                 <span class="custom-control-indicator"></span>
                                                                 <span class="custom-control-description">汉子</span>
                                                             </label>
-                                                            <label class="custom-control custom-radio">
-                                                                <input id="radio2" type="radio" name="gender"
+                                                            <label class="custom-control  custom-radio">
+                                                                <input id="radio2" type="radio" name="sex" value="女"
+                                                                       th:if="${user.sex == '女'}"
+                                                                       checked
                                                                        class="custom-control-input">
+                                                                <input id="radio2" type="radio" name="sex" value="女"
+                                                                       th:if="${user.sex != '女'}"
+                                                                       class="custom-control-input">
+
                                                                 <span class="custom-control-indicator"></span>
                                                                 <span class="custom-control-description">妹子</span>
                                                             </label>
@@ -191,30 +193,16 @@ z-index: 999999">
                                                         <div class="input-group">
                                                             <!--<span class="input-group-addon"><i class="fa fa-plus text-primary"></i></span>-->
                                                             <textarea maxlength="200" class="form-control" name="mood"
-                                                                      style="height:120px"></textarea>
+                                                                      style="height:120px">[[${user.mood}]]</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="form-group row">
-                                                     <div class="col-12 col-lg-3 text-lg-right">
-                                                         <label for="checkbox1" class="col-form-label">Status *</label>
-                                                     </div>
-                                                     <div class="col-12 col-xl-6 col-lg-8">
-                                                         <div>
-                                                             <label class="custom-control custom-checkbox">
-                                                                 <input id="checkbox1" type="checkbox" name="activate" class="custom-control-input" checked>
-                                                                 <span class="custom-control-indicator"></span>
-                                                                 <span class="custom-control-description">Activate your account</span>
-                                                             </label>
-                                                         </div>
-                                                     </div>
-                                                 </div>-->
                                                 <div class="form-group row">
                                                     <div class="col-12 col-lg-9 push-lg-3">
-                                                        <button class="btn btn-primary" id="submit2" type="submit">
+                                                        <button class="btn btn-primary" onclick="submitBase()"
+                                                                type="button">
                                                             保存
                                                         </button>
-                                                        <input type="reset" class="btn btn-warning" value='还原' id="clear"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,57 +212,68 @@ z-index: 999999">
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade " id="security" aria-labelledby="security-tab" aria-expanded="true">
 
-                                    <form class="form-horizontal login_validator" id="securityForm" action="users.html"
-                                          method="post">
+                                    <form class="form-horizontal login_validator" id="securityForm">
+                                        <input type="hidden" name="id"  th:value="${user.id}"/>
                                         <div class="row">
                                             <div class="col-xl-12">
-
                                                 <div class="form-group row">
                                                     <div class="col-12 col-lg-3 text-lg-right">
-                                                        <label for="email" class="col-form-label">邮箱 <span style="color: red">*</span>
+                                                        <label for="email" class="col-form-label">邮箱<span style="color: red">*</span>
                                                         </label>
                                                     </div>
                                                     <div class="col-12 col-xl-6 col-lg-8">
                                                         <div class="input-group">
                                                     <span class="input-group-addon"><i
                                                             class="fa fa-envelope text-primary"></i></span>
-                                                            <input type="text" value="gankunding@hotmail.com" id="email"
+                                                            <input type="text" th:value="${user.email}" id="email"
                                                                    name="email" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
                                                   <div class="form-group row">
                                                       <div class="col-12 col-lg-3 text-lg-right">
-                                                          <label for="pwd" class="col-form-label">密码 <span style="color: red">*</span></label>
+                                                          <label for="oldPassword" class="col-form-label">原密码<span style="color: red">*</span></label>
                                                       </div>
                                                       <div class="col-12 col-xl-6 col-lg-8">
                                                           <div class="input-group">
                                                       <span class="input-group-addon"><i
                                                               class="fa fa-lock text-primary"></i></span>
-                                                              <input type="password" value="" name="password" id="pwd"
+                                                              <input type="password" maxlength="20" name="oldPassword" id="oldPassword"
                                                                      class="form-control">
                                                           </div>
                                                       </div>
                                                   </div>
+                                                <div class="form-group row">
+                                                    <div class="col-12 col-lg-3 text-lg-right">
+                                                        <label for="password" class="col-form-label">新密码<span style="color: red">*</span></label>
+                                                    </div>
+                                                    <div class="col-12 col-xl-6 col-lg-8">
+                                                        <div class="input-group">
+                                                      <span class="input-group-addon"><i
+                                                              class="fa fa-lock text-primary"></i></span>
+                                                            <input type="password" name="password" maxlength="20" id="password"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                   <div class="form-group row">
                                                       <div class="col-12 col-lg-3 text-lg-right">
-                                                          <label for="cpwd" class="col-form-label">确认密码 <span style="color: red">*</span></label>
+                                                          <label for="password2" class="col-form-label">再次输入<span style="color: red">*</span></label>
                                                       </div>
                                                       <div class="col-12 col-xl-6 col-lg-8">
                                                           <div class="input-group">
                                                       <span class="input-group-addon"><i
                                                               class="fa fa-lock text-primary"></i></span>
-                                                              <input type="password" name="confirmpassword" value="" id="cpwd"
+                                                              <input type="password"  maxlength="20" name="password2" id="password2"
                                                                      class="form-control">
                                                           </div>
                                                       </div>
                                                   </div>
                                                 <div class="form-group row">
                                                     <div class="col-12 col-lg-9 push-lg-3">
-                                                        <button class="btn btn-primary" type="submit">
+                                                        <button class="btn btn-primary"  onclick="submitSecurity()" type="button">
                                                             保存
                                                         </button>
-                                                        <input type="reset" class="btn btn-warning" value='还原' />
                                                     </div>
                                                 </div>
                                             </div>
@@ -302,6 +301,7 @@ z-index: 999999">
 <!-- /#wrap -->
 <!-- global scripts-->
 <div th:replace="~{fragments/footer :: footer}"></div>
+<script type="text/javascript" th:src="@{/js/pages/profile.js}"></script>
 <!--end of global scripts-->
 <!--  plugin scripts -->
 <script type="text/javascript" th:src="@{/js/pluginjs/jasny-bootstrap.js}"></script>
