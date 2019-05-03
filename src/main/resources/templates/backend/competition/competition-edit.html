@@ -294,7 +294,7 @@ z-index: 999999">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            <div class="w-75">
+                            <div class="w-50">
                                 <div class="input-group">
                                     <input type="search" id="keyword" name="keyword"
                                            placeholder="搜索关键词" class="form-control">
@@ -315,6 +315,7 @@ z-index: 999999">
                                     <th class="text-center">提交</th>
                                     <th class="text-center">通过率</th>
                                     <th class="text-center">难度</th>
+                                    <th class="text-center">类型</th>
                                     <th class="text-center">操作</th>
                                 </tr>
                                 </thead>
@@ -344,6 +345,10 @@ z-index: 999999">
                                         <span v-if="problem.level == 4">
                                                     <span class=" btn-danger btn-sm purple">专家</span>
                                                 </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span v-if="problem.flag == 0">公开</span>
+                                        <span v-if="problem.flag == 1">私密</span>
                                     </td>
                                     <td class="text-center">
                                         <button class="btn btn-secondary btn-sm"  @click="addProblem2Comp(problem.id)"  data-toggle="modal" data-href="#stack2" href="#stack2">添加</button>
@@ -443,8 +448,7 @@ z-index: 999999">
             },
             formatNum: function (val) {
                 //四舍五入
-                var realVal = parseFloat(val).toFixed(2);
-                return parseFloat(realVal);
+                return  parseFloat(val).toFixed(2);
             }
         },
         methods: {

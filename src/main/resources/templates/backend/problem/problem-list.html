@@ -85,7 +85,6 @@ z-index: 999999">
                                         <th class="text-center">难度</th>
                                         <th class="text-center">提交数</th>
                                         <th class="text-center">通过数</th>
-                                        <th class="text-center">错误数</th>
                                         <th class="text-center">类型</th>
                                         <th class="text-center">创建时间</th>
                                         <th class="text-center">操作</th>
@@ -113,7 +112,6 @@ z-index: 999999">
                                         </td>
                                         <td class="text-center">{{problem.submitCount}}</td>
                                         <td class="text-center">{{problem.acCount}}</td>
-                                        <td class="text-center">{{problem.waCount}}</td>
                                         <td class="text-center">
                                             <span v-if="problem.flag == 0">公开</span>
                                             <span v-if="problem.flag == 1">私密</span>
@@ -228,8 +226,7 @@ z-index: 999999">
             },
             formatNum: function (val) {
                 //四舍五入
-                var realVal = parseFloat(val).toFixed(2);
-                return parseFloat(realVal);
+                return  parseFloat(val).toFixed(2);
             }
         },
         methods: {
