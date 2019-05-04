@@ -111,7 +111,7 @@ z-index: 999999">
                                                 competitionStatus(competition.endTime)}}
                                             </td>
                                             <td class="text-center">
-                                                <a class="btn btn-sm btn-secondary"
+                                                <a class="btn btn-sm btn-primary"
                                                    :href="'/backend/competition/competitionEditPage?compId='+competition.id">编辑
                                                 </a>
                                                 <a @click="deleteCompetition(competition.id)">
@@ -247,8 +247,9 @@ z-index: 999999">
                         });
                     }
                 })
+            }).catch(function(reason) {
+                return false;
             });
-            return false;
         }
 
         // end of vue

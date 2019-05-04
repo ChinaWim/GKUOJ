@@ -38,7 +38,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
         if (Arrays.asList(URIConst.VALIDATE_CODE_ARRAY_URI).contains(requestURI)&&
-                request.getMethod().equalsIgnoreCase("post")) {
+                "post".equalsIgnoreCase(request.getMethod())) {
             try {
                 validate(new ServletWebRequest(request));
             } catch (Exception e) {
@@ -46,9 +46,8 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
                 logger.error(e.getMessage());
                 PrintWriter writer = response.getWriter();
                 RestResponseVO<Object> responseVO = RestResponseVO.createByErrorStatusMessage(RestResponseEnum.VALIDATE_CODE_ERROR.getStatus(),
-                        RestResponseEnum.VALIDATE_CODE_ERROR.getDesc());
-                String responseStr = JsonUtil.obj2String(responseVO);
-                writer.write(responseStr);
+                        e.getMessage());
+                writer.write(JsonUtil.obj2String(responseVO));
                 return;
             }
         }

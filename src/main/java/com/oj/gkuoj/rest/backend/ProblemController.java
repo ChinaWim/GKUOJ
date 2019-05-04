@@ -3,6 +3,7 @@ package com.oj.gkuoj.rest.backend;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.entity.Role;
+import com.oj.gkuoj.response.ProblemDetailVO;
 import com.oj.gkuoj.response.RestResponseVO;
 import com.oj.gkuoj.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,29 @@ public class ProblemController {
      * @return
      */
     @RequestMapping("/problemListPage")
-    public String userListPage(HttpServletRequest request) {
+    public String problemListPage(HttpServletRequest request) {
         request.setAttribute("questionActive",true);
         request.setAttribute("problemActive",true);
         return "backend/problem/problem-list";
+    }
+
+    /**
+     * 跳转到题目编辑页面
+     *
+     * @return
+     */
+    @RequestMapping("/problemEditPage")
+    public String problemEditPage(HttpServletRequest request,Integer problemId) {
+        ProblemDetailVO problemDetailVO = problemService.getDetailVOById(problemId).getData();
+        if (problemDetailVO == null) {
+            problemDetailVO = new ProblemDetailVO();
+        }
+
+        //set data
+        request.setAttribute("questionActive",true);
+        request.setAttribute("problemEditActive",true);
+        request.setAttribute("problem",problemDetailVO);
+        return "backend/problem/problem-edit";
     }
 
 

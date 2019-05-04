@@ -64,11 +64,9 @@ z-index: 999999">
                                                     </button>
                                         </span>
                                         <span class="ml-3">
-                                            <button class="btn  btn-secondary  "
-                                                    @click="initProblem()"
-                                                    data-toggle="modal" data-href="#stack1" href="#stack1">
+                                            <a class="btn  btn-secondary text-white" th:href="@{/backend/problem/problemEditPage}">
                                             <i class="fa fa-plus mr-1"></i><span >添加题目</span>
-                                            </button>
+                                            </a>
                                         </span>
                                     </div>
                                 </div>
@@ -118,9 +116,7 @@ z-index: 999999">
                                         </td>
                                         <td class="text-center">{{problem.createTime | formatDate}}</td>
                                         <td class="text-center">
-                                            <button data-toggle="modal" data-href="#stack1" href="#stack1"
-                                                    class="btn btn-sm btn-primary" @click="problemDetail(problem.id)">编辑
-                                            </button>
+                                            <a class="btn btn-sm btn-primary text-white" :href="'/backend/problem/problemEditPage?problemId='+problem.id" >编辑</a>
                                             <a @click="deleteProblem(problem.id)">
                                                 <button class="btn btn-sm btn-danger">删除</button>
                                             </a>
@@ -148,42 +144,6 @@ z-index: 999999">
     <!-- /.outer -->
     <!-- /#content -->
     <!-- Modal -->
-
-    <div class="modal fade bs-example-modal-sm in display_none" id="stack1" tabindex="-1" role="dialog"
-         aria-hidden="false">
-        <div class="modal-dialog modal-lg" style="width: 1000px">
-            <div class="modal-content">
-                <div class="modal-header ">
-                    <h4 class="modal-title "id="saveTitle" >添加题目</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <form id="problemForm">
-                        <input type="hidden" v-model="problem.id" name="id"/>
-                        <table class="table ">
-
-                            <tr>
-                                <td>手机</td>
-                                <td>
-                                    <input name="phone"  maxlength="20" type="number" class="form-control"/>
-                                </td>
-                                <td>学校</td>
-                                <td><input name="school" maxlength="20" type="text" class="form-control"/></td>
-                            </tr>
-
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">取消</button>
-                    <button type="button" id="saveProblem" class="btn btn-info"
-                            onclick="saveProblem()">提交
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- # right side -->
 </div>
 <!-- /#wrap -->
@@ -191,7 +151,6 @@ z-index: 999999">
 <div th:replace="~{fragments/backend/footer :: footer}"></div>
 <!--end of global scripts-->
 <!--  plugin scripts -->
-<script type="text/javascript" th:src="@{/js/pages/backend/index.js}"></script>
 <script type="text/javascript" th:src="@{/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js}"></script>
 <!--end of plugin scripts-->
 <script type="text/javascript" th:inline="javascript">
@@ -256,12 +215,6 @@ z-index: 999999">
         wrap.listProblem(pageNum);
     }
 
-    //添加题目点击初始化
-    function initProblem() {
-        $("#saveTitle").html("添加题目");
-        wrap.problem = {};
-    }
-
 
 
     function deleteProblem(problemId) {
@@ -289,85 +242,15 @@ z-index: 999999">
                     });
                 }
             })
-        });
-        return false;
-    }
+        }).catch(function(reason) {
 
-
-
-
-    function checkField() {
-        var problem = wrap.problem;
-        if (problem.name == null || problem.problemname.trim().length == 0) {
-            $.message({
-                message: "标题不能为空",
-                type: 'warning'
-            });
             return false;
-        }
-
-        return true;
-    }
-
-    //添加-更新
-    function saveProblem() {
-        var problem = $("#problemForm").serialize();
-
-        if (!checkField()) {
-            return;
-        }
-        $.ajax({
-            url: '/backend/problem/save',
-            type: 'POST',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (resp) {
-                if (resp.status == 200) {
-                    $.message({
-                        message: resp.msg,
-                        type: 'success'
-                    });
-                    $('#stack1').modal('hide');
-                    $("#clearFile").click();
-                    clickPage(1);
-                } else {
-                    $.message({
-                        message: resp.msg,
-                        type: 'error'
-                    });
-                }
-            }
         });
     }
 
-    //详情
-    function problemDetail(problemId) {
-        $("#clearFile").click();
-        $("#saveTitle").html("更新题目");
-        $("#password").attr("placeholder","不更新无需填写");
-        $.post("/backend/problem/get", {"problemId": problemId}, function (resp) {
-            if (resp.status == 200) {
-                wrap.problem = resp.data;
-            } else {
-                $.message({
-                    message: resp.msg,
-                    type: 'error'
-                });
-            }
-        })
-    }
 
     // end of vue
 
-
-    //select2
-    $('.select2-role').select2({
-        placeholder: '选择角色',
-        theme: 'bootstrap4'
-    });
     /*]]>*/
 
 

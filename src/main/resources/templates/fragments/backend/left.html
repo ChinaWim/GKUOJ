@@ -26,7 +26,7 @@
         </div>
 
         <ul id="menu">
-            <li  th:classappend="${active1}? 'active':''">
+            <li  th:classappend="${backendIndexActive}? 'active':''">
                 <a th:href="@{/backend/}"  data-toggle="tooltip" data-placement="right"  title="首页">
                     <i class="fa fa-home "></i>
                     <span class="link-title menu_hide">&nbsp;首页管理</span>
@@ -75,9 +75,9 @@
                             &nbsp;题目标签
                         </a>
                     </li>
-                    <li>
-                        <a th:href="@{/backend/testcase/testcasePage}">
-                            <i class="fa fa-angle-right" th:classappend="${testcaseActive} ? 'active':''"></i>
+                    <li th:classappend="${problemEditActive} ? 'active':''">
+                        <a th:href="@{/backend/problem/problemEditPage}">
+                            <i class="fa fa-angle-right" ></i>
                             <span class="link-title">&nbsp;题目设置</span>
                         </a>
                     </li>

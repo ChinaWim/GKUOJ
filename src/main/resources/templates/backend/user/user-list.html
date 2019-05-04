@@ -136,7 +136,7 @@ z-index: 999999">
                                         </td>
                                         <td class="text-center">
                                             <button data-toggle="modal" data-href="#stack1" href="#stack1"
-                                                    class="btn btn-sm btn-primary" @click="userDetail(user.id)">详情
+                                                    class="btn btn-sm btn-primary" @click="userDetail(user.id)">编辑
                                             </button>
                                             <a @click="activeUser(user.id)">
                                                 <button class="btn btn-sm btn-success">激活</button>
@@ -393,8 +393,10 @@ z-index: 999999">
                     });
                 }
             })
+        }).catch(function(reason) {
+
+            return false;
         });
-        return false;
     }
 
     function deleteUser(userId) {
@@ -422,8 +424,10 @@ z-index: 999999">
                     });
                 }
             })
+        }).catch(function(reason) {
+
+            return false;
         });
-        return false;
     }
 
     function lockUser(userId) {
@@ -452,8 +456,10 @@ z-index: 999999">
                     });
                 }
             })
+        }).catch(function(reason) {
+
+            return false;
         });
-        return false;
     }
 
 

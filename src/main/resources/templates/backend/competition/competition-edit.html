@@ -221,7 +221,7 @@ z-index: 999999">
                                                                     <thead class="">
                                                                     <tr>
                                                                         <th class="text-center">显示题号</th>
-                                                                        <th class="">标题</th>
+                                                                        <th class="text-center">标题</th>
                                                                         <th class="text-center">分值</th>
                                                                         <th class="text-center">难度</th>
                                                                         <th class="text-center">操作</th>
@@ -231,15 +231,15 @@ z-index: 999999">
                                                                     <tr v-for="(competitionProblem,index) in competitionProblemList">
 
                                                                         <td class="text-center">{{competitionProblem.problemId}}</td>
-                                                                        <td>
-                                                                            <div style="width: 250px;text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-                                                                                <a :href="'/problem/problemDetailPage?problemId='+competitionProblem.problemId"
+                                                                        <td class="text-center">
+                                                                            <div >
+                                                                                <a target="_blank" :href="'/problem/problemDetailPage?problemId='+competitionProblem.problemId"
                                                                                    class="text-primary">
                                                                                     {{competitionProblem.problemName}}
                                                                                 </a>
                                                                             </div>
                                                                         </td>
-                                                                        <td class="text-center">1</td>
+                                                                        <td class="text-center">{{competitionProblem.score}}</td>
 
                                                                         <td class="text-center">
                                                                             <span v-if="competitionProblem.level == 1">
@@ -256,7 +256,7 @@ z-index: 999999">
                                                                             </span>
                                                                         </td>
                                                                         <td class="text-center">
-                                                                            <button class="btn btn-secondary mr-1 btn-sm" @click="updateProblem2Comp(competitionProblem.id,competitionProblem.problemId,competitionProblem.score)"  data-toggle="modal" data-href="#stack2" href="#stack2">编辑
+                                                                            <button class="btn btn-primary mr-1 btn-sm" @click="updateProblem2Comp(competitionProblem.id,competitionProblem.problemId,competitionProblem.score)"  data-toggle="modal" data-href="#stack2" href="#stack2">编辑
                                                                             </button>
                                                                             <button class="btn btn-danger btn-sm" @click="deleteProblem2Competition(competitionProblem.id)">删除</button>
                                                                         </td>

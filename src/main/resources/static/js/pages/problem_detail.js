@@ -102,7 +102,7 @@ function submit(problemName, compId) {
         confirmButtonColor: '#EF6F6C',
         cancelButtonColor: '#4fb7fe',
         confirmButtonText: '确定',
-        cancelButtonText:'取消'
+        cancelButtonText: '取消'
     }).then(function () {
         $.post("problemResult/submit", {
             "problemId": problemId,
@@ -132,6 +132,8 @@ function submit(problemName, compId) {
                 });
             }
         });
+    }).catch(function (reason) {
+
     });
 
 }

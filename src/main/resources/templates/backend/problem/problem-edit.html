@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>题目设置</title>
+    <div th:replace="~{fragments/backend/head-base}"></div>
+    <!--Page level styles-->
+    <link type="text/css" rel="stylesheet" th:href="@{/plugins/switchery/css/switchery.min.css}"/>
+    <!--heard script-->
+</head>
+<!--Page head script-->
+
+<!--end of Page head script-->
+<body class="body  fixedNav_position fixedMenu_left">
+<div class="preloader" style=" position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  backface-visibility: hidden;
+  background: #ffffff;">
+    <div class="preloader_img" style="width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 48%;
+  top: 48%;
+  background-position: center;
+z-index: 999999">
+        <img th:src="@{/img/loader.gif}" style=" width: 50px;" alt="loading...">
+    </div>
+</div>
+<div id="wrap">
+    <div th:replace="~{fragments/backend/top :: top}"></div>
+    <!-- /#top -->
+    <div class="wrapper fixedNav_top">
+        <div th:replace="~{fragments/backend/left :: left}"></div>
+        <!-- /#left -->
+        <div id="content" class="bg-container">
+            <header class="head">
+                <div class="main-bar">
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <h4 class="nav_top_align">
+                                <i class="fa fa-book mr-1"></i>题目设置
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="outer">
+                <div class="inner bg-container">
+
+                    <div class="card">
+                        <ul id="clothing-nav" class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#problemContent" id="problemContent-tab" role="tab"
+                                   data-toggle="tab" aria-controls="problemContent" aria-expanded="false">内容管理</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="#testcase" role="tab" id="testcase-tab"
+                                   data-toggle="tab" aria-controls="testcase" aria-expanded="true">测试用例</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="#edit" role="tab" id="edit-tab"
+                                   data-toggle="tab" aria-controls="edit" aria-expanded="true">设置</a>
+                            </li>
+                        </ul>
+                        <div class="card-block">
+                            <div id="clothing-nav-content" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active show " id="problemContent"
+                                     aria-labelledby="problemContent-tab" aria-expanded="false">
+                                    <!--内容管理-->
+                                    <div>
+                                        <input type="hidden" id="problemId" th:value="${problem.id}"/>
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <span class="col-2"><span class="text-danger">*</span>标题</span>
+                                                    <input  th:value="${problem.name}" id="name" type="text" maxlength="20"
+                                                           class="col-8 form-control "/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>题目描述</span>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <div id="editormd-problemDesc">
+                                            <textarea style="display:none;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>输入规范</span>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <textarea class="form-control" style="height: 300px"></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>输出规范</span>
+                                            </div>
+
+                                            <div class="col-12 mt-3">
+                                                <textarea class="form-control" style="height: 300px"></textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>结果样例</span>
+                                                <button class="btn btn-secondary btn-sm ml-3" onclick="addTestcase()">添加一组</button>
+                                            </div>
+                                            <div class="col-12" id="add-testcase">
+                                                <div class="row testcase-input" id="testcase-1">
+                                                    <div class="col-5 mt-3">
+                                                        <textarea class="form-control" placeholder="输入" style="height: 90px"></textarea>
+                                                    </div>
+                                                    <div class="col-5 mt-3">
+                                                        <textarea class="form-control" placeholder="结果" style="height: 90px"></textarea>
+                                                    </div>
+                                                    <div class="col-2 mt-3">
+                                                        <a href="javascript:void(0)" onclick="removeTestcase(1)"><i class="fa-lg fa fa-trash"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>难度</span>
+                                            </div>
+                                            <div class="col-6 mt-3">
+                                                <label class="custom-control custom-radio">
+                                                    <input name="sex" type="radio" value="1"
+                                                           class="custom-control-input" checked="checked">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">简单</span>
+                                                </label>
+                                                <label class=" custom-control custom-radio">
+                                                    <input name="sex" type="radio" value="2"
+                                                           class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">中等</span>
+                                                </label>
+                                                <label class=" custom-control custom-radio">
+                                                    <input name="sex" type="radio" value="3"
+                                                           class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">困难</span>
+                                                </label>
+                                                <label class=" custom-control custom-radio">
+                                                    <input name="sex" type="radio" value="4"
+                                                           class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">专家</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>标签</span>
+                                            </div>
+                                            <div class="col-6 mt-3">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3 ">
+                                            <div class="col-12 text-right">
+                                                <button class="btn btn-primary" onclick="saveProblem()">保存题目</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade " id="testcase"
+                                     aria-labelledby="testcase-tab" aria-expanded="true">
+                                    <!--测试用例-->
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-12 text-right">
+                                                <button class="btn  btn-primary  "
+                                                        data-toggle="modal" data-href="#stack1" href="#stack1">
+                                                    <i class="fa fa-plus"></i><span class="ml-1">添加测试用例</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-header bg-white">
+                                                        <i class="fa fa-book"></i>已添加的题目
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <table class="table table-hover " >
+                                                                    <thead class="">
+                                                                    <tr>
+                                                                        <th class="text-center">显示题号</th>
+                                                                        <th class="text-center">标题</th>
+                                                                        <th class="text-center">分值</th>
+                                                                        <th class="text-center">难度</th>
+                                                                        <th class="text-center">操作</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr >
+
+                                                                        <td class="text-center"></td>
+                                                                        <td class="text-center">
+                                                                            <div >
+                                                                                <a target="_blank"
+                                                                                   class="text-primary">
+
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-center"></td>
+
+                                                                        <td class="text-center">
+
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <button class="btn btn-primary mr-1 btn-sm" data-toggle="modal" data-href="#stack2" href="#stack2">编辑
+                                                                            </button>
+                                                                            <button class="btn btn-danger btn-sm" >删除</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade " id="edit"
+                                     aria-labelledby="edit-tab" aria-expanded="true">
+                                    <!--设置-->
+                                    <div>
+                                        <div class="row ">
+                                            <div class="col-2">
+                                                <span class="" style="font-size: 20px"><strong>程序限定</strong></span>
+
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="alert alert-dismissable" style="background-color: #EAF4FE">如无特殊要求，推荐使用默认设置-最大1000MS / 262144KB内存</div>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <input type="number" class="form-control col-2 mr-1"/>MS
+                                                            <input type="number" class="form-control col-2 ml-3 mr-1"/>KB
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-2">
+                                                <span class="" style="font-size: 20px"><strong>公开题目</strong></span>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="checkbox" class="js-switch"  checked />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3 ">
+                                            <div class="col-2">
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class=" btn btn-success">保存设置</button>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-5 mb-3"/>
+                                        <div class="row mt-3">
+                                            <div class="col-2">
+                                                <span class="" style="font-size: 20px"><strong>删除题目</strong></span>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class=" btn btn-danger">删除题目</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.inner -->
+    </div>
+    <!-- /.outer -->
+
+    <!-- /#content -->
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-sm in display_none" id="stack1" role="dialog"
+         aria-hidden="false">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h4 class="modal-title ">添加测试用例</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class="btn btn-info"
+                            onclick="saveTestcase()">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- #Modal -->
+
+    <!--wrapper-->
+    <!-- /#content -->
+    <!-- # right side -->
+</div>
+<!-- /#wrap -->
+<!-- global scripts-->
+<div th:replace="~{fragments/backend/footer :: footer}"></div>
+<script type="text/javascript" th:src="@{/plugins/switchery/js/switchery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/pages/backend/problem_edit.js}"></script>
+<!--end of global scripts-->
+
+<script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+
+
+    // vue
+    var wrap = new Vue({
+        el: '#wrap',
+        data: {
+            total: 0,
+            pageNum: 1,
+            problemList: []
+        },
+        filters: {
+            formatDate: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                var month = padDate(value.getMonth() + 1);
+                var day = padDate(value.getDate());
+                var hour = padDate(value.getHours());
+                var minutes = padDate(value.getMinutes());
+                var seconds = padDate(value.getSeconds());
+                return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+            },
+            formatYear: function (val) {
+                var value = new Date(val);
+                var year = value.getFullYear();
+                return year;
+            },
+            formatNum: function (val) {
+                //四舍五入
+                return  parseFloat(val).toFixed(2);
+            }
+        },
+        methods: {
+            listProblem: function (pageNum) {
+                var keyword = $("#keyword").val();
+                var url = '/backend/problem/listProblem2Page?pageNum='+pageNum+"&pageSize=5&keyword="+keyword;
+                this.$http.get(url, {emulateJSON: true}).then(function (res) {
+                    this.total = res.data.data.total;
+                    this.problemList = res.data.data.list;
+                    $("#page").initPage(this.total, pageNum, clickPage);
+                }), function (res) {
+                    console.log(res.data.msg);
+                }
+            }
+        }
+    });
+    //初始化
+    // wrap.listProblem(1);
+
+    //分页点击方法
+    function clickPage(pageNum) {
+        wrap.listProblem(pageNum);
+    }
+    // #vue
+
+    /**
+     * md
+     **/
+
+    var problemDescEditor = editormd("editormd-problemDesc", {
+        placeholder: "说点什么吧...",
+        width: "98%",
+        height: 350,
+        path: '/plugins/markdown/lib/',
+        markdown: '',
+        codeFold: true,
+        /* theme: "dark",//工具栏主题
+        previewTheme: "dark",//预览主题
+        // editorTheme: "pastel-on-dark",//编辑主题  */
+        saveHTMLToTextarea: true,
+        searchReplace: true,
+        htmlDecode: "style,script,iframe|on*",
+        emoji: true,
+        taskList: true,
+        onfullscreen: function () {
+            $("#tags-div").attr("style", "display:none");
+            $("#left").attr("style", "display:none");
+            $("#top").attr("style", "display:none");
+        },
+        onfullscreenExit: function () {
+            $("#tags-div").attr("style", "display:''");
+            $("#left").attr("style", "display:''");
+            $("#top").attr("style", "display:''");
+        },
+        tocm: true,         // Using [TOCM]
+        tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+        flowChart: true,             // 开启流程图支持，默认关闭
+        sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+        imageUpload: true,
+        watch: false,//预览
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL: "file/uploadImageByMD",
+        toolbarIcons: function () {
+            // Or return editormd.toolbarModes[name]; // full, simple, mini
+            // Using "||" set icons align right.
+            return ["undo", "redo", "|", "emoji", "code", "code-block", "link", "image","|", "bold", "italic", "quote", "uppercase", "lowercase", "|", "list-ul", "list-ol", "hr", "|", "watch", "preview", "clear", "|", "help"]
+        },
+        onload: function () {
+        }
+    });
+
+
+
+
+    var elem = document.querySelector('.js-switch');
+    var init = new Switchery(elem, {
+        color: '#4FB7FE',            //开关元件的颜色(十六进制或RGB值)
+        secondaryColor: '#dfdfdf',            //次要的背景颜色和边框的颜色,当开关是关闭的
+        jackColor: '#fff',               //抬起/按下元素的默认颜色
+        jackSecondaryColor: null,                 //第二抬起/按下元素的默认颜色
+        className: 'switchery',          //开关元件的类名(默认样式switchery.css)
+        disabled: false,                //启用或禁用单击事件和改变开关的状态(布尔值)
+        disabledOpacity: 0.5,                  //不透明度，当不可见时为true(范围0-1)
+        speed: '0.1s',               //转型需要的时间长度,动画效果长度。
+        size: 'default'             //样式的大小（small or large）
+    });
+    elem.onchange = function () {
+        isChecked = elem.checked;
+        if (!isChecked) {
+            $("#showPassword").css("display", "");
+        } else {
+            $("#showPassword").css("display", "none");
+        }
+    };
+
+
+    /*]]>*/
+
+
+</script>
+
+</body>
+
+</html>

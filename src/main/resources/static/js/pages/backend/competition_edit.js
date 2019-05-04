@@ -125,7 +125,7 @@ function saveProblem2Competition() {
     if (!score) {
         $.message({
             message: "题目分值不能为空",
-            type: "error"
+            type: "warning"
         });
         return false;
     }
