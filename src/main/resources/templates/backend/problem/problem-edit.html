@@ -99,17 +99,34 @@ z-index: 999999">
                                                 <span class=""><span class="text-danger">*</span>输入规范</span>
                                             </div>
                                             <div class="col-12 mt-3">
-                                                <textarea class="form-control" style="height: 300px"></textarea>
+                                                <textarea class="form-control" style="height: 200px"></textarea>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12 mt-3">
                                                 <span class=""><span class="text-danger">*</span>输出规范</span>
                                             </div>
 
                                             <div class="col-12 mt-3">
-                                                <textarea class="form-control" style="height: 300px"></textarea>
+                                                <textarea class="form-control" style="height: 200px"></textarea>
                                             </div>
 
                                         </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <span class=""><span class="text-danger">*</span>题目样例</span>
+                                            </div>
+                                            <div class="col-12" >
+                                                <div class="row " >
+                                                    <div class="col-5 mt-3">
+                                                        <textarea class="form-control" placeholder="输入" style="height: 90px"></textarea>
+                                                    </div>
+                                                    <div class="col-5 mt-3">
+                                                        <textarea class="form-control" placeholder="结果" style="height: 90px"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <span class=""><span class="text-danger">*</span>结果样例</span>
@@ -162,13 +179,15 @@ z-index: 999999">
                                             </div>
                                         </div>
 
-
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <span class=""><span class="text-danger">*</span>标签</span>
                                             </div>
-                                            <div class="col-6 mt-3">
-
+                                            <div class="col-5 mt-3">
+                                                <select class="w-100" id="select2-data" name="states[]" multiple="multiple">
+                                                    <option value="AL">Alabama</option>
+                                                    <option value="WY">Wyoming</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -195,25 +214,20 @@ z-index: 999999">
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <div class="card">
-                                                    <div class="card-header bg-white">
-                                                        <i class="fa fa-book"></i>已添加的题目
-                                                    </div>
                                                     <div class="card-block">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <table class="table table-hover " >
                                                                     <thead class="">
                                                                     <tr>
-                                                                        <th class="text-center">显示题号</th>
-                                                                        <th class="text-center">标题</th>
-                                                                        <th class="text-center">分值</th>
-                                                                        <th class="text-center">难度</th>
+                                                                        <th class="text-center">编号</th>
+                                                                        <th class="text-center">输入</th>
+                                                                        <th class="text-center">结果</th>
                                                                         <th class="text-center">操作</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                     <tr >
-
                                                                         <td class="text-center"></td>
                                                                         <td class="text-center">
                                                                             <div >
@@ -224,12 +238,8 @@ z-index: 999999">
                                                                             </div>
                                                                         </td>
                                                                         <td class="text-center"></td>
-
                                                                         <td class="text-center">
-
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                            <button class="btn btn-primary mr-1 btn-sm" data-toggle="modal" data-href="#stack2" href="#stack2">编辑
+                                                                            <button class="btn btn-primary mr-1 btn-sm" data-toggle="modal" data-href="#" href="#stack1">编辑
                                                                             </button>
                                                                             <button class="btn btn-danger btn-sm" >删除</button>
                                                                         </td>
@@ -313,8 +323,15 @@ z-index: 999999">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-
+                    <div class="row ">
+                            <div class="col-12"><span>输入(最大长度65535)</span></div>
+                            <div class="col-12 mt-1">
+                                <textarea class="form-control" style="height: 100px"></textarea>
+                            </div>
+                          <div class="col-12 mt-3"><span>输出(最大长度65535)</span></div>
+                            <div class="col-12 mt-1">
+                                <textarea class="form-control" style="height: 100px"></textarea>
+                            </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -400,7 +417,7 @@ z-index: 999999">
      **/
 
     var problemDescEditor = editormd("editormd-problemDesc", {
-        placeholder: "说点什么吧...",
+        placeholder: "输入题目描述...",
         width: "98%",
         height: 350,
         path: '/plugins/markdown/lib/',
@@ -429,7 +446,7 @@ z-index: 999999">
         flowChart: true,             // 开启流程图支持，默认关闭
         sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
         imageUpload: true,
-        watch: false,//预览
+        watch: true,//预览
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL: "file/uploadImageByMD",
         toolbarIcons: function () {
@@ -464,6 +481,13 @@ z-index: 999999">
             $("#showPassword").css("display", "none");
         }
     };
+
+    $('#select2-data').select2({
+        theme: 'bootstrap4',
+        placeholder: '请选择'
+    });
+
+
 
 
     /*]]>*/

@@ -134,15 +134,16 @@ function addTestcase(){
 }
 
 function removeTestcase(id) {
-    if (id === 1) {
+    var length = $(".testcase-input").length;
+    if (length === 1) {
         $.message({
             message:'至少添加一组',
             type:'warning'
         });
         return false;
     }
-    var id = "#testcase-" + id;
-    $(id).remove();
+    var item = "#testcase-" + id;
+    $(item).remove();
 }
 
 

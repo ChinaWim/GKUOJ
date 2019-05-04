@@ -15,6 +15,8 @@ public class ProblemDetailVO {
 
     private String content;
 
+    private String htmlContent;
+
     private String inputDesc;
 
     private String outputDesc;
@@ -57,10 +59,11 @@ public class ProblemDetailVO {
 
 
 
-    public ProblemDetailVO(Integer id, String name, String content, String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, String tags, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
+    public ProblemDetailVO(Integer id, String name, String content, String htmlContent,String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, String tags, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
         this.content = content;
+        this.htmlContent = htmlContent;
         this.inputDesc = inputDesc;
         this.outputDesc = outputDesc;
         this.testcaseInput = testcaseInput;
@@ -262,31 +265,11 @@ public class ProblemDetailVO {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return "ProblemVO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", content='" + content + '\'' +
-                ", inputDesc='" + inputDesc + '\'' +
-                ", outputDesc='" + outputDesc + '\'' +
-                ", testcaseInput='" + testcaseInput + '\'' +
-                ", testcaseOutput='" + testcaseOutput + '\'' +
-                ", tags='" + tags + '\'' +
-                ", level=" + level +
-                ", submitCount=" + submitCount +
-                ", acCount=" + acCount +
-                ", tleCount=" + tleCount +
-                ", peCount=" + peCount +
-                ", meCount=" + meCount +
-                ", reCount=" + reCount +
-                ", ceCount=" + ceCount +
-                ", waCount=" + waCount +
-                ", time=" + time +
-                ", memory=" + memory +
-                ", flag=" + flag +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
     }
 }

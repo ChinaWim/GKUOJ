@@ -13,6 +13,8 @@ public class Problem implements Serializable {
 
     private String content;
 
+    private String htmlContent;
+
     private String inputDesc;
 
     private String outputDesc;
@@ -49,10 +51,11 @@ public class Problem implements Serializable {
 
     private Date updateTime;
 
-    public Problem(Integer id, String name, String content, String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
+    public Problem(Integer id, String name, String content, String htmlContent,String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
         this.content = content;
+        this.htmlContent = htmlContent;
         this.inputDesc = inputDesc;
         this.outputDesc = outputDesc;
         this.testcaseInput = testcaseInput;
@@ -245,12 +248,21 @@ public class Problem implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
+    }
+
     @Override
     public String toString() {
         return "Problem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
+                ", htmlContent='" + htmlContent + '\'' +
                 ", inputDesc='" + inputDesc + '\'' +
                 ", outputDesc='" + outputDesc + '\'' +
                 ", testcaseInput='" + testcaseInput + '\'' +
