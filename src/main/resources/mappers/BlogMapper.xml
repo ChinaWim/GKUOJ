@@ -147,7 +147,7 @@
         b.create_time,count(distinct bco.id) reply_count, max(bco.create_time) reply_time,count(distinct up.id) up_count
         from blog b
         join user u on u.id = b.user_id
-        join blog_category bc on bc.id = b.bc_id
+        left join blog_category bc on bc.id = b.bc_id
         left join blog_comment bco on bco.blog_id = b.id
         left join up on up.type_id = b.id and up.type = 0 and up.status = true
         <where>

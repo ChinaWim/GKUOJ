@@ -27,4 +27,5 @@ public interface RegisterMapper {
 
     List<Register> listNoScoreRegisterByCompId(@Param("compId")Integer compId);
 
+    int countByUserId(Integer userId);
 }

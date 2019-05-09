@@ -37,4 +37,6 @@ public interface ProblemResultMapper {
     List<ProblemResultRecentVO> listRecentByUserId(@Param("userId") Integer userId, @Param("recentSize")Integer recentSize);
 
     List<UserProblemRecordVO> listProblemRecord(@Param("userId") Integer userId, @Param("flag") Integer flag);
+
+    int deleteByProblemId(Integer problemId);
 }

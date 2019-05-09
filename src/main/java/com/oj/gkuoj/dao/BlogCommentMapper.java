@@ -20,4 +20,6 @@ public interface BlogCommentMapper {
     int updateByPrimaryKey(BlogComment record);
 
     List<BlogCommentVO> listBlogCommentVO(@Param("sort") Integer sort, @Param("blogId") Integer blogId);
+
+    int deleteByBlogId(Integer blogId);
 }

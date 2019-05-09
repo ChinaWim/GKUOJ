@@ -8,6 +8,7 @@ import com.oj.gkuoj.common.RestResponseEnum;
 import com.oj.gkuoj.dao.ProblemMapper;
 import com.oj.gkuoj.dao.ProblemResultMapper;
 import com.oj.gkuoj.dao.ProblemTagMapper;
+import com.oj.gkuoj.dao.TestcaseResultMapper;
 import com.oj.gkuoj.entity.Problem;
 import com.oj.gkuoj.entity.ProblemResult;
 import com.oj.gkuoj.entity.ProblemTag;
@@ -50,6 +51,8 @@ public class ProblemServiceImpl implements ProblemService {
     private ProblemResultMapper problemResultMapper;
 
     @Autowired
+    private TestcaseResultMapper testcaseResultMapper;
+    @Autowired
     private FileService fileService;
 
     @Autowired
@@ -80,6 +83,9 @@ public class ProblemServiceImpl implements ProblemService {
         if (effect > 0) {
 
             problemTagMapper.deleteByProblemId(id);
+
+            testcaseResultMapper.deleteByProblemId(id);
+            problemResultMapper.deleteByProblemId(id);
 
             fileService.deleteTestcase(id).isSuccess();
 

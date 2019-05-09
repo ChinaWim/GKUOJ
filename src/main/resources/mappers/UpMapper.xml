@@ -26,6 +26,13 @@
     delete from up
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByBlogId" parameterType="int">
+    delete from up
+    where (type_id = #{blogId} and type = 0)
+    or (type_id in (select id from blog_comment where blog_id = #{blogId}) and type = 1)
+  </delete>
+
     <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.Up">
     insert into up (id, type_id, type, 
       user_id, status, create_time, 

@@ -160,5 +160,10 @@
         where  comp_id = #{compId} and score is null
     </select>
 
+    <select id="countByUserId" resultType="java.lang.Integer" parameterType="int">
+        select count(id) from register
+        where user_id = #{userId}
+    </select>
+
 
 </mapper>

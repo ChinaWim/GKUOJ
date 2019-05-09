@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.CommonConst;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.dao.CompetitionProblemMapper;
 import com.oj.gkuoj.dao.RegisterMapper;
 import com.oj.gkuoj.response.BlogVO;
 import com.oj.gkuoj.response.CompetitionDetailVO;
@@ -16,6 +17,7 @@ import com.oj.gkuoj.service.CompetitionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -34,6 +36,9 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Autowired
     private RegisterMapper registerMapper;
+
+    @Autowired
+    private CompetitionProblemMapper competitionProblemMapper;
 
     @Override
     public RestResponseVO<Competition> getById(Integer competitionId) {
@@ -58,13 +63,17 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public RestResponseVO delById(Integer competitionId) {
         if (competitionId == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = competitionMapper.deleteByPrimaryKey(competitionId);
-        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+        if (effect > 0) {
+            competitionProblemMapper.deleteByCompId(competitionId);
+            return RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS);
+        }
+        return RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override

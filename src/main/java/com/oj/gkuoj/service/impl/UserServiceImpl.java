@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRoleMapper userRoleMapper;
 
     @Autowired
-    private RoleMapper roleMapper;
+    private RegisterMapper registerMapper;
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -101,6 +101,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 }
             }
         }
+        userDetailVO.setCompetitionCount(registerMapper.countByUserId(userId));
         return RestResponseVO.createBySuccess(userDetailVO);
     }
 

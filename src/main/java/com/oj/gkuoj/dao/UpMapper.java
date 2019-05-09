@@ -24,4 +24,6 @@ public interface UpMapper {
     int countBlogCommentById(Integer blogCommentId);
 
     int countBlogById(Integer blogId);
+
+    int deleteByBlogId(Integer blogId);
 }

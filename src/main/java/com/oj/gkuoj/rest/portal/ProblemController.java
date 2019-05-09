@@ -32,9 +32,6 @@ public class ProblemController {
     private ProblemService problemService;
 
     @Autowired
-    private ProblemResultService problemResultService;
-
-    @Autowired
     private TagService tagService;
 
     private final Integer SUGGEST_PROBLEM_ROW = 5;

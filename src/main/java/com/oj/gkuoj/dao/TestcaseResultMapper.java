@@ -18,4 +18,6 @@ public interface TestcaseResultMapper {
     int updateByPrimaryKey(TestcaseResult record);
 
     List<TestcaseResult> listByProblemResultId(Integer problemResultId);
+
+    int deleteByProblemId(Integer problemId);
 }

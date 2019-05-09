@@ -171,7 +171,7 @@ public class UserController {
      */
     @RequestMapping("/mainPage")
     public String mainPage(Integer userId, HttpServletRequest request) {
-        RestResponseVO response = userService.getById(userId);
+        RestResponseVO<UserDetailVO> response = userService.getById(userId);
         if (response.isSuccess() && response.getData() != null) {
             List<Problem> problemList = userService.listAllSolveProblemByUserId(userId).getData();
             List<Blog> blogList = userService.listRecentBlog(userId,RECENT_BLOG_SIZE).getData();

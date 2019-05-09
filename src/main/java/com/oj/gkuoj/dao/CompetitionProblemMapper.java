@@ -25,5 +25,7 @@ public interface CompetitionProblemMapper {
 
     CompetitionProblem getByCompIdProblemId(@Param("compId")Integer compId, @Param("problemId")Integer problemId);
 
+    int deleteByCompId(Integer compId);
+
 
 }

@@ -26,6 +26,10 @@
     delete from competition_problem
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByCompId" parameterType="int">
+    delete from competition_problem
+    where comp_id = #{compId}
+  </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.CompetitionProblem" >
     insert into competition_problem (id, comp_id, problem_id, 
       score, ac_count, submit_count, 

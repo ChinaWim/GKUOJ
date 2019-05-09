@@ -27,7 +27,11 @@
     delete from testcase_result
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.TestcaseResult" >
+  <delete id="deleteByProblemId" parameterType="int">
+    delete from testcase_result
+    where pro_re_id in (select id from problem_result where problem_id = #{problemId})
+  </delete>
+    <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.TestcaseResult" >
     insert into testcase_result (id, pro_re_id, num, 
       user_output, time, memory, 
       status, create_time

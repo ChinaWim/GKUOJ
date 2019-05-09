@@ -25,6 +25,12 @@
     delete from blog_comment
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByBlogId" parameterType="int">
+    delete from blog_comment
+    where blog_id = #{blogId}
+  </delete>
+
   <insert id="insert"  keyProperty="id" parameterType="com.oj.gkuoj.entity.BlogComment" >
     insert into blog_comment (id, user_id, blog_id, 
       content, create_time

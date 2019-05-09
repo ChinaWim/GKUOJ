@@ -3,6 +3,7 @@ package com.oj.gkuoj.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.oj.gkuoj.common.RestResponseEnum;
+import com.oj.gkuoj.dao.BlogCommentMapper;
 import com.oj.gkuoj.dao.UpMapper;
 import com.oj.gkuoj.entity.Up;
 import com.oj.gkuoj.response.BlogDetailVO;
@@ -14,6 +15,7 @@ import com.oj.gkuoj.entity.Blog;
 import com.oj.gkuoj.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +30,10 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private UpMapper upMapper;
+
+    @Autowired
+    private BlogCommentMapper blogCommentMapper;
+
 
 
     @Override
@@ -50,13 +56,18 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public RestResponseVO delById(Integer id) {
         if (id == null) {
             return RestResponseVO.createByErrorEnum(RestResponseEnum.INVALID_REQUEST);
         }
         int effect = blogMapper.deleteByPrimaryKey(id);
-        return effect > 0 ? RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS)
-                : RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
+        if (effect > 0) {
+            upMapper.deleteByBlogId(id);
+            blogCommentMapper.deleteByBlogId(id);
+            return RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS);
+        }
+        return RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
     }
 
     @Override

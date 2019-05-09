@@ -360,7 +360,7 @@
     <select id="listAllSolveProblemByUserId" resultType="com.oj.gkuoj.entity.Problem" parameterType="int">
       select  p.id, p.name
       from problem p
-      left join problem_result pr on pr.problem_id = p.id
+      join problem_result pr on pr.problem_id = p.id
       where
       pr.user_id = #{userId}
       and pr.status = 1

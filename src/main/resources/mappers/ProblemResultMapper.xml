@@ -67,6 +67,10 @@
     delete from problem_result
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByProblemId" parameterType="int">
+   delete from problem_result
+   where problem_id = #{problemId}
+  </delete>
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemResult" >
     insert into problem_result (id, user_id, problem_id,
       comp_id,comp_score, run_num, status,
@@ -307,7 +311,7 @@
   <select id="listRecentByUserId" resultType="com.oj.gkuoj.response.ProblemResultRecentVO" parameterType="map">
       select pr.id,pr.create_time,pr.update_time,pr.status,p.id problem_id,p.name problem_name
       from problem_result pr
-      left join problem p on p.id = pr.problem_id
+      join problem p on p.id = pr.problem_id
       where
       pr.user_id = #{userId}
       order by pr.create_time desc
