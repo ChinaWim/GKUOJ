@@ -46,7 +46,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 969130721@qq.com
-    password: eekjkoxwduwbbbif
+    password: 
 #==================== redis Setting =====================#
   redis:
     host: 127.0.0.1
