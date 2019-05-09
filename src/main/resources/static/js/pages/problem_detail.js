@@ -154,12 +154,14 @@ function problemResultNow(runNum, problemResultNowInterval) {
                 var usedMemory = resp.data.memory;
                 var problemResultId = resp.data.id;
                 var href = "/problemResult/problemResultDetailPage?problemResultId=" + problemResultId;
-                var html = "<a class='mr-3 btn-sm text-white' style='background-color: " + color + "'>" + str + "</a>" +
-                    "<a class='btn-success mr-3 btn-sm text-white'>" + usedTime + "ms</a>" +
-                    "<a class='btn-success mr-3 btn-sm text-white'>" + usedMemory + "KB</a>" +
+                var html = "<a class='mr-2 btn-sm text-white' style='background-color: " + color + "'>" + str + "</a>" +
+                    "<a class='btn-success mr-2 btn-sm text-white'>" + usedTime + "ms</a>" +
+                    "<a class='btn-success mr-2 btn-sm text-white'>" + usedMemory + "KB</a>" +
                     "<a href=" + href + " class='btn btn-info btn-sm text-white'>查看详情</a>";
 
-                $("#" + runNum + "").html(html);
+                var runNumItem = $("#" + runNum + "");
+                runNumItem.html(html);
+                runNumItem.attr("class","text-left");
             } else {
                 var str = getStrByStatus(resp.data.status);
                 $("#" + runNum + "-Str").html(str);
