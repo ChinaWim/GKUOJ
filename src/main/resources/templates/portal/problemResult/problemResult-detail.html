@@ -202,9 +202,9 @@ z-index: 999999">
                                                                 class="text-primary">[[${problemResultDetail.name}]]</a>
                                                         </div>
                                                         <div>
-                                                            <a class="text-primary" target="_blank"
+                                                            <a class="text-warning" target="_blank"
                                                                th:href="@{'problem/problemDetailPage?problemId='+${problemResultDetail.problemId}}">
-                                                                <strong>P[[${problemResultDetail.problemId}]]</strong>&nbsp;[[${problemResultDetail.problemName}]]
+                                                                P[[${problemResultDetail.problemId}]]&nbsp;[[${problemResultDetail.problemName}]]
                                                             </a>
                                                         </div>
                                                     </div>
@@ -228,7 +228,7 @@ z-index: 999999">
                                                             <span th:if="${problemResultDetail.status == 8}" class="btn-sm text-white">队列中</span>
                                                             <span th:if="${problemResultDetail.status == 9}" class="btn-sm text-white">判题中</span>
                                                         </div>
-                                                        <div class="text-primary">[[${problemResultDetail.score}]]</div>
+                                                        <div class="text-danger">[[${problemResultDetail.score}]]</div>
                                                     </div>
                                                 </div>
                                             </div>
