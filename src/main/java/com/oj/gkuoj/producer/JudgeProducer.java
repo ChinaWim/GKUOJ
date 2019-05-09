@@ -37,7 +37,7 @@ public class JudgeProducer {
 
     private Logger logger = LoggerFactory.getLogger(JudgeProducer.class);
 
-//    @PostConstruct
+    @PostConstruct
     private void initMQProducer() {
         producer = new DefaultMQProducer(environment.getProperty("rocketmq.producer.group"));
         producer.setNamesrvAddr(environment.getProperty("rocketmq.nameserver"));
