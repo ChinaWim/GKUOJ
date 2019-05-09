@@ -14,4 +14,7 @@ public interface ProblemTagMapper {
     int updateByPrimaryKeySelective(ProblemTag record);
 
     int updateByPrimaryKey(ProblemTag record);
+
+    int deleteByProblemId(Integer problemId);
+
 }

@@ -1,9 +1,12 @@
 package com.oj.gkuoj.service;
 
 import com.oj.gkuoj.response.RestResponseVO;
+import com.oj.gkuoj.response.TestcaseVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.TreeSet;
 
 /**
  * @author m969130721@163.com
@@ -20,4 +23,12 @@ public interface FileService {
     void getTestcaseInput(HttpServletResponse response,Integer problemId, Integer num);
 
     void getTestcaseOutput(HttpServletResponse response, Integer problemId, Integer num);
+
+    RestResponseVO<String> deleteTestcase(Integer problemId);
+
+    RestResponseVO<String> saveTestcase(Integer problemId,Integer num,String testcaseInput, String testcaseOutput);
+
+    RestResponseVO<TreeSet<TestcaseVO>> listTestcaseVO(Integer problemId);
+
+    RestResponseVO deleteTestcase(Integer problemId, Integer num);
 }

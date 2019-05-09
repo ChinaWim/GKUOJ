@@ -310,7 +310,9 @@
                   #{tagId}
             </foreach>
       </if>
-      and p.flag = 0
+      <if test="flag != null">
+        and p.flag = #{flag}
+      </if>
     </where>
     group by p.id
     <if test="sort != null and sort == 1">
@@ -345,7 +347,7 @@
     <select id="getDetailVOById" resultType="com.oj.gkuoj.response.ProblemDetailVO" parameterType="int">
       select
       p.id, p.name, p.content,p.html_content,p.testcase_input,p.testcase_output,p.input_desc,p.output_desc, group_concat(t.name) tags,
-      level, submit_count, ac_count, tle_count, pe_count, me_count, re_count, ce_count,
+      group_concat(t.id) tagIds,level, submit_count, ac_count, tle_count, pe_count, me_count, re_count, ce_count,
       wa_count, time, memory,p.flag, p.create_time, p.update_time
       from problem p
       left join problem_tag pt on pt.problem_id = p.id

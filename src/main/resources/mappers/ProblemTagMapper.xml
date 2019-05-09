@@ -23,6 +23,13 @@
     delete from problem_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByProblemId" parameterType="map">
+
+    delete from problem_tag
+    where problem_id = #{problemId}
+  </delete>
+
   <insert id="insert" keyProperty="id" parameterType="com.oj.gkuoj.entity.ProblemTag" >
     insert into problem_tag (id, problem_id, tag_id,
       create_time)
@@ -50,7 +57,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="problemId != null" >
-        #{pproblemIdjdbcType=INTEGER},
+        #{problemId,jdbcType=INTEGER},
       </if>
       <if test="tagId != null" >
         #{tagId,jdbcType=INTEGER},

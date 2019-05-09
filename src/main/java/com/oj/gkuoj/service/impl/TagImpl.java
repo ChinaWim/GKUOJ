@@ -83,7 +83,7 @@ public class TagImpl implements TagService {
     }
 
     @Override
-    public RestResponseVO listAll() {
+    public RestResponseVO<List<Tag>> listAll() {
         return RestResponseVO.createBySuccess(tagMapper.listAll());
     }
 }

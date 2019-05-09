@@ -6,22 +6,11 @@ package com.oj.gkuoj.response;
  */
 public class TestcaseVO {
 
-    private Integer problemId;
-
     private Integer num;
 
     private String input;
 
     private String output;
-
-
-    public Integer getProblemId() {
-        return problemId;
-    }
-
-    public void setProblemId(Integer problemId) {
-        this.problemId = problemId;
-    }
 
     public Integer getNum() {
         return num;
@@ -50,10 +39,24 @@ public class TestcaseVO {
     @Override
     public String toString() {
         return "TestcaseVO{" +
-                "problemId=" + problemId +
                 ", num=" + num +
                 ", input='" + input + '\'' +
                 ", output='" + output + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TestcaseVO that = (TestcaseVO) o;
+
+        return num != null ? num.equals(that.num) : that.num == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return num != null ? num.hashCode() : 0;
     }
 }

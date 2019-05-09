@@ -547,7 +547,7 @@ z-index: 999999">
         size: 'default'             //样式的大小（small or large）
     });
     elem.onchange = function () {
-        isChecked = elem.checked;
+        var isChecked = elem.checked;
         if (!isChecked) {
             $("#showPassword").css("display", "");
         } else {

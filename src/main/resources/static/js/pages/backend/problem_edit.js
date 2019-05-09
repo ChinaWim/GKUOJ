@@ -1,14 +1,3 @@
-/**
- * md
- */
-
-/**
- * select2
- */
-$('.select2-data').val("").select2({
-    theme: 'bootstrap4',
-    placeholder: '选择一个板块'
-});
 
 
 /**
@@ -16,94 +5,178 @@ $('.select2-data').val("").select2({
  */
 function saveProblem() {
     var id = $("#problemId").val();
+    var name = $("#name").val();
     var content = problemDescEditor.getMarkdown();       // 获取 Markdown 源码
     var htmlContent = problemDescEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
-    if (!title) {
+    var inputDesc = $("#inputDesc").val();
+    var outputDesc = $("#outputDesc").val();
+    var testcaseInput = $("#testcaseInput").val();
+    var testcaseOutput = $("#testcaseOutput").val();
+    var level = $("input[name='level']:checked").val();
+    var tagsItem = $("#tags").val();
+    if (!name) {
         $.message({
             message: "标题不能为空",
             type: "warning"
         });
-        $("#title").focus();
         return;
     }
-
-    if (!bcId) {
-        $.message({
-            message: "请选择一个板块",
-            type: "warning"
-        });
-        return;
-    }
-
     if (!content) {
         $.message({
-            message: "内容不能为空",
+            message: "题目描述不能为空",
             type: "warning"
         });
         return;
     }
 
-    $.post("backend/blog/save",
-        {
-            "content": content, "htmlContent": htmlContent,
-            "title": title, "bcId": bcId, "tags": tags,"id":id
-        }, function (resp) {
-            if (resp.status == 200) {
+    if (!inputDesc) {
+        $.message({
+            message: "输入规范不能为空",
+            type: "warning"
+        });
+        return;
+    }
+
+    if (!outputDesc) {
+        $.message({
+            message: "输出规范不能为空",
+            type: "warning"
+        });
+        return;
+    }
+
+    if (!testcaseInput) {
+        $.message({
+            message: "题目样例输入不能为空",
+            type: "warning"
+        });
+        return;
+    }
+
+    if (!testcaseOutput) {
+        $.message({
+            message: "题目样例输出不能为空",
+            type: "warning"
+        });
+        return;
+    }
+
+    if (!level) {
+        $.message({
+            message: "难度不能为空",
+            type: "warning"
+        });
+        return;
+    }
+    if (!tagsItem) {
+        $.message({
+            message: "标签至少一个",
+            type: "warning"
+        });
+        return;
+    }
+    var tags = tagsItem.toString();
+    if(tagsItem.length > 3){
+        $.message({
+            message: "标签至多三个",
+            type: "warning"
+        });
+        return;
+    }
+
+    swal({
+        title: '确认保存题目吗?',
+        // text: '提醒',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#EF6F6C',
+        cancelButtonColor: '#4fb7fe',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+    }).then(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "backend/problem/save",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "id":id,
+                "content": content, "htmlContent": htmlContent,
+                "name": name, "inputDesc":inputDesc ,"outputDesc":outputDesc,
+                "testcaseInput": testcaseInput, "testcaseOutput":testcaseOutput,
+                "level": level, "tags": tags,
+                "testcaseList":wrap.testcaseList
+            }),
+            dataType: "json",
+            success: function (resp) {
+                if (resp.status === 200) {
+                    $.message({
+                        message: resp.msg,
+                        type: "success"
+                    });
+                    $("#problemId").val(resp.data.id);
+                } else {
+                    $.message({
+                        message: resp.msg,
+                        type: "error"
+                    });
+                }
+            },
+            error: function (resp) {
                 $.message({
-                    message: resp.msg,
-                    type: "success"
-                });
-                window.setTimeout("goToBlogListPage()",1000);
-            } else {
-                $.message({
-                    message: resp.msg,
+                    message: resp,
                     type: "error"
                 });
             }
         });
+
+    }).catch(function (reason) {
+
+    });
+
+
 }
 
 
 function saveTestcase() {
-    var id = $("#blogId").val();
-    var content = testEditor.getMarkdown();       // 获取 Markdown 源码
-    var htmlContent = testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
-    if (!title) {
+    var problemId = $("#problemId").val();
+    var num = $("#num").val();
+    var testcaseAnswerInput = $("#testcaseAnswerInput").val();
+    var testcaseAnswerOutput = $("#testcaseAnswerOutput").val();
+    if (!problemId) {
         $.message({
-            message: "标题不能为空",
-            type: "warning"
-        });
-        $("#title").focus();
-        return;
-    }
-
-    if (!bcId) {
-        $.message({
-            message: "请选择一个板块",
+            message: "先创建题目",
             type: "warning"
         });
         return;
     }
 
-    if (!content) {
+    if (!testcaseAnswerInput) {
         $.message({
-            message: "内容不能为空",
+            message: "样例输入不能为空",
             type: "warning"
         });
         return;
     }
-
-    $.post("backend/blog/save",
+    if (!testcaseAnswerOutput) {
+        $.message({
+            message: "样例输出不能为空",
+            type: "warning"
+        });
+        return;
+    }
+    $.post("backend/testcase/save",
         {
-            "content": content, "htmlContent": htmlContent,
-            "title": title, "bcId": bcId, "tags": tags,"id":id
+            "problemId": problemId, "testcaseOutput": testcaseAnswerOutput,
+            "testcaseInput": testcaseAnswerInput,"num":num
         }, function (resp) {
-            if (resp.status == 200) {
+            if (resp.status === 200) {
                 $.message({
                     message: resp.msg,
                     type: "success"
                 });
-                window.setTimeout("goToBlogListPage()",1000);
+                wrap.listTestcase();
+                $("#close").click();
             } else {
                 $.message({
                     message: resp.msg,
@@ -114,27 +187,11 @@ function saveTestcase() {
 }
 
 function addTestcase(){
-    var testcase_html = "<div class=\"row testcase-input\" id=\"ADD-TESTCASE\">\n" +
-        "                                                    <div class=\"col-5 mt-3\">\n" +
-        "                                                        <textarea class=\"form-control\" placeholder=\"输入\" style=\"height: 90px\"></textarea>\n" +
-        "                                                    </div>\n" +
-        "                                                    <div class=\"col-5 mt-3\">\n" +
-        "                                                        <textarea class=\"form-control\" placeholder=\"结果\" style=\"height: 90px\"></textarea>\n" +
-        "                                                    </div>\n" +
-        "                                                    <div class=\"col-2 mt-3\">\n" +
-        "                                                        <a href=\"javascript:void(0)\" onclick=\"removeTestcase(ID_LENGTH)\"  ><i class=\"fa-lg fa fa-trash\"></i></a>\n" +
-        "                                                    </div>\n" +
-        "                                                </div>"
-
-    var testcaseInput = $(".testcase-input");
-    var length = testcaseInput.length + 1;
-    testcase_html = testcase_html.replace("ADD-TESTCASE","testcase-"+length);
-    testcase_html = testcase_html.replace("ID_LENGTH",length);
-    $("#add-testcase").append(testcase_html);
+    wrap.testcaseList.push({"num":wrap.testcaseList.length+1,"input":"","output":""});
 }
 
 function removeTestcase(id) {
-    var length = $(".testcase-input").length;
+    var length = wrap.testcaseList.length;
     if (length === 1) {
         $.message({
             message:'至少添加一组',
@@ -142,9 +199,157 @@ function removeTestcase(id) {
         });
         return false;
     }
-    var item = "#testcase-" + id;
-    $(item).remove();
+    wrap.testcaseList.splice(id-1, 1);
 }
 
 
+
+function saveSetting() {
+    var problemId = $("#problemId").val();
+    if(!problemId){
+        $.message({
+            message:'先创建题目',
+            type:'warning'
+        });
+        return false;
+    }
+    var time = $("#time").val();
+    var memory = $("#memory").val();
+    var flag = $("#flag").val();
+
+
+    $.ajax({
+        type: "POST",
+        url: "backend/problem/save",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+            "id": problemId, "time": time,
+            "memory": memory,"flag":flag,
+            "settingUpdated": true
+        }),
+        dataType: "json",
+        success: function (resp) {
+            if (resp.status === 200) {
+                $.message({
+                    message: resp.msg,
+                    type: "success"
+                });
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: "error"
+                });
+            }
+        },
+        error: function (resp) {
+            $.message({
+                message: resp,
+                type: "error"
+            });
+        }
+    });
+
+}
+
+
+
+function deleteProblem() {
+    var problemId = $("#problemId").val();
+    if(!problemId){
+        $.message({
+            message:'先创建题目',
+            type:'warning'
+        });
+        return false;
+    }
+
+    swal({
+        title: '确认删除题目吗?',
+        // text: '提醒',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#EF6F6C',
+        cancelButtonColor: '#4fb7fe',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+    }).then(function () {
+        $.post("backend/problem/delete", {
+            "problemId": problemId
+        }, function (resp) {
+            if (resp.status === 200) {
+                $.message({
+                    message: resp.msg,
+                    type: 'success'
+                });
+                $("#problemId").val("");
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: 'error'
+                });
+            }
+        });
+    }).catch(function (reason) {
+
+    });
+
+}
+
+function initTestcase() {
+    $("#num").val("");
+    $("#testcaseAnswerInput").val("");
+    $("#testcaseAnswerOutput").val("");
+
+}
+
+
+function editTestcase(num,input,output) {
+    $("#num").val(num);
+    $("#testcaseAnswerInput").val(input);
+    $("#testcaseAnswerOutput").val(output);
+
+}
+
+function deleteTestcase(num) {
+    var problemId = $("#problemId").val();
+    if(!problemId){
+        $.message({
+            message:'先创建题目',
+            type:'warning'
+        });
+        return false;
+    }
+
+    swal({
+        title: '确认该测试用例吗?',
+        // text: '提醒',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#EF6F6C',
+        cancelButtonColor: '#4fb7fe',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+    }).then(function () {
+        $.post("backend/testcase/delete", {
+            "problemId": problemId,
+            "num":num
+        }, function (resp) {
+            if (resp.status === 200) {
+                $.message({
+                    message: resp.msg,
+                    type: 'success'
+                });
+                wrap.listTestcase();
+            } else {
+                $.message({
+                    message: resp.msg,
+                    type: 'error'
+                });
+            }
+        });
+    }).catch(function (reason) {
+
+    });
+
+}
 

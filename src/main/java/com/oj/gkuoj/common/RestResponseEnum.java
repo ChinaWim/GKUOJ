@@ -68,7 +68,11 @@ public enum RestResponseEnum {
 
     PHONE_REPEATED_ERROR(714, "手机重复错误"),
 
-    COMPETITION_PROBLEM_REPEATED_ERROR(715,"比赛题目重复错误");
+    COMPETITION_PROBLEM_REPEATED_ERROR(715,"比赛题目重复错误"),
+
+    FILE_NOT_FOUND_ERROR(716,"文件NOT FOUND错误"),
+
+    FILE_READ_WRITE_ERROR(717,"文件读写错误");
 
     private Integer status;
 

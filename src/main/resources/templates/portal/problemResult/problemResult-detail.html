@@ -95,7 +95,7 @@ z-index: 999999">
                                             <span th:if="${problemResultDetail.status == 9}" class="btn-sm text-white">判题中</span>
                                             <span class="ml-3">
                                                 <span><i
-                                                        class="fa fa-clock-o"></i> [[${problemResultDetail.time}]]ms</span>
+                                                        class="fa fa-clock-o"></i> [[${problemResultDetail.time}]]MS</span>
                                                 <span class="ml-3"><i class="fa fa-database"></i> [[${problemResultDetail.memory}]]KB</span>
                                             </span>
                                             <span class="ml-3">得分：[[${problemResultDetail.score}]]</span>
@@ -159,7 +159,7 @@ z-index: 999999">
                                                                 <span>[[${testcase.time}]]ms</span>
                                                             </td>
                                                             <td class="text-center">
-                                                                <span>[[${testcase.memory}]]KB</span>
+                                                                <span>[[${testcase.memory}]]kb</span>
                                                             </td>
                                                             <td class="text-center">
                                                                 <a th:href="@{'/file/getTestcaseInput?problemId='+${problemResultDetail.problemId}+'&num='+${testcase.num}}"
@@ -242,7 +242,7 @@ z-index: 999999">
                                             </div>
                                             <div class="col-12 mt-3">
                                                 <span class="float-left"><strong>耗时/内存</strong></span>
-                                                <span class="float-right"><strong>[[${problemResultDetail.time}]]ms, [[${problemResultDetail.memory}]]KB</strong></span>
+                                                <span class="float-right"><strong>[[${problemResultDetail.time}]]MS, [[${problemResultDetail.memory}]]KB</strong></span>
                                             </div>
                                         </div>
                                     </div>

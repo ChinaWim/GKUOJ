@@ -84,7 +84,9 @@ public class ProblemController {
         if (userDetails != null) {
             userId = ((User) userDetails).getId();
         }
-        return problemService.listProblemVOToPage(userId, sort, keyword, level, tagIds, pageNum, pageSize);
+        //公开的题目
+        Integer flag = 0;
+        return problemService.listProblemVOToPage(userId,flag, sort, keyword, level, tagIds, pageNum, pageSize);
     }
 
 

@@ -27,6 +27,8 @@ public class ProblemDetailVO {
 
     private String tags;
 
+    private String tagIds;
+
     private Integer level;
 
     private Integer submitCount;
@@ -59,7 +61,7 @@ public class ProblemDetailVO {
 
 
 
-    public ProblemDetailVO(Integer id, String name, String content, String htmlContent,String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, String tags, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
+    public ProblemDetailVO(Integer id, String name, String content, String htmlContent,String inputDesc, String outputDesc, String testcaseInput, String testcaseOutput, String tags,String tagIds, Integer level, Integer submitCount, Integer acCount, Integer tleCount, Integer peCount, Integer meCount, Integer reCount, Integer ceCount, Integer waCount, Long time, Long memory, Integer flag, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -69,6 +71,7 @@ public class ProblemDetailVO {
         this.testcaseInput = testcaseInput;
         this.testcaseOutput = testcaseOutput;
         this.tags = tags;
+        this.tagIds = tagIds;
         this.level = level;
         this.submitCount = submitCount;
         this.acCount = acCount;
@@ -271,5 +274,13 @@ public class ProblemDetailVO {
 
     public void setHtmlContent(String htmlContent) {
         this.htmlContent = htmlContent;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
     }
 }
