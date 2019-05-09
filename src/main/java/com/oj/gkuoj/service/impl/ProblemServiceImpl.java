@@ -78,9 +78,11 @@ public class ProblemServiceImpl implements ProblemService {
         }
         int effect = problemMapper.deleteByPrimaryKey(id);
         if (effect > 0) {
-            if (!fileService.deleteTestcase(id).isSuccess()) {
-                throw new RuntimeException("删除测试用例文件失败");
-            }
+
+            problemTagMapper.deleteByProblemId(id);
+
+            fileService.deleteTestcase(id).isSuccess();
+
             return RestResponseVO.createBySuccessMessage(StringConst.DEL_SUCCESS);
         } else {
             return RestResponseVO.createByErrorMessage(StringConst.DEL_FAIL);
