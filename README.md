@@ -1,5 +1,5 @@
 # GKUOJ
-程序设计竞赛在线判题系统，WEB端<a href = "https://github.com/m969130721/Judge" target="_blank">（判题机端请点击）</a><br/>
+程序设计竞赛在线判题系统，WEB端<a href = "https://github.com/m969130721/Judge" target="_blank" >（判题机端请点击）</a><br/>
 # 说明
 毕业设计,完成v1.o版本<br/>
 # 核心技术
