@@ -1,3 +1,8 @@
+$('.select2-data').val("").select2({
+    theme: 'bootstrap4',
+    placeholder: '选择一个板块'
+});
+
 /**
  * md
  */
