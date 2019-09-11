@@ -20,6 +20,8 @@
 <img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/8.png" > <br/>
 <img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/9.png" > <br/>
 <img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/10.png" >
+<img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/11.png" >
+<img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/12.png" >
 
 
 
