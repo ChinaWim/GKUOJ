@@ -9,7 +9,6 @@
 服务器：tomcat+nginx<br/>
 消息队列：rocketMQ<br/>
 # 图片展示
-<img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/0.png" > <br/>
 <img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/1.png" > <br/>
 <img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/2.png" > <br/>
 <img src = "https://github.com/ChinaWim/GKUOJ/blob/master/images/3.png" > <br/>
