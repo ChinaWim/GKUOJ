@@ -1,7 +1,7 @@
 # GKUOJ
 程序设计竞赛在线判题系统，WEB端<a href = "https://github.com/chinawim/Judge" target="_blank" >（判题机端请点击）</a><br/>
 # 说明
-毕业设计（纪念大学在算法路上奋斗的时光）<br/>
+毕业设计<br/>
 # 核心技术
 前端：bootstrap4+vue+thymeleaf<br/>
 后端：springboot+mybaits+springsecurity+springsession<br/>
